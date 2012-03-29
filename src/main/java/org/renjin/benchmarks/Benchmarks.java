@@ -1,4 +1,4 @@
-package r.benchmarks;
+package org.renjin.benchmarks;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -8,7 +8,8 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
-import r.lang.StringVector;
+import org.renjin.sexp.StringVector;
+
 
 public class Benchmarks {
   
