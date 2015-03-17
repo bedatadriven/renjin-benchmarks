@@ -1,14 +1,12 @@
 
+# Distance Correlation 20k
 
-dcor <- function (x, y, index = 1)
-{
+dcor <- function (x, y, index = 1) {
   import(org.renjin.DistanceMatrix)
 
-  x <- DistanceMatrix$new(x)
-  y <- DistanceMatrix$new(y)
-
-  cat("calculated distances...\n")
-
+  x <- dist(x)
+  y <- dist(y)
+  
 	n <- nrow(x)
 	m <- nrow(y)
 	if (n != m)
@@ -46,19 +44,9 @@ dcor <- function (x, y, index = 1)
 	dCor
 }
 
-dcor5k <- newBenchmark("distance correlation n = 5000",
- init = {
-	a <- rnorm(20000);
-	b <- rnorm(20000);
- },
- run = {
+a <- rnorm(20000)
+b <- rnorm(20000)
+
+run <- function() {
   dcor(a,b)
-})
-
-registerBenchmarkSuite(
-   name="Distance Correlation",
-   source="energy package",
-   description="Distance correlation",
-   benchmarks = list(dcor5k))
-
-
+}

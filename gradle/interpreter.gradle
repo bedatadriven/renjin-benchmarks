@@ -1,0 +1,15 @@
+
+
+task setupInterpreter { 
+    description = "Prepare the chosen interpreter to run benchmarks"
+
+}
+
+if(project.hasProperty("gnu")) {
+    apply from: './gradle/gnu.gradle'
+
+} else {
+    apply from: './gradle/renjin.gradle'
+}
+
+

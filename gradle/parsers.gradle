@@ -1,0 +1,22 @@
+
+/**
+ * Defines parsers which can extract timings from R output
+ */
+
+ext {
+    
+    parsers = [:]
+    parsers.systemTime = { output ->
+            def lines = output.toString().readLines().iterator()
+            while (lines.hasNext()) {
+                if (lines.next() =~ /^\s*user\s+system\s+elapsed\s*$/) {
+                    if (lines.hasNext()) {
+                        def timingsLine = lines.next()
+                        def timings = timingsLine.trim().split(/\s+/).collect { Double.parseDouble(it) }
+                        return timings[2] // elapsed time
+                    }
+                }
+            }
+            throw new RuntimeException("No output from system.time() found.")
+    }
+}

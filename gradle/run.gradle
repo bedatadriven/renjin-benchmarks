@@ -1,0 +1,45 @@
+
+project(':benchmarks').subprojects {
+
+    task run(dependsOn: setupInterpreter) {
+
+        ext {
+            scripts = project.fileTree(dir: '.', include: '**/*.R')
+            harness = project.rootProject.file('harness/benchmark.R')
+            warmupRuns = 3
+            runs = 3
+        }
+
+        doLast {
+            scripts.files.each { file ->
+                def output 
+                def benchmarkName = project(':benchmarks').relativePath(file)
+                try {
+                    output = project.interpreter.execScript harness, [ file, warmupRuns, runs ]
+                } catch (Exception e) {
+                    println "${benchmarkName}: Evaluation error"
+                    println e.message
+                    e.printStackTrace()
+                    return
+                }
+                def timing
+                try {
+                    def matcher = output =~ /RESULT = ([0-9\.]+)/
+                    if(!matcher) {
+                        println "${benchmarkName}: No timing output:\n${output}"
+                        return
+                    }
+                    
+                    timing = Double.parseDouble(matcher.group(1))
+                    
+                } catch (Exception e) {
+                    println "${benchmarkName}: Error parsing output: ${e.message}"
+                    println output
+                    return
+
+                }
+                println "${benchmarkName}: ${timing} s"
+            }
+        }
+    }
+}

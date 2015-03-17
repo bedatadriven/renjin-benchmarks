@@ -1,0 +1,35 @@
+
+
+project.ext.interpreter = [
+    project: "GNU R",
+    execScript: { File scriptFile, List<String> scriptArgs ->
+        def output = new ByteArrayOutputStream()
+        def errors = new ByteArrayOutputStream()
+        try {
+            project.exec {
+                commandLine 'Rscript', scriptFile.absolutePath
+                args scriptArgs
+                standardOutput = output
+                errorOutput = errors
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(errors.toString())
+        }
+        return output.toString()
+    }
+]
+
+tasks.setupInterpreter {
+    
+    doLast {
+        
+        def output = interpreter.execScript(project.file('harness/dumpVersion.R'), [])
+        
+        def properties = new Properties()
+        properties.load(new StringReader(output))
+        
+        project.ext.interpreter.executable = properties.arch
+        project.ext.interpreter.commitid = properties.svn
+    }
+}
+
