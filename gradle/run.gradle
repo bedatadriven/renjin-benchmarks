@@ -11,11 +11,11 @@ project(':benchmarks').subprojects {
         }
 
         doLast {
-            scripts.files.each { file ->
+            scripts.visit { script ->
                 def output 
-                def benchmarkName = project(':benchmarks').relativePath(file)
+                def benchmarkName = project(':benchmarks').relativePath(script.file)
                 try {
-                    output = project.interpreter.execScript harness, [ file, warmupRuns, runs ]
+                    output = project.interpreter.execScript harness, [ script.file, warmupRuns, runs ]
                 } catch (Exception e) {
                     println "${benchmarkName}: Evaluation error"
                     println e.message

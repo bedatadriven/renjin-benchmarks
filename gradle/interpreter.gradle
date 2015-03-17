@@ -3,6 +3,7 @@
 task setupInterpreter { 
     description = "Prepare the chosen interpreter to run benchmarks"
 
+    outputs.upToDateWhen { false }
 }
 
 if(project.hasProperty("gnu")) {

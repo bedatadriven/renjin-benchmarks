@@ -14,25 +14,27 @@ repositories {
         url 'http://nexus.bedatadriven.com/content/groups/public'
     }
 }
+ext {
+    interpreter = [
+            project   : "Renjin",
+            executable: "renjin-cli",
+            execScript: { File scriptFile, List<String> scriptArgs  ->
+                def output = new ByteArrayOutputStream()
+                def errors = new ByteArrayOutputStream()
+                try {
+                    project.javaexec {
+                        main = 'org.renjin.cli.Main'
+                        args = ['-f', scriptFile.absolutePath]
+                        args scriptArgs
+                        standardOutput = output
+                        errorOutput = errors
+                        classpath = configurations.renjin
+                    }
+                } catch (Exception e) {
+                    throw new RuntimeException(errors.toString(), e)
+                }
 
-project.ext.interpreter = [
-    project: "Renjin",
-    executable: "renjin-cli",
-    execScript: { File scriptFile ->
-        def output = new ByteArrayOutputStream()
-        def errors = new ByteArrayOutputStream()
-        try {
-            project.javaexec {
-                main = 'org.renjin.cli.Main'
-                args = ['-f', scriptFile.absolutePath]
-                standardOutput = output
-                errorOutput = errors
-                classpath = configurations.renjin
+                return output.toString()
             }
-        } catch(Exception e) {
-            throw new RuntimeException(errors.toString(), e)
-        }
-        
-        return output.toString()
-    }
-]
+    ]
+}
