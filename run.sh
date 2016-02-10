@@ -1,5 +1,6 @@
 $R -q -e 'install.packages("devtools")'
 $R -q -e 'devtools::install_github("rstudio/packrat")'
+$R -q -e 'source("http://bioconductor.org/biocLite.R")'
 # loop through directories
 for f in $( find -path './[^.]*' -prune -type d ); do
   echo "-----------------------------------------------"
