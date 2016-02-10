@@ -1,0 +1,14 @@
+name: integration_livercohort
+description: Integrated analysis of human liver cohort according to "DOI:10.1371/journal.pbio.0060107"
+
+File:curatedExpressionLiver.zip 
+Source:https://storage.googleapis.com/renjin-benchmarks/curatedExpressionLiver.zip
+Hash:f1ab8f79f31bc319428fb7e154ea0333  
+
+File:curatedGenotype.zip 
+Source:https://storage.googleapis.com/renjin-benchmarks/curatedGenotype.zip
+Hash:c501bbd52bd165d7c2e189abb1f476c8  
+
+File:curatedPhenotype.zip
+Source:https://storage.googleapis.com/renjin-benchmarks/curatedPhenotype.zip
+Hash:2e5495caab1cf497bf09621750338eb3

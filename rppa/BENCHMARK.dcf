@@ -1,0 +1,6 @@
+name: rppa
+description: proteomics workflow
+
+File:data_20160126_rppa.csv
+Source:https://storage.googleapis.com/renjin-benchmarks/RPPA_input_v1.csv
+Hash:c1d5aa58640bcf76ce38a309ce277da0

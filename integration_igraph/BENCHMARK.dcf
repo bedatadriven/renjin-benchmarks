@@ -1,0 +1,11 @@
+name: integration_igraph
+description: ...
+
+Fils:generifs_basic.gz
+Source:https://storage.googleapis.com/renjin-benchmarks/generifs_basic.gz
+Hash:5e43877577df2d776c69e566f50f7a20
+
+Fils:get_all_RIF.sql
+Source:https://storage.googleapis.com/renjin-benchmarks/get_all_RIF.sql
+Hash:adb3ea65528fafd61f8cc6a877d8376e
+

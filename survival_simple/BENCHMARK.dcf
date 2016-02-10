@@ -1,0 +1,26 @@
+name: survival_simple
+description: ...
+
+File:pat.gene.rda
+Source:https://storage.googleapis.com/renjin-benchmarks/pat.gene.rda
+Hash:4ad6d4eba6fd9e33d2336f498b77543d
+
+
+File:suppl_table5_rnaseq.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/suppl_table5_rnaseq.txt
+Hash:f2aa3a98086c5e98b610a9e79e563f45
+
+
+File:suppl_table6_clinical.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/suppl_table6_clinical.txt
+Hash:ae30fb99770eacf488a2dd5cb649abf6
+
+
+File:TCGA_PRAD_patient.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/TCGA_PRAD_patient.txt
+Hash:84ad31cabba0894279a7be40a289d0de
+
+
+File:TCGA_PRAD_RNAseq.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/TCGA_PRAD_RNAseq.txt
+Hash:efcdaedec37ad233d7243e98e486f252

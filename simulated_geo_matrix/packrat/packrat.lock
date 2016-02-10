@@ -1,0 +1,117 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.6.9
+RVersion: 3.2.3
+Repos: BioCsoft=https://bioconductor.org/packages/3.2/bioc,
+    BioCann=https://bioconductor.org/packages/3.2/data/annotation,
+    BioCexp=https://bioconductor.org/packages/3.2/data/experiment,
+    BioCextra=https://bioconductor.org/packages/3.2/extra,
+    CRAN=http://cran.rstudio.com/
+
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.20.1
+Hash: 05e58e37e4e2af35c9ba9eb4ee1839e4
+
+Package: DBI
+Source: CRAN
+Version: 0.3.1
+Hash: 096699d1ac1cf530acfc646a0c90ee5d
+
+Package: RMySQL
+Source: CRAN
+Version: 0.10.8
+Hash: 2f393aa7862c60301ac5d70daf72730d
+Requires: DBI
+
+Package: RSQLite
+Source: CRAN
+Version: 1.0.0
+Hash: 3df52a54766f420d257debad962146c0
+Requires: DBI
+
+Package: benchmarkR
+Source: github
+Version: 1.01.1017
+Hash: bf391d58a704dab367823c9fb8148741
+Requires: hamcrest
+GithubRepo: BenchmarkR
+GithubUsername: psolaimani
+GithubRef: master
+GithubSha1: 864358f7c286b320692ad3ca4ed45dc9fd21abc1
+
+Package: curl
+Source: CRAN
+Version: 0.9.5
+Hash: 03562aad7537914f516bd67e9bba28b1
+
+Package: hamcrest
+Source: github
+Version: 1.0
+Hash: ff5c7c46c5e1a04577016c3df122bfad
+GithubRepo: hamcrest
+GithubUsername: bedatadriven
+GithubRef: master
+GithubSha1: 4f8212ac2b2c8ba09070f55edddbbeec0d0f3eba
+
+Package: withr
+Source: CRAN
+Version: 1.0.1
+Hash: e3d37838719e5d66652364e2aefebcee
+
+Package: biclust
+Source: CRAN
+Version: 1.2.0
+Hash: 4a6d39452c58f51e0ec0abaaeec742f5
+Requires: colorspace, flexclust
+
+Package: colorspace
+Source: CRAN
+Version: 1.2-6
+Hash: 00bb12245cd975c450cc4a960884fa15
+
+Package: digest
+Source: CRAN
+Version: 0.6.9
+Hash: fd55d5a024f160fc001a5ece1e27782d
+
+Package: flexclust
+Source: CRAN
+Version: 1.3-4
+Hash: 61db992139caa992956761907a45e483
+Requires: modeltools
+
+Package: foreach
+Source: CRAN
+Version: 1.4.3
+Hash: cd53ef4cf29dc59ce3f8c5c1af735fd1
+Requires: iterators
+
+Package: irlba
+Source: CRAN
+Version: 2.0.0
+Hash: 53647cf593a0f5e5ae4f713d125499d1
+
+Package: iterators
+Source: CRAN
+Version: 1.0.8
+Hash: 488b93c2a4166db0d15f1e8d882cb1d4
+
+Package: modeltools
+Source: CRAN
+Version: 0.2-21
+Hash: 3dc03397b2a4375c8a5e5f09c8cf0ae1
+
+Package: packrat
+Source: github
+Version: 0.4.6-9
+Hash: b34872d6ae7c3b4d3191490e4c3d384b
+GithubRepo: packrat
+GithubUsername: rstudio
+GithubRef: master
+GithubSha1: dfa32291eb8ae9fad2868d0fc1ffd5516aa3a402
+
+Package: s4vd
+Source: CRAN
+Version: 1.1-1
+Hash: bb66e670fb9a6fcbd6d411d33eb2542e
+Requires: biclust, foreach, irlba

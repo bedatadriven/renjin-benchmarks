@@ -1,0 +1,271 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.6.9
+RVersion: 3.2.3
+Repos: BioCsoft=https://bioconductor.org/packages/3.2/bioc,
+    BioCann=https://bioconductor.org/packages/3.2/data/annotation,
+    BioCexp=https://bioconductor.org/packages/3.2/data/experiment,
+    BioCextra=https://bioconductor.org/packages/3.2/extra,
+    CRAN=http://cran.rstudio.com/
+
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.20.1
+Hash: 05e58e37e4e2af35c9ba9eb4ee1839e4
+
+Package: DBI
+Source: CRAN
+Version: 0.3.1
+Hash: 096699d1ac1cf530acfc646a0c90ee5d
+
+Package: RMySQL
+Source: CRAN
+Version: 0.10.8
+Hash: 2f393aa7862c60301ac5d70daf72730d
+Requires: DBI
+
+Package: RSQLite
+Source: CRAN
+Version: 1.0.0
+Hash: 3df52a54766f420d257debad962146c0
+Requires: DBI
+
+Package: benchmarkR
+Source: github
+Version: 1.01.1017
+Hash: bf391d58a704dab367823c9fb8148741
+Requires: hamcrest
+GithubRepo: BenchmarkR
+GithubUsername: psolaimani
+GithubRef: master
+GithubSha1: 864358f7c286b320692ad3ca4ed45dc9fd21abc1
+Requires: hamcrest
+
+Package: curl
+Source: CRAN
+Version: 0.9.5
+Hash: 03562aad7537914f516bd67e9bba28b1
+
+Package: hamcrest
+Source: github
+Version: 1.0
+Hash: ff5c7c46c5e1a04577016c3df122bfad
+GithubRepo: hamcrest
+GithubUsername: bedatadriven
+GithubRef: master
+GithubSha1: 4f8212ac2b2c8ba09070f55edddbbeec0d0f3eba
+
+Package: withr
+Source: CRAN
+Version: 1.0.1
+Hash: e3d37838719e5d66652364e2aefebcee
+
+Package: AnnotationDbi
+Source: Bioconductor
+Version: 1.32.3
+Hash: 2a255186631c31cc7826617da632489e
+Requires: Biobase, BiocGenerics, DBI, IRanges, RSQLite, S4Vectors
+
+Package: ArrayTools
+Source: Bioconductor
+Version: 1.30.0
+Hash: fe101cd45055dd0dc362bacf070671ed
+Requires: Biobase, affy, limma, xtable
+
+Package: Biobase
+Source: Bioconductor
+Version: 2.30.0
+Hash: f58887338a297fdfd20d2cf1c2584f7d
+Requires: BiocGenerics
+
+Package: BiocGenerics
+Source: Bioconductor
+Version: 0.16.1
+Hash: c66deb506ef217896ce7d2ee347c95ff
+
+Package: Biostrings
+Source: Bioconductor
+Version: 2.38.3
+Hash: 673f9df1d773a9fc1d5bfa4c9d995064
+Requires: BiocGenerics, IRanges, S4Vectors, XVector
+
+Package: IRanges
+Source: Bioconductor
+Version: 2.4.6
+Hash: 5f1e3c8cd1642e57bc6df6f4581f528b
+Requires: BiocGenerics, S4Vectors
+
+Package: RColorBrewer
+Source: CRAN
+Version: 1.1-2
+Hash: c0d56cd15034f395874c870141870c25
+
+Package: RCurl
+Source: CRAN
+Version: 1.95-4.7
+Hash: 7756ed9df5d79ca87bc9e93f85d89b87
+Requires: bitops
+
+Package: S4Vectors
+Source: Bioconductor
+Version: 0.8.11
+Hash: b89102c81e2803646ce0844aa08f856f
+Requires: BiocGenerics
+
+Package: digest
+Source: CRAN
+Version: 0.6.9
+Hash: fd55d5a024f160fc001a5ece1e27782d
+
+Package: XML
+Source: CRAN
+Version: 3.98-1.3
+Hash: 689166755239c3300769ca2d600381c6
+
+Package: XVector
+Source: Bioconductor
+Version: 0.10.0
+Hash: 985fce131384539be4a6639644073464
+Requires: BiocGenerics, IRanges, S4Vectors, zlibbioc
+
+Package: affy
+Source: Bioconductor
+Version: 1.48.0
+Hash: ceaf333857eab213f0ebbb08064226bf
+Requires: Biobase, BiocGenerics, BiocInstaller, affyio, preprocessCore,
+    zlibbioc
+
+Package: affyPLM
+Source: Bioconductor
+Version: 1.46.0
+Hash: 2a7c458c2ebd345a096c34dda8cfbbcf
+Requires: Biobase, BiocGenerics, affy, gcrma, preprocessCore, zlibbioc
+
+Package: affyQCReport
+Source: Bioconductor
+Version: 1.48.0
+Hash: f5d406976b96a81835b4aa142613427d
+Requires: Biobase, RColorBrewer, affy, affyPLM, genefilter, simpleaffy,
+    xtable
+
+Package: affycomp
+Source: Bioconductor
+Version: 1.46.0
+Hash: 3b587a85bfb964295e5444878e34a693
+Requires: Biobase
+
+Package: affyio
+Source: Bioconductor
+Version: 1.40.0
+Hash: d245284b051257ed169011b6e4bddabe
+Requires: zlibbioc
+
+Package: affypdnn
+Source: Bioconductor
+Version: 1.44.0
+Hash: cd559ed59bc141ccbb6ae2cb01a2236e
+Requires: affy
+
+Package: annotate
+Source: Bioconductor
+Version: 1.48.0
+Hash: 23d5e16cfe9e6f66dee8d6a17dc6ae3d
+Requires: AnnotationDbi, Biobase, BiocGenerics, DBI, XML, xtable
+
+Package: bioDist
+Source: Bioconductor
+Version: 1.42.0
+Hash: 61a0f82cc75d2ab5f80e56498732c711
+Requires: Biobase
+
+Package: biomaRt
+Source: Bioconductor
+Version: 2.26.1
+Hash: 0e0ba86b080a57633a635ed19c77983c
+Requires: AnnotationDbi, RCurl, XML
+
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+Hash: 67d0775189fd0041d95abca618c5c07e
+
+Package: caTools
+Source: CRAN
+Version: 1.17.1
+Hash: 97cb6f6293cd18d17df77a6383cc6763
+Requires: bitops
+
+Package: gcrma
+Source: Bioconductor
+Version: 2.42.0
+Hash: 27a372dbea50f0cb5d498dffc53bddc3
+Requires: Biobase, BiocInstaller, Biostrings, XVector, affy, affyio
+
+Package: gdata
+Source: CRAN
+Version: 2.17.0
+Hash: e7d520c2a9597b303f54499e3bd90644
+Requires: gtools
+
+Package: genefilter
+Source: Bioconductor
+Version: 1.52.1
+Hash: b1efc77669892a9195f4d29811ac2b54
+Requires: AnnotationDbi, Biobase, annotate
+
+Package: gplots
+Source: CRAN
+Version: 2.17.0
+Hash: ea8a8c502ae5e82f9978ddb93eb7cbd9
+Requires: caTools, gdata, gtools
+
+Package: gtools
+Source: CRAN
+Version: 3.5.0
+Hash: 471b2e2452dfb30fdc1dd6f1b567925a
+
+Package: limma
+Source: Bioconductor
+Version: 3.26.7
+Hash: 558fda43473ed42a87e0ed8d0e7d23fd
+
+Package: packrat
+Source: github
+Version: 0.4.6-9
+Hash: b34872d6ae7c3b4d3191490e4c3d384b
+GithubRepo: packrat
+GithubUsername: rstudio
+GithubRef: master
+GithubSha1: dfa32291eb8ae9fad2868d0fc1ffd5516aa3a402
+
+Package: plier
+Source: Bioconductor
+Version: 1.40.0
+Hash: 07def8fdb6e7e674e57996b085059cd7
+Requires: Biobase, affy
+
+Package: preprocessCore
+Source: Bioconductor
+Version: 1.32.0
+Hash: 2dd11d4d5f9ec6c9adb631b43411cf17
+
+Package: simpleaffy
+Source: Bioconductor
+Version: 2.46.0
+Hash: 733be8ba6d254af23a7b5792a047be6c
+Requires: Biobase, BiocGenerics, affy, gcrma, genefilter
+
+Package: xtable
+Source: CRAN
+Version: 1.8-0
+Hash: 3816a222bb6837b3344d230b54b4c3cc
+
+Package: yaqcaffy
+Source: Bioconductor
+Version: 1.30.0
+Hash: 7e0d774ec4eaa8cf708ba34ed3eeab76
+Requires: simpleaffy
+
+Package: zlibbioc
+Source: Bioconductor
+Version: 1.16.0
+Hash: a62f7415c8f5f7330ef25f3490b75b6b

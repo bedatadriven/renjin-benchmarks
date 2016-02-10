@@ -1,0 +1,83 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.6.9
+RVersion: 3.2.3
+Repos: BioCsoft=https://bioconductor.org/packages/3.2/bioc,
+    BioCann=https://bioconductor.org/packages/3.2/data/annotation,
+    BioCexp=https://bioconductor.org/packages/3.2/data/experiment,
+    BioCextra=https://bioconductor.org/packages/3.2/extra,
+    CRAN=http://cran.rstudio.com/
+
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.20.1
+Hash: 05e58e37e4e2af35c9ba9eb4ee1839e4
+
+Package: DBI
+Source: CRAN
+Version: 0.3.1
+Hash: 096699d1ac1cf530acfc646a0c90ee5d
+
+Package: RMySQL
+Source: CRAN
+Version: 0.10.8
+Hash: 2f393aa7862c60301ac5d70daf72730d
+Requires: DBI
+
+Package: RSQLite
+Source: CRAN
+Version: 1.0.0
+Hash: 3df52a54766f420d257debad962146c0
+Requires: DBI
+
+Package: benchmarkR
+Source: github
+Version: 1.01.1017
+Hash: bf391d58a704dab367823c9fb8148741
+Requires: hamcrest
+GithubRepo: BenchmarkR
+GithubUsername: psolaimani
+GithubRef: master
+GithubSha1: 864358f7c286b320692ad3ca4ed45dc9fd21abc1
+
+Package: curl
+Source: CRAN
+Version: 0.9.5
+Hash: 03562aad7537914f516bd67e9bba28b1
+
+Package: hamcrest
+Source: github
+Version: 1.0
+Hash: ff5c7c46c5e1a04577016c3df122bfad
+GithubRepo: hamcrest
+GithubUsername: bedatadriven
+GithubRef: master
+GithubSha1: 4f8212ac2b2c8ba09070f55edddbbeec0d0f3eba
+
+Package: digest
+Source: CRAN
+Version: 0.6.9
+Hash: fd55d5a024f160fc001a5ece1e27782d
+
+Package: withr
+Source: CRAN
+Version: 1.0.1
+Hash: e3d37838719e5d66652364e2aefebcee
+
+Package: MASS
+Source: CRAN
+Version: 7.3-45
+Hash: 0650d5701aa7e369e77c9e2c8e1dc913
+
+Package: e1071
+Source: CRAN
+Version: 1.6-7
+Hash: a8b909c7e06f7bfcbdbbad439799e25d
+
+Package: packrat
+Source: github
+Version: 0.4.6-9
+Hash: b34872d6ae7c3b4d3191490e4c3d384b
+GithubRepo: packrat
+GithubUsername: rstudio
+GithubRef: master
+GithubSha1: dfa32291eb8ae9fad2868d0fc1ffd5516aa3a402

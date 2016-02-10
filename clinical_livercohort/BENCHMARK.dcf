@@ -1,0 +1,14 @@
+name: clinical_livercohort
+description: some simple predictive modelling on liver cohort clinical data
+
+File:features.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/features.txt
+Hash:d989e9ff6edf6ede64df1e4b844a8dc1
+
+File:individuals.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/individuals.txt
+Hash:3aa5e572d927dc14a14c02ed1957c917
+
+File:phenotype.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/phenotype.txt
+Hash:87db7fe235ee83490cfcc87d5191f9e5

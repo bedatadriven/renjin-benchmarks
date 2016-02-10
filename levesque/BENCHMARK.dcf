@@ -1,0 +1,26 @@
+name: levesque
+description: Test-case workflow for TCGA Browser Shiny app which is developed in Mitch Levesque lab by Phil Cheng
+
+File:9606__protein_aliases_tf.tsv.gz
+Source:https://storage.googleapis.com/renjin-benchmarks/9606__protein_aliases_tf.tsv.gz
+Hash:ddcbb800b7e7d9b4b8efeed186d9c0b3
+
+File:9606__protein_links.tsv.gz
+Source:https://storage.googleapis.com/renjin-benchmarks/9606__protein_links.tsv.gz
+Hash:a0976f901daf993d1644017c4befea5d
+
+File:9606__proteins.tsv.gz
+Source:https://storage.googleapis.com/renjin-benchmarks/9606__proteins.tsv.gz
+Hash:0e54ed6ba4af060d8cb39ffc9d02e70c
+
+File:TCGA_PRAD_exome.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/TCGA_PRAD_exome.txt
+Hash:7baec02b653d852ed9fe4d170c56ecae
+
+File:TCGA_PRAD_patient.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/TCGA_PRAD_patient.txt
+Hash:84ad31cabba0894279a7be40a289d0de
+
+File:TCGA_PRAD_RNAseq.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/TCGA_PRAD_RNAseq.txt
+Hash:efcdaedec37ad233d7243e98e486f252

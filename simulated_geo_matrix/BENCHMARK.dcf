@@ -1,0 +1,19 @@
+name: simulated_GEO_matrix
+description: this is a plain-R version of vanilla_R_benchmark.R, without extra data management packages only works with NGENES and NPATIENTS >= 1000
+
+File:GeneMetaData-500-500.rds
+Source:https://storage.googleapis.com/renjin-benchmarks/GeneMetaData-500-500.rds
+Hash:91c487300c6ef1f9725ec527a61303ef
+
+File:GEO-500-500.rds
+Source:https://storage.googleapis.com/renjin-benchmarks/GEO-500-500.rds
+Hash:5ed1df1e301bc83a1ed2221d4dbde312
+
+File:GO-500-500.rds
+Source:https://storage.googleapis.com/renjin-benchmarks/GO-500-500.rds
+Hash:ddb1d735a0e9bf1e538bea7c2e04e736
+
+File:PatientMetaData-500-500.rds
+Source:https://storage.googleapis.com/renjin-benchmarks/PatientMetaData-500-500.rds
+Hash:35c82c41433be195d9e8d722057f516c
+
