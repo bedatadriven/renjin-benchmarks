@@ -7,9 +7,10 @@ for f in $( find -path './[^.]*' -prune -type d ); do
   COUNT=0
     while [ $COUNT -le $1 ];
       do
-          count_info=`printf "round %s out of %s " "$COUNT" "$1"`
+          count_info=`printf "round %s out of %s | warm runs: %s " "$COUNT" "$1" "$2"`
           echo $count_info
           cd $f
+          $R -q -e "print(getwd());"
           $R -q -e 'library(packrat); packrat::restore();'
           $R -q -e "library(benchmarkR); runBenchmark($2); db <- Sys.getenv(c('BENCH_DB', 'BENCH_TYPE')); benchDBReport(db_name = db[[1]], con_type = db[[2]] )"
           cd ..
