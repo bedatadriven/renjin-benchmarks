@@ -1,5 +1,5 @@
 $R -q -e 'install.packages("devtools")'
-$R -q -e 'install.packages("packrat")'
+$R -q -e 'devtools::install_github("rstudio/packrat")'
 # loop through directories
 for f in $( find -path './[^.]*' -prune -type d ); do
   echo "-----------------------------------------------"
