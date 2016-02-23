@@ -76,8 +76,8 @@ Hash: c66deb506ef217896ce7d2ee347c95ff
 
 Package: Biostrings
 Source: Bioconductor
-Version: 2.38.3
-Hash: 673f9df1d773a9fc1d5bfa4c9d995064
+Version: 2.38.4
+Hash: 1671ad0a1c200ed1dc23386bc53f1640
 Requires: BiocGenerics, IRanges, S4Vectors, XVector
 
 Package: DT
@@ -88,8 +88,8 @@ Requires: htmltools, htmlwidgets, magrittr
 
 Package: IRanges
 Source: Bioconductor
-Version: 2.4.6
-Hash: 5f1e3c8cd1642e57bc6df6f4581f528b
+Version: 2.4.7
+Hash: 838be15d5f7837ee7258e0af2e2f8d9d
 Requires: BiocGenerics, S4Vectors
 
 Package: KEGGREST
@@ -253,8 +253,8 @@ Requires: iterators
 
 Package: gage
 Source: Bioconductor
-Version: 2.20.0
-Hash: 9542560fc01f8fe1294350d942cf6a7e
+Version: 2.20.1
+Hash: 184c6118ea7b4ca12d748f8f065c70e9
 Requires: AnnotationDbi, KEGGREST, graph
 
 Package: gdata
@@ -397,8 +397,8 @@ Hash: 2ab19233cc1bf67246f1b0f7d415eeb9
 
 Package: limma
 Source: Bioconductor
-Version: 3.26.7
-Hash: 558fda43473ed42a87e0ed8d0e7d23fd
+Version: 3.26.8
+Hash: 9c68475ad9576205d54de7652ad2478d
 
 Package: magrittr
 Source: CRAN
