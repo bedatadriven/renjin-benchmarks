@@ -31,18 +31,23 @@ Requires: DBI
 
 Package: benchmarkR
 Source: github
-Version: 1.01.1017
-Hash: bf391d58a704dab367823c9fb8148741
+Version: 1.01.1019
+Hash: 374e7d4c9db8ec0bd8d88d74c2545b21
 Requires: hamcrest
-GithubRepo: BenchmarkR
+GithubRepo: benchmarkR
 GithubUsername: psolaimani
 GithubRef: master
-GithubSha1: 864358f7c286b320692ad3ca4ed45dc9fd21abc1
+GithubSha1: fd496e3a0e76d1aa6fd9cd40fda6b7167f4a9bdd
 
 Package: curl
 Source: CRAN
 Version: 0.9.5
 Hash: 03562aad7537914f516bd67e9bba28b1
+
+Package: digest
+Source: CRAN
+Version: 0.6.9
+Hash: fd55d5a024f160fc001a5ece1e27782d
 
 Package: hamcrest
 Source: github
@@ -53,21 +58,16 @@ GithubUsername: bedatadriven
 GithubRef: master
 GithubSha1: 4f8212ac2b2c8ba09070f55edddbbeec0d0f3eba
 
-Package: digest
-Source: CRAN
-Version: 0.6.9
-Hash: fd55d5a024f160fc001a5ece1e27782d
+Package: packrat
+Source: github
+Version: 0.4.6-9
+Hash: b34872d6ae7c3b4d3191490e4c3d384b
+GithubRepo: packrat
+GithubUsername: rstudio
+GithubRef: master
+GithubSha1: dfa32291eb8ae9fad2868d0fc1ffd5516aa3a402
 
 Package: withr
 Source: CRAN
 Version: 1.0.1
 Hash: e3d37838719e5d66652364e2aefebcee
-
-Package: packrat
-Source: github
-Version: 0.4.6-9
-GithubRepo: packrat
-GithubUsername: rstudio
-GithubRef: master
-GithubSha1: dfa32291eb8ae9fad2868d0fc1ffd5516aa3a402
-Hash: b34872d6ae7c3b4d3191490e4c3d384b
