@@ -31,14 +31,13 @@ Requires: DBI
 
 Package: benchmarkR
 Source: github
-Version: 1.01.1017
-Hash: bf391d58a704dab367823c9fb8148741
+Version: 1.01.1019
+Hash: 374e7d4c9db8ec0bd8d88d74c2545b21
 Requires: hamcrest
-GithubRepo: BenchmarkR
+GithubRepo: benchmarkR
 GithubUsername: psolaimani
 GithubRef: master
-GithubSha1: 864358f7c286b320692ad3ca4ed45dc9fd21abc1
-Requires: hamcrest
+GithubSha1: fd496e3a0e76d1aa6fd9cd40fda6b7167f4a9bdd
 
 Package: curl
 Source: CRAN

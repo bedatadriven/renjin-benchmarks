@@ -316,6 +316,16 @@ Version: 1.48.0
 Hash: 23d5e16cfe9e6f66dee8d6a17dc6ae3d
 Requires: AnnotationDbi, Biobase, BiocGenerics, DBI, XML, xtable
 
+Package: benchmarkR
+Source: github
+Version: 1.01.1019
+Hash: 374e7d4c9db8ec0bd8d88d74c2545b21
+Requires: hamcrest
+GithubRepo: benchmarkR
+GithubUsername: psolaimani
+GithubRef: master
+GithubSha1: fd496e3a0e76d1aa6fd9cd40fda6b7167f4a9bdd
+
 Package: biomaRt
 Source: Bioconductor
 Version: 2.26.1
