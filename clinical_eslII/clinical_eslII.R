@@ -56,12 +56,11 @@ do.varselect <- function(data, plot_results=FALSE){
 
   # capture
   results <- list()
-
   ## prostate
   # cross validation and model fitting
   X <- as.matrix(data$prostate[,1:8])
   y <- data$prostate$lpsa
-  cvfit <- cv.ncvreg(X, y, penalty="lasso", seed = 8008, nfolds=10 )
+  cvfit <- cv.ncvreg(X, y, penalty="lasso", seed = 8008, nfolds=100 )
   cat(">>> DONE: cv.ncvreg(X, y)\n")
 
   if(plot_results){
@@ -79,8 +78,8 @@ do.varselect <- function(data, plot_results=FALSE){
   ## heart
   # cross validated model fitting
   X2 <- as.matrix(data$heart[,sapply(data$heart, is.numeric)])
-  y2 <- data$heart$transplant
-  cvfit <- cv.ncvreg(X2, y2, penalty="lasso", seed = 8008, nfolds=100 )
+  y2 <- data$heart$tobacco
+  cvfit <- cv.ncvreg(X2, y2, penalty="lasso", seed = 8008, nfolds=10 )
   cat(">>> DONE: cv.ncvreg(X2, y2)\n")
 
   if(plot_results){
@@ -100,7 +99,7 @@ do.varselect <- function(data, plot_results=FALSE){
 
 }
 
-do.prostate <- function(data, plot_results=FALSE){
+do.prostate <- function(data, plot_results=TRUE){
   cat("> Start: do.prostate()\n")
 
   ### some modelling on prostate dataset from ncvreg (see do.load)
@@ -255,9 +254,9 @@ do.prostate <- function(data, plot_results=FALSE){
 # load data
 data <- do.load()
 # score on sliding window
-do.varselect(data)
+vs <- do.varselect(data)
 
-do.prostate(data)
+pr <- do.prostate(data)
 
 # final clean up
 #rm(list=ls())
