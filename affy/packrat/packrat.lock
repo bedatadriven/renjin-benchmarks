@@ -7,57 +7,6 @@ Repos: BioCsoft=https://bioconductor.org/packages/3.2/bioc,
     BioCextra=https://bioconductor.org/packages/3.2/extra,
     CRAN=http://cran.rstudio.com/
 
-Package: BiocInstaller
-Source: Bioconductor
-Version: 1.20.1
-Hash: 05e58e37e4e2af35c9ba9eb4ee1839e4
-
-Package: DBI
-Source: CRAN
-Version: 0.3.1
-Hash: 096699d1ac1cf530acfc646a0c90ee5d
-
-Package: RMySQL
-Source: CRAN
-Version: 0.10.8
-Hash: 2f393aa7862c60301ac5d70daf72730d
-Requires: DBI
-
-Package: RSQLite
-Source: CRAN
-Version: 1.0.0
-Hash: 3df52a54766f420d257debad962146c0
-Requires: DBI
-
-Package: benchmarkR
-Source: github
-Version: 1.01.1019
-Hash: 374e7d4c9db8ec0bd8d88d74c2545b21
-Requires: hamcrest
-GithubRepo: benchmarkR
-GithubUsername: psolaimani
-GithubRef: master
-GithubSha1: fd496e3a0e76d1aa6fd9cd40fda6b7167f4a9bdd
-
-Package: curl
-Source: CRAN
-Version: 0.9.5
-Hash: 03562aad7537914f516bd67e9bba28b1
-
-Package: hamcrest
-Source: github
-Version: 1.0
-Hash: ff5c7c46c5e1a04577016c3df122bfad
-GithubRepo: hamcrest
-GithubUsername: bedatadriven
-GithubRef: master
-GithubSha1: 4f8212ac2b2c8ba09070f55edddbbeec0d0f3eba
-
-Package: withr
-Source: CRAN
-Version: 1.0.1
-Hash: e3d37838719e5d66652364e2aefebcee
-
 Package: AnnotationDbi
 Source: Bioconductor
 Version: 1.32.3
@@ -81,16 +30,26 @@ Source: Bioconductor
 Version: 0.16.1
 Hash: c66deb506ef217896ce7d2ee347c95ff
 
+Package: BiocInstaller
+Source: Bioconductor
+Version: 1.20.1
+Hash: 05e58e37e4e2af35c9ba9eb4ee1839e4
+
 Package: Biostrings
 Source: Bioconductor
 Version: 2.38.4
-Hash: 1671ad0a1c200ed1dc23386bc53f1640
+Hash: ed1fce3f235ac13938f8a605fc067b4c
 Requires: BiocGenerics, IRanges, S4Vectors, XVector
+
+Package: DBI
+Source: CRAN
+Version: 0.3.1
+Hash: 096699d1ac1cf530acfc646a0c90ee5d
 
 Package: IRanges
 Source: Bioconductor
 Version: 2.4.7
-Hash: 838be15d5f7837ee7258e0af2e2f8d9d
+Hash: f9633e2c6b2ea3702cab4bd9c8f64a1f
 Requires: BiocGenerics, S4Vectors
 
 Package: RColorBrewer
@@ -104,16 +63,17 @@ Version: 1.95-4.7
 Hash: 7756ed9df5d79ca87bc9e93f85d89b87
 Requires: bitops
 
+Package: RSQLite
+Source: CRAN
+Version: 1.0.0
+Hash: 3df52a54766f420d257debad962146c0
+Requires: DBI
+
 Package: S4Vectors
 Source: Bioconductor
 Version: 0.8.11
 Hash: b89102c81e2803646ce0844aa08f856f
 Requires: BiocGenerics
-
-Package: digest
-Source: CRAN
-Version: 0.6.9
-Hash: fd55d5a024f160fc001a5ece1e27782d
 
 Package: XML
 Source: CRAN
@@ -123,7 +83,7 @@ Hash: 689166755239c3300769ca2d600381c6
 Package: XVector
 Source: Bioconductor
 Version: 0.10.0
-Hash: 985fce131384539be4a6639644073464
+Hash: 00be4e6435416231b7c006a908fb6b97
 Requires: BiocGenerics, IRanges, S4Vectors, zlibbioc
 
 Package: affy
@@ -169,6 +129,16 @@ Source: Bioconductor
 Version: 1.48.0
 Hash: 23d5e16cfe9e6f66dee8d6a17dc6ae3d
 Requires: AnnotationDbi, Biobase, BiocGenerics, DBI, XML, xtable
+
+Package: benchmarkR
+Source: github
+Version: 1.01.1019
+Hash: 374e7d4c9db8ec0bd8d88d74c2545b21
+Requires: hamcrest
+GithubRepo: benchmarkR
+GithubUsername: psolaimani
+GithubRef: master
+GithubSha1: fd496e3a0e76d1aa6fd9cd40fda6b7167f4a9bdd
 
 Package: bioDist
 Source: Bioconductor
@@ -222,10 +192,19 @@ Source: CRAN
 Version: 3.5.0
 Hash: 471b2e2452dfb30fdc1dd6f1b567925a
 
+Package: hamcrest
+Source: github
+Version: 1.0
+Hash: ff5c7c46c5e1a04577016c3df122bfad
+GithubRepo: hamcrest
+GithubUsername: bedatadriven
+GithubRef: master
+GithubSha1: 4f8212ac2b2c8ba09070f55edddbbeec0d0f3eba
+
 Package: limma
 Source: Bioconductor
 Version: 3.26.8
-Hash: 9c68475ad9576205d54de7652ad2478d
+Hash: 9ae292181acbaa9af9b2843b47849cd9
 
 Package: packrat
 Source: github
