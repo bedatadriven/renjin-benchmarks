@@ -9,10 +9,6 @@ File:CFW001_genotypes.zip
 Source:https://storage.googleapis.com/renjin-benchmarks/CFW001_genotypes.zip
 Hash:9e7679f2055bfe622b56c96ba1eeea32
 
-File:DBV001_genotypes.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/DBV001_genotypes.txt
-Hash:c2d1e41de01865cccef02a49680ebd01
-
 File:DBV001_genotypes.zip
 Source:https://storage.googleapis.com/renjin-benchmarks/DBV001_genotypes.zip
 Hash:eadaab040df0ff0cf4f5543c1f77bd3a
@@ -20,10 +16,6 @@ Hash:eadaab040df0ff0cf4f5543c1f77bd3a
 File:DFC001_genotypes.zip
 Source:https://storage.googleapis.com/renjin-benchmarks/DFC001_genotypes.zip
 Hash:6c078cdd597de71dd3c450099c9d27d1
-
-File:DGM001_genotypes.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/DGM001_genotypes.txt
-Hash:15eb3e9b41096715b30c97637dc574fa
 
 File:DGM001_genotypes.zip
 Source:https://storage.googleapis.com/renjin-benchmarks/DGM001_genotypes.zip
@@ -49,18 +41,6 @@ File:KIM001_genotypes.zip
 Source:https://storage.googleapis.com/renjin-benchmarks/KIM001_genotypes.zip
 Hash:088cf10c7415d13ba5fe1abe2d478543
 
-File:laml.maf
-Source:https://storage.googleapis.com/renjin-benchmarks/laml.maf
-Hash:e56d91cc9f1861068143bfe5c6b16840
-
-File:laml.meta.tsv
-Source:https://storage.googleapis.com/renjin-benchmarks/laml.meta.tsv
-Hash:b6691637ffe2d955976e11ffc7e695d8
-
-File:LXJ001_genotypes.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/LXJ001_genotypes.txt
-Hash:c3c8f3422cf3f167fa97ea231e3d2589
-
 File:LXJ001_genotypes.zip
 Source:https://storage.googleapis.com/renjin-benchmarks/LXJ001_genotypes.zip
 Hash:6b5e917171ed15dfa3ad2a1d7315deed
@@ -68,4 +48,12 @@ Hash:6b5e917171ed15dfa3ad2a1d7315deed
 File:VXP001_genotypes.zip
 Source:https://storage.googleapis.com/renjin-benchmarks/VXP001_genotypes.zip
 Hash:e0544822fa3dc2f255d5fb6517015be3
+
+File:laml.maf
+Source:https://storage.googleapis.com/renjin-benchmarks/laml.maf
+Hash:e56d91cc9f1861068143bfe5c6b16840
+
+File:laml.meta.tsv
+Source:https://storage.googleapis.com/renjin-benchmarks/laml.meta.tsv
+Hash:b6691637ffe2d955976e11ffc7e695d8
 
