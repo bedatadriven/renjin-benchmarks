@@ -17,17 +17,19 @@ library(MASS) # rlm()
 ## Blocks for timing
 do.load <-function(){
   cat("> START: do.load()\n")
+  wdir <- normalizePath("./")
 
   ## unzip and load zipped files and remove temp unzipped files
-  data <- lapply(dir(".", include.dirs = FALSE), function(zipfile){
-    unzip(file.path(".", zipfile), exdir = ".")
-    data <- lapply(dir(".", pattern = ".txt$", full.names = TRUE), read.delim, stringsAsFactors=FALSE)
-    names(data) <- dir(".", pattern = ".txt$", full.names = FALSE)
-    file.remove(dir(".", pattern = ".txt$", full.names = TRUE))
+  data <- lapply(dir(wdir, include.dirs = FALSE), function(zipfile){
+    unzip(file.path(wdir, zipfile), exdir = wdir)
+    data <- lapply(dir(wdir, pattern = ".txt$", full.names = TRUE), read.delim, stringsAsFactors=FALSE)
+    names(data) <- dir(wdir, pattern = ".txt$", full.names = FALSE)
+    file.remove(dir(wdir, pattern = ".txt$", full.names = TRUE))
 
     return(data)
   })
-  names(data) <- strtrim(dir(".", include.dirs = FALSE), 11)
+  names(data) <- strtrim(dir(wdir, include.dirs = FALSE), 11)
+
   cat(">>> DONE: unzip&load zip files\n")
 
   ### reformat loaded data
@@ -215,8 +217,6 @@ do.svm <- function(liverdata){
 
   cat("> END: do.svm()\n")
   return(do.call("rbind",results))
-
-
 }
 
 do.nb_expr <- function(liverdata){
@@ -228,7 +228,7 @@ do.nb_expr <- function(liverdata){
   results <- list() # placeholder
 
   ## build categorical classification of patients based on liver enzyme activities
-  if(VERBOSE){
+  
     ### explore potential groups of patients
     # feature correlations?
     heatmap(cor(
@@ -257,7 +257,7 @@ do.nb_expr <- function(liverdata){
   cat(">>> DONE: classification patient by liver enzyme activity\n")
 
     # combine non-"red" groups into a separate group for classification
-    grp <- c("red", "notred", "notred", "notred")[
+    grp <- c("red", "blue", "blue", "blue")[
       cutree(hclust(dist(cor(t(
         liverdata$curatedPhen[rownames(liverdata$curatedExpr), # forces row ordering to be the same in pheno data and expr data
                               strtrim(names(liverdata$curatedPhen), 3)=="CYP"]
@@ -271,7 +271,7 @@ do.nb_expr <- function(liverdata){
     # also try to use classification targets as in paper (PLOS Biology: Mapping the Genetic Architecture of Gene ...)
     # top quartile of aldehyde activity
 
-  }
+  
 
   ## binary category based on aldehyde oxydase activity
   grps <- list()
@@ -286,7 +286,7 @@ do.nb_expr <- function(liverdata){
     ]
   cat(">>> DONE: binary cat on aldehyde oxide activity\n")
   ## and on overall liver enzyme activity levels
-  grps$enz <- c("red", "notred", "notred", "notred")[
+  grps$enz <- c("red", "blue", "blue", "blue")[
     cutree(hclust(dist(cor(t(
       liverdata$curatedPhen[rownames(liverdata$curatedExpr), # forces row ordering to be the same in pheno data and expr data
                             strtrim(names(liverdata$curatedPhen), 3)=="CYP"]
@@ -358,20 +358,20 @@ do.rlm_expr <- function(liverdata){
   ## feature selection
   # simplest: most variable features
   feats <- apply(train, MARGIN = 2, var)
-  if(VERBOSE){
+
     # ~waterfall plot
     # clear split between variable and non variable features
     plot(feats, rank(feats), col=factor(rank(feats) > ncol(train) - 50))
     # proceed with top variable features
-  }
+  
   feats <- (rank(feats) > (ncol(train) - 50))
   # exclude any exact linear combinations of variables (singularity causes rlm to fail)
   # see: http://stats.stackexchange.com/questions/70899/what-correlation-makes-a-matrix-singular-and-what-are-implications-of-singularit
   feats[feats] <- !(apply(abs(cor(train[,feats])) >= 0.75, MARGIN = 1, sum) > 1)  ## train model against triglyceride data
-  if(VERBOSE){
+
     # make sure determinant is higher than 0
     det(cor(train[,feats]))
-  }
+  
 
   ## train model against triglyceride data
   # do training
@@ -411,9 +411,9 @@ do.rlm_expr <- function(liverdata){
   bestcor <- 0
   set.seed(8008)
   for(i in 1:50){
-    if(VERBOSE){
+
       cat(sprintf("starting iteration %i for rlm()\n", i))
-    }
+    
     feats <- apply(train, MARGIN = 2, var)
     feats <- (rank(feats) > (ncol(train) - 1000)) # start from top 1000 by variablility
     subfeats <- 1:length(feats)
@@ -421,10 +421,10 @@ do.rlm_expr <- function(liverdata){
     subfeats <- names(feats[sample(subfeats, 25, replace = F)]) # sample
     # exclude any exact linear combinations of variables (singularity causes rlm to fail)
     subfeats <- subfeats[!(apply(abs(cor(train[,subfeats])) >= 0.75, MARGIN = 1, sum) > 1)]  ## train model against triglyceride data
-    if(VERBOSE){
+
       # make sure determinant is higher than 0
       det(cor(train[,subfeats]))
-    }
+    
 
     ## train model against triglyceride data
     # do training with ERROR HANDLING
@@ -439,9 +439,9 @@ do.rlm_expr <- function(liverdata){
         method= "M", psi = psi.bisquare))
     # skip if model failed to converge
     if(inherits(possibleError, "error")){
-      if(VERBOSE){
+
         cat(sprintf("\titeration %i failed to converge\n", i))
-      }
+      
       next
     }
 
