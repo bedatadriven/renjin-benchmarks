@@ -97,34 +97,42 @@ do.load <- function(DATA_DIR,TARGET){
   DATA <- list()
   if ( TARGET == "RNAseq" ) {
     d1 <- fread(paste0(DATA_DIR,"/TCGA_PRAD_RNAseq.txt"), sep="\t", header=T)
+    cat("> START: do.load(RNAseq)\n")
     setkey(d1, Gene)
     pat <- fread(paste0(DATA_DIR,"/TCGA_PRAD_patient.txt"), sep="\t", header=T) #converts all spaces and NA and unknown into NA for R, easier for sorting
+    cat(">>> DONE: load/setkey d1\n")
     setkey(pat, bcr_patient_barcode, name)
     m1 <- fread(paste0(DATA_DIR,"/TCGA_PRAD_exome.txt"))
+    cat(">>> DONE: load/setkey pat\n")
     setkey(m1, bcr_patient_barcode)
+    cat(">>> DONE: load/setkey m1\n")
     gene.name <- d1$Gene
     string_db <- STRINGdb$new(version="10", species=9606, score_threshold=400, input_directory= ".")
     kg.hsa <- kegg.gsets("hsa")
     DATA <- list( d1, pat, m1, gene.name, string_db, kg.hsa )
+    cat("> END: do.load(RNAseq)\n")
     return(DATA)
   }
 
   if ( TARGET == "Survival") {
     d1 <- fread(paste0(DATA_DIR,"/TCGA_PRAD_RNAseq.txt"), sep="\t", header=T)
+    cat("> START: do.load(Survival)\n")
     setkey(d1, Gene)
-    pat <- fread(paste0(DATA_DIR,"/TCGA_PRAD_patient.txt"), sep="\t", header=T) #converts all spaces and NA and unknown into NA for R, easier for sorting
     setkey(pat, bcr_patient_barcode, name)
     DATA <- list(d1,pat)
+    cat("> END: do.load(Survival)\n")
   }
 
   if ( TARGET == "Exome") {
     d1 <- fread(paste0(DATA_DIR,"/TCGA_PRAD_RNAseq.txt"), sep="\t", header=T)
+    cat("> START: do.load(Exome)\n")
     setkey(d1, Gene)
     pat <- fread(paste0(DATA_DIR,"/TCGA_PRAD_patient.txt"), sep="\t", header=T)
     setkey(pat, bcr_patient_barcode, name)
     m1 <- fread(paste0(DATA_DIR,"/TCGA_PRAD_exome.txt"))
     setkey(m1, Hugo_Symbol)
     DATA <- list(d1,pat,m1)
+    cat("> END: do.load(Exome)\n")
   }
   return(DATA)
 }
@@ -133,9 +141,13 @@ do.preprocess <- function(DATA,TARGET){
   # Performs rearragement and formatting of Data
 
   if ( TARGET == "RNAseq" ) {
+    cat("> START: do.preprocess(RNAseq)\n")
     d1 	<- DATA[[1]]
+    cat(">>> DONE: load/setkey d1\n")
     pat 	<- DATA[[2]]
+    cat(">>> DONE: load/setkey pat\n")
     m1 	<- DATA[[3]]
+    cat(">>> DONE: load/setkey m1\n")
     gene.name <- DATA[[4]]
     string_db <- DATA[[5]]
     kg.hsa <- DATA[[6]]
@@ -146,11 +158,20 @@ do.preprocess <- function(DATA,TARGET){
     low <- (ncol(d1) - 2) * 0.25
     setkey(pat, gleason)
     pat.d1 <- d1[,c("Gene", pat[gleason, name]), with=F]
+    cat(">>> DONE: setup variables\n")
+    print(str(pat))
+    cat(">>> DONE: print(str(pat))\n")
+    print(str(d1))
+    cat(">>> DONE: print(str(d1))\n")
+    print(str(c("Gene", pat[, gleason, name])))
+    cat(">>> DONE: print(str(c(\"Gene\", pat[gleason, name])))\n")
     setkey(pat.d1, Gene)
+    cat(">>> DONE: load/setkey pat.d1\n")
 
     #selecting row for gene and only retrieving values
     pat.d1.gene <- melt(pat.d1[g1, setdiff(colnames(pat.d1), "Gene"), with=F], id.vars = NULL, measure.vars = colnames(pat.d1)[-1], variable.name = "name", value.name="g1")
     setkey(pat.d1.gene, g1)
+    cat(">>> DONE: load/setkey pat.d1.gene\n")
     pat.d1.gene[, name := factor(name, levels=name)]
     pat.d1.gene[, ':=' (high = g1 > g1[eval(high)], low = g1 < g1[eval(low)])]
     pat.d1.gene[, gene2 := high*2 + low]
@@ -161,10 +182,13 @@ do.preprocess <- function(DATA,TARGET){
     d1.gene <- d1[, pat.gene[, name], with=F]
     d1.gene[, Gene := gene.name]
     setkey(d1.gene, Gene)
+    cat(">>> DONE: load/setkey d1.gene\n")
     DATA <- list(d1, d1.gene, gene.name, pat.gene, kg.hsa, string_db)
+    cat("> END: do.preprocess(RNAseq)\n")
   }
 
   if ( TARGET == 'Survival') {
+    cat("> START: do.preprocess(Survival)\n")
     d1 	<- DATA[[1]]
     pat 	<- DATA[[2]]
     g1 <- "BAZ2A"
@@ -185,9 +209,11 @@ do.preprocess <- function(DATA,TARGET){
     phenosgene <- merge(pat, pat.d1.gene, by= "name")
     pat.gene <- phenosgene[gene2 !=0]
     DATA <- list(pat.gene,g1)
+    cat("> END: do.preprocess(Survival)\n")
   }
 
   if ( TARGET == 'Exome') {
+    cat("> START: do.preprocess(Exome)\n")
     d1 <- DATA[[1]]
     pat <- DATA[[2]]
     m1 <- DATA[[3]]
@@ -287,6 +313,7 @@ do.preprocess <- function(DATA,TARGET){
     mut3$bcr_patient_barcode <- factor(mut3$bcr_patient_barcode, levels=rev(mut2$bcr_patient_barcode))
     mut3$variable <- factor(mut3$variable, levels=names(sort(apply(mut2[,colnames(mut2)[-1], with=F], 2, sum), decreasing=F)))
     DATA = list(mut3_gg1, g1, mut3)
+    cat("> END: do.preprocess(Exome)\n")
   }
   return(DATA)
 }
@@ -294,6 +321,7 @@ do.preprocess <- function(DATA,TARGET){
 do.analyse <- function(DATA,TARGET){
   # Performs calculations and plotting
   if ( TARGET == "RNAseq_DEG" ) {
+    cat("> START: do.analyse(RNAseq_DEG)\n")
     d1 <- DATA[[1]]
     d1.gene <- DATA[[2]]
     gene.name <- DATA[[3]]
@@ -312,9 +340,11 @@ do.analyse <- function(DATA,TARGET){
     fit3 <- topTable(fit2, coef=2, n=Inf, lfc=1, p.value=0.05)
     head(fit3)
     DATA <- list(d1, d1.gene, gene.name, pat.gene, kg.hsa, string_db, fit3)
+    cat("> END: do.analyse(RNAseq_DEG)\n")
   }
 
   if ( TARGET == "RNAseq_HM" ) {
+    cat("> START: do.analyse(RNAseq_HM)\n")
     d1.gene <- DATA[[2]]
     pat.gene <- DATA[[4]]
     fit3 <- DATA[[7]]
@@ -329,9 +359,11 @@ do.analyse <- function(DATA,TARGET){
     dev.off()
     cat("\n after pdf \n")
     DATA <- head(fit3)
+    cat("> END: do.analyse(RNAseq_HM)\n")
   }
 
   if ( TARGET == "RNAseq_KEGG" ) {
+    cat("> Start: do.analyse(RNAseq_KEGG)\n")
     d1 <- DATA[[1]]
     kg.hsa <- DATA[[5]]
     fit3 <- DATA[[7]]
@@ -345,9 +377,11 @@ do.analyse <- function(DATA,TARGET){
     greater <- data.frame(cbind(Pathway = rownames(fc.kegg.p$greater[sel,]),round(fc.kegg.p$greater[sel,1:5],5)))
     sel.1 <- fc.kegg.p$less[,"p.val"] < 0.05 & !is.na(fc.kegg.p$less[,"p.val"])
     less <-data.frame(cbind(Pathway = rownames(fc.kegg.p$less[sel.1,]), round(fc.kegg.p$less[sel.1,1:5],5)))
+    cat("> END: do.analyse(RNAseq_KEGG)\n")
   }
 
   if ( TARGET == "RNAseq_STRING" ) {
+    cat("> START: do.analyse(RNAseq_STRING)\n")
     string_db <- DATA[[6]]
     fit3 <- DATA[[7]]
 
@@ -360,9 +394,11 @@ do.analyse <- function(DATA,TARGET){
     hits <- splot$STRING_id[1:50]
     payload_id <- string_db$post_payload(splot$STRING_id, colors=splot$color)
     string_db$plot_network(hits, payload_id, add_link=F)
+    cat("> END: do.analyse(RNAseq_STRING)\n")
   }
 
   if ( TARGET == "RNAseq_rChart" ) {
+    cat("> START: do.analyse(RNAseq_rChart)\n")
     pat.gene <- DATA[[4]]
 
     group <- "clinical_T"
@@ -377,9 +413,11 @@ do.analyse <- function(DATA,TARGET){
     n1$yAxis(axisLabel  ="Number of patients")
     n1$print("test")
     n1$save("test1.html", cdn=T)
+    cat("> END: do.analyse(RNAseq_rChart)\n")
   }
 
   if ( TARGET == 'Survival') {
+    cat("> START: do.analyse(Survival)\n")
     pat.gene <- DATA[[1]]
     g1 <- DATA[[2]]
 
@@ -399,10 +437,12 @@ do.analyse <- function(DATA,TARGET){
     lines(c(half[1],half[1]), c(0, 0.5), lwd=1, lty =2, col=1)
     lines(c(0,half[2]), c(0.5, 0.5), lwd=1, lty=2, col=2)
     lines(c(half[2],half[2]), c(0, 0.5), lwd=1, lty=2, col=2)
+    cat("> END: do.analyse(Survival)\n")
 
   }
 
   if ( TARGET == 'Exome') {
+    cat("> START: do.analyse(Exome)\n")
     mut3_gg1 <- DATA[[1]]
     g1 <- DATA[[2]]
     mut3 <- DATA[[3]]
@@ -439,6 +479,7 @@ do.analyse <- function(DATA,TARGET){
                       ) +
                 ggtitle(paste(g1, "low"))
     gg2
+    cat("> END: do.analyse(Exome)\n")
   }
   return(DATA)
 }
