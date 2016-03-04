@@ -146,7 +146,7 @@ do.fam.load <- function(chromosomes=c(10)){
   #           )
   fam <- lapply(dir(DATA_DIR, full.names = TRUE, pattern = "genotypes.txt"),
              function(x) read.delim(x, skip= 14,
-                                    blank.lines.skip=TRUE, stringsAsFactors=FALSE)
+                                    blank.lines.skip=TRUE, stringsAsFactors=FALSE)[1:578320,]
              )
 
   names(fam) <- dir(DATA_DIR, full.names = FALSE, pattern = "genotypes.txt")
@@ -290,7 +290,7 @@ do.fam.check <- function(fam){
   # all SNP rsids the same
   if(
     all(
-      sapply(fam,
+      sapply(fam[1],
              # check that the list of SNPs matches the first list of SNPs
              # i.e. intersection length is equal to unintersected
              function(x) length(intersect(fam[[1]]$X..rsid, x$X..rsid)) == length(fam[[1]]$X..rsid)
@@ -300,11 +300,10 @@ do.fam.check <- function(fam){
     checks <- append(checks, TRUE)
   } else { checks <- append(checks, FALSE)  }
   cat(">>>> DONE: SNP rsid same?\n")
-  print(head(fam[[1]]))
   # all SNPs in the same order
   if(
     all(
-      sapply(fam,
+      sapply(fam[1],
              # check that the list of SNPs matches the first list of SNPs
              # i.e. intersection length is equal to unintersected
              function(x) all(order(fam[[1]]$X..rsid) == order(x$X..rsid))
@@ -323,6 +322,7 @@ do.fam.check <- function(fam){
 do.ibd.vector <- function(fam, scores){
   cat("> Start: do.ibd.vector()\n")
   do.ibd <- function(maf1, maf2, scores){
+    cat(">>> Start: do.ibd()\n")
 
     ### IBD
     # http://en.wikipedia.org/wiki/Identity_by_descent
@@ -331,9 +331,11 @@ do.ibd.vector <- function(fam, scores){
 
     # combine to 'vector' of paired alleles
     genotype.vec <- cbind(maf1$genotype, maf2$genotype)
-
+    cat(">>> DONE: cbind()\n")
     # score each pair
     genotype.score <- apply(genotype.vec, 1, function(x) scores[x[1], x[2]])
+    cat(">>> DONE: apply(genotype,score)\n")
+    cat(">>> End: do.ibd()\n")
 
     # return as annotated df for further analysis
     return(
