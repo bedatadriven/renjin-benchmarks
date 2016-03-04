@@ -20,6 +20,7 @@ library(leaps)
 ## global vars
 ## Timings blocks
 do.load <- function(){
+  cat("> Start: do.load()\n")
 
   # run locally to avoid having extra datasets loaded
   e <- new.env()
@@ -40,11 +41,13 @@ do.load <- function(){
 
   alldata <- list(heart=e$heart, lung=e$Lung, prostate=e$prostate)
 
+  cat("> End: do.load()\n")
   return(alldata)
 
 }
 
 do.varselect <- function(data, plot_results=FALSE){
+  cat("> Start: do.varselect()\n")
 
   ### variable selection using coordinate descent
   ### on prostate and heart datasets from ncvreg (see do.load)
@@ -59,6 +62,7 @@ do.varselect <- function(data, plot_results=FALSE){
   X <- as.matrix(data$prostate[,1:8])
   y <- data$prostate$lpsa
   cvfit <- cv.ncvreg(X, y, penalty="lasso", seed = 8008, nfolds=10 )
+  cat(">>> DONE: cv.ncvreg(X, y)\n")
 
   if(plot_results){
     plot(cvfit)
@@ -77,6 +81,7 @@ do.varselect <- function(data, plot_results=FALSE){
   X2 <- as.matrix(data$heart[,sapply(data$heart, is.numeric)])
   y2 <- data$heart$transplant
   cvfit <- cv.ncvreg(X2, y2, penalty="lasso", seed = 8008, nfolds=100 )
+  cat(">>> DONE: cv.ncvreg(X2, y2)\n")
 
   if(plot_results){
     plot(cvfit)
@@ -90,11 +95,13 @@ do.varselect <- function(data, plot_results=FALSE){
                     ))
   )
 
+  cat("> End: do.varselect()\n")
   return(do.call("rbind",results))
 
 }
 
 do.prostate <- function(data, plot_results=FALSE){
+  cat("> Start: do.prostate()\n")
 
   ### some modelling on prostate dataset from ncvreg (see do.load)
   # expects input from do.load
@@ -123,6 +130,7 @@ do.prostate <- function(data, plot_results=FALSE){
   # The book (page 56) uses only train subset, so we the same:
   prostate.leaps <- regsubsets( lpsa ~ . , data=train, nbest=70,
                                 really.big=TRUE )
+  cat(">>> DONE: regsubsets( lpsa ~ .)\n")
   prostate.leaps.sum <- summary( prostate.leaps )
   prostate.models <- prostate.leaps.sum$which
   prostate.models.size <- as.numeric(attr(prostate.models, "dimnames")[[1]])
@@ -133,6 +141,7 @@ do.prostate <- function(data, plot_results=FALSE){
 
   # add results for the only intercept model
   prostate.dummy <- lm( lpsa ~ 1, data=train )
+  cat(">>> DONE: lm( lpsa ~ 1)\n")
   prostate.models.best.rss <- c(
     sum(resid(prostate.dummy)^2),
     prostate.models.best.rss)
@@ -155,6 +164,7 @@ do.prostate <- function(data, plot_results=FALSE){
   ## Calculations for the lasso:
   prostate.lasso <- l1ce( lpsa ~ ., data=train, trace=TRUE, sweep.out=~1,
                           bound=seq(0,1,by=0.1) )
+  cat(">>> DONE: l1ce( lpsa ~ . )\n")
   prostate.lasso.coef <- sapply(prostate.lasso, function(x) x$coef)
   colnames(prostate.lasso.coef) <- seq( 0,1,by=0.1 )
   if(plot_results){
@@ -173,8 +183,10 @@ do.prostate <- function(data, plot_results=FALSE){
   ## lasso with lars:
   prostate.lasso.lars <- lars( as.matrix(train[,1:8]), train[,9],
                                type="lasso", trace=TRUE )
+  cat(">>> DONE: lars()\n")
   prostate.lasso.larscv <- cv.lars( as.matrix(train[,1:8]), train[,9], plot.it=plot_results,
            type="lasso", trace=TRUE, K=10 )
+  cat(">>> DONE: cv.lars()\n")
   results <- append(results,
                     list(data.frame(
                       dat="lars",
@@ -185,9 +197,11 @@ do.prostate <- function(data, plot_results=FALSE){
 
   ## CV (cross-validation) using package boot:
   prostate.glm <- glm( lpsa ~ ., data=train )
+  cat(">>> DONE: glm( lpsa ~ . )\n")
   # repeat this some times to make clear that cross-validation is
   # a random procedure
   prostate.glmcv <- cv.glm( train, prostate.glm, K=10 )
+  cat(">>> DONE: cv.glm()\n")
 
   results <- append(results,
                     list(data.frame(
@@ -197,6 +211,7 @@ do.prostate <- function(data, plot_results=FALSE){
                     ))
   )
 
+  cat("> End: do.prostate()\n")
   return(do.call("rbind",results))
 }
 
