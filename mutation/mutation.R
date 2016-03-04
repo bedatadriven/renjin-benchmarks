@@ -44,12 +44,14 @@ do.download <- function(n=3){
   lapply(1:nrow(fam_files), function(x){
     unzip(fam_files[x,"target"])
     })
+  cat("> End: do.unpack()\n")
   return(TRUE)
 }
 
 ## mutation data
 
 do.pop.load <- function(){
+  cat("> Start: do.pop.load()\n")
 
   readLines("laml.maf", 3) # no header info other than col names
 
@@ -60,10 +62,12 @@ do.pop.load <- function(){
 
   stopifnot(length(intersect(unique(maf$TCGA_id), unique(meta$bcr_patient_barcode))) == 197)
 
+  cat("> End: do.pop.load()\n")
   return(list(maf=maf, meta=meta))
 }
 
 do.pop.fig1a <- function(pop){
+  cat("> Start: do.pop.fig1a()\n")
   ## figure 1A: mutations per sample, split by mutation tier and disease status
   # split-apply-combine
   fig_1a <- do.call("rbind",
@@ -89,10 +93,12 @@ do.pop.fig1a <- function(pop){
        )
 
   # return
+  cat("> End: do.pop.fig1a()\n")
   return(fig_1a[,c("TCGA_id", "tier", "mut_count")])
 }
 
 do.pop.fig1b <- function(pop){
+  cat("> Start: do.pop.fig1b()\n")
   ## figure 1B: samples per mutated gene
   fig_1b <- do.call("rbind",
                     lapply(
@@ -110,12 +116,14 @@ do.pop.fig1b <- function(pop){
   fig_1b <- head(subset(fig_1b, tier == "tier1"), n = 100) # top 100 tier 1 genes by count
 
   # return
+  cat("> End: do.pop.fig1a()\n")
   return(fig_1b[,c("gene_name", "tier", "sample_count")])
 }
 
 # "window" apply
 # modified from: http://www.r-bloggers.com/wapply-a-faster-but-less-functional-rollapply-for-vector-setups/
 wapply <- function(x, width, by = NULL, FUN = NULL, ...){
+  cat("> Start: wapply()\n")
   FUN <- match.fun(FUN)
   if (is.null(by)) by <- width
 
@@ -125,12 +133,14 @@ wapply <- function(x, width, by = NULL, FUN = NULL, ...){
   windows <- base:::simplify2array(
     lapply(indices, function(a) FUN(x[a], ...)),
     higher = TRUE)
+  cat("> End: wapply()\n")
   return(windows)
 }
 
 
 ## familial data
 do.fam.load <- function(chromosomes=c(10)){
+  cat("> Start: do.fam.load()\n")
 
   DATA_DIR <- file.path(".")
 
@@ -147,10 +157,12 @@ do.fam.load <- function(chromosomes=c(10)){
   names(fam) <- dir(file.path(DATA_DIR), full.names = FALSE)
 
   # return
+  cat("> End: do.fam.load()\n")
   return(fam)
 }
 
 do.fam.prepare <- function(fam){
+  cat("> Start: do.fam.prepare()\n")
   ## scores for individual each SNP when compared between individuals
   # get SNP allele frequencies
   genotypes <- do.call("rbind",lapply(fam, FUN=function(x) table(x$genotype)))
@@ -267,9 +279,11 @@ do.fam.prepare <- function(fam){
 
   # return
   return(scores)
+  cat("> End: do.fam.prepare()\n")
 }
 
 do.fam.check <- function(fam){
+  cat("> Start: do.fam.check()\n")
   ## check that all SNPs match
   checks <- c()
 
@@ -290,7 +304,8 @@ do.fam.check <- function(fam){
     ){
     checks <- append(checks, TRUE)
   } else { checks <- append(checks, FALSE)  }
-
+  cat(">>>> DONE: SNP rsid same?\n")
+  print(head(fam[[1]]))
   # all SNPs in the same order
   if(
     all(
@@ -303,12 +318,15 @@ do.fam.check <- function(fam){
   ){
     checks <- append(checks, TRUE)
   } else { checks <- append(checks, FALSE)  }
+  cat(">>>> DONE: SNP order same?\n")
 
   # all checks good?
+  cat("> End: do.fam.check()\n")
   return(all(checks))
 }
 
 do.ibd.vector <- function(fam, scores){
+  cat("> Start: do.ibd.vector()\n")
   do.ibd <- function(maf1, maf2, scores){
 
     ### IBD
@@ -339,10 +357,12 @@ do.ibd.vector <- function(fam, scores){
                               )
                          )
                        )
+  cat("> End: do.ibd.vector()\n")
   return(fam.scores)
 }
 
 do.ibd.window <- function(fam.scores, window.sizes=seq(5, 50, 5)){
+  cat("> Start: do.ibd.window()\n")
 
   ## calculate some sliding windows summing the scores
 
@@ -359,6 +379,8 @@ do.ibd.window <- function(fam.scores, window.sizes=seq(5, 50, 5)){
                                                   FUN=sum) / win)["3rd Qu."]))
   })))
 
+
+  cat("> End: do.ibd.window()\n")
 }
 
 
