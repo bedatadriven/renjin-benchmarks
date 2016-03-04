@@ -13,6 +13,10 @@ File:Homo_sapiens.GRCh37.75_subset.gtf
 Source:https://storage.googleapis.com/renjin-benchmarks/Homo_sapiens.GRCh37.75_subset.gtf
 Hash:e9c570387bf658d913a1fb5224503e06
 
+File:mm9_genes.gtf
+Source:https://storage.googleapis.com/renjin-benchmarks/mm9_genes.gtf
+Hash:5c75e8600ec766c169c9d006db7d7d80
+
 File:sample_table.csv
 Source:https://storage.googleapis.com/renjin-benchmarks/sample_table.csv
 Hash:ee2ba34ab5e68c79583db6b975afb6f7
@@ -21,34 +25,34 @@ File:SraRunInfo_SRP033351.csv
 Source:https://storage.googleapis.com/renjin-benchmarks/SraRunInfo_SRP033351.csv
 Hash:64ec313f687dccad13539c711dd3d6e3
 
-File:SRR1039508_subset.bam
-Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039508_subset.bam
-Hash:b8ac8730c81e1250d7038981f8889b68
+File:SRR1039508.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039508.bam
+Hash:9ae73f9e1edfa9c2026861ac78d64119
 
-File:SRR1039509_subset.bam
-Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039509_subset.bam
-Hash:65a2bac748957f5987cc33d33def5bdf
+File:SRR1039509.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039509.bam
+Hash:4ddd671dcdf0219b95ff11db36d62aa8
 
-File:SRR1039512_subset.bam
-Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039512_subset.bam
-Hash:c9aa0dc6d3c631d7e914decb621c4ce8
+File:SRR1039512.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039512.bam
+Hash:732bce89f2c0c2e8a46c0bdcffce2dd0
 
-File:SRR1039513_subset.bam
-Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039513_subset.bam
-Hash:e80da8c4595262cb6b7a8cd3d18bfb31
+File:SRR1039513.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039513.bam
+Hash:6e1467ae10c4d0a5a8d249e8b0e4a581
 
-File:SRR1039516_subset.bam
-Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039516_subset.bam
-Hash:e0f7a473abcd5d4f748cacbc5e0501a7
+File:SRR1039516.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039516.bam
+Hash:5c2aa32836f060b28c3edfe415373818
 
-File:SRR1039517_subset.bam
-Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039517_subset.bam
-Hash:e69be944c9558ba2a82445674c933d17
+File:SRR1039517.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039517.bam
+Hash:e66b9d30610f8a21a6c64098d2772272
 
-File:SRR1039520_subset.bam
-Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039520_subset.bam
-Hash:412c0a0e8d8bcc12a27df44825eb2988
+File:SRR1039520.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039520.bam
+Hash:0b6476ec49ec5c4572cca04278228f28
 
-File:SRR1039521_subset.bam
-Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039521_subset.bam
-Hash:405f2fe78160cde4437bb8a58f287813
+File:SRR1039521.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/SRR1039521.bam
+Hash:51fa6de64cc23600f6099600d0a12f67
