@@ -142,9 +142,11 @@ do.km <- function(dist_mat){
 }
 
 dist_mat <- do.dist(input_data=rppa)
-do.hc(dist_mat)
-do.km(dist_mat=dist_mat)
-
+hc <- do.hc(dist_mat)
+km <- do.km(dist_mat=dist_mat)
+print(str(dist_mat))
+print(str(hc))
+print(str(km))
 # final clean up
 rm(list=ls())
 gc()
