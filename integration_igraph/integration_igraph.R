@@ -36,10 +36,12 @@ TIMES <- genbench_timings(benchmark_name = BENCHMARK, engine_name = ENGINE)
 #### functions
 
 do.download <- function(DATA_DIR){
+  cat("> START: do.download()\n")
   ### download files from [INPUT] to [DATA_DIR]
   ## RIFs
   # get RIF file from entrez ftp server
   data_path <- file.path(DATA_DIR, "generifs_basic.gz")
+  cat("> END: do.download()\n")
   return(data_path)
 }
 
@@ -49,6 +51,7 @@ do.plot <- function(network, title="", layout=igraph::layout.kamada.kawai,
                     # edge properties
                     weight=1
                     ){
+  cat("> START: do.plot()\n")
 
   ### for simplicity, basic plotting of iGraph objects
   # provides default arguments for most parameters
@@ -74,9 +77,12 @@ do.plot <- function(network, title="", layout=igraph::layout.kamada.kawai,
   )
 
 
+
+  cat("> END: do.plot()\n")
 }
 
 do.load.edges <- function(PATH){
+  cat("> START: do.load.edges()\n")
 
   # unpack data
   tmpfile <- file.path(dirname(PATH), "rif.tmp")
@@ -97,11 +103,13 @@ do.load.edges <- function(PATH){
   ## remove tmp file
   file.remove(tmpfile)
 
+  cat("> END: do.load.edges()\n")
   return(edges) # first two columns are nodes, other columns considered edge annotations
 
 }
 
 do.load <- function(PATH, percentage=5, plot_results=TRUE){
+  cat("> START: do.load()\n")
 
   edges <- do.load.edges(PATH)
 
@@ -126,11 +134,13 @@ do.load <- function(PATH, percentage=5, plot_results=TRUE){
     do.plot(network, title="5%er", size = V(network)$degree, shape=V(network)$shape, colour = V(network)$color)
   }
 
+  cat("> END: do.load()\n")
   return(network)
 
 }
 
 do.decompose <- function(network, plot_results=TRUE){
+  cat("> START: do.decompose()\n")
   ## pick out the biggest component
   network <- decompose.graph(network) # coverts to list of networks (each component as separate element)
   largest <- function(x){
@@ -160,10 +170,12 @@ do.decompose <- function(network, plot_results=TRUE){
             )
   }
 
+  cat("> END: do.decompose()\n")
   return(network)
 
 }
 do.cocitation <- function(network, plot_results = TRUE){
+  cat("> START: do.cocitation()\n")
 
   ### use cocitation to project graph into single type space
   # colour and shape according to node type
@@ -193,20 +205,24 @@ do.cocitation <- function(network, plot_results = TRUE){
     )
   }
 
+  cat("> END: do.cocitation()\n")
   return(network)
 }
 
 do.subset <- function(network, node_ids){
+  cat("> START: do.subset()\n")
 
   ## return igraph instance containing only the nodes listed
   # copying all properties
   network <- induced.subgraph(network, vids = node_ids, impl="copy_and_delete")
 
+  cat("> END: do.subset()\n")
   return(network)
 
 }
 
 do.phospho <- function(DATA_DIR, PATH, plot_results=TRUE){
+  cat("> START: do.phospho()\n")
   ### construct network, not with random 1%, but with phosphatase/kinase subset
   ## pull annotations for human PPases and kinases from GO, see later for use
   pk.ids <- read.delim(header=T, file=file.path(DATA_DIR, "pk_pp_9606.txt"))
@@ -264,10 +280,12 @@ do.phospho <- function(DATA_DIR, PATH, plot_results=TRUE){
     )
   }
 
+  cat("> END: do.phospho()\n")
   return(network)
 }
 
 do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
+  cat("> START: do.mesh()\n")
 
   ### as for do.phospho,
   ### pulling out papers related to a given MeSh term
@@ -329,6 +347,7 @@ do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
 
     )
   }
+  cat("> END: do.mesh()\n")
   return(network)
 }
 
