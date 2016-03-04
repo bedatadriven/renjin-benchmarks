@@ -14,33 +14,23 @@ library(utils)
 
 
 ## general
-do.download <- function(n=3){
+do.unpack <- function(){
+  cat("> Start: do.unpack()\n")
 
   # 'family' data
 
-  fam_files <- data.frame(do.call("rbind", unlist(lapply(strsplit(split = "\n",
-                                                                  "Daniel MacArthur | DGM001 | DGM001_genotypes.zip
-                                                                  Luke Jostins | LXJ001 | LXJ001_genotypes.zip
-                                                                  Dan Vorhaus | DBV001 | DBV001_genotypes.zip
-                                                                  Caroline Wright | CFW001 | CFW001_genotypes.zip
-                                                                  Kate Morley | KIM001 | KIM001_genotypes.zip
-                                                                  Vincent Plagnol | VXP001 | VXP001_genotypes.zip
-                                                                  Jeff Barrett | JCB001 | JCB001_genotypes.zip
-                                                                  Jan Aerts | JXA001 | JXA001_genotypes.zip
-                                                                  Joe Pickrell | JKP001 | JKP001_genotypes.zip
-                                                                  Don Conrad | DFC001 | JKP001_genotypes.zip
-                                                                  Carl Anderson | CAA001 | CAA001_genotypes.zip
-                                                                  Ilana Fisher | IPF001 | IPF001_genotypes.zip")[[1]],
-  function(x) strsplit(x, " | ", fixed = TRUE)), recursive=FALSE)), stringsAsFactors=FALSE)
+  fam_files <- data.frame(
+		member=c("Daniel MacArthur","Luke Jostins","Dan Vorhaus","Caroline Wright",
+			"Kate Morley","Vincent Plagnol","Jeff Barrett","Jan Aerts","Joe Pickrell",
+			"Don Conrad","Carl Anderson","Ilana Fisher"),
+		dataset_id=c("DGM001","LXJ001","DBV001","CFW001","KIM001","VXP001","JCB001",
+			"JXA001","JKP001","DFC001","CAA001","IPF001"),
+		target=c("DGM001_genotypes.zip","LXJ001_genotypes.zip","DBV001_genotypes.zip","CFW001_genotypes.zip",
+			"KIM001_genotypes.zip","VXP001_genotypes.zip","JCB001_genotypes.zip","JXA001_genotypes.zip",
+			"JKP001_genotypes.zip","DFC001_genotypes.zip","CAA001_genotypes.zip","IPF001_genotypes.zip"),
+		stringsAsFactors=FALSE
+		)
 
-  names(fam_files) <- c("member","dataset id","link")
-  fam_files$target <- basename(fam_files$link)
-
-  # only take n files: could expand later if needed
-  if(n > nrow(fam_files)){ n <- nrow(fam_files)  }
-  fam_files <- fam_files[1:n,]
-
-  # download and unzip target files
   lapply(1:nrow(fam_files), function(x){
     unzip(fam_files[x,"target"])
     })
@@ -142,19 +132,24 @@ wapply <- function(x, width, by = NULL, FUN = NULL, ...){
 do.fam.load <- function(chromosomes=c(10)){
   cat("> Start: do.fam.load()\n")
 
-  DATA_DIR <- file.path(".")
+  DATA_DIR <- normalizePath("./")
 
   ## load data for individuals from genomesunzipped.org
   # chromosomes : limit chromosomes loaded
 
   # read in each file, and strip down to chromosome 1 (again, could exapnd later if needed)
-  fam <- lapply(lapply(dir(file.path(DATA_DIR), full.names = TRUE),
+  #fam <- lapply(lapply(dir(DATA_DIR, full.names = TRUE, pattern = "genotypes.txt"),
+  #           function(x) read.delim(x, skip= 14,
+  #                                  blank.lines.skip=TRUE, stringsAsFactors=FALSE)
+  #           ),
+  #           function(x) subset(x, chromosome %in% chromosomes)
+  #           )
+  fam <- lapply(dir(DATA_DIR, full.names = TRUE, pattern = "genotypes.txt"),
              function(x) read.delim(x, skip= 14,
                                     blank.lines.skip=TRUE, stringsAsFactors=FALSE)
-             ),
-             function(x) subset(x, chromosome %in% chromosomes)
              )
-  names(fam) <- dir(file.path(DATA_DIR), full.names = FALSE)
+
+  names(fam) <- dir(DATA_DIR, full.names = FALSE, pattern = "genotypes.txt")
 
   # return
   cat("> End: do.fam.load()\n")
@@ -386,17 +381,17 @@ do.ibd.window <- function(fam.scores, window.sizes=seq(5, 50, 5)){
 
 ### reporting
 ## collect data
-do.download()
+do.unpack()
 
 ## population data
 # load data and compute matrix
 pop <- do.pop.load()
 
 # patient level summaries
-do.pop.fig1a(pop = pop))
+do.pop.fig1a(pop = pop)
 
 # gene level summaries
-do.pop.fig1b(pop = pop))
+do.pop.fig1b(pop = pop)
 
 # todo: something more advanced once packages are implemented in renjin
 # maybe something from: http://cran.r-project.org/web/views/Genetics.html
@@ -422,10 +417,6 @@ fam.scores <- do.ibd.vector(fam = fam, scores = scores)
 
 # score on sliding window
 do.ibd.window(fam.scores = fam.scores)
-
-# clean up
-rm(fam, scores, fam.scores)
-gc()
 
 # final clean up
 rm(list=ls())
