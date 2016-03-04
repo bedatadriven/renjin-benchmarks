@@ -17,12 +17,12 @@ library(hgu133plus2cdf) # platform annotations
 library(limma) # differential expression
 
 ## global vars
-DATA_DIR <- file.path(".")
-INPUT <- "GSE45417_RAW.tar"
+DATA_DIR <- normalizePath("./")
+INPUT <- normalizePath("./GSE45417_RAW.tar")
 
 #### functions
 
-do.download <- function(INPUT, DATA_DIR){
+do.download <- function(INPUT){
 
   ## download CEL files from [INPUT] to [DATA_DIR]
   # download and unpack data
@@ -30,7 +30,7 @@ do.download <- function(INPUT, DATA_DIR){
   # make sure DATA_DIR exists
 
   # files from repo unpack
-  untar(file.path(DATA_DIR, basename(INPUT), exdir = DATA_DIR))
+  untar(INPUT, exdir = dirname(INPUT))
 
   return(TRUE)
 
@@ -279,7 +279,7 @@ do.geneset.real <- function(){
 
 ### run and time code
 ## get data
-do.download(INPUT, DATA_DIR)
+do.download(INPUT)
 
 ## load data and compute matrix
 cel.files <- do.load(DATA_DIR)
@@ -291,11 +291,14 @@ cel.files <- do.qc(cel.files)
 eset <- do.norm(cel.files)
 
 ## linear modelling
-do.limma(eset)
+res <- do.limma(eset)
 
 ## simulated genesets
-do.geneset.examples()
+gs <- do.geneset.examples()
 
+
+print(tail(res))
+print(tail(gs))
 # final clean up
 rm(list=ls())
 gc()
