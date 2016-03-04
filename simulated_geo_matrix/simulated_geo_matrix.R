@@ -40,6 +40,7 @@ df2mxs <- function(df) {
 
 
 regression <- function() {
+  cat("> START: regression()\n")
 
   ### Data Management ops start ###
   geo      <- readRDS(GEO)
@@ -64,10 +65,12 @@ regression <- function() {
   # report data.frame of coefficients
   res <- data.frame(coeff=as.character(names(res$coefficients)),
                     p=res$coefficients)
+  cat("> END: regression()\n")
   return(res)
 }
 
 covariance <- function() {
+  cat("> START: covariance()\n")
 
   ### Data Management ops start ###
 
@@ -94,11 +97,13 @@ covariance <- function() {
   # return 2 column data.frame
   res <- data.frame(covar)
   res[,1] <- as.character(res[,1])
+  cat("> END: covariance()\n")
   return(res[complete.cases(res),])
 
 }
 
-biclustering<-function() {
+biclustering <- function() {
+  cat("> START: biclustering()\n")
 
   ### Data Management ops start ###
   geo      <- readRDS(GEO)
@@ -113,11 +118,13 @@ biclustering<-function() {
   res <- biclust(A, method=BCssvd, K=5)
   # report a data.frame
   res <- data.frame(id=as.character(rownames(A)), clust=biclust::writeclust(res))
+  cat("> END: biclustering()\n")
   return(res[complete.cases(res),])
 
 }
 
 svd_irlba <- function() {
+  cat("> START: svd_irlba()\n")
   ### Data Management ops start ###
   geo      <- readRDS(GEO)
   genes    <- readRDS(GENES)
@@ -137,10 +144,12 @@ svd_irlba <- function() {
 
   # return dataframe
   res <- data.frame(id=as.character(1:length(res$d)), sv=res$d)
+  cat("> END: svd_irlba()\n")
   return(res[complete.cases(res),])
 }
 
 stats <- function(percentage=1) {
+  cat("> START: stats()\n")
   # [percentage] = percentage of rows and columns to runs stats on
   ### Data Management ops start ###
   geo      <- readRDS(GEO)
@@ -171,6 +180,7 @@ stats <- function(percentage=1) {
   # combine and return results with low p vals
   res <- do.call("rbind",unlist(res, recursive = F))
   res <- subset(res, p < 1e-3)
+  cat("> END: stats()\n")
   return(res[complete.cases(res),])
 }
 
