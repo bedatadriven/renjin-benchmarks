@@ -27,8 +27,10 @@ library("fission")
 ##### Set global vars #####
 files = list.files(path = ".", pattern = "txt$")
 
+EXPRESSIVE <- TRUE
 ##### Blocks for timing #####
 do.load <-function(){
+  cat("> START: do.load()\n")
 
   # Read in bam-files
   csvfile     <- "sample_table.csv"
@@ -36,12 +38,15 @@ do.load <-function(){
   filenames   <- paste0(sampleTable$Run, "_subset.bam")
   file.exists(filenames)
   bamfiles    <- BamFileList(filenames, yieldSize=2000000)
+  cat(">>> DONE: read in bam files\n")
   seqinfo(bamfiles[1])
+  cat(">>> DONE: seqinfo()\n")
 
   # Make annotation database summerized at gene level
   gtffile <- file.path(DATA_DIR,"Homo_sapiens.GRCh37.75_subset.gtf")
   txdb    <- makeTxDbFromGFF(gtffile, format="gtf", circ_seqs=character())
   ebg <- exonsBy(txdb, by="gene")
+  cat(">>> DONE: annotation import\n")
 
   # Compute fragment counts per gene per sample
   register(SerialParam())
@@ -50,6 +55,7 @@ do.load <-function(){
                           singleEnd=FALSE,
                           ignore.strand=TRUE,
                           fragments=TRUE )
+  cat(">>> DONE: receive input\n")
   # Extrapolatory analysis of data
   if(EXPRESSIVE){
   dim(se)
@@ -65,10 +71,12 @@ do.load <-function(){
   # Print forces Renjin to compute
   colData(se) <- DataFrame(sampleTable)
 
+  cat("> END: do.load()\n")
   return(se)
 }
 
 do.deseq2 <- function(DATA){
+  cat("> START: do.deseq2()\n")
   se <- DATA
   if(EXPRESSIVE){
     se$cell
@@ -90,10 +98,12 @@ do.deseq2 <- function(DATA){
                                   colData = coldata,
                                   design = ~ cell + dex)
 
+  cat("> END: do.deseq2()\n")
   return(list(se,dds,ddsMat))
 }
 
 do.deseq2.explr <- function(DATA){
+  cat("> START: do.deseq2.explr()\n")
   se <- DATA[[1]]
   dds <- DATA[[2]]
   ddsMat <- DATA[[3]]
@@ -153,40 +163,51 @@ do.deseq2.explr <- function(DATA){
   mdsPoisData <- data.frame(cmdscale(samplePoisDistMatrix))
   mdsPois <- cbind(mdsPoisData, as.data.frame(colData(dds)))
   ggplot(mdsPois, aes(X1,X2,color=dex,shape=cell)) + geom_point(size=3)
+  cat("> END: do.deseq2.explr()\n")
   return(list(dds,rld))
  }
 
 do.deseq2.diffexp <- function(DATA){
+  cat("> START: do.deseq2.diffexp()\n")
    # Running the differential expression pipeline
    #
    dds <- DATA[[1]]
    rld <- DATA[[2]]
+  cat(">>> DONE: receive input\n")
    dds <- DESeq(dds)
+  cat(">>> DONE: DESeq(dds)\n")
    res <- results(dds)
+  cat(">>> DONE: results(dds)\n")
    mcols(res, use.names=TRUE)
    if(EXPRESSIVE){
      summary(res)
    }
    res.05 <- results(dds, alpha=.05)
+  cat(">>> DONE: results(dds, alpha=.05)\n")
    table(res.05$padj < .05)
    resLFC1 <- results(dds, lfcThreshold=1)
-   if(EXPRESSIVE){
-     table(resLFC1$padj < 0.1)
-     results(dds, contrast=c("cell", "N061011", "N61311"))
-     sum(res$pvalue < 0.05, na.rm=TRUE)
-     sum(!is.na(res$pvalue))
-     sum(res$padj < 0.1, na.rm=TRUE)
-   }
-   resSig <- subset(res, padj < 0.1)
-   if(EXPRESSIVE){
-     #head(resSig[ order(resSig$log2FoldChange), ])
-     #head(resSig[ order(resSig$log2FoldChange, decreasing=TRUE), ])
-   }
+  cat(">>> DONE: results(dds, lfcThreshold=1)\n")
+#   if(EXPRESSIVE){
+#     table(resLFC1$padj < 0.1)
+#     results(dds, contrast=c("cell", "N061011", "N61311"))
+#     sum(res$pvalue < 0.05, na.rm=TRUE)
+#     sum(!is.na(res$pvalue))
+#     sum(res$padj < 0.1, na.rm=TRUE)
+#   }
+#   resSig <- subset(res, res$padj < 0.1)
+#   if(EXPRESSIVE){
+#     head(resSig[ order(resSig$log2FoldChange), ])
+#     head(resSig[ order(resSig$log2FoldChange, decreasing=TRUE), ])
+#  }
+   
+  cat(">>> DONE: diff expr pipeline\n")
 
    ## Plotting results
    topGene <- rownames(res)[which.min(res$padj)]
    plotCounts(dds, gene=topGene, intgroup=c("dex"))
    data <- plotCounts(dds, gene=topGene, intgroup=c("dex","cell"), returnData=TRUE)
+  cat(">>> DONE: plotting\n")
+
 
    # Normalized counts for a single gene over treatment group.
    ggplot(data, aes(x=dex, y=count, color=cell)) +
@@ -203,6 +224,8 @@ do.deseq2.diffexp <- function(DATA){
   scale_y_log10() + geom_point(size=3) + geom_line()
   # Normalized counts with lines connecting cell lines.
   plotMA(res, ylim=c(-5,5))
+  cat(">>> DONE: normalizing\n")
+
 
   # An MA-plot of changes induced by treatment.
   if(EXPRESSIVE){
@@ -216,6 +239,8 @@ do.deseq2.diffexp <- function(DATA){
 
   # An MA-plot of a test for large log2 fold changes.
   hist(res$pvalue[res$baseMean > 1], breaks=0:20/20, col="grey50", border="white")
+
+  cat(">>> DONE: MAplots\n")
 
   # Gene clustering
   topVarGenes <- head(order(rowVars(assay(rld)),decreasing=TRUE),20)
@@ -231,9 +256,11 @@ do.deseq2.diffexp <- function(DATA){
   ratios <- tapply(resLFC1$pvalue, bins, function(p) mean(p < .05, na.rm=TRUE))
   barplot(ratios, xlab="mean normalized count", ylab="ratio of small p values")
 
+  cat(">>> DONE: clustering\n")
+
   ## Annotating and exporting results
   columns(org.Hs.eg.db)
-
+  print(head(row.names(res)))
   res$symbol <- mapIds(org.Hs.eg.db,
                      keys=row.names(res),
                      column="SYMBOL",
@@ -246,17 +273,21 @@ do.deseq2.diffexp <- function(DATA){
                      keytype="ENSEMBL",
                      multiVals="first")
 
+  cat(">>> DONE: annotation results\n")
+
   # Exporting results
   resOrdered <- res[order(res$padj),]
   head(resOrdered)
   resOrderedDF <- as.data.frame(resOrdered)[1:100,]
-  if(EXPRESSIVE){
-    write.csv(resOrderedDF, file="results.csv")
-    htmlRep <- HTMLReport(shortName="report", title="My report", reportDirectory="./report")
-    publish(resOrderedDF, htmlRep)
-    url <- finish(htmlRep)
-    browseURL(url)
-  }
+  #if(EXPRESSIVE){
+  #  write.csv(resOrderedDF, file="results.csv")
+  #  htmlRep <- HTMLReport(shortName="report", title="My report", reportDirectory="./report")
+  #  publish(resOrderedDF, htmlRep)
+  #  url <- finish(htmlRep)
+  #  browseURL(url)
+  #}
+  cat(">>> DONE: export results\n")
+
   # Plotting fold changes in genomic space
   resGR <- results(dds, lfcThreshold=1, format="GRanges")
   resGR$symbol <- mapIds(org.Hs.eg.db, names(resGR), "SYMBOL", "ENSEMBL")
@@ -271,6 +302,8 @@ do.deseq2.diffexp <- function(DATA){
   d <- DataTrack(resGRsub, data="log2FoldChange", baseline=0, type="h", name="log2 fold change", strand="+")
   plotTracks(list(g,d,a), groupAnnotation="group", notsig="grey", sig="hotpink")
 
+  cat(">>> DONE: plotting foldchanges\n")
+
 
   # Removing hidden batch effects
   dat <- counts(dds, normalized=TRUE)
@@ -280,6 +313,8 @@ do.deseq2.diffexp <- function(DATA){
   mod0 <- model.matrix(~ 1, colData(dds))
   svseq <- svaseq(dat, mod, mod0, n.sv=2)
   svseq$sv
+  cat(">>> DONE: batch effect removal\n")
+
   # Surrogate variables 1 and 2 plotted over cell line
   par(mfrow=c(2,1),mar=c(3,5,3,1))
   stripchart(svseq$sv[,1] ~ dds$cell,vertical=TRUE,main="SV1")
@@ -293,10 +328,14 @@ do.deseq2.diffexp <- function(DATA){
   design(ddssva) <- ~ SV1 + SV2 + dex
   ddssva <- DESeq(ddssva)
   str(ddssva)
+  cat(">>> DONE: surrogate variables\n")
+
+  cat("> END: do.deseq2.diffexp()\n")
   return(ddssva)
  }
 
 do.deseq2.timecrs <- function(){
+  cat("> START: do.deseq2.timecrs()\n")
    ## Time course experiments
    data("fission")
    ddsTC <- DESeqDataSet(fission, ~ strain + minute + strain:minute)
@@ -325,6 +364,7 @@ do.deseq2.timecrs <- function(){
   mat[mat > thr] <- thr
   pheatmap(mat, breaks=seq(from=-thr, to=thr, length=101), cluster_col=FALSE)
 
+  cat("> END: do.deseq2.timecrs()\n")
  }
 
 ############################################################################
