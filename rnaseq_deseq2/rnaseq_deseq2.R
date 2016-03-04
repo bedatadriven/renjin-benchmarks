@@ -18,15 +18,14 @@ library("ggplot2")
 library("genefilter")
 library("AnnotationDbi")
 library("org.Hs.eg.db")
-#library("ReportingTools")
+library("ReportingTools")
 library("Gviz")
 library("fission")
 library("sva")
 library("fission")
 
 ##### Set global vars #####
-files = list.files(path = ".", pattern = "txt$")
-
+files <- list.files(path = ".", pattern = "txt$")
 EXPRESSIVE <- TRUE
 ##### Blocks for timing #####
 do.load <-function(){
@@ -35,7 +34,7 @@ do.load <-function(){
   # Read in bam-files
   csvfile     <- "sample_table.csv"
   sampleTable <- read.csv(csvfile,row.names=1)
-  filenames   <- paste0(sampleTable$Run, "_subset.bam")
+  filenames   <- paste0(sampleTable$Run, ".bam")
   file.exists(filenames)
   bamfiles    <- BamFileList(filenames, yieldSize=2000000)
   cat(">>> DONE: read in bam files\n")
@@ -43,7 +42,7 @@ do.load <-function(){
   cat(">>> DONE: seqinfo()\n")
 
   # Make annotation database summerized at gene level
-  gtffile <- file.path(DATA_DIR,"Homo_sapiens.GRCh37.75_subset.gtf")
+  gtffile <- normalizePath("./mm9_genes.gtf")
   txdb    <- makeTxDbFromGFF(gtffile, format="gtf", circ_seqs=character())
   ebg <- exonsBy(txdb, by="gene")
   cat(">>> DONE: annotation import\n")
@@ -52,9 +51,9 @@ do.load <-function(){
   register(SerialParam())
   se <- summarizeOverlaps(features=ebg, reads=bamfiles,
                           mode="Union",
-                          singleEnd=FALSE,
+                          singleEnd=TRUE,
                           ignore.strand=TRUE,
-                          fragments=TRUE )
+                          fragments=FALSE )
   cat(">>> DONE: receive input\n")
   # Extrapolatory analysis of data
   if(EXPRESSIVE){
@@ -233,8 +232,8 @@ do.deseq2.diffexp <- function(DATA){
   }
   topGene <- rownames(resLFC1)[which.min(resLFC1$padj)]
   with(resLFC1[topGene, ], {
-    points(baseMean, log2FoldChange, col="dodgerblue", cex=2, lwd=2)
-    text(baseMean, log2FoldChange, topGene, pos=2, col="dodgerblue")
+    points(res$baseMean, res$log2FoldChange, col="dodgerblue", cex=2, lwd=2)
+    text(res$baseMean, res$log2FoldChange, topGene, pos=2, col="dodgerblue")
   })
 
   # An MA-plot of a test for large log2 fold changes.
@@ -264,13 +263,13 @@ do.deseq2.diffexp <- function(DATA){
   res$symbol <- mapIds(org.Hs.eg.db,
                      keys=row.names(res),
                      column="SYMBOL",
-                     keytype="ENSEMBL",
+                     keytype="SYMBOL",
                      multiVals="first")
 
   res$entrez <- mapIds(org.Hs.eg.db,
                      keys=row.names(res),
                      column="ENTREZID",
-                     keytype="ENSEMBL",
+                     keytype="SYMBOL",
                      multiVals="first")
 
   cat(">>> DONE: annotation results\n")
@@ -290,7 +289,7 @@ do.deseq2.diffexp <- function(DATA){
 
   # Plotting fold changes in genomic space
   resGR <- results(dds, lfcThreshold=1, format="GRanges")
-  resGR$symbol <- mapIds(org.Hs.eg.db, names(resGR), "SYMBOL", "ENSEMBL")
+  resGR$symbol <- mapIds(org.Hs.eg.db, names(resGR), "SYMBOL", "SYMBOL")
   window <- resGR[topGene] + 1e6
   strand(window) <- "*"
   resGRsub <- resGR[resGR %over% window]
@@ -371,7 +370,7 @@ do.deseq2.timecrs <- function(){
 ################### TIMING AND REPORTING ###################################
 ############################################################################
 
-DATA <- do.load(DATA_DIR)
+DATA <- do.load()
 
 DATA <- do.deseq2(DATA)
 
