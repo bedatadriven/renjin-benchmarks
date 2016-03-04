@@ -25,13 +25,11 @@ library(utils)
 library(sqldf)
 
 ## global vars
-DATA_DIR <- file.path(".")
+DATA_DIR <- normalizePath("./")
 
 
 # holder for results
 BENCHMARK <- "igraph"
-RESULTS <- genbench_results(benchmark_name = BENCHMARK, engine_name = ENGINE)
-TIMES <- genbench_timings(benchmark_name = BENCHMARK, engine_name = ENGINE)
 
 #### functions
 
@@ -221,13 +219,13 @@ do.subset <- function(network, node_ids){
 
 }
 
-do.phospho <- function(DATA_DIR, PATH, plot_results=TRUE){
+do.phospho <- function(plot_results=TRUE){
   cat("> START: do.phospho()\n")
   ### construct network, not with random 1%, but with phosphatase/kinase subset
   ## pull annotations for human PPases and kinases from GO, see later for use
-  pk.ids <- read.delim(header=T, file=file.path(DATA_DIR, "pk_pp_9606.txt"))
+  pk.ids <- read.delim(header=T, file="pk_pp_9606.txt")
   # how many of each gene type did we get?
-  if(VERBOSE){cat(table(pk.ids[,c("go_term")]))}
+  cat(table(pk.ids[,c("go_term")]))
   # phosphoprotein phosphatase activity             protein kinase activity
   # 33                                 195
 
@@ -297,7 +295,7 @@ do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
     "&field=MeSH%20Terms&rettype=uilist&retmode=text&retmax=100000"), sep='', collapse=''))
   res <- xmlToList(res)
   res <- as.integer(as.vector(c(res$IdList, recursive=TRUE)))
-  if(VERBOSE){cat(sprintf('%i PMIDS found for term \"%s\"\n',length(res), term))}
+  cat(sprintf('%i PMIDS found for term \"%s\"\n',length(res), term))
 
   ## load edges, subset to retrieved terms and load graph
   edges <- do.load.edges(PATH)
@@ -353,7 +351,7 @@ do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
 
 ### calls
 # download and load basic network
-PATH <- do.download(INPUT, DATA_DIR, DOWNLOAD=DOWNLOAD)
+PATH <- do.download(DATA_DIR)
 network <- do.load(PATH, percentage=10,plot_results = FALSE)
 
 # extract largest component
@@ -361,11 +359,11 @@ network <- do.decompose(network, plot_results = FALSE)
 
 # run cocitation
 network <- do.cocitation(network, plot_results = FALSE)
-head(get.data.frame(network, what = "vertices")[,c( "name", "degree")]))
+head(get.data.frame(network, what = "vertices")[,c( "name", "degree")])
 
 # phospho network
-network <- do.phospho(DATA_DIR, PATH, plot_results = FALSE)
-head(get.data.frame(network, what = "vertices")[,c( "name", "degree")]))
+network <- do.phospho(plot_results = FALSE)
+head(get.data.frame(network, what = "vertices")[,c( "name", "degree")])
 
 
 ## as above using MEsh terms
