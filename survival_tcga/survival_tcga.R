@@ -12,7 +12,7 @@ library(glmnet)
 library(survival)
 
 ##### Set global vars #####
-INPUT <- "tcga_ov.csv"
+INPUT <- "survival_tcga_v1.csv"
 
 # parameters for survival analysis
 params = list();
@@ -28,10 +28,6 @@ params$nalpha  <- length(params$alpha)
 
 ##### Blocks for timing #####
 
-do.load <- function(INPUT){
-  print('Loading all necessary data...')
-  ### import data
-  # read data into data.frames
   temp_dat <- read.csv(INPUT)
   dat <- data.frame( temp_dat[,c(2:(dim(temp_dat)[2]))], row.names = temp_dat[,1] )
   #
@@ -44,11 +40,8 @@ do.load <- function(INPUT){
   xdata     <- dat[,var_arr]
   #
   surv_data <- list(ydata = ydata, xdata=xdata)
-  return(surv_data)
-}
 
-do.calc <- function(surv_data){
-  print('Starting calculation...')
+  cat('Starting calculation...\n')
   #
   alpha_vec  <- array(0,params$nalpha)
   #
@@ -70,19 +63,10 @@ do.calc <- function(surv_data){
     my_results[[mm]] <- item
   }
   alpha_vec  <- params$alpha
-  return( list( my_results=my_results, alphas=alpha_vec))
-}
+  cat("End calculation.\n")
+  res <- list( my_results=my_results, alphas=alpha_vec)
 
-############################################################################
-################### TIMING AND REPORTING ###################################
-############################################################################
-
-## load data and compute matrix
-surv_data <- do.load(INPUT)
-
-results <- do.calc(surv_data)
-
-tail(results)
+  print(str(res))
 
 # final clean up
 rm(list=ls())
