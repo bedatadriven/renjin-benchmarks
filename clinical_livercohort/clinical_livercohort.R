@@ -20,7 +20,7 @@ library(e1071)
 data <- lapply(dir(".", pattern = ".txt$", full.names = TRUE), read.delim, stringsAsFactors=FALSE)
 names(data) <- dir(".", pattern = ".txt$", full.names = FALSE)
 
-file.remove(dir(".", pattern = ".txt$", full.names = TRUE))
+#file.remove(dir(".", pattern = ".txt$", full.names = TRUE))
 
 # check loaded data
 cat(str(data))
@@ -43,6 +43,7 @@ liverdata <- tmp
 
 
 do.svm <- function(liverdata){
+  cat("> START: do.svm()\n")
   ### run some simple predictive modelling on liver cohort clinical data
   # see integration/humanLiverCohort.R for more advanced calculations
 
@@ -59,8 +60,10 @@ do.svm <- function(liverdata){
   model <- svm(x = as.matrix(train[,livercols]), # all liver enzme activiy stats
                y=factor(train$GENDER, levels = c("Male", "Female")),
                scale = TRUE, type = "C")
+  cat(">>> DONE: svm()\n")
   # test model on training set
   pred <- predict(model, as.matrix(train[,livercols]))
+  cat(">>> DONE: predict()\n")
   res <- classAgreement(table(pred, factor(train$GENDER, levels = c("Male", "Female"))))
   results <- append(results,
                     list(data.frame(
@@ -72,6 +75,7 @@ do.svm <- function(liverdata){
 
   # and on the testset
   pred <- predict(model,as.matrix(test[,livercols]))
+  cat(">>> DONE: predict()\n")
   res <- classAgreement(table(pred, test$GENDER))
 
   results <- append(results,
@@ -86,6 +90,7 @@ do.svm <- function(liverdata){
   model <- svm(x = as.matrix(train[,livercols]), # all liver enzme activiy stats
                y=train$`Liver_Triglyceride_(mg_per_dL)`,
                scale = TRUE, type = "eps-regression")
+  cat(">>> DONE: svm()\n")
   # test model on training set
   train$pred <- predict(model, as.matrix(train[,livercols]))
   # and on the testset
@@ -103,6 +108,7 @@ do.svm <- function(liverdata){
                     ))
   )
 
+  cat("> END: do.svm()\n")
   return(do.call("rbind",results))
 
 
