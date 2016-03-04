@@ -16,6 +16,7 @@ library(MASS) # rlm()
 
 ## Blocks for timing
 do.load <-function(){
+  cat("> START: do.load()\n")
 
   ## unzip and load zipped files and remove temp unzipped files
   data <- lapply(dir(".", include.dirs = FALSE), function(zipfile){
@@ -27,6 +28,7 @@ do.load <-function(){
     return(data)
   })
   names(data) <- strtrim(dir(".", include.dirs = FALSE), 11)
+  cat(">>> DONE: unzip&load zip files\n")
 
   ### reformat loaded data
   ## phenotype data
@@ -53,6 +55,7 @@ do.load <-function(){
 
   # overwrite parent dirty data
   data$curatedPhen <- tmp
+  cat(">>> DONE: reformatting and cleaning loaded data\n")
 
   ## expression data
   tmp <- data$curatedExpr$"expression.txt"
@@ -106,6 +109,7 @@ do.load <-function(){
 
   # overwrite uncleaned data
   data$curatedExpr <- tmp$mat
+  cat(">>> DONE: cleanup expression loaded data\n")
 
   ## genotype data
   tmp <- data$curatedGeno$"genotype.txt"
@@ -135,13 +139,16 @@ do.load <-function(){
 
   # overwrite old data
   data$curatedGeno <- tmp$mat
+  cat(">>> DONE: cleanup genotype loaded data\n")
 
   # return cleaned data
+  cat("> END: do.load()\n")
   return(data)
 
 }
 
 do.svm <- function(liverdata){
+  cat("> START: do.svm()\n")
   ### run some simple predictive modelling on liver cohort clinical data
 
   results <- list() # placeholder
@@ -157,8 +164,10 @@ do.svm <- function(liverdata){
   model <- svm(x = as.matrix(train[,livercols]), # all liver enzme activiy stats
                y=factor(train$"AGE_(YRS)" > 50),
                scale = TRUE, type = "C")
+  cat(">>> DONE: svm(liver)\n")
   # test model on training set
   pred <- predict(model, as.matrix(train[,livercols]))
+  cat(">>> DONE: training predict(liver)\n")
   res <- classAgreement(table(pred, factor(train$GENDER, levels = c("Male", "Female"))))
   results <- append(results,
                     list(data.frame(
@@ -170,6 +179,7 @@ do.svm <- function(liverdata){
 
   # and on the testset
   pred <- predict(model,as.matrix(test[,livercols]))
+  cat(">>> DONE: test predict(liver)\n")
   res <- classAgreement(table(pred, test$GENDER))
 
   results <- append(results,
@@ -188,6 +198,7 @@ do.svm <- function(liverdata){
   train$pred <- predict(model, as.matrix(train[,livercols]))
   # and on the testset
   test$pred <- predict(model,as.matrix(test[,livercols]))
+  cat(">>> DONE: svm() and predict() training & test set\n")
   # TODO: calculate error
 
   # return results
@@ -202,12 +213,14 @@ do.svm <- function(liverdata){
                     ))
   )
 
+  cat("> END: do.svm()\n")
   return(do.call("rbind",results))
 
 
 }
 
 do.nb_expr <- function(liverdata){
+  cat("> START: do.nb_expr()\n")
   ### using naive bayes (assumes features are independent) to
   ### build classifier
   ### classification based on groups from liver activity
@@ -241,6 +254,7 @@ do.nb_expr <- function(liverdata){
     ),
     RowSideColors = c("red", "green3", "blue", "black")[cutree(hclust(dist(cor(t(liverdata$curatedPhen[rownames(liverdata$curatedExpr) ,strtrim(names(liverdata$curatedPhen), 3)=="CYP"])))), k = 4)]
     )
+  cat(">>> DONE: classification patient by liver enzyme activity\n")
 
     # combine non-"red" groups into a separate group for classification
     grp <- c("red", "notred", "notred", "notred")[
@@ -270,6 +284,7 @@ do.nb_expr <- function(liverdata){
         )
     )
     ]
+  cat(">>> DONE: binary cat on aldehyde oxide activity\n")
   ## and on overall liver enzyme activity levels
   grps$enz <- c("red", "notred", "notred", "notred")[
     cutree(hclust(dist(cor(t(
@@ -277,6 +292,7 @@ do.nb_expr <- function(liverdata){
                             strtrim(names(liverdata$curatedPhen), 3)=="CYP"]
     )))), k = 4)]
 
+  cat(">>> DONE: overall enzyme activity\n")
   ## split data into test and train
   # set test/train, sampling 1/3 rows as test
   traintest <- rep(TRUE, nrow(liverdata$curatedExpr))
@@ -314,10 +330,12 @@ do.nb_expr <- function(liverdata){
   })
 
   # return results
+  cat("> END: do.nb_expr()\n")
   return(do.call("rbind", unlist(results, recursive = F)))
 }
 
 do.rlm_expr <- function(liverdata){
+  cat("> START: rlm_expr()\n")
 
   #"Expression trait processing. Expression traits were adjusted for age, sex, and medical center. Residuals were computed using rlm function from R statistical package (M-estimation with Tukey's bisquare weights). In examining the distributions of the mean log ratio measures for each expression trait in the HLC set, we noted a high rate of outliers. As a result, we used robust residuals and nonparametric tests to carry out the association analyses in the HLC. For each expression trait, residual values deviating from the median by more than three robust standard deviations were filtered out as outliers."
   # PLOS Biology: Mapping the Genetic Architecture of Gene ...
@@ -454,6 +472,7 @@ do.rlm_expr <- function(liverdata){
   )
 
   # return results
+  cat("> END: rlm_expr()\n")
   return(do.call("rbind",results))
 
 }
@@ -461,15 +480,19 @@ do.rlm_expr <- function(liverdata){
 ### reporting
 # load data
 liverdata <- do.load()
+cat(">\tData loaded.\n")
 
 # some simple predictions on basic data
 do.svm(liverdata)
+cat(">\tPerformed svm.\n")
 
 # can expression data predict a class of liver enzyme activity?
 do.nb_expr(liverdata)
+cat(">\tPerformed nb_expr\n")
 
 # can expression data predict liver enzyme activity?
 do.rlm_expr(liverdata)
+cat(">\tPerformed rlm_expr\n")
 
 # final clean up
 #rm(list=ls())
