@@ -23,13 +23,11 @@ cat("Loading Data: complete\n")
 
 do.dist <- function(input_data){
   ## compute distance matrix
-  print("Calculating Distance Matrix")
+  cat("Calculating Distance Matrix\n")
   # transpose input data to get distances between samples, not features
   # convert pearson correlation to distance (i.e. bound 0-1, 0 is close)
   dist_mat <- as.dist((1-cor(t(input_data), method="pearson"))/2)
-
-  print(tail(dist_mat))
-  print("Calculating Distance Matrix: complete")
+  cat("Calculating Distance Matrix: complete\n")
   return(dist_mat)
 }
 
@@ -89,7 +87,7 @@ do.elbow <- function(df){
 }
 
 do.hc <- function(dist_mat){
-  print("Calculating Hierarchical clustering")
+  cat("Calculating Hierarchical clustering\n")
 
   require(stats)
 
@@ -97,9 +95,9 @@ do.hc <- function(dist_mat){
   res <- hclust(d = dist_mat, method="ward")
 
   # determine clustering statistics (within cluster SS), for a range of 'cuts'
-  print("Calculating Hierarchical clustering: cutting tree")
+  cat("Calculating Hierarchical clustering: cutting tree\n")
   cuts <- lapply(2:25, FUN = function(idx){ # note: 1 cluster => 'Inf' error
-        print(paste("    >", idx, "clusters"))
+        cat(paste("    >", idx, "clusters\n"))
         return(data.frame(
                cluster = idx,
                within_ss = do.within.ss(dist_mat, cutree(res, k=idx))
@@ -113,19 +111,18 @@ do.hc <- function(dist_mat){
   best_cut <- do.elbow(do.call("rbind", cuts)) # 8 according to paper
   res <- cutree(res, best_cut)
   res <- data.frame(id=attr(dist_mat, which = "Labels"), cluster=res)
-  print(tail(res))
-  print("Calculating Hierarchical clustering: complete")
+  cat("Calculating Hierarchical clustering: complete\n")
   return(res)
 }
 
 # kmeans
 do.km <- function(dist_mat){
-  print("Calculating K-means clustering")
+  cat("Calculating K-means clustering\n")
   require(stats)
 
   # kmeans clustering for a range of cluster numbers
   res <- lapply(2:25, FUN = function(i){
-      print(paste("    >", i, "clusters"))
+      cat(paste("    >", i, "clusters\n"))
       kmeans(dist_mat, algorithm="Hartigan-Wong", centers=i)
     }
   )
@@ -140,8 +137,7 @@ do.km <- function(dist_mat){
   best_cut <- do.elbow(do.call("rbind", cuts)) # 8 according to paper
   res <- res[[best_cut]]
   res <- data.frame(id=attr(dist_mat, which = "Labels"), cluster=res$cluster)
-  print(tail(res))
-  print("Calculating K-means clustering: complete")
+  cat("Calculating K-means clustering: complete\n")
   return(res)
 }
 
