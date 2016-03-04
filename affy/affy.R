@@ -336,10 +336,10 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   	#if customCDF option is chosen, apply to copy of Data, in order not to change the original data object
   	Data.copy <- Data
   	if(customCDF){
-  		print ("Change CDF before pre-processing")
+  		cat ("Change CDF before pre-processing\n")
   		Data.copy <- addUpdatedCDFenv(Data.copy, species, CDFtype)
   	}
-  	print ("Pre-processing is running")
+  	cat ("Pre-processing is running\n")
 
     nGroups <- 1
     if(perGroup) {
@@ -660,7 +660,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
       }
 
       if(!is.null(sprep)) {
-        print ("indicators for sample prep controls"  )
+        cat ("indicators for sample prep controls\n"  )
 
         # test for Lys < Phe < Thr < Dap
         t1 <- (sprep[,1]<sprep[,2] & sprep[,2]<sprep[,3]
@@ -717,7 +717,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
 
     if(!is.null(quality)) {
       if(ratio){
-        print ("indicators for beta-actin & GAPDH 3'/5' ratio")
+        cat ("indicators for beta-actin & GAPDH 3'/5' ratio\n")
 
         ratio35_beta <- quality@qc.probes[,1]/quality@qc.probes[,3]
         ratio35_GAPDH <- quality@qc.probes[,4]/quality@qc.probes[,6]
@@ -756,7 +756,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
       }
 
       if(hybrid){
-        print ("indicators for spike-in hybridization controls"  )
+        cat ("indicators for spike-in hybridization controls\n"  )
 
         # test for BioB < BioC < BioD < CreX
         t1 <- (quality@spikes[,1]<quality@spikes[,2]
@@ -795,7 +795,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
       }
 
       if(percPres){
-        print ("indicators for percent present"  )
+        cat ("indicators for percent present\n"  )
 
   		# Define the reference (it should minimize the number of outliers)
   		ppMin <- min(quality@percent.present)
@@ -840,7 +840,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
       }
 
       if(bgPlot){
-        print ("indicators for background intensities"  )
+        cat ("indicators for background intensities\n"  )
 
   		# Define the reference for the grey rectangle (it should minimize the number of outliers)
   		bgMean<-mean(quality@average.background)
@@ -884,7 +884,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
       }
 
   	if(scaleFact){
-  		  print ("indicators for scale factors")
+  		  cat ("indicators for scale factors\n")
   		# Define the reference for the grey rectangle (it should minimize the number of outliers)
   		sfMin <- min(log2(quality@scale.factors))
   		sfMax <- max(log2(quality@scale.factors))
@@ -2540,7 +2540,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
 
   if(!exists("rawData")) { # this is the case when the script is run locally
     rawData <- ReadAffy()
-    print("Raw data have been loaded in R")
+    cat("Raw data have been loaded in R\n")
   }
   # if(!exists("libdir")) { # libdir exists only for GenePattern usage
   #   setwd(SCRIPT.DIR)
@@ -2683,13 +2683,13 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   # Raw data Quality Control graphs                                             #
   ###############################################################################
 
-  print("Graphs ready to be computed")
+  cat("Graphs ready to be computed\n")
 
   # 1.1 Sample prep controls
   #-------------------------
 
   if(affyPARAM$samplePrep && !is.null(sprep) && !is.null(lys)) {
-    print ("   plot sample prep controls"  )
+    cat ("   plot sample prep controls\n"  )
     samplePrepPlot(rawData,sprep,lys,plotColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2698,7 +2698,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #----------------------------------------
 
   if(affyPARAM$ratio && !is.null(quality)) {
-    print ("   plot beta-actin & GAPDH 3'/5' ratio")
+    cat ("   plot beta-actin & GAPDH 3'/5' ratio\n")
     ratioPlot(rawData,quality=quality,experimentFactor,plotColors,legendColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2707,7 +2707,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-------------------------
 
   if(affyPARAM$degPlot) {
-    print ("   plot degradation plot"  )
+    cat ("   plot degradation plot\n"  )
     RNAdegPlot(rawData,plotColors=plotColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2717,7 +2717,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #----------------------------------------------
 
   if(affyPARAM$hybrid && !is.null(quality)) {
-    print ("   plot spike-in hybridization controls"  )
+    cat ("   plot spike-in hybridization controls\n"  )
     hybridPlot(rawData,quality=quality,plotColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2726,7 +2726,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #---------------------------------------------------
 
   if(affyPARAM$bgPlot && !is.null(quality)) {
-    print ("   plot background intensities"  )
+    cat ("   plot background intensities\n"  )
     backgroundPlot(rawData,quality=quality,experimentFactor,plotColors,legendColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2735,7 +2735,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #---------------------------------------------
 
   if(affyPARAM$percPres && !is.null(quality)) {
-    print ("   plot percent present"  )
+    cat ("   plot percent present\n"  )
     percPresPlot(rawData,quality=quality,experimentFactor,plotColors,legendColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2768,7 +2768,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-------------------------------------
 
   if(affyPARAM$posnegDistrib) {
-    print ("   plot pos & neg control distribution"  )
+    cat ("   plot pos & neg control distribution\n"  )
     PNdistrPlot(rawData,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE)
   }
@@ -2777,7 +2777,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #--------------------------------------
 
   if(affyPARAM$controlPlot) {
-    print ("   plot control profiles and/or boxplots")
+    cat ("   plot control profiles and/or boxplots\n")
     controlPlots(rawData,plotColors,experimentFactor,legendColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2787,7 +2787,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-------------------------------------------
 
   if(affyPARAM$scaleFact && !is.null(quality)) {
-    print ("   plot scale factors")
+    cat ("   plot scale factors\n")
     scaleFactPlot(rawData,quality=quality,experimentFactor,plotColors,
        legendColors,WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,
   	 MAXARRAY=maxArray)
@@ -2797,7 +2797,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-------------------------------------
 
   if(affyPARAM$boxplotRaw){
-    print ("   plot boxplot for raw intensities")
+    cat ("   plot boxplot for raw intensities\n")
     boxplotFun(Data=rawData, experimentFactor, plotColors, legendColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2806,7 +2806,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-----------------------------------------------
 
   if(affyPARAM$densityRaw){
-    print ("   plot density histogram for raw intensities")
+    cat ("   plot density histogram for raw intensities\n")
     densityFun(Data=rawData, plotColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
     #densityFunUnsmoothed(Data=rawData, plotColors,
@@ -2817,7 +2817,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #--------------------------
 
   if(affyPARAM$MARaw){
-    print ("   MA-plots for raw intensities")
+    cat ("   MA-plots for raw intensities\n")
     if(!exists("MAOtion1")) MAOption1 <- affyPARAM$MAOption1
     maFun(Data=rawData, experimentFactor, perGroup=(MAOption1=="group"),
        aType=aType,WIDTH=WIDTH,HEIGHT=HEIGHT,MAXARRAY=maxArray)
@@ -2827,7 +2827,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-------------------------------
 
   if(affyPARAM$layoutPlot) {
-    print ("   plot array reference layout")
+    cat ("   plot array reference layout\n")
     plotArrayLayout(rawData,aType,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE)
   }
@@ -2836,7 +2836,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-----------------------------------
 
   if(affyPARAM$posnegCOI){
-    print ("   Pos/Neg COI")
+    cat ("   Pos/Neg COI\n")
     PNposPlot(rawData,WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE)
   }
 
@@ -2846,7 +2846,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   # fit a probe level model on the raw data, used by nuse and rle plot as well
     rawData.pset <- NULL
     if(affyPARAM$spatialImage || affyPARAM$PLMimage || affyPARAM$Nuse || affyPARAM$Rle) {
-    print ("   Fit a probe level model (PLM) on the raw data")
+    cat ("   Fit a probe level model (PLM) on the raw data\n")
       rawData.pset <- fitPLM(rawData)
     }
 
@@ -2855,12 +2855,12 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #---------------------
 
   if(affyPARAM$spatialImage) {
-    print ("   2D virtual images")
+    cat ("   2D virtual images\n")
     valtry<-try(spatialImages(rawData, Data.pset=rawData.pset, TRUE,FALSE,FALSE,FALSE,
   	          WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE),
   		      silent=TRUE)
     if(class(valtry)=="try-error") {
-  	print("      Use array.image instead of spatialImages function")
+  	cat("      Use array.image instead of spatialImages function\n")
   	if(length(sampleNames(rawData))>6){
   		# Usage of a median array is interesting when there are enough arrays
   		array.image(rawData,WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE)
@@ -2876,12 +2876,12 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #---------------------
 
   if(affyPARAM$PLMimage) {
-    print ("   Complete set of 2D PLM images")
+    cat ("   Complete set of 2D PLM images\n")
     valtry<-try(spatialImages(rawData, Data.pset=rawData.pset, TRUE, TRUE, TRUE, TRUE,
   	            WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray),
   				silent=TRUE)
     if(class(valtry)=="try-error") {
-  	print("      Could not create the PLM images.")
+  	cat("      Could not create the PLM images.\n")
     }
   }
 
@@ -2889,7 +2889,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-----------
 
   if(affyPARAM$Nuse){
-    print ("   NUSE boxplot")
+    cat ("   NUSE boxplot\n")
     nuseFun(rawData, Data.pset=rawData.pset, experimentFactor, plotColors,
        legendColors,WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,
   	 MAXARRAY=maxArray)
@@ -2899,7 +2899,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #----------
 
   if(affyPARAM$Rle){
-    print ("   RLE boxplot")
+    cat ("   RLE boxplot\n")
     rleFun(rawData, Data.pset=rawData.pset, experimentFactor, plotColors,
        legendColors,WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,
   	 MAXARRAY=maxArray)
@@ -2910,7 +2910,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #----------------------------------
 
   if(affyPARAM$correlRaw){
-    print ("   Correlation plot of raw data")
+    cat ("   Correlation plot of raw data\n")
     correlFun(Data=rawData, experimentFactor=experimentFactor, legendColors=legendColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
   }
@@ -2919,7 +2919,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-----------------------------
 
   if(affyPARAM$PCARaw){
-    print("   PCA analysis of raw data")
+    cat("   PCA analysis of raw data\n")
     pcaFun(Data=rawData, experimentFactor=experimentFactor,
   	plotColors=plotColors, legendColors=legendColors, plotSymbols=plotSymbols,
   	legendSymbols=legendSymbols, namesInPlot=((max(nchar(sampleNames(rawData)))<=10)&&
@@ -2931,7 +2931,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-----------------------------------------
 
   if(affyPARAM$clusterRaw){
-    print ("   Hierarchical clustering of raw data")
+    cat ("   Hierarchical clustering of raw data\n")
     clusterFun(Data=rawData, experimentFactor=experimentFactor,
      clusterOption1=affyPARAM$clusterOption1, clusterOption2=affyPARAM$clusterOption2,
      plotColors=plotColors, legendColors=legendColors,
@@ -2992,7 +2992,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-------------------------------------------
 
     if(affyPARAM$boxplotNorm){
-      print ("   plot boxplot for normalized intensities")
+      cat ("   plot boxplot for normalized intensities\n")
       boxplotFun(Data=normData, experimentFactor, plotColors, legendColors,
   	  normMeth=affyPARAM$normMeth,WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,
   	  MAXARRAY=maxArray)
@@ -3002,7 +3002,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #----------------------------------------------------
 
     if(affyPARAM$densityNorm){
-      print ("   plot density histogram for normalized intensities")
+      cat ("   plot density histogram for normalized intensities\n")
       densityFun(Data=normData, plotColors, normMeth=affyPARAM$normMeth,
         WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
       #densityFunUnsmoothed(Data=normData, plotColors, normMeth=normMeth,
@@ -3013,7 +3013,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #-------------------------------------------------------------
 
     if(affyPARAM$MANorm){
-      print ("   MA-plots for normalized intensities")
+      cat ("   MA-plots for normalized intensities\n")
       if(!exists("MAOtion1")) MAOption1 <- affyPARAM$MAOption1
       maFun(Data=normData, experimentFactor, perGroup=(MAOption1=="group"),
   	 normMeth=affyPARAM$normMeth,WIDTH=WIDTH,HEIGHT=HEIGHT,MAXARRAY=maxArray)
@@ -3023,7 +3023,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #----------------------------------------------
 
     if(affyPARAM$correlNorm){
-      print ("   Correlation plot of normalized data")
+      cat ("   Correlation plot of normalized data\n")
       correlFun(Data=normData, normMeth=affyPARAM$normMeth, experimentFactor=experimentFactor, legendColors=legendColors,
        WIDTH=WIDTH,HEIGHT=HEIGHT,POINTSIZE=POINTSIZE,MAXARRAY=maxArray)
     }
@@ -3032,7 +3032,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   # -----------------------------------
 
     if(affyPARAM$PCANorm){
-      print("   PCA graph for normalized data")
+      cat("   PCA graph for normalized data\n")
       pcaFun(Data=normData, experimentFactor=experimentFactor,normMeth=affyPARAM$normMeth,
   	  plotColors=plotColors, legendColors=legendColors, plotSymbols=plotSymbols,
   	  legendSymbols=legendSymbols, namesInPlot=((max(nchar(sampleNames(rawData)))<=10)&&
@@ -3044,7 +3044,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   #----------------------------------------------------
 
     if(affyPARAM$clusterNorm){
-      print ("   Hierarchical clustering of normalized data")
+      cat ("   Hierarchical clustering of normalized data\n")
       clusterFun(Data=normData, experimentFactor=experimentFactor,
       clusterOption1=affyPARAM$clusterOption1, clusterOption2=affyPARAM$clusterOption2,
       normMeth=affyPARAM$normMeth, plotColors = plotColors, legendColors = legendColors,
@@ -3062,15 +3062,15 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
   if((affyPARAM$normMeth=="") || (affyPARAM$normMeth=="none")) {
     warning("No normalization selected, normalized data table not saved")
   } else {
-    print("Saving normalized data table")
+    cat("Saving normalized data table\n")
 
     normDataTable <- createNormDataTable(normData, customCDF=(sum(featureNames(normData)!=featureNames(rawData)[1:length(featureNames(normData))])>0), affyPARAM$species, affyPARAM$CDFtype)
 
     #output normalised expression data to file
     refName <- sub("(_\\d{4}-\\d{2}-\\d{2}_\\d{2}-\\d{2}_\\d{2})", "", refName)
     normFileName <- paste(affyPARAM$normMeth,"NormData_",refName,".txt",sep="")
-    print(paste("Normalized data table:", normFileName))
-    write.table(normDataTable, normFileName, sep="\t", row.names=FALSE, col.names=TRUE, quote=FALSE)
+    cat(paste0("Normalized data table: ", normFileName,"\n"))
+    write.table(normDataTable, file=normFileName, sep="\t", row.names=FALSE, col.names=TRUE, quote=FALSE)
   }
 
   # clean R: (or quit without saving the environment...)
