@@ -17,15 +17,20 @@ do.load <- function(){
 }
 
 do.analyse <- function(DATA){
+  cat("> START: do.analyse()\n")
   # Performs calculations and plotting
   pat.gene <- DATA
   m.surv <- Surv(pat.gene$pfs_days, pat.gene$pfs)
+  cat(">>> DONE: Surv()\n")
   sdf <- survdiff(m.surv ~ pat.gene$gene2)
+  cat(">>> DONE: survdiff()\n")
   p.val <- 1 - pchisq(sdf$chisq, length(sdf$n) - 1)
 
   survplot <- survfit(Surv(pfs_days, pfs) ~ gene2, data = pat.gene)
+  cat(">>> DONE: survfit()\n")
   half <- summary(survplot)$table[,"median"]
   print(half)
+  cat("> END: do.analyse()\n")
 
 }
 
@@ -36,4 +41,8 @@ do.analyse <- function(DATA){
 DATA <- do.load()
 
 
-do.analyse(DATA)
+res <- do.analyse(DATA)
+
+cat("print(str(res)):\n")
+print(str(res))
+cat("-------------end file ---------\n")
