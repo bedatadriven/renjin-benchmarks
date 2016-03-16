@@ -13,7 +13,9 @@ set.seed(8008)
 library(stats)
 library(e1071)
 library(MASS) # rlm()
-
+library(rlogging)
+SetLogFile("run.log")
+options(warn=-1)
 ## Blocks for timing
 do.load <-function(){
   cat("> START: do.load()\n")

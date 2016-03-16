@@ -33,7 +33,9 @@ library(ggvis)
 library(RColorBrewer)
 library(DT)
 library(jsonlite)
-
+library(rlogging)
+SetLogFile("run.log")
+options(warn=-1)
 cat("\nLoaded all libraries.....\n") #DEBUG
 
 ##### Set global vars #####

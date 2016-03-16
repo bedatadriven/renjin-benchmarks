@@ -15,7 +15,9 @@ library(Biobase)
 library(affy) # reading and normalising microarray data
 library(hgu133plus2cdf) # platform annotations
 library(limma) # differential expression
-
+library(rlogging)
+SetLogFile("run.log")
+options(warn=-1)
 ## global vars
 DATA_DIR <- normalizePath("./")
 INPUT <- normalizePath("./GSE45417_RAW.tar")

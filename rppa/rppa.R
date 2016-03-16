@@ -5,6 +5,9 @@
 set.seed(8008)
 ## packages
 require(stats)
+library(rlogging)
+SetLogFile("run.log")
+options(warn=-1)
 #require(rjson)
 ## global vars
 rppa <- read.csv("./data_20160126_rppa.csv", header=T, stringsAsFactors=F,

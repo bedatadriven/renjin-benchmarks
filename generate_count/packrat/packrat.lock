@@ -12,6 +12,15 @@ Source: Bioconductor
 Version: 1.20.1
 Hash: 05e58e37e4e2af35c9ba9eb4ee1839e4
 
+Package: rlogging
+Source: github
+Version: 1.1
+Hash: 6cdc892fce20ce74724db2baf9dea568
+GithubRepo: rlogging
+GithubUsername: mjkallen
+GithubRef: master
+GithubSha1: 1259045e7070b64908ebf8626c4bb22f5950d772
+
 Package: DBI
 Source: CRAN
 Version: 0.3.1

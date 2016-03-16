@@ -13,6 +13,15 @@ Version: 1.32.3
 Hash: 2a255186631c31cc7826617da632489e
 Requires: Biobase, BiocGenerics, DBI, IRanges, RSQLite, S4Vectors
 
+Package: rlogging
+Source: github
+Version: 1.1
+Hash: 6cdc892fce20ce74724db2baf9dea568
+GithubRepo: rlogging
+GithubUsername: mjkallen
+GithubRef: master
+GithubSha1: 1259045e7070b64908ebf8626c4bb22f5950d772
+
 Package: BH
 Source: CRAN
 Version: 1.60.0-1

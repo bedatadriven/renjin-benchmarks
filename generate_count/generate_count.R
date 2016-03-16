@@ -9,7 +9,10 @@ library(GenomicRanges)
 library(IRanges)
 library(Rsamtools)
 library(parallel)
-
+library(rlogging)
+SetLogFile("run.log")
+options(warn=-1)
+cat(">\tLoaded libraries...\n")
 # Set options and variables
 options( srapply_fapply = "parallel", mc.cores = detectCores() )
 annotation_file <- 'mm9_genes.gtf'

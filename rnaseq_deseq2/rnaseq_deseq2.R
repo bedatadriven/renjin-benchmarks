@@ -23,7 +23,9 @@ library("Gviz")
 library("fission")
 library("sva")
 library("fission")
-
+library(rlogging)
+SetLogFile("run.log")
+options(warn=-1)
 ##### Set global vars #####
 files <- list.files(path = ".", pattern = "txt$")
 EXPRESSIVE <- TRUE

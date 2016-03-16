@@ -23,7 +23,9 @@ library(plyr)
 library(reshape)
 library(utils)
 library(sqldf)
-
+library(rlogging)
+SetLogFile("run.log")
+options(warn=-1)
 ## global vars
 DATA_DIR <- normalizePath("./")
 
