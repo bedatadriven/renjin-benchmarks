@@ -3,5 +3,5 @@ b <- a^1000
 
 # Do something with result to ensure that
 # Renjin doesn't optimize away the operation
-print(sum(colMeans(b))
+print(sum(colMeans(b)))
 
