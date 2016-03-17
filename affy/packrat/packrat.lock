@@ -72,6 +72,12 @@ Version: 1.95-4.7
 Hash: 7756ed9df5d79ca87bc9e93f85d89b87
 Requires: bitops
 
+Package: RMySQL
+Source: CRAN
+Version: 0.10.8
+Hash: 2f393aa7862c60301ac5d70daf72730d
+Requires: DBI
+
 Package: RSQLite
 Source: CRAN
 Version: 1.0.0
@@ -171,6 +177,11 @@ Source: CRAN
 Version: 1.17.1
 Hash: 97cb6f6293cd18d17df77a6383cc6763
 Requires: bitops
+
+Package: digest
+Source: CRAN
+Version: 0.6.9
+Hash: fd55d5a024f160fc001a5ece1e27782d
 
 Package: gcrma
 Source: Bioconductor

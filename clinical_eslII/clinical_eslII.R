@@ -16,9 +16,6 @@ library(lasso2)
 library(mda)
 library(leaps)
 #library(survival)
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 ## global vars
 ## Timings blocks
 do.load <- function(){

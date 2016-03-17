@@ -23,9 +23,6 @@ library("Gviz")
 library("fission")
 library("sva")
 library("fission")
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 ##### Set global vars #####
 files <- list.files(path = ".", pattern = "txt$")
 EXPRESSIVE <- TRUE
@@ -200,7 +197,7 @@ do.deseq2.diffexp <- function(DATA){
 #     head(resSig[ order(resSig$log2FoldChange), ])
 #     head(resSig[ order(resSig$log2FoldChange, decreasing=TRUE), ])
 #  }
-   
+
   cat(">>> DONE: diff expr pipeline\n")
 
    ## Plotting results

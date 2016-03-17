@@ -13,9 +13,6 @@ set.seed(8008)
 library(stats)
 library(e1071)
 library(MASS) # rlm()
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 ## Blocks for timing
 do.load <-function(){
   cat("> START: do.load()\n")
@@ -230,7 +227,7 @@ do.nb_expr <- function(liverdata){
   results <- list() # placeholder
 
   ## build categorical classification of patients based on liver enzyme activities
-  
+
     ### explore potential groups of patients
     # feature correlations?
     heatmap(cor(
@@ -273,7 +270,7 @@ do.nb_expr <- function(liverdata){
     # also try to use classification targets as in paper (PLOS Biology: Mapping the Genetic Architecture of Gene ...)
     # top quartile of aldehyde activity
 
-  
+
 
   ## binary category based on aldehyde oxydase activity
   grps <- list()
@@ -365,7 +362,7 @@ do.rlm_expr <- function(liverdata){
     # clear split between variable and non variable features
     plot(feats, rank(feats), col=factor(rank(feats) > ncol(train) - 50))
     # proceed with top variable features
-  
+
   feats <- (rank(feats) > (ncol(train) - 50))
   # exclude any exact linear combinations of variables (singularity causes rlm to fail)
   # see: http://stats.stackexchange.com/questions/70899/what-correlation-makes-a-matrix-singular-and-what-are-implications-of-singularit
@@ -373,7 +370,7 @@ do.rlm_expr <- function(liverdata){
 
     # make sure determinant is higher than 0
     det(cor(train[,feats]))
-  
+
 
   ## train model against triglyceride data
   # do training
@@ -415,7 +412,7 @@ do.rlm_expr <- function(liverdata){
   for(i in 1:50){
 
       cat(sprintf("starting iteration %i for rlm()\n", i))
-    
+
     feats <- apply(train, MARGIN = 2, var)
     feats <- (rank(feats) > (ncol(train) - 1000)) # start from top 1000 by variablility
     subfeats <- 1:length(feats)
@@ -426,7 +423,7 @@ do.rlm_expr <- function(liverdata){
 
       # make sure determinant is higher than 0
       det(cor(train[,subfeats]))
-    
+
 
     ## train model against triglyceride data
     # do training with ERROR HANDLING
@@ -443,7 +440,7 @@ do.rlm_expr <- function(liverdata){
     if(inherits(possibleError, "error")){
 
         cat(sprintf("\titeration %i failed to converge\n", i))
-      
+
       next
     }
 

@@ -53,6 +53,11 @@ Source: CRAN
 Version: 0.9.5
 Hash: 03562aad7537914f516bd67e9bba28b1
 
+Package: digest
+Source: CRAN
+Version: 0.6.9
+Hash: fd55d5a024f160fc001a5ece1e27782d
+
 Package: hamcrest
 Source: github
 Version: 1.0
@@ -61,16 +66,6 @@ GithubRepo: hamcrest
 GithubUsername: bedatadriven
 GithubRef: master
 GithubSha1: 4f8212ac2b2c8ba09070f55edddbbeec0d0f3eba
-
-Package: digest
-Source: CRAN
-Version: 0.6.9
-Hash: fd55d5a024f160fc001a5ece1e27782d
-
-Package: withr
-Source: CRAN
-Version: 1.0.1
-Hash: e3d37838719e5d66652364e2aefebcee
 
 Package: lars
 Source: CRAN
@@ -100,13 +95,18 @@ Hash: a45279bfa854d92ccc30bc87ca7469f3
 Package: packrat
 Source: github
 Version: 0.4.6-9
+Hash: b34872d6ae7c3b4d3191490e4c3d384b
 GithubRepo: packrat
 GithubUsername: rstudio
 GithubRef: master
 GithubSha1: dfa32291eb8ae9fad2868d0fc1ffd5516aa3a402
-Hash: b34872d6ae7c3b4d3191490e4c3d384b
 
 Package: survival
 Source: CRAN
 Version: 2.38-3
 Hash: 31d55260e9a6a6ecbc001e2dfafaad43
+
+Package: withr
+Source: CRAN
+Version: 1.0.1
+Hash: e3d37838719e5d66652364e2aefebcee

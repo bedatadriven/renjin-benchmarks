@@ -33,13 +33,10 @@ library(ggvis)
 library(RColorBrewer)
 library(DT)
 library(jsonlite)
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 cat("\nLoaded all libraries.....\n") #DEBUG
 
 ##### Set global vars #####
-DATA_DIR <- file.path(".")
+DATA_DIR <- normalizePath(".")
 files = list.files(path = DATA_DIR, pattern = "txt$")
 
 ##### Functions #####

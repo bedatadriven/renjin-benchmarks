@@ -7,9 +7,6 @@ set.seed(1000)
 
 ##### loading packages #####
 library(survival)
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 ##### Set global vars #####
 files = list.files(path = ".", pattern = "txt$")
 

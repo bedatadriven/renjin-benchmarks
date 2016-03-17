@@ -10,9 +10,6 @@ set.seed(8008)
 ##### loading packages #####
 library(glmnet)
 library(survival)
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 ##### Set global vars #####
 INPUT <- "survival_tcga_v1.csv"
 

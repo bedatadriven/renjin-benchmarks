@@ -9,9 +9,6 @@ set.seed(8008)
 library(biclust)
 library(s4vd)
 library(irlba)
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 # data collection
 NGENES <- "500"
 NPATIENTS <- "500"

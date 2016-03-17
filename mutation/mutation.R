@@ -11,9 +11,6 @@ set.seed(8008)
 ## packages
 library(stats)
 library(utils)
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 ## general
 do.unpack <- function(){
   cat("> Start: do.unpack()\n")

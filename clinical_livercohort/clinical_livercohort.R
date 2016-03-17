@@ -13,9 +13,6 @@ set.seed(8008)
 ## packages
 # CRAN
 library(e1071)
-library(rlogging)
-SetLogFile("run.log")
-options(warn=-1)
 ## Blocks for timing
 
 
