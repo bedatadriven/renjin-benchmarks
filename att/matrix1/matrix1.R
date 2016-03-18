@@ -6,3 +6,5 @@ a <- t(b)
 # Ensure that the result is actually used to ensure
 # that Renjin doesn't optimize away the result
 print(sum(colMeans(a)))
+
+
