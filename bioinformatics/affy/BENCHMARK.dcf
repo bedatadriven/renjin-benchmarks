@@ -1,5 +1,5 @@
-name: affy
-description: affymatrix microarray analysis workflow
+Name: affy
+Description: affymatrix microarray analysis workflow
 
 File:GSM1103973_VEH_VEH1.CEL.gz
 Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103973_VEH_VEH1.CEL.gz

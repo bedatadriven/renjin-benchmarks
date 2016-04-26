@@ -1,5 +1,9 @@
-# Parham Solaimani parham@bedatadriven.com
-# Test-case workflow for analysis of Affymatrix microarry data developed by http://www.arrayanalysis.org
+#
+# Copyright (c) 2015 .arrayanalysis.org
+# based on code from http://www.arrayanalysis.org/affyQC/doc_affyQC_R.php
+# Copyright (c) 2016 BeDataDriven B.V.
+# License: http://www.apache.org/licenses/LICENSE-2.0 Apache License version 2.0
+#
 
 ##### set up session #####
 #rm(list=ls())
@@ -2116,7 +2120,7 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
 
   # alternative function to plot virtual arrays when PLM cannot be run (when > 6 arrays)
   #-------------------------------------------------------------------------------------
-  array.image<-function(Data, pcut=NULL, relative=TRUE, symm=relative,
+  array.image <- function(Data, pcut=NULL, relative=TRUE, symm=relative,
      balance=relative,quantitative=relative,col.mod=1,postfix="",arrays=NULL,
      WIDTH=1000, HEIGHT=1414, POINTSIZE=24){
 
@@ -3072,15 +3076,5 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
     write.table(normDataTable, file=normFileName, sep="\t", row.names=FALSE, col.names=TRUE, quote=FALSE)
   }
 
-  # clean R: (or quit without saving the environment...)
-  # rm(list = ls())
-
-
-
-############################################################################
-################### TIMING AND REPORTING ###################################
-
-# final clean up
-#cat("\nrm(list=ls()).....\n") #DEBUG
 #rm(list=ls())
 #gc()
