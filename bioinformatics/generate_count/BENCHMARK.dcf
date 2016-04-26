@@ -1,5 +1,5 @@
-name: generate_counts
-description: generate counts from mapped sequencing data (bam)
+Name: generate_counts
+Description: generate counts from mapped sequencing data (bam)
 
 File:D2Q2.bam
 Source:https://storage.googleapis.com/benchmarkr/generate_counts/D2Q2.bam

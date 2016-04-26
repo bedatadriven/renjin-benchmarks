@@ -1,22 +1,25 @@
-
+#
+# Copyright (c) 2015-2016 BeDataDriven B.V.
+# License: https://opensource.org/licenses/Artistic-2.0 Artistic-2.0
+#
+#
 ##### set up session #####
 #rm(list=ls())
 set.seed(1000)
 
 # Load used libraries
+cat(">\tLoading libraries...\n")
 library(BiocGenerics)
 library(GenomicRanges)
 library(IRanges)
 library(Rsamtools)
 library(parallel)
-cat(">\tLoaded libraries...\n")
 # Set options and variables
 options( srapply_fapply = "parallel", mc.cores = detectCores() )
-annotation_file <- 'mm9_genes.gtf'
 bamfiles <- c( 'D2Q2.bam', 'D2Q3.bam','D3Q2.bam', 'D3Q3.bam' )
 
 # Read in annotation
-annotation <- read.table( annotation_file, sep = '\t', header = FALSE )
+annotation <- read.table( 'mm9_genes.gtf', sep = '\t', header = FALSE )
 
 # use only exon coordinates
 annotation <- annotation[ which( annotation[,3] == 'exon' ), ]
@@ -31,6 +34,10 @@ exons <- lapply(
 	ann = annotation
 	)
 names(exons) <- unique(annotation[,1])
+
+
+
+
 
 # removed chrX_random chromosomes
 exons$chr1_random <- NULL
