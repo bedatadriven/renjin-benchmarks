@@ -1,5 +1,5 @@
-name: clinical_livercohort
-description: some simple predictive modelling on liver cohort clinical data
+Name: clinical_livercohort
+Description: some simple predictive modelling on liver cohort clinical data
 
 File:features.txt
 Source:https://storage.googleapis.com/renjin-benchmarks/features.txt
