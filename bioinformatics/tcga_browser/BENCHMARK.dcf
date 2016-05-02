@@ -1,5 +1,5 @@
-name: levesque
-description: Test-case workflow for TCGA Browser Shiny app which is developed in Mitch Levesque lab by Phil Cheng
+Name: TCGA browser
+description: Test-case workflow for TCGA Browser Shiny app which is developed by Phil Cheng
 
 File:9606__protein_aliases_tf.tsv.gz
 Source:https://storage.googleapis.com/renjin-benchmarks/9606__protein_aliases_tf.tsv.gz
