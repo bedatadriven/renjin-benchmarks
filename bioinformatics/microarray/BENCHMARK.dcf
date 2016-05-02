@@ -1,5 +1,5 @@
-name: microarray
-description: microarray differential expression analysis with limma
+Name: microarray
+Description: microarray differential expression analysis with limma
 
 File:https://storage.googleapis.com/renjin-benchmarks/GSE45417_RAW.tar
 Source:GSE45417_RAW.tar

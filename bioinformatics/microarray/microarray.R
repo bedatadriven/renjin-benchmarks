@@ -1,14 +1,16 @@
-# microarray differential expression analysis with limma
-# ieuan.clay@gmail.com
-# April 2015
-
-### code based on examples found the limma user guide:
-# http://www.bioconductor.org/packages/release/bioc/html/limma.html
+# Copyright (c) 2005 Gordon Smyth
+# based on http://www.bioconductor.org/packages/release/bioc/html/limma.html
+# Copyright (c) 2015 Ieuan Clay
+# based on code from https://github.com/biolion/genbench
+# Copyright (c) 2015-2016 BeDataDriven B.V.
+# License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
+#
 
 ### set up session
 rm(list=ls())
 # reproducibility
 set.seed(8008)
+DEBUGGING <- FALSE
 
 ## (bioconductor) packages
 library(Biobase)
