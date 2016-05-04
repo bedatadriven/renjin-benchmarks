@@ -1,10 +1,12 @@
-# Code by Parham Solaimani
-# Test-case workflow for TCGA Browser Shiny app which is developed in Mitch Levesque lab by Phil Cheng
-# Analysis code provided by Phil Cheng.
+#
+# Copyright (c) 2015 Phil Cheng
+# Copyright (c) 2016 BeDataDriven B.V.
+# License: ...
+#
 
 ##### set up session #####
 set.seed(1000)
-
+DEBUGGING <- FALSE
 ##### loading packages #####
 library(survival)
 ##### Set global vars #####
@@ -16,20 +18,20 @@ do.load <- function(){
 }
 
 do.analyse <- function(DATA){
-  cat("> START: do.analyse()\n")
+  if (DEBUGGING) cat("> START: do.analyse()\n")
   # Performs calculations and plotting
   pat.gene <- DATA
   m.surv <- Surv(pat.gene$pfs_days, pat.gene$pfs)
-  cat(">>> DONE: Surv()\n")
+  if (DEBUGGING) cat(">>> DONE: Surv()\n")
   sdf <- survdiff(m.surv ~ pat.gene$gene2)
-  cat(">>> DONE: survdiff()\n")
+  if (DEBUGGING) cat(">>> DONE: survdiff()\n")
   p.val <- 1 - pchisq(sdf$chisq, length(sdf$n) - 1)
 
   survplot <- survfit(Surv(pfs_days, pfs) ~ gene2, data = pat.gene)
-  cat(">>> DONE: survfit()\n")
+  if (DEBUGGING) cat(">>> DONE: survfit()\n")
   half <- summary(survplot)$table[,"median"]
   print(half)
-  cat("> END: do.analyse()\n")
+  if (DEBUGGING) cat("> END: do.analyse()\n")
 
 }
 
@@ -42,6 +44,6 @@ DATA <- do.load()
 
 res <- do.analyse(DATA)
 
-cat("print(str(res)):\n")
-print(str(res))
-cat("-------------end file ---------\n")
+if (DEBUGGING) cat("print(str(res)):\n")
+if (DEBUGGING) print(str(res))
+if (DEBUGGING) cat("-------------end file ---------\n")

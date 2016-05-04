@@ -1,5 +1,5 @@
-name: survival_simple
-description: ...
+Name: survival_simple
+Description: ...
 
 File:pat.gene.rda
 Source:https://storage.googleapis.com/renjin-benchmarks/pat.gene.rda
