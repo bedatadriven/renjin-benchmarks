@@ -1,5 +1,5 @@
-name: survival_tcga
-description: survival analysis on tcga data
+Name: survival_tcga
+Description: survival analysis on tcga data
 
 File:survival_tcga_v1.csv
 Source:https://storage.googleapis.com/renjin-benchmarks/survival_tcga_v1.csv

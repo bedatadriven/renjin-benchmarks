@@ -1,6 +1,9 @@
-# Survival analysis
-# andre.verissimo@tecnico.ulisboa.pt
-# November 2015
+#
+# Copyright (c) 2015 Andre Verissimo (andre.verissimo@tecnico.ulisboa.pt)
+# Copyright (c) 2016 BeDataDriven B.V.
+# License: ...
+#
+## Survival analysis
 
 ##### set up session #####
 rm(list=ls())
@@ -15,7 +18,7 @@ INPUT <- "survival_tcga_v1.csv"
 
 # parameters for survival analysis
 params = list();
-params$nlambda <- 10000 # number of diferent lambdas to be tested
+params$nlambda <- 10000 # number of different lambdas to be tested
 #
 # commented out as they are not being used
 #params$lam_max <- 1e-7
@@ -27,11 +30,9 @@ params$nalpha  <- length(params$alpha)
 
 ##### Blocks for timing #####
 
-  temp_dat <- read.csv(INPUT)
-  dat <- data.frame( temp_dat[,c(2:(dim(temp_dat)[2]))], row.names = temp_dat[,1] )
+  dat <- read.table(INPUT, sep = ",", row.names = 1, header = TRUE)
   #
-  var_len = dim(dat)[2]
-  var_arr = 3:var_len
+  var_arr = 3:ncol(dat)
   # get the variables from data
   #  ydata is a data.frame keeps the status of the patient and time of last follow-up
   ydata     <- cbind( time=dat$time, status=dat$status)
