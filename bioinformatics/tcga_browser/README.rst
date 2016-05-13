@@ -2,9 +2,30 @@
 TCGA browser
 ################################
 
+All cancers are caused by mutations in DNA. `The Cancer Genome Atlas (TCGA) <http://cancergenome.nih.gov/>`_ is a project that begun
+in 2005 and aims to catalog the mutations that cause cancer in patients. DNA
+sequence, gene expression profile, and other relevant patient information are
+collected for identification of risk factors and better understanding the
+disease mechanism.
 
-`... <...>`_
-
+First, gene expression profiles (the amount of RNA transcripts produced by
+each gene), DNA mutations, and patient information which have been previously
+retrieved from TCGA repository are loaded. These data are stored as data frames
+using ‘data.table’ package which is one of the most efficient (memory- and
+speed wise) packages for handeling large data frames. Significant differences
+in gene activity (expression) are calculated using the ‘limma’ package. This
+type of analysis result often in large lists of differentially expressed, each
+of these genes is in turn is involved in a few and sometimes many biological
+processes. In analysis of gene expression data, it is a common practice to
+statistically test whether there are biological processes/pathways whose genes
+are significantly overrepresented using a gene set analysis (GSA) method. This
+gives us a view at the level of biological processes. In this workflow ‘gage’
+package has been used which uses Generally Applicable Gene-set Enrichment `(GAGE) method<http://doi.org/10.1186/1471-2105-10-161>`_. Gene
+transcripts are translated to proteins and proteins can interact and inhibit
+or activate each others function or expression level. Information about
+protein-protein interactions are continuously added to `STRING database<http://string-db.org/>`_
+which is accessible through ‘STRINGdb’ package and used to show the interaction
+between the genes with significant differential expression.
 
 ******************************
 Packages and Dependencies
