@@ -1,7 +1,11 @@
+#
+# Copyright (c) 2015 Ieuan Clay
+# based on code from https://github.com/biolion/genbench
+# Copyright (c) 2015-2016 BeDataDriven B.V.
+# License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
+#
 # Supervised learning on clinical datasets
 # reproducing examples in ESLII
-# ieuan.clay@gmail.com
-# May 2015
 
 ### set up session
 #rm(list=ls())
@@ -18,7 +22,7 @@ library(leaps)
 #library(survival)
 ## global vars
 ## Timings blocks
-do.load <- function(){
+do.load <- function() {
   cat("> Start: do.load()\n")
 
   # run locally to avoid having extra datasets loaded
@@ -38,58 +42,59 @@ do.load <- function(){
   # Kalbfleisch D and Prentice RL (1980), The Statistical Analysis of Failure Time Data. Wiley, New York.
   data(Lung, envir = e)
 
-  alldata <- list(heart=e$heart, lung=e$Lung, prostate=e$prostate)
+  alldata <- list(heart = e$heart, lung = e$Lung, prostate = e$prostate)
 
   cat("> End: do.load()\n")
   return(alldata)
 
 }
 
-do.varselect <- function(data, plot_results=FALSE){
+do.varselect <- function(data, plot_results = FALSE) {
   cat("> Start: do.varselect()\n")
 
   ### variable selection using coordinate descent
   ### on prostate and heart datasets from ncvreg (see do.load)
   # expects input from do.load
   # see: http://myweb.uiowa.edu/pbreheny/publications/Breheny2011.pdf
+  #      DOI: 10.1214/10-AOAS388
 
   # capture
   results <- list()
   ## prostate
   # cross validation and model fitting
-  X <- as.matrix(data$prostate[,1:8])
+  X <- as.matrix(data$prostate[ ,1:8])
   y <- data$prostate$lpsa
-  cvfit <- cv.ncvreg(X, y, penalty="lasso", seed = 8008, nfolds=100 )
+  cvfit <- cv.ncvreg(X, y, penalty = "lasso", seed = 8008, nfolds = 100 )
   cat(">>> DONE: cv.ncvreg(X, y)\n")
 
-  if(plot_results){
+  if(plot_results) {
     plot(cvfit)
     summary(cvfit)
   }
   results <- append(results,
                     list(data.frame(
-                      dat="prostate",
-                      var=rownames(cvfit$fit$beta),
-                      coeff=cvfit$fit$beta[,as.character(round(cvfit$lambda.min, digits = 4))]
+                      dat = "prostate",
+                      var = rownames(cvfit$fit$beta),
+                      coeff = cvfit$fit$beta[ ,as.character(round(cvfit$lambda.min, digits = 4))]
                     ))
   )
 
   ## heart
   # cross validated model fitting
-  X2 <- as.matrix(data$heart[,sapply(data$heart, is.numeric)])
+  X2 <- as.matrix(data$heart[ ,sapply(data$heart, is.numeric)])
   y2 <- data$heart$tobacco
-  cvfit <- cv.ncvreg(X2, y2, penalty="lasso", seed = 8008, nfolds=10 )
+  cvfit <- cv.ncvreg(X2, y2, penalty = "lasso", seed = 8008, nfolds = 10 )
   cat(">>> DONE: cv.ncvreg(X2, y2)\n")
 
-  if(plot_results){
+  if(plot_results) {
     plot(cvfit)
     summary(cvfit)
   }
   results <- append(results,
                     list(data.frame(
-                      dat="heart",
-                      var=rownames(cvfit$fit$beta),
-                      coeff=cvfit$fit$beta[,as.character(round(cvfit$lambda.min, digits = 4))]
+                      dat = "heart",
+                      var = rownames(cvfit$fit$beta),
+                      coeff = cvfit$fit$beta[ ,as.character(round(cvfit$lambda.min, digits = 4))]
                     ))
   )
 
@@ -98,7 +103,7 @@ do.varselect <- function(data, plot_results=FALSE){
 
 }
 
-do.prostate <- function(data, plot_results=TRUE){
+do.prostate <- function(data, plot_results = TRUE){
   cat("> Start: do.prostate()\n")
 
   ### some modelling on prostate dataset from ncvreg (see do.load)
@@ -113,99 +118,99 @@ do.prostate <- function(data, plot_results=TRUE){
   results <- list()
 
   # examine data
-  if(plot_results){
-    cor( data$prostate[,1:8] )
-    pairs( data$prostate[,1:9], col="violet" )
+  if(plot_results) {
+    cor( data$prostate[ ,1:8] )
+    pairs( data$prostate[ ,1:9], col = "violet" )
   }
 
   # set test/train
   traintest <- rep(TRUE, nrow(data$prostate))
   traintest[sample(1:length(traintest), size = 30, replace = FALSE)] <- FALSE
 
-  train <- data$prostate[traintest,1:9]
-  test <- data$prostate[!traintest,1:9]
+  train <- data$prostate[traintest, 1:9]
+  test <- data$prostate[!traintest, 1:9]
 
   # The book (page 56) uses only train subset, so we the same:
-  prostate.leaps <- regsubsets( lpsa ~ . , data=train, nbest=70,
-                                really.big=TRUE )
+  prostate.leaps <- regsubsets( lpsa ~ . , data = train, nbest = 70,
+                                really.big = TRUE )
   cat(">>> DONE: regsubsets( lpsa ~ .)\n")
   prostate.leaps.sum <- summary( prostate.leaps )
   prostate.models <- prostate.leaps.sum$which
   prostate.models.size <- as.numeric(attr(prostate.models, "dimnames")[[1]])
-  if(plot_results){hist( prostate.models.size )}
+  if(plot_results) { hist( prostate.models.size )}
   prostate.models.rss <- prostate.leaps.sum$rss
   prostate.models.best.rss <-
     tapply( prostate.models.rss, prostate.models.size, min )
 
   # add results for the only intercept model
-  prostate.dummy <- lm( lpsa ~ 1, data=train )
+  prostate.dummy <- lm( lpsa ~ 1, data = train )
   cat(">>> DONE: lm( lpsa ~ 1)\n")
   prostate.models.best.rss <- c(
-    sum(resid(prostate.dummy)^2),
+    sum(resid(prostate.dummy) ^ 2),
     prostate.models.best.rss)
 
-  if (plot_results){
+  if (plot_results) {
     plot( 0:8, prostate.models.best.rss,
-          type="b", xlab="subset size", ylab="Residual Sum Square",
-          col="red2" )
-    points( prostate.models.size, prostate.models.rss, pch=17, col="brown",cex=0.7 )
+          type = "b", xlab = "subset size", ylab = "Residual Sum Square",
+          col = "red2" )
+    points( prostate.models.size, prostate.models.rss, pch = 17, col = "brown",cex = 0.7 )
   }
   # capture some results
   results <- append(results,
                     list(data.frame(
-                      dat="rss",
-                      var=names(prostate.models.best.rss),
-                      coeff=prostate.models.best.rss
+                      dat = "rss",
+                      var = names(prostate.models.best.rss),
+                      coeff = prostate.models.best.rss
                     ))
   )
 
   ## Calculations for the lasso:
-  prostate.lasso <- l1ce( lpsa ~ ., data=train, trace=TRUE, sweep.out=~1,
-                          bound=seq(0,1,by=0.1) )
+  prostate.lasso <- l1ce( lpsa ~ ., data = train, trace = TRUE, sweep.out = ~1,
+                          bound = seq(0, 1, by = 0.1) )
   cat(">>> DONE: l1ce( lpsa ~ . )\n")
   prostate.lasso.coef <- sapply(prostate.lasso, function(x) x$coef)
-  colnames(prostate.lasso.coef) <- seq( 0,1,by=0.1 )
-  if(plot_results){
-  matplot( seq(0,1,by=0.1), t(prostate.lasso.coef[-1,]), type="b",
-           xlab="shrinkage factor", ylab="coefficients",
-           xlim=c(0, 1.2), col="blue", pch=17 )
+  colnames(prostate.lasso.coef) <- seq( 0, 1, by = 0.1 )
+  if(plot_results) {
+  matplot( seq(0, 1, by = 0.1), t(prostate.lasso.coef[-1, ]), type = "b",
+           xlab = "shrinkage factor", ylab = "coefficients",
+           xlim = c(0, 1.2), col = "blue", pch = 17 )
   }
   results <- append(results,
                     list(data.frame(
-                      dat="lasso",
-                      var=rownames(prostate.lasso.coef),
-                      coeff=prostate.lasso.coef[,"1"]
+                      dat = "lasso",
+                      var = rownames(prostate.lasso.coef),
+                      coeff = prostate.lasso.coef[ ,"1"]
                     ))
   )
 
   ## lasso with lars:
-  prostate.lasso.lars <- lars( as.matrix(train[,1:8]), train[,9],
-                               type="lasso", trace=TRUE )
+  prostate.lasso.lars <- lars( as.matrix(train[ ,1:8]), train[ ,9],
+                               type = "lasso", trace = TRUE )
   cat(">>> DONE: lars()\n")
-  prostate.lasso.larscv <- cv.lars( as.matrix(train[,1:8]), train[,9], plot.it=plot_results,
-           type="lasso", trace=TRUE, K=10 )
+  prostate.lasso.larscv <- cv.lars( as.matrix(train[ ,1:8]), train[ ,9], plot.it = plot_results,
+           type = "lasso", trace = TRUE, K = 10 )
   cat(">>> DONE: cv.lars()\n")
   results <- append(results,
                     list(data.frame(
-                      dat="lars",
-                      var=colnames(prostate.lasso.lars$beta),
-                      coeff=prostate.lasso.lars$lambda
+                      dat = "lars",
+                      var = colnames(prostate.lasso.lars$beta),
+                      coeff = prostate.lasso.lars$lambda
                     ))
   )
 
   ## CV (cross-validation) using package boot:
-  prostate.glm <- glm( lpsa ~ ., data=train )
+  prostate.glm <- glm( lpsa ~ ., data = train )
   cat(">>> DONE: glm( lpsa ~ . )\n")
   # repeat this some times to make clear that cross-validation is
   # a random procedure
-  prostate.glmcv <- cv.glm( train, prostate.glm, K=10 )
+  prostate.glmcv <- cv.glm( train, prostate.glm, K = 10 )
   cat(">>> DONE: cv.glm()\n")
 
   results <- append(results,
                     list(data.frame(
-                      dat="glm",
-                      var=names(prostate.glm$coefficients),
-                      coeff=prostate.glm$coefficients
+                      dat = "glm",
+                      var = names(prostate.glm$coefficients),
+                      coeff = prostate.glm$coefficients
                     ))
   )
 
