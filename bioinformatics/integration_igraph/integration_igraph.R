@@ -1,8 +1,10 @@
-# co-citation analysis with iGraphs
-# ieuan.clay@gmail.com
-# May 2015
-
-### a minimal script for extracting/cleaning/and visualising entrez RIF networks
+#
+# Copyright (c) 2015 Ieuan Clay
+# based on code from https://github.com/biolion/genbench
+# Copyright (c) 2015-2016 BeDataDriven B.V.
+# License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
+#
+# ## a minimal script for extracting/cleaning/and visualising entrez RIF networks
 # load iGraph network object from falt table
 # do some basic analysis/coloring/plotting
 # do some subsetting
@@ -32,7 +34,7 @@ BENCHMARK <- "igraph"
 
 #### functions
 
-do.download <- function(DATA_DIR){
+do.download <- function(DATA_DIR) {
   cat("> START: do.download()\n")
   ### download files from [INPUT] to [DATA_DIR]
   ## RIFs
@@ -42,12 +44,12 @@ do.download <- function(DATA_DIR){
   return(data_path)
 }
 
-do.plot <- function(network, title="", layout=igraph::layout.kamada.kawai,
+do.plot <- function(network, title = "", layout = igraph::layout.kamada.kawai,
                     # node properties
-                    shape="circle", size=1, colour="black", label=NA,
+                    shape = "circle", size = 1, colour = "black", label = NA,
                     # edge properties
-                    weight=1
-                    ){
+                    weight = 1
+                    ) {
   cat("> START: do.plot()\n")
 
   ### for simplicity, basic plotting of iGraph objects
@@ -59,17 +61,17 @@ do.plot <- function(network, title="", layout=igraph::layout.kamada.kawai,
   # functions
 
   plot(
-    network,                        # the graph to be plotted
-    layout=layout,	                # kamada.kawai|fruchterman.reingold|lgl|auto -  the layout method. see the igraph documentation for details
-    main=title,	                    # specifies the title
-    vertex.shape=shape,             # nodeshape
-    vertex.size=size,               # nodesize
-    vertex.color=colour,            # node colour
-    edge.width=weight,              # edge weight
-    vertex.label.color='black',		  # the color of the name labels
-    vertex.label.font=2,			      # the font of the name labels
-    vertex.label=label,		          # specifies the lables of the vertices. in this case the 'name' attribute is used
-    vertex.label.cex=1			        # specifies the size of the font of the labels. can also be made to vary
+    network,                          # the graph to be plotted
+    layout = layout,	                # kamada.kawai|fruchterman.reingold|lgl|auto -  the layout method. see the igraph documentation for details
+    main = title,	                    # specifies the title
+    vertex.shape = shape,             # nodeshape
+    vertex.size = size,               # nodesize
+    vertex.color = colour,            # node colour
+    edge.width = weight,              # edge weight
+    vertex.label.color = 'black',		  # the color of the name labels
+    vertex.label.font = 2,			      # the font of the name labels
+    vertex.label = label,		          # specifies the lables of the vertices. in this case the 'name' attribute is used
+    vertex.label.cex = 1			        # specifies the size of the font of the labels. can also be made to vary
 
   )
 
@@ -78,22 +80,22 @@ do.plot <- function(network, title="", layout=igraph::layout.kamada.kawai,
   cat("> END: do.plot()\n")
 }
 
-do.load.edges <- function(PATH){
+do.load.edges <- function(PATH) {
   cat("> START: do.load.edges()\n")
 
   # unpack data
   tmpfile <- file.path(dirname(PATH), "rif.tmp")
-  if(file.exists(tmpfile)){file.remove(tmpfile)}
-  gunzip(filename=PATH, remove=FALSE,
-         destname=tmpfile)
+  if(file.exists(tmpfile)) {file.remove(tmpfile)}
+  gunzip(filename = PATH, remove = FALSE,
+         destname = tmpfile)
 
   ## load and 'query' downloaded data
   # There is more information on sqldf on the sqldf home page:
   # http://sqldf.googlecode.com
-  generifs_basic <- read.delim(tmpfile, header=T, stringsAsFactors=FALSE)
+  generifs_basic <- read.delim(tmpfile, header = TRUE, stringsAsFactors = FALSE)
   names(generifs_basic) <- c("tax_id", "gene_id", "pubmed_ids", "timestamp", "annotation")
   # load statement and execute
-  statement <- paste(readLines("get_all_RIF.sql"), collapse="\n")
+  statement <- paste(readLines("get_all_RIF.sql"), collapse = "\n")
   #sqldf(drv = "SQLite","select * from generifs_basic limit 5") # 'head'
   edges <- sqldf(drv = "SQLite", statement) # 43491 as of 28/06/13
 
@@ -105,7 +107,7 @@ do.load.edges <- function(PATH){
 
 }
 
-do.load <- function(PATH, percentage=5, plot_results=TRUE){
+do.load <- function(PATH, percentage = 5, plot_results = TRUE) {
   cat("> START: do.load()\n")
 
   edges <- do.load.edges(PATH)
@@ -115,20 +117,25 @@ do.load <- function(PATH, percentage=5, plot_results=TRUE){
   # graph.data.frame() takes a data frame where the first two columns are nodes IDs (so each row is an edge)
   # and all the other columns are taken as edge attributes, node attributes are loaded separately - see below
   network <- graph.data.frame(
-    d=subset(
-      x=edges,
-      subset=pubmed_ids %in% (sample(unique(edges$pubmed_ids), size=(abs(length(unique(edges$pubmed_ids))/100))*percentage)),
-      select=c("pubmed_ids", "gene_id", "annotation")), # load random subset of edges
-    directed=F)
+    d = subset(
+      x = edges,
+      subset = pubmed_ids %in% (sample(unique(edges$pubmed_ids), size = (abs(length(unique(edges$pubmed_ids)) / 100)) * percentage)),
+      select = c("pubmed_ids", "gene_id", "annotation")), # load random subset of edges
+    directed = FALSE)
   # add node attributes
   # V(network) # all node objects
   V(network)$shape <- c('circle', 'square')[1 + V(network)$name %in% edges$pubmed_ids]
   V(network)$color <- c('black', 'red')[1 + V(network)$name %in% edges$pubmed_ids] # black dots - genes, red boxes - papers
   V(network)$isa <- c('gene', 'paper')[1 + V(network)$name %in% edges$pubmed_ids]
-  V(network)$degree <- scale(degree(network), center=F, scale=T)
+  V(network)$degree <- scale(degree(network), center = FALSE, scale = TRUE )
   # degree(network)
-  if(plot_results){
-    do.plot(network, title="5%er", size = V(network)$degree, shape=V(network)$shape, colour = V(network)$color)
+  if(plot_results) {
+    do.plot(
+      network,
+      title = "5%er",
+      size = V(network)$degree,
+      shape = V(network)$shape,
+      colour = V(network)$color)
   }
 
   cat("> END: do.load()\n")
@@ -136,22 +143,22 @@ do.load <- function(PATH, percentage=5, plot_results=TRUE){
 
 }
 
-do.decompose <- function(network, plot_results=TRUE){
+do.decompose <- function(network, plot_results = TRUE) {
   cat("> START: do.decompose()\n")
   ## pick out the biggest component
   network <- decompose.graph(network) # coverts to list of networks (each component as separate element)
-  largest <- function(x){
+  largest <- function(x) {
     # return largest sub-component
     sizes <- sapply(
-      X=x,
-      FUN=function(x){return(length(V(x)))}
+      X = x,
+      FUN = function(x) {return(length(V(x)))}
     )
     max.size <- sapply(
-      X=sizes,
-      FUN=function(i){return(i==max(sizes))}
+      X = sizes,
+      FUN = function(i) {return(i == max(sizes))}
     ) # vector of T/F for (potentially more than one) biggest component(s)
     # just take largest sub-list (biggest component)
-    if(sum(max.size==1)){
+    if(sum(max.size == 1)) {
       return(x[max.size][[1]])
     }
     else {
@@ -160,18 +167,21 @@ do.decompose <- function(network, plot_results=TRUE){
   }
   network <- largest(network)
   ## plot it out
-  V(network)$degree <- scale(degree(network), center=F, scale=T)
-  if(plot_results){
-    do.plot(network, title="Largest component",
-            size = V(network)$degree, shape=V(network)$shape, colour = V(network)$color
-            )
+  V(network)$degree <- scale(degree(network), center = FALSE, scale = TRUE)
+  if(plot_results) {
+    do.plot(
+      network,
+      title="Largest component",
+      size = V(network)$degree,
+      shape = V(network)$shape,
+      colour = V(network)$color)
   }
 
   cat("> END: do.decompose()\n")
   return(network)
 
 }
-do.cocitation <- function(network, plot_results = TRUE){
+do.cocitation <- function(network, plot_results = TRUE) {
   cat("> START: do.cocitation()\n")
 
   ### use cocitation to project graph into single type space
@@ -181,50 +191,55 @@ do.cocitation <- function(network, plot_results = TRUE){
 
   # do cocitation
   network <- graph.adjacency(
-    cocitation(
-      graph=network,
-      v=V(network)),
-    mode="undirected", weighted=TRUE)
+                cocitation(
+                  graph = network,
+                  v = V(network)),
+                mode = "undirected",
+                weighted = TRUE)
   # add annotations
-  V(network)$degree <- scale(degree(network), center=F, scale=T)
+  V(network)$degree <- scale(degree(network), center = FALSE, scale = TRUE)
   # black dots - genes, red boxes - papers
   V(network)$shape <- c('circle', 'square')[1 + !(V(network)$name %in% genes)]
   V(network)$color <- c('black', 'red')[1 + !(V(network)$name %in% genes)]
   V(network)$isa <- c('gene', 'paper')[1 + !(V(network)$name %in% genes)]
 
   # dump "paper" nodes to just examine "gene" nodes
-  network <- do.subset(network, node_ids=genes)
+  network <- do.subset(network, node_ids = genes)
 
   # plot it
-  if(plot_results){
-    do.plot(network, title="Genes only", weight = E(network)$weight,
-            size = V(network)$degree, shape=V(network)$shape, colour = V(network)$color,
-    )
+  if(plot_results) {
+    do.plot(
+      network,
+      title = "Genes only",
+      weight = E(network)$weight,
+      size = V(network)$degree,
+      shape=V(network)$shape,
+      colour = V(network)$color)
   }
 
   cat("> END: do.cocitation()\n")
   return(network)
 }
 
-do.subset <- function(network, node_ids){
+do.subset <- function(network, node_ids) {
   cat("> START: do.subset()\n")
 
   ## return igraph instance containing only the nodes listed
   # copying all properties
-  network <- induced.subgraph(network, vids = node_ids, impl="copy_and_delete")
+  network <- induced.subgraph(network, vids = node_ids, impl = "copy_and_delete")
 
   cat("> END: do.subset()\n")
   return(network)
 
 }
 
-do.phospho <- function(plot_results=TRUE){
+do.phospho <- function(plot_results = TRUE) {
   cat("> START: do.phospho()\n")
   ### construct network, not with random 1%, but with phosphatase/kinase subset
   ## pull annotations for human PPases and kinases from GO, see later for use
-  pk.ids <- read.delim(header=T, file="pk_pp_9606.txt")
+  pk.ids <- read.delim(header = TRUE, file = "pk_pp_9606.txt")
   # how many of each gene type did we get?
-  cat(table(pk.ids[,c("go_term")]))
+  cat(table(pk.ids[ ,c("go_term")]))
   # phosphoprotein phosphatase activity             protein kinase activity
   # 33                                 195
 
@@ -233,9 +248,9 @@ do.phospho <- function(plot_results=TRUE){
   # subset to phospho interaction network
   edges <- subset(edges, gene_id %in% pk.ids$gene_id)
   # create graph
-  network<-graph.data.frame(
-    d=edges,
-    directed=F)
+  network <- graph.data.frame(
+    d = edges,
+    directed = FALSE)
   V(network)$isa <- c("gene", "paper")[1 + V(network)$name %in% edges$pubmed_ids]
 
   ## decompose and run cocitation
@@ -244,12 +259,12 @@ do.phospho <- function(plot_results=TRUE){
 
   ## plot
   # black dots = kinases, red boxes = PPases
-  V(network)$shape <- c('circle', 'square')[1 + V(network)$name %in% pk.ids[pk.ids$go_term=="phosphoprotein phosphatase activity","gene_id"]]
-  V(network)$color <- c('black', 'red')[1 + V(network)$name %in% pk.ids[pk.ids$go_term=="phosphoprotein phosphatase activity","gene_id"]]
-  V(network)$degree <- scale(degree(network), center=F, scale=T)
-  E(network)$weight.scaled <- scale(E(network)$weight, center=F, scale=T)
+  V(network)$shape <- c('circle', 'square')[1 + V(network)$name %in% pk.ids[pk.ids$go_term == "phosphoprotein phosphatase activity","gene_id"]]
+  V(network)$color <- c('black', 'red')[1 + V(network)$name %in% pk.ids[pk.ids$go_term == "phosphoprotein phosphatase activity","gene_id"]]
+  V(network)$degree <- scale(degree(network), center = FALSE, scale = TRUE)
+  E(network)$weight.scaled <- scale(E(network)$weight, center = FALSE, scale = TRUE)
   V(network)$label <- V(network)$name # default
-  V(network)[rank(degree(network), ties.method="max") < length(V(network)) - 10]$label <- NA # replace everything but the top 10 with NA
+  V(network)[rank(degree(network), ties.method = "max") < length(V(network)) - 10]$label <- NA # replace everything but the top 10 with NA
   V(network)$shape.2 <- V(network)$shape
   V(network)[!is.na(V(network)$label)]$shape.2 <- 'none' # is it has a label, then don't plot a shape
   V(network)$label.pp <- V(network)$name # default
@@ -257,23 +272,21 @@ do.phospho <- function(plot_results=TRUE){
   V(network)$shape.pp <- V(network)$shape
   V(network)[!is.na(V(network)$label.pp)]$shape.pp <- 'none' # is it has a label, then don't plot a shape
   # plot
-  if(plot_results){
+  if(plot_results) {
     plot(
-      network,                          #the graph to be plotted
-      layout=layout.kamada.kawai,      # kamada.kawai|fruchterman.reingold|lgl|auto -  the layout method. see the igraph documentation for details
-      main='largest component, cocitation, kinases - black dots, PPases - red boxes',                    #specifies the title
-      vertex.shape=V(network)$shape,                    #nodeshape
-      vertex.size=3,                           #nodesize
-      # vertex.label.dist=0.5,    	            #puts the name labels slightly off the dots
-      vertex.color=V(network)$color,          #node colour
-      # vertex.frame.color='blue', 		          #the color of the border of the dots
-      vertex.label.color=V(network)$color,		          #the color of the name labels
-      vertex.label.font=2,			              #the font of the name labels
-      vertex.label=NA,		                    #specifies the lables of the vertices. in this case the 'name' attribute is used
-      vertex.label.cex=1,			                #specifies the size of the font of the labels. can also be made to vary
-
-      edge.width=E(network)$weight.scaled      #specifies the thickness of the edges
-
+      network,                                #the graph to be plotted
+      layout = layout.kamada.kawai,           # kamada.kawai|fruchterman.reingold|lgl|auto -  the layout method. see the igraph documentation for details
+      main = 'largest component, cocitation, kinases - black dots, PPases - red boxes',                    #specifies the title
+      vertex.shape = V(network)$shape,        #nodeshape
+      vertex.size = 3,                        #nodesize
+      # vertex.label.dist=0.5,    	          #puts the name labels slightly off the dots
+      vertex.color = V(network)$color,        #node colour
+      # vertex.frame.color='blue', 		        #the color of the border of the dots
+      vertex.label.color = V(network)$color,	#the color of the name labels
+      vertex.label.font = 2,			            #the font of the name labels
+      vertex.label = NA,		                  #specifies the lables of the vertices. in this case the 'name' attribute is used
+      vertex.label.cex = 1,			              #specifies the size of the font of the labels. can also be made to vary
+      edge.width = E(network)$weight.scaled   #specifies the thickness of the edges
     )
   }
 
@@ -281,7 +294,7 @@ do.phospho <- function(plot_results=TRUE){
   return(network)
 }
 
-do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
+do.mesh <- function(term = "Wnt Signaling Pathway", PATH, plot_results = TRUE) {
   cat("> START: do.mesh()\n")
 
   ### as for do.phospho,
@@ -291,17 +304,17 @@ do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
   res <- xmlParse(paste(c(
     "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=",
     term,
-    "&field=MeSH%20Terms&rettype=uilist&retmode=text&retmax=100000"), sep='', collapse=''))
+    "&field=MeSH%20Terms&rettype=uilist&retmode=text&retmax=100000"), sep = '', collapse = ''))
   res <- xmlToList(res)
-  res <- as.integer(as.vector(c(res$IdList, recursive=TRUE)))
+  res <- as.integer(as.vector(c(res$IdList, recursive = TRUE)))
   cat(sprintf('%i PMIDS found for term \"%s\"\n',length(res), term))
 
   ## load edges, subset to retrieved terms and load graph
   edges <- do.load.edges(PATH)
   edges <- subset(edges, pubmed_ids %in% res)
   network<-graph.data.frame(
-    d=edges,
-    directed=F)
+    d = edges,
+    directed = FALSE)
   V(network)$isa <- c("gene", "paper")[1 + V(network)$name %in% edges$pubmed_ids]
 
   ## decompose and run cocitation
@@ -309,7 +322,7 @@ do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
   network <- do.cocitation(network, plot_results = FALSE)
 
   ## add some community detection calls!
-  V(network)$pr <- scale(page.rank(network)$vector, center=F, scale=T) # page rank
+  V(network)$pr <- scale(page.rank(network)$vector, center = FALSE, scale = TRUE) # page rank
   V(network)$walktrap <- walktrap.community(network)$membership # community memberships
   V(network)$eigen <- leading.eigenvector.community(network)$membership
   V(network)$spin <- spinglass.community(network)$membership
@@ -317,31 +330,29 @@ do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
   # for plotting
   V(network)$shape <- 'circle'
   V(network)$color <- 'black'
-  V(network)$degree <- scale(degree(network), center=F, scale=T)
-  E(network)$weight.scaled <- scale(E(network)$weight, center=F, scale=T)
+  V(network)$degree <- scale(degree(network), center = FALSE, scale = TRUE)
+  E(network)$weight.scaled <- scale(E(network)$weight, center = FALSE, scale = TRUE)
   V(network)$label <- V(network)$name # default
   V(network)[rank(degree(network), ties.method="max") < length(V(network)) - 10]$label <- NA # replace everything but the top 10 with NA
   V(network)$shape.2 <- V(network)$shape
   V(network)[!is.na(V(network)$label)]$shape.2 <- 'none' # is it has a label, then don't plot a shape
 
   # NB layout.lgl seems to work well with coloring by community
-  if(plot_results){
+  if(plot_results) {
     plot(
-      network,                          #the graph to be plotted
-      layout=layout.lgl,      # kamada.kawai|fruchterman.reingold|lgl|auto -  the layout method. see the igraph documentation for details
-      main='cocitation, top 10 by degree',                    #specifies the title
-      vertex.shape=V(network)$shape.2,                    #nodeshape
-      vertex.size=V(network)$degree*4,                           #nodesize
-      # vertex.label.dist=0.5,  		            #puts the name labels slightly off the dots
-      vertex.color=V(network)$spin,          #node colour
-      # vertex.frame.color='blue', 		          #the color of the border of the dots
-      vertex.label.color=V(network)$color,		          #the color of the name labels
-      vertex.label.font=2,			              #the font of the name labels
-      vertex.label=V(network)$label,		                    #specifies the lables of the vertices. in this case the 'name' attribute is used
-      vertex.label.cex=1,			                #specifies the size of the font of the labels. can also be made to vary
-
-      edge.width=E(network)$weight.scaled      #specifies the thickness of the edges
-
+      network,                                  #the graph to be plotted
+      layout = layout.lgl,                      # kamada.kawai|fruchterman.reingold|lgl|auto -  the layout method. see the igraph documentation for details
+      main = 'cocitation, top 10 by degree',    #specifies the title
+      vertex.shape = V(network)$shape.2,        #nodeshape
+      vertex.size = V(network)$degree*4,        #nodesize
+      # vertex.label.dist = 0.5,  		          #puts the name labels slightly off the dots
+      vertex.color = V(network)$spin,           #node colour
+      # vertex.frame.color = 'blue', 		        #the color of the border of the dots
+      vertex.label.color = V(network)$color,		#the color of the name labels
+      vertex.label.font = 2,			              #the font of the name labels
+      vertex.label = V(network)$label,		      #specifies the lables of the vertices. in this case the 'name' attribute is used
+      vertex.label.cex = 1,			                #specifies the size of the font of the labels. can also be made to vary
+      edge.width = E(network)$weight.scaled      #specifies the thickness of the edges
     )
   }
   cat("> END: do.mesh()\n")
@@ -351,26 +362,26 @@ do.mesh <- function(term="Wnt Signaling Pathway", PATH, plot_results=TRUE){
 ### calls
 # download and load basic network
 PATH <- do.download(DATA_DIR)
-network <- do.load(PATH, percentage=10,plot_results = FALSE)
+network <- do.load(PATH, percentage = 10, plot_results = FALSE)
 
 # extract largest component
 network <- do.decompose(network, plot_results = FALSE)
 
 # run cocitation
 network <- do.cocitation(network, plot_results = FALSE)
-head(get.data.frame(network, what = "vertices")[,c( "name", "degree")])
+head(get.data.frame(network, what = "vertices")[ ,c( "name", "degree")])
 
 # phospho network
 network <- do.phospho(plot_results = FALSE)
-head(get.data.frame(network, what = "vertices")[,c( "name", "degree")])
+head(get.data.frame(network, what = "vertices")[ ,c( "name", "degree")])
 
 
 ## as above using MEsh terms
 # look up some interesting mesh terms
 # http://www.ncbi.nlm.nih.gov/mesh?term=autism
 lapply(c("Wnt Signaling Pathway", "Autistic Disorder", "Melanoma", "Hedgehog Proteins"),
-       function(x){
-         do.mesh(term=x, PATH, plot_results = FALSE)
+       function(x) {
+         do.mesh(term = x, PATH, plot_results = FALSE)
        }
 )
 

@@ -1,5 +1,5 @@
-name: integration_igraph
-description: ...
+Name: integration_igraph
+Description: ...
 
 File:generifs_basic.gz
 Source:https://storage.googleapis.com/renjin-benchmarks/generifs_basic.gz
