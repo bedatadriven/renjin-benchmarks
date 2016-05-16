@@ -1,45 +1,52 @@
-# Genetics
-# ieuan.clay@gmail.com
-# April 2015
-
-### set up session
-rm(list=ls())
+# Copyright (c) 2015 Ieuan Clay
+# based on code from https://github.com/biolion/genbench
+# Copyright (c) 2015-2016 BeDataDriven B.V.
+# License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
+#
 
 # reproducibility
 set.seed(8008)
+DEBUGGING <- FALSE
 
 ## packages
 library(stats)
 library(utils)
 ## general
-do.unpack <- function(){
-  cat("> Start: do.unpack()\n")
+do.unpack <- function() {
+  if (DEBUGGING) cat("> Start: do.unpack()\n")
 
   # 'family' data
 
   fam_files <- data.frame(
-		member=c("Daniel MacArthur","Luke Jostins","Dan Vorhaus","Caroline Wright",
-			"Kate Morley","Vincent Plagnol","Jeff Barrett","Jan Aerts","Joe Pickrell",
-			"Don Conrad","Carl Anderson","Ilana Fisher"),
-		dataset_id=c("DGM001","LXJ001","DBV001","CFW001","KIM001","VXP001","JCB001",
-			"JXA001","JKP001","DFC001","CAA001","IPF001"),
-		target=c("DGM001_genotypes.zip","LXJ001_genotypes.zip","DBV001_genotypes.zip","CFW001_genotypes.zip",
-			"KIM001_genotypes.zip","VXP001_genotypes.zip","JCB001_genotypes.zip","JXA001_genotypes.zip",
-			"JKP001_genotypes.zip","DFC001_genotypes.zip","CAA001_genotypes.zip","IPF001_genotypes.zip"),
-		stringsAsFactors=FALSE
+		member = c(
+      "Daniel MacArthur", "Luke Jostins", "Dan Vorhaus", "Caroline Wright",
+			"Kate Morley", "Vincent Plagnol", "Jeff Barrett", "Jan Aerts",
+      "Joe Pickrell", "Don Conrad", "Carl Anderson", "Ilana Fisher"),
+		dataset_id = c(
+      "DGM001", "LXJ001", "DBV001", "CFW001", "KIM001", "VXP001",
+      "JCB001", "JXA001", "JKP001", "DFC001", "CAA001", "IPF001"),
+		target = c(
+      "DGM001_genotypes.zip", "LXJ001_genotypes.zip", "DBV001_genotypes.zip",
+      "CFW001_genotypes.zip", "KIM001_genotypes.zip", "VXP001_genotypes.zip",
+      "JCB001_genotypes.zip", "JXA001_genotypes.zip", "JKP001_genotypes.zip",
+      "DFC001_genotypes.zip", "CAA001_genotypes.zip", "IPF001_genotypes.zip"),
+		stringsAsFactors = FALSE
 		)
 
-  lapply(1:nrow(fam_files), function(x){
-    unzip(fam_files[x,"target"])
+  lapply(
+    1:nrow(fam_files),
+    function(x) {
+          unzip(fam_files[x, "target"])
     })
-  cat("> End: do.unpack()\n")
+
+  if (DEBUGGING) cat("> End: do.unpack()\n")
   return(TRUE)
 }
 
 ## mutation data
 
 do.pop.load <- function(){
-  cat("> Start: do.pop.load()\n")
+  if (DEBUGGING) cat("> Start: do.pop.load()\n")
 
   readLines("laml.maf", 3) # no header info other than col names
 
@@ -50,68 +57,67 @@ do.pop.load <- function(){
 
   stopifnot(length(intersect(unique(maf$TCGA_id), unique(meta$bcr_patient_barcode))) == 197)
 
-  cat("> End: do.pop.load()\n")
-  return(list(maf=maf, meta=meta))
+  if (DEBUGGING) cat("> End: do.pop.load()\n")
+  return(list(maf = maf, meta = meta))
 }
 
-do.pop.fig1a <- function(pop){
-  cat("> Start: do.pop.fig1a()\n")
+do.pop.fig1a <- function(pop) {
+  if (DEBUGGING) cat("> Start: do.pop.fig1a()\n")
   ## figure 1A: mutations per sample, split by mutation tier and disease status
   # split-apply-combine
-  fig_1a <- do.call("rbind",
-                    lapply(
-                      split(pop$maf,
-                            f = pop$maf$TCGA_id),
-                      function(df){
+  fig_1a <- do.call(
+                "rbind",
+                lapply(
+                    split(pop$maf, f = pop$maf$TCGA_id),
+                    function(df) {
                         tmp <- data.frame(table(df$tier))
                         names(tmp) <- c("tier", "mut_count")
-                        tmp$TCGA_id <- df[1,"TCGA_id"]
+                        tmp$TCGA_id <- df[1, "TCGA_id"]
                         return(tmp)})
-                    )
+                )
 
   # merge metadata
-  fig_1a <- merge(x=fig_1a, y=pop$meta,
+  fig_1a <- merge(x = fig_1a, y = pop$meta,
                   by.x = "TCGA_id", by.y = "bcr_patient_barcode",
                   all.x = TRUE)
   # subset data
-  fig_1a <- subset(fig_1a, tier=="tier1")
+  fig_1a <- subset(fig_1a, tier == "tier1")
   # plot
-  plot(y=fig_1a$mut_count,
-       x = factor(fig_1a$acute_myeloid_leukemia_calgb_cytogenetics_risk_category)
-       )
+  plot(y = fig_1a$mut_count,
+       x = factor(fig_1a$acute_myeloid_leukemia_calgb_cytogenetics_risk_category))
 
   # return
-  cat("> End: do.pop.fig1a()\n")
-  return(fig_1a[,c("TCGA_id", "tier", "mut_count")])
+  if (DEBUGGING) cat("> End: do.pop.fig1a()\n")
+  return(fig_1a[ , c("TCGA_id", "tier", "mut_count")])
 }
 
-do.pop.fig1b <- function(pop){
-  cat("> Start: do.pop.fig1b()\n")
+do.pop.fig1b <- function(pop) {
+  if (DEBUGGING) cat("> Start: do.pop.fig1b()\n")
   ## figure 1B: samples per mutated gene
-  fig_1b <- do.call("rbind",
-                    lapply(
-                      split(pop$maf,
-                            f = pop$maf$gene_name),
-                      function(df){
-                        tmp <- data.frame(table(df$tier))
-                        names(tmp) <- c("tier", "sample_count")
-                        tmp$gene_name <- df[1,"gene_name"]
-                        return(tmp)})
-  )
+  fig_1b <- do.call(
+                "rbind",
+                lapply(
+                  split(pop$maf, f = pop$maf$gene_name),
+                  function(df) {
+                      tmp <- data.frame(table(df$tier))
+                      names(tmp) <- c("tier", "sample_count")
+                      tmp$gene_name <- df[1,"gene_name"]
+                      return(tmp)})
+                )
 
   # reorder
-  fig_1b <- fig_1b[ order(fig_1b$sample_count, decreasing = TRUE) ,]
+  fig_1b <- fig_1b[order(fig_1b$sample_count, decreasing = TRUE), ]
   fig_1b <- head(subset(fig_1b, tier == "tier1"), n = 100) # top 100 tier 1 genes by count
 
   # return
-  cat("> End: do.pop.fig1a()\n")
-  return(fig_1b[,c("gene_name", "tier", "sample_count")])
+  if (DEBUGGING) cat("> End: do.pop.fig1a()\n")
+  return(fig_1b[ , c("gene_name", "tier", "sample_count")])
 }
 
 # "window" apply
 # modified from: http://www.r-bloggers.com/wapply-a-faster-but-less-functional-rollapply-for-vector-setups/
-wapply <- function(x, width, by = NULL, FUN = NULL, ...){
-  cat("> Start: wapply()\n")
+wapply <- function(x, width, by = NULL, FUN = NULL, ...) {
+  if (DEBUGGING) cat("> Start: wapply()\n")
   FUN <- match.fun(FUN)
   if (is.null(by)) by <- width
 
@@ -121,14 +127,14 @@ wapply <- function(x, width, by = NULL, FUN = NULL, ...){
   windows <- base:::simplify2array(
     lapply(indices, function(a) FUN(x[a], ...)),
     higher = TRUE)
-  cat("> End: wapply()\n")
+  if (DEBUGGING) cat("> End: wapply()\n")
   return(windows)
 }
 
 
 ## familial data
-do.fam.load <- function(chromosomes=c(10)){
-  cat("> Start: do.fam.load()\n")
+do.fam.load <- function(chromosomes = c(10)) {
+  if (DEBUGGING) cat("> Start: do.fam.load()\n")
 
   DATA_DIR <- normalizePath("./")
 
@@ -142,29 +148,30 @@ do.fam.load <- function(chromosomes=c(10)){
   #           ),
   #           function(x) subset(x, chromosome %in% chromosomes)
   #           )
-  fam <- lapply(dir(DATA_DIR, full.names = TRUE, pattern = "genotypes.txt"),
-             function(x) read.delim(x, skip= 14,
-                                    blank.lines.skip=TRUE, stringsAsFactors=FALSE)[1:578320,]
-             )
+  fam <- lapply(
+            dir(DATA_DIR, full.names = TRUE, pattern = "genotypes.txt"),
+            function(x) {
+              read.delim(x, skip= 14, blank.lines.skip=TRUE, stringsAsFactors=FALSE)[1:578320,]
+             })
 
   names(fam) <- dir(DATA_DIR, full.names = FALSE, pattern = "genotypes.txt")
 
   # return
-  cat("> End: do.fam.load()\n")
+  if (DEBUGGING) cat("> End: do.fam.load()\n")
   return(fam)
 }
 
 do.fam.prepare <- function(fam){
-  cat("> Start: do.fam.prepare()\n")
+  if (DEBUGGING) cat("> Start: do.fam.prepare()\n")
   ## scores for individual each SNP when compared between individuals
   # get SNP allele frequencies
-  genotypes <- do.call("rbind",lapply(fam, FUN=function(x) table(x$genotype)))
+  genotypes <- do.call("rbind", lapply(fam, FUN = function(x) table(x$genotype)))
   # create empty score matrix
-  scores <- matrix( nrow=ncol(genotypes), ncol=ncol(genotypes) ,
-                    dimnames=list(colnames(genotypes), colnames(genotypes)))
+  scores <- matrix( nrow = ncol(genotypes), ncol = ncol(genotypes) ,
+                    dimnames = list(colnames(genotypes), colnames(genotypes)))
   # function for calculating number of alleles
   # allowing for ordering and homozygosity
-  do.matching.alleles <- function(i,j){
+  do.matching.alleles <- function(i, j) {
 
     ## returns number of matching alleles for two allele pairs
     # expects i and j to be 2 character strings, i.e. i="AA", j="GT"
@@ -252,18 +259,18 @@ do.fam.prepare <- function(fam){
 
         )
     }
-    else { return(0)}
+    else { return(0) }
 
   }
 
   # fill score matrix with precalculated match scores
   # for all possible allele pair comparisons
-  lapply(rownames(scores), function(i){
-    lapply(colnames(scores), function(j){
-      scores[i,j] <<-              # fill score matrix
-        do.matching.alleles(i,j) * # number of matching alleles
+  lapply(rownames(scores), function(i) {
+    lapply(colnames(scores), function(j) {
+      scores[i, j] <<-              # fill score matrix
+        do.matching.alleles(i, j) * # number of matching alleles
         (                          # normalised to "liklihood" of seeing this pair of allele pairs
-          (sum(genotypes) - sum(genotypes[,c(i,j)])) / sum(genotypes)
+          (sum(genotypes) - sum(genotypes[ , c(i, j)])) / sum(genotypes)
           )
     }
     )
@@ -272,11 +279,11 @@ do.fam.prepare <- function(fam){
 
   # return
   return(scores)
-  cat("> End: do.fam.prepare()\n")
+  if (DEBUGGING) cat("> End: do.fam.prepare()\n")
 }
 
 do.fam.check <- function(fam){
-  cat("> Start: do.fam.check()\n")
+  if (DEBUGGING) cat("> Start: do.fam.check()\n")
   ## check that all SNPs match
   checks <- c()
 
@@ -297,7 +304,7 @@ do.fam.check <- function(fam){
     ){
     checks <- append(checks, TRUE)
   } else { checks <- append(checks, FALSE)  }
-  cat(">>>> DONE: SNP rsid same?\n")
+  if (DEBUGGING) cat(">>>> DONE: SNP rsid same?\n")
   # all SNPs in the same order
   if(
     all(
@@ -310,17 +317,17 @@ do.fam.check <- function(fam){
   ){
     checks <- append(checks, TRUE)
   } else { checks <- append(checks, FALSE)  }
-  cat(">>>> DONE: SNP order same?\n")
+  if (DEBUGGING) cat(">>>> DONE: SNP order same?\n")
 
   # all checks good?
-  cat("> End: do.fam.check()\n")
+  if (DEBUGGING) cat("> End: do.fam.check()\n")
   return(all(checks))
 }
 
 do.ibd.vector <- function(fam, scores){
-  cat("> Start: do.ibd.vector()\n")
+  if (DEBUGGING) cat("> Start: do.ibd.vector()\n")
   do.ibd <- function(maf1, maf2, scores){
-    cat(">>> Start: do.ibd()\n")
+    if (DEBUGGING) cat(">>> Start: do.ibd()\n")
 
     ### IBD
     # http://en.wikipedia.org/wiki/Identity_by_descent
@@ -329,53 +336,68 @@ do.ibd.vector <- function(fam, scores){
 
     # combine to 'vector' of paired alleles
     genotype.vec <- cbind(maf1$genotype, maf2$genotype)
-    cat(">>> DONE: cbind()\n")
+    if (DEBUGGING) cat(">>> DONE: cbind()\n")
     # score each pair
     genotype.score <- apply(genotype.vec, 1, function(x) scores[x[1], x[2]])
-    cat(">>> DONE: apply(genotype,score)\n")
-    cat(">>> End: do.ibd()\n")
+    if (DEBUGGING) cat(">>> DONE: apply(genotype,score)\n")
+    if (DEBUGGING) cat(">>> End: do.ibd()\n")
 
     # return as annotated df for further analysis
     return(
 
-      cbind(maf1[,names(maf1) != "genotype"], data.frame(score=genotype.score))
+      cbind(maf1[ , names(maf1) != "genotype"], data.frame(score = genotype.score))
 
       )
 
   }
 
-  fam.scores <- lapply(combn(1:length(fam),2, simplify = FALSE), # all pairwise combinations
+  fam.scores <- lapply(combn(1:length(fam), 2, simplify = FALSE), # all pairwise combinations
                        # calculate ibd score vector
                        function(x) return(
-                         list(df=do.ibd(fam[[x[1]]], fam[[x[2]]], scores=scores),
-                              pair=names(fam)[x]
+                         list(df = do.ibd(fam[[x[1]]], fam[[x[2]]], scores = scores),
+                              pair = names(fam)[x]
                               )
                          )
                        )
-  cat("> End: do.ibd.vector()\n")
+  if (DEBUGGING) cat("> End: do.ibd.vector()\n")
   return(fam.scores)
 }
 
-do.ibd.window <- function(fam.scores, window.sizes=seq(5, 50, 5)){
-  cat("> Start: do.ibd.window()\n")
+do.ibd.window <- function(fam.scores, window.sizes = seq(5, 50, 5)) {
+  if (DEBUGGING) cat("> Start: do.ibd.window()\n")
 
   ## calculate some sliding windows summing the scores
 
   # calculate sliding window over each comparison,
   # calculating average score per SNP in that window
 
-  do.call("rbind",
-          unlist(recursive = FALSE,
-                 # for a range of window sizes
-                 lapply(window.sizes, function(win){
-                    # run sliding window, summing for each and dividing by number of markers
-                    lapply(fam.scores,
-                           function(x) data.frame(width=win, pair=x$pair, q3=summary(wapply(x$df$score, width=win, by=as.integer(win/2),
-                                                  FUN=sum) / win)["3rd Qu."]))
-  })))
+  do.call(
+    "rbind",
+    unlist(recursive = FALSE,
+    # for a range of window sizes
+      lapply(
+        window.sizes,
+        function(win) {
+          # run sliding window, summing for each and dividing by number of markers
+          lapply(fam.scores,
+            function(x) {
+              data.frame(
+                width = win, pair = x$pair,
+                q3 = summary(
+                      wapply(
+                        x$df$score, width = win,
+                        by = as.integer(win / 2),
+                        FUN = sum
+                      ) / win )["3rd Qu."]
+              )
+          )
+        }
+      )
+    )
+  )
 
 
-  cat("> End: do.ibd.window()\n")
+  if (DEBUGGING) cat("> End: do.ibd.window()\n")
 }
 
 
@@ -419,5 +441,5 @@ fam.scores <- do.ibd.vector(fam = fam, scores = scores)
 do.ibd.window(fam.scores = fam.scores)
 
 # final clean up
-rm(list=ls())
+rm(list = ls())
 gc()
