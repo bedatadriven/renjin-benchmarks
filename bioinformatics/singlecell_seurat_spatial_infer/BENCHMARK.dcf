@@ -1,0 +1,10 @@
+Name: SingleCell (Seurat, Spatial Inference)
+Description: Single cell transcriptome analysis on 851 single cells from Zebrafish embryogenesis (Satija*, Farrell* et al., Nature Biotechnology, 2015)
+
+File:zdata.matrix.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/zdata.matrix.txt
+Hash:ba617ac0672b1b5425cec18471173c1a
+
+File:Spatial_ReferenceMap.xlsx
+Source:https://storage.googleapis.com/renjin-benchmarks/Spatial_ReferenceMap.xlsx
+Hash:53c5cd0aaaf5725bddccdb7a12bfdd9c
