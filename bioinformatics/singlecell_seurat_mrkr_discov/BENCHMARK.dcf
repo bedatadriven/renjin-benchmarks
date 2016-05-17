@@ -1,0 +1,6 @@
+Name: Single Cell (Seurat, Clustering and Marker discovery)
+Description: Single cell transcriptome analysis on  301 single cells across diverse tissues from (Pollen et al., Nature Biotechnology, 2014)
+
+File:HiSeq301-RSEM-linear_values.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/HiSeq301-RSEM-linear_values.txt
+Hash:15d6f589340f86f1e2806f2b4aaaa92e
