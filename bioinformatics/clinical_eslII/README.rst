@@ -2,8 +2,19 @@
 clinical eslII (Essential Statistics Learning 2nd Edition)
 ################################################################
 
-Analysis of clinical data inspired by Essential Statistical Learning 2nd edition.
-`... <...>`_
+In clinica studies, information about disease state and progression of a large
+number of patients is collected together with patient information that could
+(technically) be used for early diagnosis and or prognosis of disease. In this
+workflow clinical prostate cancer data of 97 patients is used to identify
+molecular markers that correlate with disease stage. The analysis is mainly
+inspired by the book '`Essential Statistical Learning <http://statweb.stanford.edu/~tibs/ElemStatLearn/>`_'.
+
+Analysis used in this workflow are cross-validation for Lasso penalized
+regression fit and best predictive variable identification ('ncvreg' and
+'leaps' packages); linear regression and fitting with L1 constraints ('stats'
+and 'lasso2' packages); Lasso penalized Least Angle Regression with cross
+validation ('lars' package); and fitting General Linear Model ('stats'
+package).
 
 
 ******************************
@@ -27,18 +38,15 @@ Package dependencies:
 +++++++++++++++++++++++
 Data
 +++++++++++++++++++++++
-source datasets from http://cran.r-project.org/web/packages/ncvreg/ncvreg.pdf
-
-- Heart dataset:  Hastie, T., Tibshirani, R., and Friedman, J. (2001). The Elements of Statistical Learning. Springer.
-                  Rousseauw, J., et al. (1983). Coronary risk factor screening in three rural communities. South African Medical Journal, 64, 430-436.
+source datasets from http://cran.r-project.org/web/packages/lasso2/lasso2.pdf
 
 - Prostate dataset:
-    Hastie, T., Tibshirani, R., and Friedman, J. (2001). The Elements of Statistical Learning. Springer.
-    Stamey, T., et al. (1989). Prostate specific antigen in the diagnosis and treatment of adenocarcinoma of the prostate. II. Radical prostatectomy treated patients. Journal of Urology, 16: 1076-1083.
+    * Hastie, T., Tibshirani, R., and Friedman, J. (2001). The Elements of
+    Statistical Learning. Springer.
 
-- Lung dataset:
-    http://CRAN.R-project.org/package=survival
-    Kalbfleisch D and Prentice RL (1980), The Statistical Analysis of Failure Time Data. Wiley, New York.
+    * Stamey, T., et al. (1989). Prostate specific antigen in the diagnosis and
+    treatment of adenocarcinoma of the prostate. II. Radical prostatectomy
+    treated patients. Journal of Urology, 16: 1076-1083.
 
 ********************
 License

@@ -62,7 +62,7 @@ do.varselect <- function(data, plot_results = FALSE) {
   results <- list()
   ## prostate
   # cross validation and model fitting
-  X <- as.matrix(data$prostate[ ,1:8])
+  X <- as.matrix(data$prostate[ , 1:8])
   y <- data$prostate$lpsa
   cvfit <- cv.ncvreg(X, y, penalty = "lasso", seed = 8008, nfolds = 100 )
   cat(">>> DONE: cv.ncvreg(X, y)\n")
@@ -81,7 +81,7 @@ do.varselect <- function(data, plot_results = FALSE) {
 
   ## heart
   # cross validated model fitting
-  X2 <- as.matrix(data$heart[ ,sapply(data$heart, is.numeric)])
+  X2 <- as.matrix(data$heart[ , sapply(data$heart, is.numeric)])
   y2 <- data$heart$tobacco
   cvfit <- cv.ncvreg(X2, y2, penalty = "lasso", seed = 8008, nfolds = 10 )
   cat(">>> DONE: cv.ncvreg(X2, y2)\n")
@@ -94,7 +94,7 @@ do.varselect <- function(data, plot_results = FALSE) {
                     list(data.frame(
                       dat = "heart",
                       var = rownames(cvfit$fit$beta),
-                      coeff = cvfit$fit$beta[ ,as.character(round(cvfit$lambda.min, digits = 4))]
+                      coeff = cvfit$fit$beta[ , as.character(round(cvfit$lambda.min, digits = 4))]
                     ))
   )
 
@@ -103,7 +103,7 @@ do.varselect <- function(data, plot_results = FALSE) {
 
 }
 
-do.prostate <- function(data, plot_results = TRUE){
+do.prostate <- function(data, plot_results = TRUE) {
   cat("> Start: do.prostate()\n")
 
   ### some modelling on prostate dataset from ncvreg (see do.load)
@@ -145,14 +145,13 @@ do.prostate <- function(data, plot_results = TRUE){
   # add results for the only intercept model
   prostate.dummy <- lm( lpsa ~ 1, data = train )
   cat(">>> DONE: lm( lpsa ~ 1)\n")
-  prostate.models.best.rss <- c(
-    sum(resid(prostate.dummy) ^ 2),
-    prostate.models.best.rss)
+  prostate.models.best.rss <- c(sum(resid(prostate.dummy) ^ 2),
+                                prostate.models.best.rss)
 
   if (plot_results) {
     plot( 0:8, prostate.models.best.rss,
-          type = "b", xlab = "subset size", ylab = "Residual Sum Square",
-          col = "red2" )
+          type = "b", xlab = "subset size",
+          ylab = "Residual Sum Square", col = "red2" )
     points( prostate.models.size, prostate.models.rss, pch = 17, col = "brown",cex = 0.7 )
   }
   # capture some results
@@ -179,15 +178,15 @@ do.prostate <- function(data, plot_results = TRUE){
                     list(data.frame(
                       dat = "lasso",
                       var = rownames(prostate.lasso.coef),
-                      coeff = prostate.lasso.coef[ ,"1"]
+                      coeff = prostate.lasso.coef[ , "1"]
                     ))
   )
 
   ## lasso with lars:
-  prostate.lasso.lars <- lars( as.matrix(train[ ,1:8]), train[ ,9],
+  prostate.lasso.lars <- lars( as.matrix(train[ , 1:8]), train[ , 9],
                                type = "lasso", trace = TRUE )
   cat(">>> DONE: lars()\n")
-  prostate.lasso.larscv <- cv.lars( as.matrix(train[ ,1:8]), train[ ,9], plot.it = plot_results,
+  prostate.lasso.larscv <- cv.lars( as.matrix(train[ , 1:8]), train[ , 9], plot.it = plot_results,
            type = "lasso", trace = TRUE, K = 10 )
   cat(">>> DONE: cv.lars()\n")
   results <- append(results,
