@@ -28,8 +28,8 @@ PATIENTS <- paste('PatientMetaData-', NGENES, '-', NPATIENTS, '.rds', sep = "")
 
 # plain-R q&d replacement for acast(A, list(names(A)[1], names(A)[2]))
 df2mxc <- function(df) {
-  d1 <- factor(df[ ,1])
-  d2 <- factor(df[ ,2])
+  d1 <- factor(df[ , 1])
+  d2 <- factor(df[ , 2])
   m <- matrix(data = NA, nrow = length(levels(d1)),
     ncol = length(levels(d2)), dimnames = list(levels(d1), levels(d2)))
   m[cbind(d1, d2)] <- df[ , 3]
@@ -38,8 +38,8 @@ df2mxc <- function(df) {
 
 # plain-R q&d replacement for sparseMatrix(go[,1], go[,2], x=go[,3])
 df2mxs <- function(df) {
-  d1 <- df[,1]
-  d2 <- df[,2]
+  d1 <- df[ , 1]
+  d2 <- df[ , 2]
   m <- matrix(data = NA, nrow = max(d1),
     ncol = max(d2))
   m[cbind(d1, d2)] <- df[ , 3]
@@ -59,10 +59,10 @@ regression <- function() {
   sub_gmd = genes[genes$func < 250, ]
   colnames(sub_gmd)[1] = "geneid"
 
-  response = patients[ ,"drug.response"]
+  response = patients[ , "drug.response"]
 
   # join
-  A = merge(geo, sub_gmd)[ ,c("patientid", "geneid", "expression.value")]
+  A = merge(geo, sub_gmd)[ , c("patientid", "geneid", "expression.value")]
 
   # matrix cast
   A <- df2mxc(A)
@@ -92,7 +92,7 @@ covariance <- function() {
   colnames(sub_pmd)[1] = "patientid"
 
   # join
-  A <- merge(geo, sub_pmd)[ ,c("patientid", "geneid", "expression.value")]
+  A <- merge(geo, sub_pmd)[ , c("patientid", "geneid", "expression.value")]
 
   # convert to matrix
   A <- df2mxc(A)
@@ -142,7 +142,7 @@ svd_irlba <- function() {
   # convert to data tables
   colnames(sub_gmd)[1] = "geneid"
   # join
-  A <- merge(geo, sub_gmd)[ ,c("patientid", "geneid", "expression.value")]
+  A <- merge(geo, sub_gmd)[ , c("patientid", "geneid", "expression.value")]
 
   # store as matrix
   A <- df2mxc(A)
@@ -164,11 +164,11 @@ stats <- function(percentage = 1) {
   go       <- readRDS(GO)
 
   # update code to start all ids at 1
-  geo[ ,1] <- geo[ , 1] + 1
-  geo[ ,2] <- geo[ , 2] + 1
+  geo[ , 1] <- geo[ , 1] + 1
+  geo[ , 2] <- geo[ , 2] + 1
 
   # select subset of patients, but breaks if we do. why?? too few
-  #geo <- geo[geo$patientid < 0.0025 * max(geo$patientid),]
+  # geo <- geo[geo$patientid < 0.0025 * max(geo$patientid),]
   A <- df2mxc(geo)
 
   go[ , 1] <- go[ , 1] + 1
@@ -176,10 +176,10 @@ stats <- function(percentage = 1) {
   go <- df2mxs(go)
 
   # run comparisons
-  res <- lapply(1:as.integer((dim(go)[2] / 100) * percentage), function(ii) {
-    lapply(1:as.integer((dim(A)[1] / 100) * percentage), function(jj) {
-      set1 <- A[jj, go[,ii] == 1]
-      set2 <- A[jj, go[,ii] == 0]
+  res <- lapply(1:as.integer( (dim(go)[2] / 100) * percentage ), function(ii) {
+    lapply(1:as.integer( (dim(A)[1] / 100) * percentage ), function(jj) {
+      set1 <- A[jj, go[ , ii] == 1]
+      set2 <- A[jj, go[ , ii] == 0]
 
       data.frame(id = paste(ii, jj), p = wilcox.test(set1, set2, alternative = "less")$p.value)
     })
