@@ -9,20 +9,32 @@ Single Cell (Seurat, Clustering and marker discovery)
 ******************************
 Packages and Dependencies
 ******************************
-There are ... packages used in this workflow, which depend
-on ... additional packages from ... (dependencies)
+There is 1 package used in this workflow, which depend
+on 60 additional packages from CRAN (dependencies)
 
 +++++++++++++++
 Used packages:
 +++++++++++++++
 
-- **CRAN**: ...
+- **Github**: Seurat (satijalab/seurat)
 
 ++++++++++++++++++++++
 Package dependencies:
 ++++++++++++++++++++++
 
-- **CRAN**: ...
+Depends on:
+- **CRAN**: ggplot2, reshape2, useful, gridExtra, gplots,
+            ROCR, stringr, mixtools, lars, fastICA,
+            tsne, Rtsne, fpc, ape, VGAM,
+            jackstraw, XLConnect, plyr, scales, gtable,
+            digest, MASS, proto, Rcpp, dichromat,
+            labeling, RColorBrewer, munsell, colorspace, magrittr,
+            stringi, dplyr, assertthat, R6, DBI,
+            lazyeval, gtools, KernSmooth, caTools, bitops,
+            boot, segmented, diptest, mvtnorm, flexmix,
+            mclust, trimcluster, kernlab, robustbase, class,
+            cluster, prabclus, nnet, lattice, modeltools,
+            DEoptimR, nlme, corpcor, XLConnectJars, rJava
 
 +++++++++++++++++++++++
 Data

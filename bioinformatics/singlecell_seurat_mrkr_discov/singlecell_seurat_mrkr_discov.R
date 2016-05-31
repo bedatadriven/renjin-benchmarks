@@ -23,11 +23,11 @@ corner(nbt.data)
 
 dim(nbt.data)
 
-nbt <- new("seurat",raw.data=nbt.data)
+nbt <- new("seurat", raw.data = nbt.data)
 
 # Take all genes in > 3 cells, all cells with > 1k genes, use an expression threshold of 1
 # Cell type is encoded in the second _ field, will be stored in nbt@ident and also placed in the "orig.ident" field of object@data.info
-nbt=setup(nbt, project = "NBT", min.cells = 3, names.field = 2, names.delim = "_", min.genes = 1000, is.expr =  1, )
+nbt <- setup(nbt, project = "NBT", min.cells = 3, names.field = 2, names.delim = "_", min.genes = 1000, is.expr =  1, )
 
 nbt
 
