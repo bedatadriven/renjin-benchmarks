@@ -9,20 +9,36 @@ Single Cell (Seurat, Spatial Inference)
 ******************************
 Packages and Dependencies
 ******************************
-There are ... packages used in this workflow, which depend
-on ... additional packages from ... (dependencies)
+There are 4 packages used in this workflow, which depend
+on 68 additional packages (dependencies)
 
 +++++++++++++++
 Used packages:
 +++++++++++++++
 
-- **CRAN**: ...
+- **Github**: Seurat (satijalab/seurat)
+
+- **CRAN**: XLConnect, rgl, knitr
 
 ++++++++++++++++++++++
 Package dependencies:
 ++++++++++++++++++++++
 
-- **CRAN**: ...
+Depends on:
+- **CRAN**: ggplot2, reshape2, useful, gridExtra, gplots,
+            gdata, XLConnectJars, ROCR, stringr, mixtools,
+            lars, fastICA, tsne, Rtsne, fpc,
+            ape, VGAM, jackstraw, XLConnect, methods,
+            rJava, plyr, scales, gtable, digest,
+            MASS, proto, Rcpp, dichromat, labeling,
+            RColorBrewer, munsell, colorspace, magrittr, stringi,
+            dplyr, assertthat, R6, DBI, lazyeval,
+            gtools, KernSmooth, caTools, bitops, boot,
+            segmented, diptest, mvtnorm, flexmix, mclust,
+            trimcluster, kernlab, robustbase, class, cluster,
+            prabclus, nnet, lattice, modeltools, DEoptimR,
+            nlme, corpcor, evaluate, markdown, yaml,
+            highr, formatR, mime
 
 +++++++++++++++++++++++
 Data

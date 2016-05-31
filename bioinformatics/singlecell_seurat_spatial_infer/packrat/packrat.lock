@@ -1,0 +1,319 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.7
+RVersion: 3.2.5
+Repos: BioCsoft=https://bioconductor.org/packages/3.2/bioc,
+    BioCann=https://bioconductor.org/packages/3.2/data/annotation,
+    BioCexp=https://bioconductor.org/packages/3.2/data/experiment,
+    BioCextra=https://bioconductor.org/packages/3.2/extra,
+    CRAN=https://cran.rstudio.com
+
+Package: BH
+Source: CRAN
+Version: 1.60.0-2
+Hash: be2967bcff307e561d9ba17faf03205c
+
+Package: DBI
+Source: CRAN
+Version: 0.4-1
+Hash: 6524d5c5d30ff74084ac028eeb19eb1b
+
+Package: DEoptimR
+Source: CRAN
+Version: 1.0-4
+Hash: 6194911c350d26147eb8815dc3556c40
+
+Package: R6
+Source: CRAN
+Version: 2.1.2
+Hash: c515e41c73294952cbb33ee1c1be5a2d
+
+Package: RColorBrewer
+Source: CRAN
+Version: 1.1-2
+Hash: c0d56cd15034f395874c870141870c25
+
+Package: ROCR
+Source: CRAN
+Version: 1.0-7
+Hash: 086f78987ebf3c55b01013ee64a5e1e2
+Requires: gplots
+
+Package: Rcpp
+Source: CRAN
+Version: 0.12.5
+Hash: 625a95cb4ef523a77ad02e140b715db6
+
+Package: Rtsne
+Source: CRAN
+Version: 0.10
+Hash: aac2e62182341f5b29e94c44bfa91a29
+Requires: Rcpp
+
+Package: Seurat
+Source: github
+Version: 1.2.1
+Hash: c8a55aaab9cf313d316013a1e3fd2620
+Requires: ROCR, Rtsne, VGAM, XLConnect, ape, fastICA, fpc, gdata,
+    ggplot2, gplots, gridExtra, jackstraw, lars, mixtools, reshape2,
+    stringr, tsne, useful
+GithubRepo: seurat
+GithubUsername: satijalab
+GithubRef: master
+GithubSha1: 3952213c366dba6e4a17d97fa6550508f8e48bd1
+
+Package: VGAM
+Source: CRAN
+Version: 1.0-2
+Hash: 132f6e9c93db462b61e7dbd3c1b73853
+
+Package: XLConnect
+Source: CRAN
+Version: 0.2-11
+Hash: 9671b8bb38db7af753ee09ad7bc7b546
+Requires: XLConnectJars, rJava
+
+Package: XLConnectJars
+Source: CRAN
+Version: 0.2-9
+Hash: c3a7ea4d67acc15d861409bb55b753dc
+Requires: rJava
+
+Package: ape
+Source: CRAN
+Version: 3.5
+Hash: c0e65cb6f11f368cb6035d617f231580
+
+Package: assertthat
+Source: CRAN
+Version: 0.1
+Hash: 0afb92b59b02593c70ff8046700ba9d3
+
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+Hash: 67d0775189fd0041d95abca618c5c07e
+
+Package: caTools
+Source: CRAN
+Version: 1.17.1
+Hash: 97cb6f6293cd18d17df77a6383cc6763
+Requires: bitops
+
+Package: colorspace
+Source: CRAN
+Version: 1.2-6
+Hash: 00bb12245cd975c450cc4a960884fa15
+
+Package: corpcor
+Source: CRAN
+Version: 1.6.8
+Hash: 2349dc947f4af3aebcd0aaeca4c0a258
+
+Package: dichromat
+Source: CRAN
+Version: 2.0-0
+Hash: 08eed0c80510af29bb15f840ccfe37ce
+
+Package: digest
+Source: CRAN
+Version: 0.6.9
+Hash: fd55d5a024f160fc001a5ece1e27782d
+
+Package: diptest
+Source: CRAN
+Version: 0.75-7
+Hash: de93e5330ff45c5795d0bae12c8a9695
+
+Package: dplyr
+Source: CRAN
+Version: 0.4.3
+Hash: e6d3a09516f2018080e4737423aadfa6
+Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr
+
+Package: fastICA
+Source: CRAN
+Version: 1.2-0
+Hash: 992a1d0c1c9f3ca95acaba0f10cb1682
+
+Package: flexmix
+Source: CRAN
+Version: 2.3-13
+Hash: 4c5ae92368e1cc01c26afd1e67b66cd3
+Requires: modeltools
+
+Package: fpc
+Source: CRAN
+Version: 2.1-10
+Hash: e537c1c8a52f67db5296c272e9090cbc
+Requires: diptest, flexmix, kernlab, mclust, mvtnorm, prabclus,
+    robustbase, trimcluster
+
+Package: gdata
+Source: CRAN
+Version: 2.17.0
+Hash: e7d520c2a9597b303f54499e3bd90644
+Requires: gtools
+
+Package: ggplot2
+Source: CRAN
+Version: 2.1.0
+Hash: 50e297b0191179c39c7dcae0eff72b51
+Requires: digest, gtable, plyr, reshape2, scales
+
+Package: gplots
+Source: CRAN
+Version: 3.0.1
+Hash: b7abe122479c203aa236499b7fc4b816
+Requires: caTools, gdata, gtools
+
+Package: gridExtra
+Source: CRAN
+Version: 2.2.1
+Hash: 8f54b57d4b0598ed5b27e0eafe86a670
+Requires: gtable
+
+Package: gtable
+Source: CRAN
+Version: 0.2.0
+Hash: cd78381a9d3fea966ac39bd0daaf5554
+
+Package: gtools
+Source: CRAN
+Version: 3.5.0
+Hash: 471b2e2452dfb30fdc1dd6f1b567925a
+
+Package: jackstraw
+Source: CRAN
+Version: 1.1
+Hash: 4282fce8244973fcb1d5148718c9dce9
+Requires: corpcor, lfa
+
+Package: kernlab
+Source: CRAN
+Version: 0.9-24
+Hash: 37726d9307b8183493bb9187ea0cde8c
+
+Package: labeling
+Source: CRAN
+Version: 0.3
+Hash: ecf589b42cd284b03a4beb9665482d3e
+
+Package: lars
+Source: CRAN
+Version: 1.2
+Hash: 265117078b066c352d6216b5434ec122
+
+Package: lazyeval
+Source: CRAN
+Version: 0.1.10
+Hash: 9679f1ac7f6bc07bc79755f34cd15e1f
+
+Package: lfa
+Source: Bioconductor
+Version: 1.0.0
+Hash: a22a22322f5e8c72217c101595f06e61
+Requires: corpcor
+
+Package: magrittr
+Source: CRAN
+Version: 1.5
+Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: mclust
+Source: CRAN
+Version: 5.2
+Hash: 77406ad6a64bb972a5e05b658161261d
+
+Package: mixtools
+Source: CRAN
+Version: 1.0.4
+Hash: 6a8036521ba9c153cd560018579b094d
+Requires: segmented
+
+Package: modeltools
+Source: CRAN
+Version: 0.2-21
+Hash: 3dc03397b2a4375c8a5e5f09c8cf0ae1
+
+Package: munsell
+Source: CRAN
+Version: 0.4.3
+Hash: f96d896947fcaf9b6d0074002e9f4f9d
+Requires: colorspace
+
+Package: mvtnorm
+Source: CRAN
+Version: 1.0-5
+Hash: 55a3581188e15f13f5ba19c18e151ac2
+
+Package: packrat
+Source: CRAN
+Version: 0.4.7
+Hash: a4114476a371801bc2c567d8da71a29c
+
+Package: plyr
+Source: CRAN
+Version: 1.8.3
+Hash: 7998a888024e465c15f40b078d17b5a6
+Requires: Rcpp
+
+Package: prabclus
+Source: CRAN
+Version: 2.2-6
+Hash: e646245afbb6b8ed25e22e8a76b781cd
+Requires: mclust
+
+Package: rJava
+Source: CRAN
+Version: 0.9-8
+Hash: 3e8627a2a5bd45c9bad6112acfc231d9
+
+Package: reshape2
+Source: CRAN
+Version: 1.4.1
+Hash: 4c341beb363831f5320f678f7f1b679d
+Requires: Rcpp, plyr, stringr
+
+Package: robustbase
+Source: CRAN
+Version: 0.92-5
+Hash: 6b6e87970ffd936a94230d9d8a9a55e7
+Requires: DEoptimR
+
+Package: scales
+Source: CRAN
+Version: 0.4.0
+Hash: bce90b73946711302c29ceabdb08241c
+Requires: RColorBrewer, Rcpp, dichromat, labeling, munsell, plyr
+
+Package: segmented
+Source: CRAN
+Version: 0.5-1.4
+Hash: 8cc345bb84c6a8e55cd293dd87aa2d77
+
+Package: stringi
+Source: CRAN
+Version: 1.1.1
+Hash: 48f2afc5dfecb65ba32a87d38b3533ff
+
+Package: stringr
+Source: CRAN
+Version: 1.0.0
+Hash: 2676dd5f88890910962b733b0f9540e1
+Requires: magrittr, stringi
+
+Package: trimcluster
+Source: CRAN
+Version: 0.1-2
+Hash: 662a899a1377c7d3f2cef1722e335aff
+
+Package: tsne
+Source: CRAN
+Version: 0.1-2
+Hash: f39ce3a9fb4370385500a07703129d2c
+
+Package: useful
+Source: CRAN
+Version: 1.2.0
+Hash: 5033aa9dbf5a0660a999a3821bd85392
+Requires: dplyr, ggplot2, magrittr, plyr, scales
