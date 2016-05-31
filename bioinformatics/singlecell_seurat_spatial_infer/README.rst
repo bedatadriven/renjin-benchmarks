@@ -2,8 +2,27 @@
 Single Cell (Seurat, Spatial Inference)
 ################################################################
 
+All the functions that take place within a cell are performed through proteins.
+These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
+A gene is a sequence of DNA that encodes for a particular protein. In order to
+make the necessary proteins, the transcriptional machinary of a cell makes
+special copies of the respective genes that can be translated to protein
+sequences. These special copies are called messenger RNAs (Ribonucleic acids).
 
-`... <...>`_
+The amount of mRNA produced by a specific gene is used as a surrogate marker for
+quantification of the gene activity. With Current highthroughput sequencing
+technologies (such as in this case RNAseq), all (fragmented) RNA molecules
+from a biological sample are sequenced. These sequences are then matched to
+the annotated genome sequence to identify to which gene each sequenced fragment
+belongs. More sequenced fragments mapping to a gene in one samples as compared
+to another, means that the specific gene had a higher activity. In addition,
+single cell sequencing technologies have allowed us to identify the heterogeneous
+nature of phenotypically pure populations and identity new sub populations of
+cells based on difference in gene expression.
+
+In this workflow developed by `Satija lab <http://www.satijalab.org>`_ imaging data is
+used together with single cell transcrptomic data to resolve the spatial position
+of the sequenced cells based on their expression profile.
 
 
 ******************************
