@@ -45,7 +45,7 @@ do.unpack <- function() {
 
 ## mutation data
 
-do.pop.load <- function(){
+do.pop.load <- function() {
   if (DEBUGGING) cat("> Start: do.pop.load()\n")
 
   readLines("laml.maf", 3) # no header info other than col names
@@ -161,7 +161,7 @@ do.fam.load <- function(chromosomes = c(10)) {
   return(fam)
 }
 
-do.fam.prepare <- function(fam){
+do.fam.prepare <- function(fam) {
   if (DEBUGGING) cat("> Start: do.fam.prepare()\n")
   ## scores for individual each SNP when compared between individuals
   # get SNP allele frequencies
@@ -245,7 +245,7 @@ do.fam.prepare <- function(fam){
     #                           take colsum if second match is homozygous
     #                           colsum = 1
 
-    if(nchar(i) == 2 && nchar(j) == 2){
+    if (nchar(i) == 2 && nchar(j) == 2) {
 
       return(
 
@@ -282,31 +282,33 @@ do.fam.prepare <- function(fam){
   if (DEBUGGING) cat("> End: do.fam.prepare()\n")
 }
 
-do.fam.check <- function(fam){
+do.fam.check <- function(fam) {
   if (DEBUGGING) cat("> Start: do.fam.check()\n")
   ## check that all SNPs match
   checks <- c()
 
   # all sets have the same number of SNPs
-  if(length(unique(lapply(fam, nrow))) == 1){
+  if (length(unique(lapply(fam, nrow))) == 1) {
     checks <- append(checks, TRUE)
   } else { checks <- append(checks, FALSE)  }
 
   # all SNP rsids the same
-  if(
+  if (
     all(
       sapply(fam[1],
              # check that the list of SNPs matches the first list of SNPs
              # i.e. intersection length is equal to unintersected
-             function(x) length(intersect(fam[[1]]$X..rsid, x$X..rsid)) == length(fam[[1]]$X..rsid)
+             function(x) {
+               length(intersect(fam[[1]]$X..rsid, x$X..rsid)) == length(fam[[1]]$X..rsid)
+             }
              )
         )
-    ){
+    ) {
     checks <- append(checks, TRUE)
   } else { checks <- append(checks, FALSE)  }
   if (DEBUGGING) cat(">>>> DONE: SNP rsid same?\n")
   # all SNPs in the same order
-  if(
+  if (
     all(
       sapply(fam[1],
              # check that the list of SNPs matches the first list of SNPs
@@ -314,7 +316,7 @@ do.fam.check <- function(fam){
              function(x) all(order(fam[[1]]$X..rsid) == order(x$X..rsid))
       )
     )
-  ){
+  ) {
     checks <- append(checks, TRUE)
   } else { checks <- append(checks, FALSE)  }
   if (DEBUGGING) cat(">>>> DONE: SNP order same?\n")
@@ -324,9 +326,9 @@ do.fam.check <- function(fam){
   return(all(checks))
 }
 
-do.ibd.vector <- function(fam, scores){
+do.ibd.vector <- function(fam, scores) {
   if (DEBUGGING) cat("> Start: do.ibd.vector()\n")
-  do.ibd <- function(maf1, maf2, scores){
+  do.ibd <- function(maf1, maf2, scores) {
     if (DEBUGGING) cat(">>> Start: do.ibd()\n")
 
     ### IBD
@@ -388,11 +390,8 @@ do.ibd.window <- function(fam.scores, window.sizes = seq(5, 50, 5)) {
                         x$df$score, width = win,
                         by = as.integer(win / 2),
                         FUN = sum
-                      ) / win )["3rd Qu."]
-              )
-          )
-        }
-      )
+                      ) / win )["3rd Qu."] ) } )
+        } )
     )
   )
 
