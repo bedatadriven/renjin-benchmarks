@@ -1,6 +1,6 @@
-################################
+
 Simulated GEO matrix
-################################
+====================
 
 Mutations in DNA that is coding for proteins (genes) or regulatory elements
  are often the cause of most diseases. Affymatirx arrays allow quantification of
@@ -33,34 +33,35 @@ covariance ('cov' from 'stats' package), biclustering ('biclust' package), SVM
 ('irlba' package), and differential gene expression using two sample Wilcoxon
 test (also know as ‘Mann-Whitney’ test) are performed.
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There are 3 packages used in this workflow, which depend
 on 7 additional packages from CRAN (dependencies)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **CRAN**: biclust, s4vd, irlba
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **CRAN**: lattice, colorspace, MASS, flexclust, modeltools, biclust, Matrix
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
 
-This workflow uses simulated data from GenBase `data_generator.py <https://github.com/mitdbg/genbase/blob/master/data/data_generator.py>`_ with 500 as size of
-columns and rows. Here you can read about the original GenBase study by `Taft R et al., 2014 <http://dx.doi.org/10.1145/2588555.2595633>`_.
+This workflow uses simulated data from GenBase `data_generator.py`_ with 500 as
+size of columns and rows. Here you can read about the original GenBase study by
+`Taft R et al., 2014`_.
 
-********************
+.. _data_generator.py: https://github.com/mitdbg/genbase/blob/master/data/data_generator.py
+.. _Taft R et al., 2014: http://dx.doi.org/10.1145/2588555.2595633
+
 License
-********************
+-------
+
 Copyright (c) 2015 MIT DB Group
 based on code from `GenBase <https://github.com/mitdbg/genbase/blob/master/code/R_benchmark/vanilla_R_benchmark.R>`_
 Copyright (c) 2015 Hannes Muehleisen
@@ -69,3 +70,4 @@ Copyright (c) 2015 Ieuan Clay
 based on code from `GenBench <https://github.com/biolion/genbench>`_
 Copyright (c) 2015-2016 BeDataDriven B.V.
 License: `GPL version 2 or higher <http://www.gnu.org/licenses/gpl.html>`_
+

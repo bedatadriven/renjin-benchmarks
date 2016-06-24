@@ -1,6 +1,6 @@
-################################################################
+
 clinical eslII (Essential Statistics Learning 2nd Edition)
-################################################################
+==========================================================
 
 In clinica studies, information about disease state and progression of a large
 number of patients is collected together with patient information that could
@@ -17,27 +17,25 @@ validation ('lars' package); and fitting General Linear Model ('stats'
 package).
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There are 6 packages used in this workflow, which depend
 on 2 additional packages from CRAN (dependencies)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **CRAN**: ncvreg, boot, lars, lasso2, mda, leaps
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **CRAN**: class, MASS
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
+
 source datasets from http://cran.r-project.org/web/packages/lasso2/lasso2.pdf
 
 - Prostate dataset:
@@ -48,9 +46,9 @@ source datasets from http://cran.r-project.org/web/packages/lasso2/lasso2.pdf
     treatment of adenocarcinoma of the prostate. II. Radical prostatectomy
     treated patients. Journal of Urology, 16: 1076-1083.
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Ieuan Clay
 based on code from https://github.com/biolion/genbench
 Copyright (c) 2015-2016 BeDataDriven B.V.

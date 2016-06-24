@@ -1,6 +1,6 @@
-################################
+
 clinical (liver cohort)
-################################
+=======================
 
 Single nucleotide ploymorphisms (SNPs) are single basepair mutations in DNA that
  occur with certain frequency within the population. These mutations might be the
@@ -19,32 +19,30 @@ test sets and predictive models are generated for different features, these
 models are then tested using test dataset and the results are stored in a list.
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There is 1 package used in this workflow, which depends
 on 2 additional packages from CRAN (dependencies)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **CRAN**: e1071
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **CRAN**: class, MASS
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
+
 Downloaded from https://www.synapse.org/ in June 2015
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Ieuan Clay
 based on code from https://github.com/biolion/genbench
 Copyright (c) 2015-2016 BeDataDriven B.V.

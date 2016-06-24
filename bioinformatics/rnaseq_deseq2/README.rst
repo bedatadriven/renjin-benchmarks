@@ -1,6 +1,6 @@
-################################
+
 RNAseq DESeq2
-################################
+=============
 
 All the functions that take place within a cell are performed through proteins.
 These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
@@ -23,15 +23,14 @@ GenomicAlignments as described in
 `Love MI et al., 2015 <http://doi.org/10.12688/f1000research.7035.1>`_
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There are 17 packages used in this workflow, which depend
 on 79 additional packages (dependencies).
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **Bioconductor**: Rsamtools, GenomicFeatures, GenomicAlignments, BiocParallel,
  DESeq2, genefilter, AnnotationDbi, org.Hs.eg.db, ReportingTools
@@ -39,9 +38,8 @@ Used packages:
 - **CRAN**: pheatmap, RColorBrewer, PoiClaClu, ggplot2, Gviz, fission, sva,
  fission
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **Bioconductor**: BiocGenerics, Biostrings, GenomeInfoDb, XVector, S4Vectors,
 rtracklayer, Biobase, biomaRt, IRanges, zlibbioc, GenomicRanges, geneplotter,
@@ -56,17 +54,17 @@ OrganismDbi, biovizBase, GO.db
  GGally, graph, Matrix, RBGL, AnnotationForge, evaluate, markdown, yaml,
  highr, formatR, reshape, mime, matrixStats, mgcv, nlme
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
 
 RNAseq bam-files from `Solaimani Kartalaei P, (2014) <http://www.doi.org/10.1084/jem.20140767>`_
 
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Wolfgang Huber
 based on  `DOI: 10.12688/f1000research.7035.1 <http://www.doi.org/10.12688/f1000research.7035.1>`_
 Copyright (c) 2016 BeDataDriven B.V.
 License: Artistic 2.0
+

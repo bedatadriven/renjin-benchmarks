@@ -21,4 +21,7 @@
 *.jpg
 *.svd
 *.eps
+*.log
+*.swp
+*.*~
 docs/build

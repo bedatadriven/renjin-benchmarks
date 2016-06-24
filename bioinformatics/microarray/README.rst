@@ -1,6 +1,6 @@
-################################
+
 Microarray
-################################
+==========
 
 Mutations in DNA that is coding for proteins (genes) or regulatory elements
  are often the cause of most diseases. Affymatirx arrays allow quantification of
@@ -32,36 +32,34 @@ The raw data is normalized and differential gene expression analysis and a simpl
 testing is performed as described in limma vignet.
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There are 4 packages used in this workflow, which depend
 on 5 additional packages (dependencies).
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **Bioconductor**: Biobase, affy, hgu133plus2cdf, limma
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **Bioconductor**: BiocGenerics, BiocInstaller, zlibbioc, preprocessCore, affyio
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
 
 From Gene Expression Omnibus repository accession ID `GSE45417 <http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE45417>`_
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2005 Gordon Smyth
 based on `Limma package <http://www.bioconductor.org/packages/release/bioc/html/limma.html>`_
 Copyright (c) 2015 Ieuan Clay
 based on code from `GenBench <https://github.com/biolion/genbench>`_
 Copyright (c) 2015-2016 BeDataDriven B.V.
 License: `GPL version 2 or higher <http://www.gnu.org/licenses/gpl.html>`_
+
