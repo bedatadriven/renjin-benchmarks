@@ -1,7 +1,6 @@
 
 Single Cell (Seurat, Clustering and marker discovery)
 =====================================================
-
 All the functions that take place within a cell are performed through proteins.
 These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
 A gene is a sequence of DNA that encodes for a particular protein. In order to
@@ -20,7 +19,7 @@ single cell sequencing technologies have allowed us to identify the heterogeneou
 nature of phenotypically pure populations and identity new sub populations of
 cells based on difference in gene expression.
 
-In this workflow developed by `Satija lab <http://www.satijalab.org>`_ single
+In this workflow developed by `Satija lab`_ single
 cell transcriptomic data is used in combination of various dimensional reduction
 algorithms (such as PCA and t-SNE) to cluster cells. The leading genes in these
 clusterings can be used as genetic markers.
@@ -28,42 +27,27 @@ clusterings can be used as genetic markers.
 
 Packages and Dependencies
 -------------------------
-
 There is 1 package used in this workflow, which depend
 on 60 additional packages from CRAN (dependencies)
 
-Used packages:
-^^^^^^^^^^^^^^
+**Used packages:**
 
 - **Github**: Seurat (satijalab/seurat)
 
-Package dependencies:
-^^^^^^^^^^^^^^^^^^^^^
+**Package dependencies:**
 
-Depends on:
-- **CRAN**: ggplot2, reshape2, useful, gridExtra, gplots,
-            ROCR, stringr, mixtools, lars, fastICA,
-            tsne, Rtsne, fpc, ape, VGAM,
-            jackstraw, XLConnect, plyr, scales, gtable,
-            digest, MASS, proto, Rcpp, dichromat,
-            labeling, RColorBrewer, munsell, colorspace, magrittr,
-            stringi, dplyr, assertthat, R6, DBI,
-            lazyeval, gtools, KernSmooth, caTools, bitops,
-            boot, segmented, diptest, mvtnorm, flexmix,
-            mclust, trimcluster, kernlab, robustbase, class,
-            cluster, prabclus, nnet, lattice, modeltools,
-            DEoptimR, nlme, corpcor, XLConnectJars, rJava
+* *CRAN*: ggplot2, reshape2, useful, gridExtra, gplots, ROCR, stringr, mixtools, lars, fastICA, tsne, Rtsne, fpc, ape, VGAM, jackstraw, XLConnect, plyr, scales, gtable, digest, MASS, proto, Rcpp, dichromat, labeling, RColorBrewer, munsell, colorspace, magrittr, stringi, dplyr, assertthat, R6, DBI, lazyeval, gtools, KernSmooth, caTools, bitops, boot, segmented, diptest, mvtnorm, flexmix, mclust, trimcluster, kernlab, robustbase, class, cluster, prabclus, nnet, lattice, modeltools, DEoptimR, nlme, corpcor, XLConnectJars, rJava
 
 Data:
-^^^^^
-
+-------
 Single cell transcriptome data from `Pollen et al. 2014 <http://doi.org/10.1038/nbt.2967>`_
 
 License
 -------
+| Copyright (c) 2015 Rahul Satija
+| based on code from `Tutorial - Unsupervised clustering and marker discovery <http://www.satijalab.org/seurat-intro.html>`_
+| Copyright (c) 2015-2016 BeDataDriven B.V.
+| License: `GPL version 2 or higher`_
 
-Copyright (c) 2015 Rahul Satija
-based on code from `Tutorial - Unsupervised clustering and marker discovery <http://www.satijalab.org/seurat-intro.html>`_
-Copyright (c) 2015-2016 BeDataDriven B.V.
-License: `GPL version 2 or higher <http://www.gnu.org/licenses/gpl.html>`_
-
+.. _Satija lab: http://www.satijalab.org
+.. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html

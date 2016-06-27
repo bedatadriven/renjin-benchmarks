@@ -23,21 +23,18 @@ Packages and Dependencies
 There is only 1 package used in this workflow, which has
 no additional dependencies.
 
-Used packages:
-^^^^^^^^^^^^^^
+**Used packages:**
 
-- **CRAN**: survival
+* *CRAN*: survival
 
 Data:
-^^^^^
-
-- pat.gene.rda: patient survival data from TCGA consortium processed and formatted
- by Phil Cheng
+------
+- pat.gene.rda: patient survival data from TCGA consortium processed and formatted by Phil Cheng
 
 License
 -------
+| Copyright (c) 2015 Phil Cheng
+| Copyright (c) 2015-2016 BeDataDriven B.V.
+| License: `GPL version 2 or higher`_
 
-Copyright (c) 2015 Phil Cheng
-Copyright (c) 2015-2016 BeDataDriven B.V.
-License: `... <...>`_
-
+.. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html

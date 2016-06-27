@@ -25,46 +25,30 @@ GenomicAlignments as described in
 
 Packages and Dependencies
 -------------------------
-
 There are 17 packages used in this workflow, which depend
 on 79 additional packages (dependencies).
 
-Used packages:
-^^^^^^^^^^^^^^
+**Used packages:**
 
-- **Bioconductor**: Rsamtools, GenomicFeatures, GenomicAlignments, BiocParallel,
- DESeq2, genefilter, AnnotationDbi, org.Hs.eg.db, ReportingTools
+* *Bioconductor*: Rsamtools, GenomicFeatures, GenomicAlignments, BiocParallel, DESeq2, genefilter, AnnotationDbi, org.Hs.eg.db, ReportingTools
 
-- **CRAN**: pheatmap, RColorBrewer, PoiClaClu, ggplot2, Gviz, fission, sva,
- fission
+* *CRAN*: pheatmap, RColorBrewer, PoiClaClu, ggplot2, Gviz, fission, sva, fission
 
-Package dependencies:
-^^^^^^^^^^^^^^^^^^^^^
+**Package dependencies:**
 
-- **Bioconductor**: BiocGenerics, Biostrings, GenomeInfoDb, XVector, S4Vectors,
-rtracklayer, Biobase, biomaRt, IRanges, zlibbioc, GenomicRanges, geneplotter,
-ggbio, PFAM.db, limma, edgeR, GSEABase, GOstats, VariantAnnotation, BSgenome,
-OrganismDbi, biovizBase, GO.db
+* *Bioconductor*: BiocGenerics, Biostrings, GenomeInfoDb, XVector, S4Vectors, rtracklayer, Biobase, biomaRt, IRanges, zlibbioc, GenomicRanges, geneplotter, ggbio, PFAM.db, limma, edgeR, GSEABase, GOstats, VariantAnnotation, BSgenome, OrganismDbi, biovizBase, GO.db
 
-- **CRAN**: bitops, RCurl, RSQLite, DBI, XML, snow, futile.logger, Rcpp,
- RcppArmadillo, Hmisc, locfit, plyr, scales, reshape2, gtable, digest, MASS,
- proto, Formula, lattice, gridExtra, nnet, acepack, latticeExtra, cluster,
- rpart, foreign, survival, annotate, dichromat, labeling, munsell, stringr,
- xtable, colorspace, magrittr, stringi, Category, R.utils, hwriter, knitr,
- GGally, graph, Matrix, RBGL, AnnotationForge, evaluate, markdown, yaml,
- highr, formatR, reshape, mime, matrixStats, mgcv, nlme
+* *CRAN*: bitops, RCurl, RSQLite, DBI, XML, snow, futile.logger, Rcpp, RcppArmadillo, Hmisc, locfit, plyr, scales, reshape2, gtable, digest, MASS, proto, Formula, lattice, gridExtra, nnet, acepack, latticeExtra, cluster, rpart, foreign, survival, annotate, dichromat, labeling, munsell, stringr, xtable, colorspace, magrittr, stringi, Category, R.utils, hwriter, knitr, GGally, graph, Matrix, RBGL, AnnotationForge, evaluate, markdown, yaml, highr, formatR, reshape, mime, matrixStats, mgcv, nlme
 
 Data:
-^^^^^
-
+-------
 RNAseq bam-files from `Solaimani Kartalaei P, (2014) <http://www.doi.org/10.1084/jem.20140767>`_
 
 
 License
 -------
-
-Copyright (c) 2015 Wolfgang Huber
-based on  `DOI: 10.12688/f1000research.7035.1 <http://www.doi.org/10.12688/f1000research.7035.1>`_
-Copyright (c) 2016 BeDataDriven B.V.
-License: Artistic 2.0
+| Copyright (c) 2015 Wolfgang Huber
+| based on  `DOI: 10.12688/f1000research.7035.1 <http://www.doi.org/10.12688/f1000research.7035.1>`_
+| Copyright (c) 2016 BeDataDriven B.V.
+| License: Artistic 2.0
 

@@ -1,6 +1,6 @@
 
 Single Cell (Seurat, Spatial Inference)
-=======================================
+========================================
 
 All the functions that take place within a cell are performed through proteins.
 These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
@@ -20,7 +20,7 @@ single cell sequencing technologies have allowed us to identify the heterogeneou
 nature of phenotypically pure populations and identity new sub populations of
 cells based on difference in gene expression.
 
-In this workflow developed by `Satija lab <http://www.satijalab.org>`_ imaging data is
+In this workflow developed by `Satija lab`_ imaging data is
 used together with single cell transcrptomic data to resolve the spatial position
 of the sequenced cells based on their expression profile.
 
@@ -31,42 +31,26 @@ Packages and Dependencies
 There are 4 packages used in this workflow, which depend
 on 68 additional packages (dependencies)
 
-Used packages:
-^^^^^^^^^^^^^^
+**Used packages:**
 
-- **Github**: Seurat (satijalab/seurat)
+* *Github*: Seurat (satijalab/seurat)
 
-- **CRAN**: XLConnect, rgl, knitr
+* *CRAN*: XLConnect, rgl, knitr
 
-Package dependencies:
-^^^^^^^^^^^^^^^^^^^^^
+**Package dependencies:**
 
-Depends on:
-- **CRAN**: ggplot2, reshape2, useful, gridExtra, gplots,
-            gdata, XLConnectJars, ROCR, stringr, mixtools,
-            lars, fastICA, tsne, Rtsne, fpc,
-            ape, VGAM, jackstraw, XLConnect, methods,
-            rJava, plyr, scales, gtable, digest,
-            MASS, proto, Rcpp, dichromat, labeling,
-            RColorBrewer, munsell, colorspace, magrittr, stringi,
-            dplyr, assertthat, R6, DBI, lazyeval,
-            gtools, KernSmooth, caTools, bitops, boot,
-            segmented, diptest, mvtnorm, flexmix, mclust,
-            trimcluster, kernlab, robustbase, class, cluster,
-            prabclus, nnet, lattice, modeltools, DEoptimR,
-            nlme, corpcor, evaluate, markdown, yaml,
-            highr, formatR, mime
+* *CRAN*: ggplot2, reshape2, useful, gridExtra, gplots, gdata, XLConnectJars, ROCR, stringr, mixtools, lars, fastICA, tsne, Rtsne, fpc, ape, VGAM, jackstraw, XLConnect, methods, rJava, plyr, scales, gtable, digest, MASS, proto, Rcpp, dichromat, labeling, RColorBrewer, munsell, colorspace, magrittr, stringi, dplyr, assertthat, R6, DBI, lazyeval, gtools, KernSmooth, caTools, bitops, boot, segmented, diptest, mvtnorm, flexmix, mclust, trimcluster, kernlab, robustbase, class, cluster, prabclus, nnet, lattice, modeltools, DEoptimR, nlme, corpcor, evaluate, markdown, yaml, highr, formatR, mime
 
 Data:
-^^^^^
-
+--------
 Single cell transcriptome data from `Satija*, Farrell* et al., 2015 <http://doi.org/10.1038/nbt.3192>`_
 
 License
 -------
+| Copyright (c) 2015 Rahul Satija
+| based on code from `Tutorial - Spatial Inference of single cell data <http://www.satijalab.org/seurat-intro.html>`_
+| Copyright (c) 2015-2016 BeDataDriven B.V.
+| License: `GPL version 2 or higher`_
 
-Copyright (c) 2015 Rahul Satija
-based on code from `Tutorial - Spatial Inference of single cell data <http://www.satijalab.org/seurat-intro.html>`_
-Copyright (c) 2015-2016 BeDataDriven B.V.
-License: `GPL version 2 or higher <http://www.gnu.org/licenses/gpl.html>`_
-
+.. _Satija lab: http://www.satijalab.org
+.. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html

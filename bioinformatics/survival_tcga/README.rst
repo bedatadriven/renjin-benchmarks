@@ -23,25 +23,22 @@ Packages and Dependencies
 There are 2 packages used in this workflow, which depend
 on 5 additional packages from CRAN (dependencies)
 
-Used packages:
-^^^^^^^^^^^^^^
+**Used packages:**
 
-- **CRAN**: glmnet, survival
+* *CRAN*: glmnet, survival
 
-Package dependencies:
-^^^^^^^^^^^^^^^^^^^^^
+**Package dependencies:**
 
-- **CRAN**: foreach, Matrix, codetools, iterators, lattice
+* *CRAN*: foreach, Matrix, codetools, iterators, lattice
 
 Data:
-^^^^^
-
+------
 - Patient survival data from TCGA consortium provided by Andre Verissimo.
 
 License
 -------
+| Copyright (c) 2015 Andre Verissimo (andre.verissimo@tecnico.ulisboa.pt)
+| Copyright (c) 2015-2016 BeDataDriven B.V.
+| License: `GPL version 2 or higher`_
 
-Copyright (c) 2015 Andre Verissimo (andre.verissimo@tecnico.ulisboa.pt)
-Copyright (c) 2015-2016 BeDataDriven B.V.
-License: `... <...>`_
-
+.. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
