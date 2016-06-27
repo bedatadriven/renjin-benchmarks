@@ -30,19 +30,22 @@ The dataset we are using comes from the `23andme v2 <https://www.23andme.com/>`_
 
 Though the individuals are not related, this data can still be used to perform some typical tests carried out on pedigree studies, such as determining "relatedness" between individuals.
 
-member	dataset id	link
-Daniel MacArthur	DGM001	`http://s3.amazonaws.com/gnz.genotypes/DGM001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/DGM001_genotypes.zip>`_
-Luke Jostins	LXJ001	`http://s3.amazonaws.com/gnz.genotypes/LXJ001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/LXJ001_genotypes.zip>`_
-Dan Vorhaus	DBV001	`http://s3.amazonaws.com/gnz.genotypes/DBV001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/DBV001_genotypes.zip>`_
-Caroline Wright	CFW001	`http://s3.amazonaws.com/gnz.genotypes/CFW001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/CFW001_genotypes.zip>`_
-Kate Morley	KIM001	`http://s3.amazonaws.com/gnz.genotypes/KIM001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/KIM001_genotypes.zip>`_
-Vincent Plagnol	VXP001	`http://s3.amazonaws.com/gnz.genotypes/VXP001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/VXP001_genotypes.zip>`_
-Jeff Barrett	JCB001	`http//s3.amazonaws.com/gnz.genotypes/JCB001_genotypes.zip <http//s3.amazonaws.com/gnz.genotypes/JCB001_genotypes.zip>`_
-Jan Aerts	JXA001	`http://s3.amazonaws.com/gnz.genotypes/JXA001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/JXA001_genotypes.zip>`_
-Joe Pickrell	JKP001	`http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip>`_
-Don Conrad	DFC001	`http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip>`_
-Carl Anderson	CAA001	`http://s3.amazonaws.com/gnz.genotypes/CAA001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/CAA001_genotypes.zip>`_
-Ilana Fisher	IPF001	`http://s3.amazonaws.com/gnz.genotypes/IPF001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/IPF001_genotypes.zip>`_
+==================  ============  ==================================================================
+Member	            Dataset id	  Link
+==================  ============  ==================================================================
+Daniel MacArthur	  DGM001	      `http://s3.amazonaws.com/gnz.genotypes/DGM001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/DGM001_genotypes.zip>`_
+Luke Jostins	      LXJ001	      `http://s3.amazonaws.com/gnz.genotypes/LXJ001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/LXJ001_genotypes.zip>`_
+Dan Vorhaus	        DBV001	      `http://s3.amazonaws.com/gnz.genotypes/DBV001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/DBV001_genotypes.zip>`_
+Caroline Wright	    CFW001	      `http://s3.amazonaws.com/gnz.genotypes/CFW001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/CFW001_genotypes.zip>`_
+Kate Morley	        KIM001	      `http://s3.amazonaws.com/gnz.genotypes/KIM001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/KIM001_genotypes.zip>`_
+Vincent Plagnol	    VXP001	      `http://s3.amazonaws.com/gnz.genotypes/VXP001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/VXP001_genotypes.zip>`_
+Jeff Barrett	      JCB001	      `http//s3.amazonaws.com/gnz.genotypes/JCB001_genotypes.zip <http//s3.amazonaws.com/gnz.genotypes/JCB001_genotypes.zip>`_
+Jan Aerts	          JXA001	      `http://s3.amazonaws.com/gnz.genotypes/JXA001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/JXA001_genotypes.zip>`_
+Joe Pickrell	      JKP001	      `http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip>`_
+Don Conrad	        DFC001	      `http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip>`_
+Carl Anderson	      CAA001	      `http://s3.amazonaws.com/gnz.genotypes/CAA001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/CAA001_genotypes.zip>`_
+Ilana Fisher	      IPF001	      `http://s3.amazonaws.com/gnz.genotypes/IPF001_genotypes.zip <http://s3.amazonaws.com/gnz.genotypes/IPF001_genotypes.zip>`_
+==================  ============  ==================================================================
 
 The population study data is from the TCGA consortium publication `TCGA, 2013<http://www.doi.org/10.1056/NEJMoa1301689>`_, publication `data archive<https://tcga-data.nci.nih.gov/docs/publications/laml_2012/>`_,
 mutation and annotation (`maf<http://tcga-data.nci.nih.gov/docs/publications/laml_2012/genome.wustl.edu_LAML.IlluminaGA_DNASeq.Level_2.2.12.0.tar.gz>`_), and  `patient meta data <http://tcga-data.nci.nih.gov/docs/publications/laml_2012/clinical_patient_laml.tsv>`_.
