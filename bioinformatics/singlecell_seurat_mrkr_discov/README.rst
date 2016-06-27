@@ -1,6 +1,6 @@
-################################################################
+
 Single Cell (Seurat, Clustering and marker discovery)
-################################################################
+=====================================================
 
 All the functions that take place within a cell are performed through proteins.
 These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
@@ -26,21 +26,19 @@ algorithms (such as PCA and t-SNE) to cluster cells. The leading genes in these
 clusterings can be used as genetic markers.
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There is 1 package used in this workflow, which depend
 on 60 additional packages from CRAN (dependencies)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **Github**: Seurat (satijalab/seurat)
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 Depends on:
 - **CRAN**: ggplot2, reshape2, useful, gridExtra, gplots,
@@ -56,16 +54,16 @@ Depends on:
             cluster, prabclus, nnet, lattice, modeltools,
             DEoptimR, nlme, corpcor, XLConnectJars, rJava
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
 
 Single cell transcriptome data from `Pollen et al. 2014 <http://doi.org/10.1038/nbt.2967>`_
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Rahul Satija
 based on code from `Tutorial - Unsupervised clustering and marker discovery <http://www.satijalab.org/seurat-intro.html>`_
 Copyright (c) 2015-2016 BeDataDriven B.V.
 License: `GPL version 2 or higher <http://www.gnu.org/licenses/gpl.html>`_
+

@@ -1,6 +1,6 @@
-################################
+
 Affy
-################################
+====
 
 Mutations in DNA that is coding for proteins (genes) or regulatory elements
  are often the cause of most diseases. Affymatirx arrays allow quantification of
@@ -40,23 +40,21 @@ the ArrayAnalysis tutorial.
 
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There are 12 packages (mainly affymatrix array analysis related) used in this workflow, which depend
 on 28 additional packages from CRAN and Bioconductor (dependencies)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **Bioconductor**: ArrayTools, affy, affycomp, affyPLM, affypdnn, bioDist, simpleaffy, affyQCReport, plier, yaqcaffy
 
 - **CRAN**: gdata, gplots
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **Bioconductor**: limma, Biobase, BiocInstaller, BiocGenerics, zlibbioc, preprocessCore, affyio, gcrma, Biostrings, XVector, S4Vectors, IRanges, genefilter, AnnotationDbi, annotate, GenomeInfoDb, affyPLM
 
@@ -67,9 +65,9 @@ Package dependencies:
 
 
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Arrayanalysis.org
 based on code from http://www.arrayanalysis.org/affyQC/doc_affyQC_R.php
 Copyright (c) 2015-2016 BeDataDriven B.V.

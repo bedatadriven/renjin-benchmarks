@@ -1,6 +1,6 @@
-################################################################
+
 Single Cell (Seurat, Spatial Inference)
-################################################################
+=======================================
 
 All the functions that take place within a cell are performed through proteins.
 These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
@@ -25,23 +25,21 @@ used together with single cell transcrptomic data to resolve the spatial positio
 of the sequenced cells based on their expression profile.
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There are 4 packages used in this workflow, which depend
 on 68 additional packages (dependencies)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **Github**: Seurat (satijalab/seurat)
 
 - **CRAN**: XLConnect, rgl, knitr
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 Depends on:
 - **CRAN**: ggplot2, reshape2, useful, gridExtra, gplots,
@@ -59,16 +57,16 @@ Depends on:
             nlme, corpcor, evaluate, markdown, yaml,
             highr, formatR, mime
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
 
 Single cell transcriptome data from `Satija*, Farrell* et al., 2015 <http://doi.org/10.1038/nbt.3192>`_
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Rahul Satija
 based on code from `Tutorial - Spatial Inference of single cell data <http://www.satijalab.org/seurat-intro.html>`_
 Copyright (c) 2015-2016 BeDataDriven B.V.
 License: `GPL version 2 or higher <http://www.gnu.org/licenses/gpl.html>`_
+

@@ -1,6 +1,6 @@
-################################
+
 Integration: Liver cohort
-################################
+=========================
 
 Recent high-throughput technologies have caused an explosion in the number of
 cohort studies which monitor and record medical (phenotype, genetic), social
@@ -46,33 +46,30 @@ This is done in 50 iteration and the iteration with highest correlation in
 training and test sets is recorded.
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There are 3 packages used in this workflow, which depend
 on 1 additional package from CRAN (dependency)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **CRAN**: stats, e1071, MASS
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **CRAN**: class
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
 
 from `Human Liver Cohort (Synapse ID: syn4499) <https://www.synapse.org/#!Synapse:syn4499>`_
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Ieuan Clay
 based on code from https://github.com/biolion/genbench
 Copyright (c) 2015-2016 BeDataDriven B.V.

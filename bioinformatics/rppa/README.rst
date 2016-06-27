@@ -1,6 +1,6 @@
-###################################
+
 Reverse phase protein array (rppa)
-###################################
+==================================
 
 Processes within a cell are mainly performed by proteins. Special copies of a
 gene, called messenger RNAs (mRNAs), are produced and transported to the cells
@@ -22,32 +22,31 @@ most antibodies bind to multiple proteins due to non-specific binding, the
 requirement for antibodies which only detect a single protein in one of the
 limitation of RPPA.
 
-In this workflow, `RPPA dataset<http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv>`_ from TCGA consortium is
-clustered using R hierarchical clustering  and K-means clustering from ‘stats’
-package.
+In this workflow, `RPPA dataset`_ from TCGA consortium is clustered using R
+hierarchical clustering  and K-means clustering from ‘stats’ package.
 
+.. _RPPA dataset: http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There is ony 1 package used in this workflow, which has no dependencies.
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **CORE**: stats
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
 
 - RPPA data: http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Ieuan Clay
 based on code from `GenBench <https://github.com/biolion/genbench>`_
 Copyright (c) 2015-2016 BeDataDriven B.V.
 License: `GPL version 2 or higher <http://www.gnu.org/licenses/gpl.html>`_
+

@@ -1,6 +1,6 @@
-######################################
+
 Generate count (From RNAseq BAM files)
-######################################
+======================================
 
 The amount of RNA produced by a specific gene is used as a surrogate marker for detection the activity,
 of that gene. With Current highthroughput sequencing technologies (such as in this case RNAseq), all (fragmented) RNA molecules
@@ -17,35 +17,33 @@ Mapping of mapped
  summing the number of mapped fragments per gene.
 
 
-******************************
 Packages and Dependencies
-******************************
+-------------------------
+
 There are 5 packages used in this workflow, which depend
 on 6 additional packages from Bioconductor and CRAN (dependencies)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **Bioconductor**: BiocGenerics, GenomicRanges, IRanges, Rsamtools
 
 - **CRAN**: parallel
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **Bioconductor**: Biostrings, GenomeInfoDb, XVector, S4Vectors, zlibbioc
 
 - **CRAN**: bitops
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
+
 Bam files are single-end RNAseq data from Kartalaei PS et al, 2015.
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015-2016 BeDataDriven B.V.
 License: http://www.gnu.org/licenses/gpl.html

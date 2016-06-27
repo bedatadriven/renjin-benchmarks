@@ -1,6 +1,6 @@
-################################
+
 Integration: iGraph
-################################
+===================
 
 Genes are sequences of DNA that encode functional molecules (such
 as RNAs or Proteins). These functional molecules most of time interact
@@ -22,21 +22,19 @@ uses 'igraph' to store this information and to plot the relation between these
 publications as well as interaction network between molecules.
 
 
-******************************
 Packages and Dependencies
-******************************
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
 There are 7 packages used in this workflow, which depend
 on 35 additional packages from CRAN (dependencies)
 
-+++++++++++++++
 Used packages:
-+++++++++++++++
+^^^^^^^^^^^^^^
 
 - **CRAN**: igraph, XML, R.utils, plyr, reshape, utils, sqldf
 
-++++++++++++++++++++++
 Package dependencies:
-++++++++++++++++++++++
+^^^^^^^^^^^^^^^^^^^^^
 
 - **CRAN**: magrittr, irlba, Matrix, NMF, lattice, foreach,
 gridBase, pkgmaker, reshape2, stringr, colorspace,
@@ -45,9 +43,9 @@ cluster, registry, codetools, iterators, xtable, plyr,
 Rcpp, stringi, scales, gtable, MASS, proto, dichromat,
 labeling, munsell, RSQLite, gsubfn, chron, DBI
 
-+++++++++++++++++++++++
-Data
-+++++++++++++++++++++++
+Data:
+^^^^^
+
 Basic GeneRIF data:
   - ftp://ftp.ncbi.nih.gov/gene/GeneRIF/generifs_basic.gz
 SQL script written by Ieuan Clay:
@@ -57,9 +55,9 @@ Human kinases and phosphatases protein:
 (protein kinase activity) and GO:0004721 (phosphoprotein phosphatase activity).
 
 
-********************
 License
-********************
+-------
+
 Copyright (c) 2015 Ieuan Clay
 based on code from https://github.com/biolion/genbench
 Copyright (c) 2015-2016 BeDataDriven B.V.
