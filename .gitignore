@@ -1,3 +1,8 @@
+.idea
+.gradle
+*~
+*.iml
+.Rhistory
 */packrat/lib*/
 */packrat/src*/
 *.txt
