@@ -1,5 +1,6 @@
 Name: affy
 Description: affymatrix microarray analysis workflow
+Depends: affy (1.48.0), affycomp (1.46.0), affyPLM (1.46.0), affypdnn (1.44.0), simpleaffy (2.46.0), affyQCReport (1.48.0), yaqcaffy (1.30.0), plier (1.40.0),  bioDist (1.42.0), ArrayTools (1.30.0), biomaRt (2.26.1), gdata (2.17.0), gplots (3.0.1)
 
 File:GSM1103973_VEH_VEH1.CEL.gz
 Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103973_VEH_VEH1.CEL.gz

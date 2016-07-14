@@ -1,5 +1,6 @@
 Name: simulated_GEO_matrix
 Description: this is a plain-R version of vanilla_R_benchmark.R, without extra data management packages only works with NGENES and NPATIENTS >= 1000
+Depends: biclust (1.1.0), s4vd (1.1-1), irlba (2.0.0)
 
 File:GeneMetaData-500-500.rds
 Source:https://storage.googleapis.com/renjin-benchmarks/GeneMetaData-500-500.rds

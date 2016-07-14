@@ -1,5 +1,6 @@
 Name: integration_livercohort
 Description: Integrated analysis of human liver cohort according to "DOI:10.1371/journal.pbio.0060107"
+Depends: e1071 (1.6-7), MASS (7.3-45)
 
 File:curatedExpressionLiver.zip
 Source:https://storage.googleapis.com/renjin-benchmarks/curatedExpressionLiver.zip

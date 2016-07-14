@@ -1,5 +1,6 @@
 Name: survival_simple
 Description: ...
+Depends: survival (2.38-3)
 
 File:pat.gene.rda
 Source:https://storage.googleapis.com/renjin-benchmarks/pat.gene.rda

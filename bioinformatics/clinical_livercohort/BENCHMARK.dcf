@@ -1,5 +1,6 @@
 Name: clinical_livercohort
 Description: some simple predictive modelling on liver cohort clinical data
+Depends: e1071 (1.6-7)
 
 File:features.txt
 Source:https://storage.googleapis.com/renjin-benchmarks/features.txt

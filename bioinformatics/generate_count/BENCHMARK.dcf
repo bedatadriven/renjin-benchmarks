@@ -1,6 +1,6 @@
 Name: generate_counts
 Description: generate counts from mapped sequencing data (bam)
-
+Depends: BiocGenerics (0.16.1), GenomicRanges (1.22.4), IRanges (2.4.8), Rsamtools (1.22.0)
 File:D2Q2.bam
 Source:https://storage.googleapis.com/benchmarkr/generate_counts/D2Q2.bam
 Hash:e66b9d30610f8a21a6c64098d2772272

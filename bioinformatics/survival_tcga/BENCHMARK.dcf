@@ -1,5 +1,6 @@
 Name: survival_tcga
 Description: survival analysis on tcga data
+Depends: glmnet (2.0-5), survival (2.38-3)
 
 File:survival_tcga_v1.csv
 Source:https://storage.googleapis.com/renjin-benchmarks/survival_tcga_v1.csv

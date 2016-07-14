@@ -1,2 +1,3 @@
 Name: clinical_eslII
 Description: Supervised learning on clinical datasets reproducing examples in ESLII study
+Depends: ncvreg (3.6-0), boot (1.3-18), lars (1.2), lasso2 (1.2-19), mda (0.4-8), leaps (2.9)
