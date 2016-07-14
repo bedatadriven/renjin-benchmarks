@@ -1,0 +1,9 @@
+Name: trajectory
+Depends: randomForest (4.6-12)
+
+File: training.csv
+Source: https://storage.googleapis.com/renjin-benchmarks/trajectory-training.csv
+
+File: trajectoryModel.RData
+Source: https://storage.googleapis.com/renjin-benchmarks/trajectoryModel.RData
+
