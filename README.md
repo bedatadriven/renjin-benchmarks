@@ -1,3 +1,5 @@
+[![Build Status](http://build.renjin.org/job/Benchmark/job/GNUR-GCE/badge/icon)](http://build.renjin.org/job/Benchmark/job/GNUR-GCE/)
+
 # Renjin Benchmarks
 
 This repository contains a collection of bioinformatics workflows/pipelines
