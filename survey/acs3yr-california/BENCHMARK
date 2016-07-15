@@ -1,0 +1,7 @@
+Name: acs3yr-california
+Description: ACS California Subset
+Depends: survey (3.30-3)
+
+File: california.rds
+Source:https://storage.googleapis.com/renjin-benchmarks/california.rds
+Hash: 21e5fb8f0e449345a483f3b1528ba611
