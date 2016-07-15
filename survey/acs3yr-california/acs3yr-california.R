@@ -1,7 +1,7 @@
 
 library(survey)
 
-svydata <- readRDS("acs3yr.rds")
+svydata <- readRDS("california.rds")
 names(svydata) <- tolower(names(svydata))
  
 svydsgn <- svrepdesign(
