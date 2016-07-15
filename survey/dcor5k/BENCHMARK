@@ -1,0 +1,8 @@
+Name: dcor5k
+Description: Distance correlation, 5k observations
+Depends: energy (1.6.2)
+
+File: GSS.2010.CS.rda 
+Source:https://storage.googleapis.com/renjin-benchmarks/GSS.2010.CS.rda
+
+
