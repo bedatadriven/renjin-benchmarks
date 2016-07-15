@@ -27,8 +27,10 @@ for(i in 3:400)  {
     valid <- !(is.na(x) | is.na(y))
     if(any(valid)) {
         result <- DCOR(as.double(x[valid]), as.double(y[valid]))
-        if(result$dCor > 0.6) {
-          cat(sprintf("%.3f '%s' x '%s'\n", result$dCor, vars[i], vars[j]))
+        if(!is.na(result$dCor)) {
+            if(result$dCor > 0.6) {
+              cat(sprintf("%.3f '%s' x '%s'\n", result$dCor, vars[i], vars[j]))
+            }
         }
     }
   }
