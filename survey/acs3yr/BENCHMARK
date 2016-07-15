@@ -1,0 +1,7 @@
+Name: acs3yr
+Description: American Community Survey (ACS) 3-year
+Depends: survey (3.30-3)
+
+File: acs3yr.rds
+Source:https://storage.googleapis.com/renjin-benchmarks/acs3yr.rds
+Hash: f5fd61186ef83b82bd4fe21c0441bfab
