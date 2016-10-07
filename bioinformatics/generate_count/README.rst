@@ -32,7 +32,7 @@ CRAN (dependencies)
 
 * *CRAN*: bitops
 
-Data:
+Data
 ------
 
 Bam files are single-end RNAseq data from Kartalaei PS et al, 2015.

@@ -43,7 +43,7 @@ on 5 additional packages (dependencies).
 
 * *Bioconductor*: BiocGenerics, BiocInstaller, zlibbioc, preprocessCore, affyio
 
-Data:
+Data
 --------
 
 From Gene Expression Omnibus repository accession ID `GSE45417`_.

@@ -60,7 +60,7 @@ on 1 additional package from CRAN (dependency)
 
 * *CRAN*: class
 
-Data:
+Data
 -------
 
 from `Human Liver Cohort (Synapse ID: syn4499) <https://www.synapse.org/#!Synapse:syn4499>`_

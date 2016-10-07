@@ -19,7 +19,7 @@ There are 2 core packages used in this workflow, which have no dependencies.
 
 * *Core*: stats, utils
 
-Data:
+Data
 ------
 
 The familial data was obtained from the nice people at `Genomes Unzipped`_, who

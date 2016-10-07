@@ -50,7 +50,7 @@ There is ony 1 package used in this workflow, which has no dependencies.
 
 * *CORE*: stats
 
-Data:
+Data
 -------
 - RPPA data: http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv
 

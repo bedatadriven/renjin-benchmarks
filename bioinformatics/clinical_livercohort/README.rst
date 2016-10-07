@@ -31,7 +31,7 @@ on 2 additional packages from CRAN (dependencies)
 
 * *CRAN*: class, MASS
 
-Data:
+Data
 -------------------
 Downloaded from https://www.synapse.org/ in June 2015
 

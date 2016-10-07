@@ -41,7 +41,7 @@ on 68 additional packages (dependencies)
 
 * *CRAN*: ggplot2, reshape2, useful, gridExtra, gplots, gdata, XLConnectJars, ROCR, stringr, mixtools, lars, fastICA, tsne, Rtsne, fpc, ape, VGAM, jackstraw, XLConnect, methods, rJava, plyr, scales, gtable, digest, MASS, proto, Rcpp, dichromat, labeling, RColorBrewer, munsell, colorspace, magrittr, stringi, dplyr, assertthat, R6, DBI, lazyeval, gtools, KernSmooth, caTools, bitops, boot, segmented, diptest, mvtnorm, flexmix, mclust, trimcluster, kernlab, robustbase, class, cluster, prabclus, nnet, lattice, modeltools, DEoptimR, nlme, corpcor, evaluate, markdown, yaml, highr, formatR, mime
 
-Data:
+Data
 --------
 Single cell transcriptome data from `Satija*, Farrell* et al., 2015 <http://doi.org/10.1038/nbt.3192>`_
 
