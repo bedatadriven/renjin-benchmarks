@@ -26,6 +26,8 @@ In this workflow, `RPPA dataset`_ from TCGA consortium is clustered using R
 hierarchical clustering  and K-means clustering from 'stats' package.
 
 .. graphviz::
+   :caption: RPPA workflow
+
    digraph workflow {
       "RPPA data (TCGA)" -> "R";
       "R" -> "cor(method = 'pearson')";
