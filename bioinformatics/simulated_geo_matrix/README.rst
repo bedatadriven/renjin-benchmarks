@@ -58,15 +58,11 @@ size of columns and rows. Here you can read about the original GenBase study by
 
 License
 -------
-| Copyright (c) 2015 MIT DB Group
-| based on code from `GenBase <https://github.com/mitdbg/genbase/blob/master/code/R_benchmark/vanilla_R_benchmark.R>`_
-| Copyright (c) 2015 Hannes Muehleisen
-| based on code from `GenBase (fork) <https://github.com/hannesmuehleisen/genbase/blob/master/code/R_benchmark/vanilla_R_benchmark.R>`_
-| Copyright (c) 2015 Ieuan Clay
-| based on code from `genbench`_
-| Copyright (c) 2015-2016 BeDataDriven B.V.
-| License: `GPL version 2 or higher`_
 
+- Copyright (c) 2015 MIT DB Group based on code from `GenBase <https://github.com/mitdbg/genbase/blob/master/code/R_benchmark/vanilla_R_benchmark.R>`_
+- Copyright (c) 2015 Hannes Mühleisen based on code from `GenBase (fork) <https://github.com/hannesmuehleisen/genbase/blob/master/code/R_benchmark/vanilla_R_benchmark.R>`_
+- Copyright (c) 2015 Ieuan Clay based on code from `genbench <https://github.com/biolion/genbench>`_
+- Copyright (c) 2015-2016 BeDataDriven B.V.  License: `GPL version 2 or higher`_
 
- .. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
-.. _genbench: https://github.com/biolion/genbench
+.. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
+

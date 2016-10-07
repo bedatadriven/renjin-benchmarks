@@ -8,7 +8,6 @@ Contents:
    :maxdepth: 2
 
    prologue
-   att/README
    bioinformatics/README
 
 
