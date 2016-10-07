@@ -25,6 +25,19 @@ limitation of RPPA.
 In this workflow, `RPPA dataset`_ from TCGA consortium is clustered using R
 hierarchical clustering  and K-means clustering from 'stats' package.
 
+.. graphviz::
+   digraph workflow {
+      "RPPA data (TCGA)" -> "R";
+      "R" -> "cor(method = 'pearson')";
+      "cor(method = 'pearson')" -> "Hierarchical Clustering";
+      "Hierarchical Clustering" -> "hclust(method = 'ward')";
+      "hclust(method = 'ward')" -> "within clusters sum of squares";
+      "within clusters sum of squares" -> "optimal cut using Elbow method";
+      "cor(method = 'pearson')" -> "K-means Clustering";
+      "K-means Clustering" -> "kmeans(algorithm = 'Hartigan-Wong')";
+      "kmeans(algorithm = 'Hartigan-Wong')" -> "optimal cut using Elbow method";
+   }
+
 .. _RPPA dataset: http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv
 
 Packages and Dependencies
