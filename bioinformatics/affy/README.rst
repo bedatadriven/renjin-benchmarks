@@ -55,11 +55,9 @@ on 28 additional packages from CRAN and Bioconductor (dependencies)
 
 License
 -------
-| Copyright (c) 2015 Arrayanalysis.org
-| based on code from http://www.arrayanalysis.org/affyQC/doc_affyQC_R.php
-| Copyright (c) 2015-2016 BeDataDriven B.V.
-| License: `Apache License version 2.0 or higher`_
+
+* Copyright (c) 2015 Arrayanalysis.org based on code from http://www.arrayanalysis.org/affyQC/doc_affyQC_R.php
+* Copyright (c) 2015-2016 BeDataDriven B.V.  License: `Apache License version 2.0 or higher`_
 
 .. _Apache License version 2.0 or higher: http://www.apache.org/licenses/LICENSE-2.0
 
-.. _genbench: https://github.com/biolion/genbench

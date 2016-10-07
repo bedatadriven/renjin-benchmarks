@@ -186,7 +186,7 @@ htmlhelp_basename = 'RenjinBenchmarksdoc'
 
 latex_elements = {
 # The paper size ('letterpaper' or 'a4paper').
-#'papersize': 'letterpaper',
+'papersize': 'a4paper',
 
 # The font size ('10pt', '11pt' or '12pt').
 #'pointsize': '10pt',
@@ -200,7 +200,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
   ('index', 'RenjinBenchmarks.tex', u'Renjin Benchmarks Documentation',
-   u'BeDataDriven B.V.', 'manual'),
+   u'BeDataDriven B.V.', 'report'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of

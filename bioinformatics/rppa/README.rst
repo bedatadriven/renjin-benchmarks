@@ -54,10 +54,9 @@ Data:
 
 License
 -------
-| Copyright (c) 2015 Ieuan Clay
-| based on code from `genbench`_
-| Copyright (c) 2015-2016 BeDataDriven B.V.
-| License: `GPL version 2 or higher`_
+
+* Copyright (c) 2015 Ieuan Clay based on code from `genbench <https://github.com/biolion/genbench>`_
+* Copyright (c) 2015-2016 BeDataDriven B.V.  License: `GPL version 2 or higher`_
 
 .. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
-.. _genbench: https://github.com/biolion/genbench
+

@@ -20,7 +20,7 @@ statistically test whether there are biological processes/pathways whose genes
 are significantly overrepresented using a gene set analysis (GSA) method. This
 gives us a view at the level of biological processes. In this workflow 'gage'
 package has been used which uses Generally Applicable Gene-set Enrichment
-`(GAGE) method`_. Gene transcripts are translated to proteins and proteins can
+`GAGE method`_. Gene transcripts are translated to proteins and proteins can
 interact and inhibit or activate each others function or expression level.
 Information about protein-protein interactions are continuously added to
 `STRING database`_ which is accessible through 'STRINGdb' package and used to
