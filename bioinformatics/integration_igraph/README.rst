@@ -33,7 +33,7 @@ from CRAN (dependencies)
 
 * *CRAN*: magrittr, irlba, Matrix, NMF, lattice, foreach, gridBase, pkgmaker, reshape2, stringr, colorspace, doParallel, digest, rngtools, ggplot2, RColorBrewer, cluster, registry, codetools, iterators, xtable, plyr, Rcpp, stringi, scales, gtable, MASS, proto, dichromat, labeling, munsell, RSQLite, gsubfn, chron, DBI
 
-Data:
+Data
 -------
 
 * Basic GeneRIF data:

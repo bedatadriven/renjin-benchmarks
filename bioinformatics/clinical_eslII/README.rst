@@ -31,7 +31,7 @@ on 2 additional packages from CRAN (dependencies)
 
 * *CRAN*: class, MASS
 
-Data:
+Data
 -------
 
 source datasets from http://cran.r-project.org/web/packages/lasso2/lasso2.pdf

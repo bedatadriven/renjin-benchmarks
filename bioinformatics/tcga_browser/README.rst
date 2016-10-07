@@ -50,7 +50,7 @@ on 71 additional packages (dependencies)
 
 * *CRAN*: irlba, Matrix, NMF, lattice, foreach, gridBase, pkgmaker, stringr, colorspace, doParallel, digest, rngtools, cluster, registry, codetools, iterators, xtable, Rcpp, stringi, scales, gtable, MASS, proto, dichromat, labeling, munsell, RSQLite, gsubfn, chron, DBI, graph, png, httr, zlibbioc, R6, jsonlite, curl, mime, RCurl, igraph, hash, gplots, plotrix, sqldf, bitops, gtools, KernSmooth, caTools, gdata, class, RJSONIO, htmlwidgets, dendextend, base64enc, yaml, htmltools, whisker, dplyr, assertthat, lazyeval, shiny, httpuv
 
-Data:
+Data
 ------
 - Exome, Patient, RNAseq data from TCGA consortium and processed by Phil Cheng
 - Protein data downlaoded from STRINGdb package for tax_id 9606 (Human)

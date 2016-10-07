@@ -31,7 +31,7 @@ on 5 additional packages from CRAN (dependencies)
 
 * *CRAN*: foreach, Matrix, codetools, iterators, lattice
 
-Data:
+Data
 ------
 - Patient survival data from TCGA consortium provided by Andre Verissimo.
 

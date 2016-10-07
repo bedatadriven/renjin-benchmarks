@@ -27,7 +27,7 @@ no additional dependencies.
 
 * *CRAN*: survival
 
-Data:
+Data
 ------
 - pat.gene.rda: patient survival data from TCGA consortium processed and formatted by Phil Cheng
 

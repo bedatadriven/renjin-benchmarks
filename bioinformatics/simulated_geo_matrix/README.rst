@@ -46,7 +46,7 @@ on 7 additional packages from CRAN (dependencies)
 
 * *CRAN*: lattice, colorspace, MASS, flexclust, modeltools, biclust, Matrix
 
-Data:
+Data
 ------
 
 This workflow uses simulated data from GenBase `data_generator.py`_ with 500 as 
