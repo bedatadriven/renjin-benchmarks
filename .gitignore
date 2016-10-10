@@ -22,11 +22,9 @@
 *.tsv
 *.rds
 *.tsv
-*.png
-*.jpg
 *.svd
 *.eps
 *.log
 *.swp
 *.*~
-docs/build
+build

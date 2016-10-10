@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Mutation &mdash; Renjin Benchmarks 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="mutation">
+<h1>Mutation<a class="headerlink" href="#mutation" title="Permalink to this headline">¶</a></h1>
+<p>Two main types of genetic studies are population and familial/pedigree studies.
+In this workflow, individual mutation information is used to determine the
+relatedness between individuals and data from The Cancer Genome Atlas landmark
+paper on most common <a class="reference external" href="http://www.doi.org/10.1056/NEJMoa1301689">AML mutations</a> is used to reproduce some of the
+figures in this publication.</p>
+<div class="section" id="packages-and-dependencies">
+<h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>There are 2 core packages used in this workflow, which have no dependencies.</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Core</em>: stats, utils</li>
+</ul>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>The familial data was obtained from the nice people at <a class="reference external" href="http://genomesunzipped.org/members">Genomes Unzipped</a>, who
+make <a class="reference external" href="http://genomesunzipped.org/data">their own genomic data</a> publicly available.</p>
+<p>The dataset we are using comes from the <a class="reference external" href="https://www.23andme.com/">23andme v2</a> sequencing service.</p>
+<p>Though the individuals are not related, this data can still be used to perform
+some typical tests carried out on pedigree studies, such as determining
+&#8220;relatedness&#8221; between individuals.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="8%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">member</th>
+<th class="head">dataset id</th>
+<th class="head">link</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Daniel MacArthur</td>
+<td>DGM001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/DGM001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/DGM001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Luke Jostins</td>
+<td>LXJ001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/LXJ001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/LXJ001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Dan Vorhaus</td>
+<td>DBV001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/DBV001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/DBV001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Caroline Wright</td>
+<td>CFW001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/CFW001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/CFW001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Kate Morley</td>
+<td>KIM001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/KIM001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/KIM001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Vincent Plagnol</td>
+<td>VXP001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/VXP001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/VXP001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Jeff Barrett</td>
+<td>JCB001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/JCB001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/JCB001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Jan Aerts</td>
+<td>JXA001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/JXA001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/JXA001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Joe Pickrell</td>
+<td>JKP001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Don Conrad</td>
+<td>DFC001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Carl Anderson</td>
+<td>CAA001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/CAA001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/CAA001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Ilana Fisher</td>
+<td>IPF001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/IPF001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/IPF001_genotypes.zip</a></td>
+</tr>
+</tbody>
+</table>
+<p>The population study data is from the TCGA consortium publication <a class="reference external" href="http://www.doi.org/10.1056/NEJMoa1301689">TCGA,
+2013</a>, publication <a class="reference external" href="https://tcga-data.nci.nih.gov/docs/publications/laml_2012/">data archive</a>, mutation and annotation (<a class="reference external" href="http://tcga-data.nci.nih.gov/docs/publications/laml_2012/genome.wustl.edu_LAML.IlluminaGA_DNASeq.Level_2.2.12.0.tar.gz">maf</a>), and
+<a class="reference external" href="http://tcga-data.nci.nih.gov/docs/publications/laml_2012/clinical_patient_laml.tsv">patient meta data</a>.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Mutation</a><ul>
+<li><a class="reference internal" href="#packages-and-dependencies">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/mutation/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

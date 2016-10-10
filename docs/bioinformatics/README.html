@@ -1,0 +1,1087 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bioinformatics &mdash; Renjin Benchmarks 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../index.html" />
+    <link rel="prev" title="Prologue" href="../prologue.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../prologue.html" title="Prologue"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bioinformatics">
+<h1>Bioinformatics<a class="headerlink" href="#bioinformatics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Bioinformatic workflows used in different fields of biology.</p>
+</div>
+<div class="section" id="workflows">
+<h2>Workflows<a class="headerlink" href="#workflows" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Affy</td>
+<td>Analysis of MicroArray data</td>
+</tr>
+<tr class="row-even"><td>Clinical (ESI)</td>
+<td>Analysis of clinical data</td>
+</tr>
+<tr class="row-odd"><td>Clinical (liver cohort)</td>
+<td>Analysis of clinical data, liver cohort</td>
+</tr>
+<tr class="row-even"><td>Generate Count</td>
+<td>Generate count tables from RNAseq data</td>
+</tr>
+<tr class="row-odd"><td>Integration (iGraph)</td>
+<td>Integerate different omics data with iGraph</td>
+</tr>
+<tr class="row-even"><td>Integration (livercoh)</td>
+<td>Integrate different liver cohort data</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="affy">
+<h3>Affy<a class="headerlink" href="#affy" title="Permalink to this headline">¶</a></h3>
+<p>Mutations in DNA that is coding for proteins (genes) or regulatory elements are often the cause of
+most diseases. Affymatirx arrays allow quantification of specific sequences of DNA or RNA in biological
+samples such as blood, tissue, or tumors. These arrays give the relative levels of specific transcript
+(between two samples) so that these can be compared (between eg. healty vs diseased tissues or before
+vs after treatment).</p>
+<p>To do so, DNA sequences unique to specific genes/mutations are printed as small spots on a glass
+surface (arrays), with each spot containing thousends of copies of a single sequence. The DNA from
+each sample is than tagged with different colors of flourecent molecules (red or green) and hybredized
+with the array. This way, DNA from sample can bind to sequences on the surface that are antisense of
+its own sequence (specific binding). The array undergoes several washing steps to remove the
+none-specifically bound DNA sequences, which bind loosly. The plate is than scanned and the flourecence
+intensity for each color at each spot is recorded. This intensity is an indicator of the ammount of DNA
+bound and probably the levels of that specific DNA present in the sample. The information regarding the
+specific sequence printed on each spot, control spots, and other array specific information is stored in
+a CDF format/file. By comparing the intensity of red to green at each spot you can know which sample
+contained more of that specific transcript.</p>
+<p>This workflow is provided by <a class="reference external" href="http://www.arrayanalysis.org">ArrayAnalysis.org</a> and its code has been
+merged into single R script. It performs array normalization and differential expression analysis, and
+plots the important Quality Control plots. Dataset used in this workflow is from a study by <a class="reference external" href="doi.org/10.1016/j.molimm.2013.07.001">Ramsey JE
+et al 2013</a> in which the effects of presence/absence of ZXDC gene
+before and during differentiation of a white blood cell type is studied. The corresponding data can be
+downloaded from Gene Expression Omnibus repository using accession number GSE45417. For more information
+about this workflow please visit <a class="reference external" href="http://www.arrayanalysis.org">ArrayAnalysis.org</a>.</p>
+<div class="section" id="packages-and-dependencies">
+<h4>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h4>
+<p>There are 12 packages (mainly affymatrix array analysis related) used in this workflow, which depend
+on 28 additional packages from CRAN and Bioconductor (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: ArrayTools, affy, affycomp, affyPLM, affypdnn, bioDist, simpleaffy, affyQCReport, plier, yaqcaffy</li>
+<li><em>CRAN</em>: gdata, gplots</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: limma, Biobase, BiocInstaller, BiocGenerics, zlibbioc, preprocessCore, affyio, gcrma, Biostrings, XVector, S4Vectors, IRanges, genefilter, AnnotationDbi, annotate, GenomeInfoDb, affyPLM</li>
+<li><em>CRAN</em>: xtable, KernSmooth, DBI, XML, lattice, RSQLite, RColorBrewer, caTools, bitops, gtools, survival,</li>
+</ul>
+</div>
+<div class="section" id="license">
+<h4>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2015 Arrayanalysis.org based on code from <a class="reference external" href="http://www.arrayanalysis.org/affyQC/doc_affyQC_R.php">http://www.arrayanalysis.org/affyQC/doc_affyQC_R.php</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License version 2.0 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="clinical-eslii-essential-statistics-learning-2nd-edition">
+<h3>Clinical eslII (Essential Statistics Learning 2nd Edition)<a class="headerlink" href="#clinical-eslii-essential-statistics-learning-2nd-edition" title="Permalink to this headline">¶</a></h3>
+<p>In clinica studies, information about disease state and progression of a large
+number of patients is collected together with patient information that could
+(technically) be used for early diagnosis and or prognosis of disease. In this
+workflow clinical prostate cancer data of 97 patients is used to identify
+molecular markers that correlate with disease stage. The analysis is mainly
+inspired by the book &#8216;<a class="reference external" href="http://statweb.stanford.edu/~tibs/ElemStatLearn/">Essential Statistical Learning</a>&#8216;.</p>
+<p>Analysis used in this workflow are cross-validation for Lasso penalized
+regression fit and best predictive variable identification (&#8216;ncvreg&#8217; and
+&#8216;leaps&#8217; packages); linear regression and fitting with L1 constraints (&#8216;stats&#8217;
+and &#8216;lasso2&#8217; packages); Lasso penalized Least Angle Regression with cross
+validation (&#8216;lars&#8217; package); and fitting General Linear Model (&#8216;stats&#8217;
+package).</p>
+<div class="section" id="id1">
+<h4>Packages and Dependencies<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>There are 6 packages used in this workflow, which depend
+on 2 additional packages from CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: ncvreg, boot, lars, lasso2, mda, leaps</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: class, MASS</li>
+</ul>
+</div>
+<div class="section" id="data">
+<h4>Data:<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h4>
+<p>source datasets from <a class="reference external" href="http://cran.r-project.org/web/packages/lasso2/lasso2.pdf">http://cran.r-project.org/web/packages/lasso2/lasso2.pdf</a></p>
+<ul>
+<li><dl class="first docutils">
+<dt>Prostate dataset:</dt>
+<dd><ul class="first last simple">
+<li>Hastie, T., Tibshirani, R., and Friedman, J. (2001). The Elements of Statistical Learning. Springer.</li>
+<li>Stamey, T., et al. (1989). Prostate specific antigen in the diagnosis and treatment of adenocarcinoma of the prostate. II. Radical prostatectomy treated patients. Journal of Urology, 16: 1076-1083.</li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h4>License<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="clinical-liver-cohort">
+<h3>Clinical (liver cohort)<a class="headerlink" href="#clinical-liver-cohort" title="Permalink to this headline">¶</a></h3>
+<p>Single nucleotide ploymorphisms (SNPs) are single basepair mutations in DNA that
+occur with certain frequency within the population. These mutations might be the
+cause of a disease or due to their close vecinity to genetic abration they might
+be co-transfered with the cause.</p>
+<p>In the study by <a class="reference external" href="http://dx.doi.org/10.1371/journal.pbio.0060107">Schadt EE et al., 2008</a> more than 780 thousand SNPs were
+analyzed in more than 400 human liver samples. Since a mutation could cause a
+phenotype that in time can cause a disease, the phenotypic information about
+the patients was included as well.</p>
+<p>In this workflow, these data will be used as input for machine learning
+classification using SVM (from e1071 package). Data is devided into training
+and test sets and predictive models are generated for different features, these
+models are then tested using test dataset and the results are stored in a list.</p>
+<div class="section" id="id3">
+<h4>Packages and Dependencies<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>There is 1 package used in this workflow, which depends
+on 2 additional packages from CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: e1071</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: class, MASS</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h4>Data:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>Downloaded from <a class="reference external" href="https://www.synapse.org/">https://www.synapse.org/</a> in June 2015</p>
+</div>
+<div class="section" id="id5">
+<h4>License<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="generate-count-from-rnaseq-bam-files">
+<h3>Generate count (From RNAseq BAM files)<a class="headerlink" href="#generate-count-from-rnaseq-bam-files" title="Permalink to this headline">¶</a></h3>
+<p>The amount of RNA produced by a specific gene is used as a surrogate marker for detection the activity, of
+that gene. With Current highthroughput sequencing technologies (such as in this case RNAseq), all (fragmented)
+RNA molecules from a biological sample are sequenced. These sequences are then matched to the annotated genome
+sequence to identify to which gene each sequenced fragment belongs. More sequenced fragments mapping to a gene
+in one samples as compared to another, means that the specific gene had a higher activity.</p>
+<p>The first step in this workflow is reading the relevant parts of genome annotation file and converting it the
+a list of ranges of feature of interest such as exon (IRanges, GenomicRanges). Sequencing products previously
+aligned to genome are imported using Rsamtools. Mapping of mapped sequences to genes as defined in the anotation
+file is the next step. Followed by aggragation of data by summing the number of mapped fragments per gene.</p>
+<div class="section" id="id8">
+<h4>Packages and Dependencies<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>There are 5 packages used in this workflow, which depend on 6 additional packages from Bioconductor and
+CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><strong>Bioconductor</strong>: BiocGenerics, GenomicRanges, IRanges, Rsamtools</li>
+</ul>
+<ul class="simple">
+<li><em>CRAN</em>: parallel</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: Biostrings, GenomeInfoDb, XVector, S4Vectors, zlibbioc</li>
+<li><em>CRAN</em>: bitops</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h4>Data:<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>Bam files are single-end RNAseq data from Kartalaei PS et al, 2015.</p>
+</div>
+<div class="section" id="id10">
+<h4>License<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">Copyright (c) 2015-2016 BeDataDriven B.V.</div>
+<div class="line">License: <a class="reference external" href="http://www.apache.org/licenses/LICENSE-2.0">Apache License version 2.0 or higher</a></div>
+</div>
+</div>
+</div>
+<div class="section" id="integration-igraph">
+<h3>Integration: iGraph<a class="headerlink" href="#integration-igraph" title="Permalink to this headline">¶</a></h3>
+<p>Genes are sequences of DNA that encode functional molecules (such as RNAs or Proteins).
+These functional molecules most of time interact and affect eachothers function.
+Therefor, to understand the role of a specific gene in a disease, scientist need to
+know about all the published functions.</p>
+<p>Given many published scientific manuscripts about any given gene, the <a class="reference external" href="http://www.ncbi.nlm.nih.gov">National
+Center for Biotechnology Information (NCBI)</a> has introduced <a class="reference external" href="http://www.ncbi.nlm.nih.gov/gene/about-generif">GeneRIF</a>. GeneRIF
+provides scientist a simple mechanism to add functional annotation to known genes
+based on scientific publications. These annotations are than processed and approved
+by GeneRIF staff. All these functional annotations are freely accessible and can be
+used by anyone to extract functions of a gene or genes with specific function.</p>
+<p>This workflow imports human Phophatases and Kinases and the publications. And uses
+&#8216;igraph&#8217; to store this information and to plot the relation between these publications
+as well as interaction network between molecules.</p>
+<div class="section" id="id12">
+<h4>Packages and Dependencies<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<p>There are 7 packages used in this workflow, which depend on 35 additional packages
+from CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: igraph, XML, R.utils, plyr, reshape, utils, sqldf</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: magrittr, irlba, Matrix, NMF, lattice, foreach, gridBase, pkgmaker, reshape2, stringr, colorspace, doParallel, digest, rngtools, ggplot2, RColorBrewer, cluster, registry, codetools, iterators, xtable, plyr, Rcpp, stringi, scales, gtable, MASS, proto, dichromat, labeling, munsell, RSQLite, gsubfn, chron, DBI</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h4>Data:<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Basic GeneRIF data:
+<a class="reference external" href="ftp://ftp.ncbi.nih.gov/gene/GeneRIF/generifs_basic.gz">ftp://ftp.ncbi.nih.gov/gene/GeneRIF/generifs_basic.gz</a></li>
+<li>SQL script written by Ieuan Clay:
+get_all_RIF.sql</li>
+<li>Human kinases and phosphatases protein:
+GeneOntology.org list of human (Taxonomy id: 9606) genes using terms <a class="reference external" href="GO:0050222">GO:0050222</a>
+(protein kinase activity) and <a class="reference external" href="GO:0004721">GO:0004721</a> (phosphoprotein phosphatase activity).</li>
+</ul>
+</div>
+<div class="section" id="id14">
+<h4>License<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="integration-liver-cohort">
+<h3>Integration: Liver cohort<a class="headerlink" href="#integration-liver-cohort" title="Permalink to this headline">¶</a></h3>
+<p>Recent high-throughput technologies have caused an explosion in the number of
+cohort studies which monitor and record medical (phenotype, genetic), social
+(phenotype), and biological (phenotype, genotype, transcriptional) information
+of large number of human participants for a long period of time. This allows to
+identify the variables that, for example, correlate with occurrence of diseases.
+Researchers hope that the causative events that have led to the disease are
+among the highest correlating variables. Given the limited number of validation
+experiments that a scientist can perform during his/her career, being able to
+narrow down the number of candidate variables without loosing the causative
+variable is of utmost importance. From population health perpective, earlier
+diagnosis of disease or slightly better prediction of disease progress (higher
+accuracy and precision) can have significant effects on population health and
+its costs. Machine learning algorithms can integrate information from multiple
+sources and are, therefor, most widely used.</p>
+<p>This workflow uses data acquired in a cohort study by <a class="reference external" href="http://doi.org/10.1371/journal.pbio.0060107">Schadt EE et al., 2008</a>
+on over 400 human liver samples. First gene expression, mutation and phenotype
+data from are cleaned up by removing variables containing missing data and
+patients which lack expression, mutation, or phenotype data. Multiple machine
+leaning algorithms such as Support Vector Machines, Native Bayesian, and Robust
+regression are than used to create predictive models.</p>
+<p>Support Vector Machine (&#8216;e1071&#8217; package) is used to train a model
+(classification and regression) using random sample of 2/3 of samples
+(training set) and tested with the remaining 1/3 of samples (test set). Model
+is trained based on independent variables such as age and liver triglyceride
+levels, and dependent variables such as activity of nine liver enzymes.</p>
+<p>Using enzyme activity information, heatmaps (&#8216;stats&#8217; package) are generated to
+visualize correlation between enzymes and correlation between patients. For
+clustering of patients based on enzyme activity data, heatmap are grouped based
+on Principal Component Analysis results (prcomp from &#8216;stats&#8217; package). Naive
+Bayesian classifier (&#8216;e1071&#8217; package) is used to cluster samples based on gene
+expression profile with aldehyde oxydase levels or liver enzyme activity as
+class vector (independent variable).</p>
+<p>Furthermore, Robust linear model (&#8216;MASS&#8217; package) is used to train model using
+liver triglyceride levels and gene expression levels of genes with highest
+variance. A random sample of 25 genes are selected from 1000 genes with the
+highest variance and used in combination with triglyceride level phenotype.
+This is done in 50 iteration and the iteration with highest correlation in
+training and test sets is recorded.</p>
+<div class="section" id="id18">
+<h4>Packages and Dependencies<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<p>There are 3 packages used in this workflow, which depend
+on 1 additional package from CRAN (dependency)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: stats, e1071, MASS</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: class</li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h4>Data:<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<p>from <a class="reference external" href="https://www.synapse.org/#!Synapse:syn4499">Human Liver Cohort (Synapse ID: syn4499)</a></p>
+</div>
+<div class="section" id="id20">
+<h4>License<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="microarray">
+<h3>Microarray<a class="headerlink" href="#microarray" title="Permalink to this headline">¶</a></h3>
+<p>Mutations in DNA that is coding for proteins (genes) or regulatory elements are
+often the cause of most diseases. Affymatirx arrays allow quantification of specific
+sequences of DNA or RNA in biological samples such as blood, tissue, or tumors.
+These arrays give the relative levels of specific transcript (between two samples)
+so that these can be compared (between eg. healty vs diseased tissues or before vs
+after treatment).</p>
+<p>To do so, DNA sequences unique to specific genes/mutations are printed as small spots
+on a glass surface (arrays), with each spot containing thousends of copies of a single
+sequence. The DNA from each sample is than tagged with different colors of flourecent
+molecules (red or green) and hybredized with the array. This way, DNA from sample can
+bind to sequences on the surface that are antisense of its own sequence (specific
+binding).  The array undergoes several washing steps to remove the none-specifically
+bound DNA sequences, which bind loosly. The plate is than scanned and the flourecence
+intensity for each color at each spot is recorded. This intensity is an indicator of
+the ammount of DNA bound and probably the levels of that specific DNA present in the
+sample. The information regarding the specific sequence printed on each spot, control
+spots, and other array specific information is stored in a CDF format/file. By
+comparing the intensity of red to green at each spot you can know which sample
+contained more of that specific transcript.</p>
+<p>This workflow uses <a class="reference external" href="http://www.bioconductor.org/packages/release/bioc/html/limma.html">limma</a> package for analysis of microarray data to analyse the
+data from <a class="reference external" href="http://doi.org/10.1016/j.molimm.2013.07.001">Ramsey et al 2013</a>. The raw data is normalized and differential gene
+expression analysis and a simple gene set testing is performed as described in limma
+vignet.</p>
+<div class="section" id="id23">
+<h4>Packages and Dependencies<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<p>There are 4 packages used in this workflow, which depend
+on 5 additional packages (dependencies).</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: Biobase, affy, hgu133plus2cdf, limma</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: BiocGenerics, BiocInstaller, zlibbioc, preprocessCore, affyio</li>
+</ul>
+</div>
+<div class="section" id="id24">
+<h4>Data:<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
+<p>From Gene Expression Omnibus repository accession ID <a class="reference external" href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE45417">GSE45417</a>.</p>
+</div>
+<div class="section" id="id25">
+<h4>License<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2005 Gordon Smyth based on <a class="reference external" href="http://www.bioconductor.org/packages/release/bioc/html/limma.html">Limma package</a></li>
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="mutation">
+<h3>Mutation<a class="headerlink" href="#mutation" title="Permalink to this headline">¶</a></h3>
+<p>Two main types of genetic studies are population and familial/pedigree studies.
+In this workflow, individual mutation information is used to determine the
+relatedness between individuals and data from The Cancer Genome Atlas landmark
+paper on most common <a class="reference external" href="http://www.doi.org/10.1056/NEJMoa1301689">AML mutations</a> is used to reproduce some of the
+figures in this publication.</p>
+<div class="section" id="id28">
+<h4>Packages and Dependencies<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
+<p>There are 2 core packages used in this workflow, which have no dependencies.</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Core</em>: stats, utils</li>
+</ul>
+</div>
+<div class="section" id="id29">
+<h4>Data:<a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
+<p>The familial data was obtained from the nice people at <a class="reference external" href="http://genomesunzipped.org/members">Genomes Unzipped</a>, who
+make <a class="reference external" href="http://genomesunzipped.org/data">their own genomic data</a> publicly available.</p>
+<p>The dataset we are using comes from the <a class="reference external" href="https://www.23andme.com/">23andme v2</a> sequencing service.</p>
+<p>Though the individuals are not related, this data can still be used to perform
+some typical tests carried out on pedigree studies, such as determining
+&#8220;relatedness&#8221; between individuals.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="8%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">member</th>
+<th class="head">dataset id</th>
+<th class="head">link</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Daniel MacArthur</td>
+<td>DGM001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/DGM001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/DGM001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Luke Jostins</td>
+<td>LXJ001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/LXJ001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/LXJ001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Dan Vorhaus</td>
+<td>DBV001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/DBV001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/DBV001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Caroline Wright</td>
+<td>CFW001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/CFW001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/CFW001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Kate Morley</td>
+<td>KIM001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/KIM001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/KIM001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Vincent Plagnol</td>
+<td>VXP001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/VXP001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/VXP001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Jeff Barrett</td>
+<td>JCB001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/JCB001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/JCB001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Jan Aerts</td>
+<td>JXA001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/JXA001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/JXA001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Joe Pickrell</td>
+<td>JKP001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Don Conrad</td>
+<td>DFC001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/JKP001_genotypes.zip</a></td>
+</tr>
+<tr class="row-even"><td>Carl Anderson</td>
+<td>CAA001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/CAA001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/CAA001_genotypes.zip</a></td>
+</tr>
+<tr class="row-odd"><td>Ilana Fisher</td>
+<td>IPF001</td>
+<td><a class="reference external" href="http://s3.amazonaws.com/gnz.genotypes/IPF001_genotypes.zip">http://s3.amazonaws.com/gnz.genotypes/IPF001_genotypes.zip</a></td>
+</tr>
+</tbody>
+</table>
+<p>The population study data is from the TCGA consortium publication <a class="reference external" href="http://www.doi.org/10.1056/NEJMoa1301689">TCGA,
+2013</a>, publication <a class="reference external" href="https://tcga-data.nci.nih.gov/docs/publications/laml_2012/">data archive</a>, mutation and annotation (<a class="reference external" href="http://tcga-data.nci.nih.gov/docs/publications/laml_2012/genome.wustl.edu_LAML.IlluminaGA_DNASeq.Level_2.2.12.0.tar.gz">maf</a>), and
+<a class="reference external" href="http://tcga-data.nci.nih.gov/docs/publications/laml_2012/clinical_patient_laml.tsv">patient meta data</a>.</p>
+</div>
+<div class="section" id="id31">
+<h4>License<a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="rnaseq-deseq2">
+<h3>RNAseq DESeq2<a class="headerlink" href="#rnaseq-deseq2" title="Permalink to this headline">¶</a></h3>
+<p>All the functions that take place within a cell are performed through proteins.
+These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
+A gene is a sequence of DNA that encodes for a particular protein. In order to
+make the necessary proteins, the transcriptional machinary of a cell makes
+special copies of the respective genes that can be translated to protein
+sequences. These special copies are called messenger RNAs (Ribonucleic acids).</p>
+<p>The amount of mRNA produced by a specific gene is used as a surrogate marker for
+quantification of the gene activity. With Current highthroughput sequencing
+technologies (such as in this case RNAseq), all (fragmented) RNA molecules
+from a biological sample are sequenced. These sequences are then matched to
+the annotated genome sequence to identify to which gene each sequenced fragment
+belongs. More sequenced fragments mapping to a gene in one samples as compared
+to another, means that the specific gene had a higher activity.</p>
+<p>This workflow uses the exploratory analysis of RNAseq data using many well
+stablished Bioconductor packages such as DESeq2, Rsamtools, and
+GenomicAlignments as described in
+<a class="reference external" href="http://doi.org/10.12688/f1000research.7035.1">Love MI et al., 2015</a></p>
+<div class="section" id="id34">
+<h4>Packages and Dependencies<a class="headerlink" href="#id34" title="Permalink to this headline">¶</a></h4>
+<p>There are 17 packages used in this workflow, which depend
+on 79 additional packages (dependencies).</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: Rsamtools, GenomicFeatures, GenomicAlignments, BiocParallel, DESeq2, genefilter, AnnotationDbi, org.Hs.eg.db, ReportingTools</li>
+<li><em>CRAN</em>: pheatmap, RColorBrewer, PoiClaClu, ggplot2, Gviz, fission, sva, fission</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: BiocGenerics, Biostrings, GenomeInfoDb, XVector, S4Vectors, rtracklayer, Biobase, biomaRt, IRanges, zlibbioc, GenomicRanges, geneplotter, ggbio, PFAM.db, limma, edgeR, GSEABase, GOstats, VariantAnnotation, BSgenome, OrganismDbi, biovizBase, GO.db</li>
+<li><em>CRAN</em>: bitops, RCurl, RSQLite, DBI, XML, snow, futile.logger, Rcpp, RcppArmadillo, Hmisc, locfit, plyr, scales, reshape2, gtable, digest, MASS, proto, Formula, lattice, gridExtra, nnet, acepack, latticeExtra, cluster, rpart, foreign, survival, annotate, dichromat, labeling, munsell, stringr, xtable, colorspace, magrittr, stringi, Category, R.utils, hwriter, knitr, GGally, graph, Matrix, RBGL, AnnotationForge, evaluate, markdown, yaml, highr, formatR, reshape, mime, matrixStats, mgcv, nlme</li>
+</ul>
+</div>
+<div class="section" id="id35">
+<h4>Data:<a class="headerlink" href="#id35" title="Permalink to this headline">¶</a></h4>
+<p>RNAseq bam-files from <a class="reference external" href="http://www.doi.org/10.1084/jem.20140767">Solaimani Kartalaei P, (2014)</a></p>
+</div>
+<div class="section" id="id36">
+<h4>License<a class="headerlink" href="#id36" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 Wolfgang Huber</div>
+<div class="line">based on  <a class="reference external" href="http://www.doi.org/10.12688/f1000research.7035.1">DOI: 10.12688/f1000research.7035.1</a></div>
+<div class="line">Copyright (c) 2016 BeDataDriven B.V.</div>
+<div class="line">License: Artistic 2.0</div>
+</div>
+</div>
+</div>
+<div class="section" id="reverse-phase-protein-array-rppa">
+<h3>Reverse phase protein array (rppa)<a class="headerlink" href="#reverse-phase-protein-array-rppa" title="Permalink to this headline">¶</a></h3>
+<p>Processes within a cell are mainly performed by proteins. Special copies of a
+gene, called messenger RNAs (mRNAs), are produced and transported to the cells
+protein synthesis machinery to produce the corresponding protein. The more mRNA
+molecules of a gene cause the more of its corresponding protein is produced.
+However, this is not always a linear relationship. Presence or absence of some
+molecules (including other proteins) can inhibit or enhance the production of a
+protein.</p>
+<p>High-throughput technologies such as micro-arrays and RNA/DNA sequencing
+technologies measure the level of mRNA as a surrogate marker for protein level.
+There are a few highthroughput technologies that allow direct measurement of the
+protein levels. The reverse phase protein array (RPPA) is one such technology.
+To perform RPPA, cell/tissue lysate of interest is printed as small dots
+(droplets) of the same size on surface of a special plate. Each dot on the plate
+is then stained with fluorochrome conjugated antibodies against one specific
+protein. The plate is then washed and scanned to detect the fluorescence. Since
+most antibodies bind to multiple proteins due to non-specific binding, the
+requirement for antibodies which only detect a single protein in one of the
+limitation of RPPA.</p>
+<p>In this workflow, <a class="reference external" href="http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv">RPPA dataset</a> from TCGA consortium is clustered using R
+hierarchical clustering  and K-means clustering from &#8216;stats&#8217; package.</p>
+<p class="graphviz">
+<img src="../_images/graphviz-4477fa6baf3902ed492f11ac86bdfd864da97444.png" alt="digraph workflow {
+   &quot;RPPA data (TCGA)&quot; -&gt; &quot;R&quot;;
+   &quot;R&quot; -&gt; &quot;cor(method = 'pearson')&quot;;
+   &quot;cor(method = 'pearson')&quot; -&gt; &quot;Hierarchical Clustering&quot;;
+   &quot;Hierarchical Clustering&quot; -&gt; &quot;hclust(method = 'ward')&quot;;
+   &quot;hclust(method = 'ward')&quot; -&gt; &quot;within clusters sum of squares&quot;;
+   &quot;within clusters sum of squares&quot; -&gt; &quot;optimal cut using Elbow method&quot;;
+   &quot;cor(method = 'pearson')&quot; -&gt; &quot;K-means Clustering&quot;;
+   &quot;K-means Clustering&quot; -&gt; &quot;kmeans(algorithm = 'Hartigan-Wong')&quot;;
+   &quot;kmeans(algorithm = 'Hartigan-Wong')&quot; -&gt; &quot;optimal cut using Elbow method&quot;;
+}" />
+</p>
+<p class="caption">RPPA workflow</p>
+<div class="section" id="id37">
+<h4>Packages and Dependencies<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
+<p>There is ony 1 package used in this workflow, which has no dependencies.</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CORE</em>: stats</li>
+</ul>
+</div>
+<div class="section" id="id38">
+<h4>Data:<a class="headerlink" href="#id38" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>RPPA data: <a class="reference external" href="http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv">http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv</a></li>
+</ul>
+</div>
+<div class="section" id="id39">
+<h4>License<a class="headerlink" href="#id39" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="simulated-geo-matrix">
+<h3>Simulated GEO matrix<a class="headerlink" href="#simulated-geo-matrix" title="Permalink to this headline">¶</a></h3>
+<p>Mutations in DNA that is coding for proteins (genes) or regulatory elements are
+often the cause of most diseases. Affymatirx arrays allow quantification of
+specific sequences of DNA or RNA in biological samples such as blood, tissue, or
+tumors. These arrays give the relative levels of specific transcript (between
+two samples) so that these can be compared (between eg. healty vs diseased
+tissues or before vs after treatment).</p>
+<p>To do so, DNA sequences unique to specific genes/mutations are printed
+as small spots on a glass surface (arrays), with each spot containing thousends
+of copies of a single sequence. The DNA from each sample is than tagged with
+different colors of flourecent molecules (red or green) and hybredized with the array.
+This way, DNA from sample can bind to sequences on the surface that are antisense of
+its own sequence (specific binding).  The array undergoes several washing steps
+to remove the none-specifically bound DNA sequences, which bind loosly. The
+plate is than scanned and the flourecence intensity for each color at each spot
+is recorded. This intensity is an indicator of the ammount of DNA bound and
+probably the levels of that specific DNA present in the sample. The information
+regarding the specific sequence printed on each spot, control spots, and other
+array specific information is stored in a CDF format/file. By comparing the
+intensity of red to green at each spot you can know which sample contained more
+of that specific transcript.</p>
+<p>For this workflow a simulated dataset was used containing patient
+meta-information, gene expression levels (microarray), and gene ontology
+information for 500 patients and 500 genes. This workflow performs Standard
+statistical methods such as linear regression model (lm.fit from stats package),
+covariance (&#8216;cov&#8217; from &#8216;stats&#8217; package), biclustering (&#8216;biclust&#8217; package), SVM
+(&#8216;irlba&#8217; package), and differential gene expression using two sample Wilcoxon
+test (also know as &#8216;Mann-Whitney&#8217; test) are performed.</p>
+<div class="section" id="id42">
+<h4>Packages and Dependencies<a class="headerlink" href="#id42" title="Permalink to this headline">¶</a></h4>
+<p>There are 3 packages used in this workflow, which depend
+on 7 additional packages from CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: biclust, s4vd, irlba</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: lattice, colorspace, MASS, flexclust, modeltools, biclust, Matrix</li>
+</ul>
+</div>
+<div class="section" id="id43">
+<h4>Data:<a class="headerlink" href="#id43" title="Permalink to this headline">¶</a></h4>
+<p>This workflow uses simulated data from GenBase <a class="reference external" href="https://github.com/mitdbg/genbase/blob/master/data/data_generator.py">data_generator.py</a> with 500 as
+size of columns and rows. Here you can read about the original GenBase study by
+<a class="reference external" href="http://dx.doi.org/10.1145/2588555.2595633">Taft R et al., 2014</a>.</p>
+</div>
+<div class="section" id="id44">
+<h4>License<a class="headerlink" href="#id44" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Copyright (c) 2015 MIT DB Group based on code from <a class="reference external" href="https://github.com/mitdbg/genbase/blob/master/code/R_benchmark/vanilla_R_benchmark.R">GenBase</a></li>
+<li>Copyright (c) 2015 Hannes Mühleisen based on code from <a class="reference external" href="https://github.com/hannesmuehleisen/genbase/blob/master/code/R_benchmark/vanilla_R_benchmark.R">GenBase (fork)</a></li>
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="single-cell-seurat-clustering-and-marker-discovery">
+<h3>Single Cell (Seurat, Clustering and marker discovery)<a class="headerlink" href="#single-cell-seurat-clustering-and-marker-discovery" title="Permalink to this headline">¶</a></h3>
+<p>All the functions that take place within a cell are performed through proteins.
+These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
+A gene is a sequence of DNA that encodes for a particular protein. In order to
+make the necessary proteins, the transcriptional machinary of a cell makes
+special copies of the respective genes that can be translated to protein
+sequences. These special copies are called messenger RNAs (Ribonucleic acids).</p>
+<p>The amount of mRNA produced by a specific gene is used as a surrogate marker for
+quantification of the gene activity. With Current highthroughput sequencing
+technologies (such as in this case RNAseq), all (fragmented) RNA molecules
+from a biological sample are sequenced. These sequences are then matched to
+the annotated genome sequence to identify to which gene each sequenced fragment
+belongs. More sequenced fragments mapping to a gene in one samples as compared
+to another, means that the specific gene had a higher activity. In addition,
+single cell sequencing technologies have allowed us to identify the heterogeneous
+nature of phenotypically pure populations and identity new sub populations of
+cells based on difference in gene expression.</p>
+<p>In this workflow developed by <a class="reference external" href="http://www.satijalab.org">Satija lab</a> single
+cell transcriptomic data is used in combination of various dimensional reduction
+algorithms (such as PCA and t-SNE) to cluster cells. The leading genes in these
+clusterings can be used as genetic markers.</p>
+<div class="section" id="id47">
+<h4>Packages and Dependencies<a class="headerlink" href="#id47" title="Permalink to this headline">¶</a></h4>
+<p>There is 1 package used in this workflow, which depend
+on 60 additional packages from CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><strong>Github</strong>: Seurat (satijalab/seurat)</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: ggplot2, reshape2, useful, gridExtra, gplots, ROCR, stringr, mixtools, lars, fastICA, tsne, Rtsne, fpc, ape, VGAM, jackstraw, XLConnect, plyr, scales, gtable, digest, MASS, proto, Rcpp, dichromat, labeling, RColorBrewer, munsell, colorspace, magrittr, stringi, dplyr, assertthat, R6, DBI, lazyeval, gtools, KernSmooth, caTools, bitops, boot, segmented, diptest, mvtnorm, flexmix, mclust, trimcluster, kernlab, robustbase, class, cluster, prabclus, nnet, lattice, modeltools, DEoptimR, nlme, corpcor, XLConnectJars, rJava</li>
+</ul>
+</div>
+<div class="section" id="id48">
+<h4>Data:<a class="headerlink" href="#id48" title="Permalink to this headline">¶</a></h4>
+<p>Single cell transcriptome data from <a class="reference external" href="http://doi.org/10.1038/nbt.2967">Pollen et al. 2014</a></p>
+</div>
+<div class="section" id="id49">
+<h4>License<a class="headerlink" href="#id49" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 Rahul Satija</div>
+<div class="line">based on code from <a class="reference external" href="http://www.satijalab.org/seurat-intro.html">Tutorial - Unsupervised clustering and marker discovery</a></div>
+<div class="line">Copyright (c) 2015-2016 BeDataDriven B.V.</div>
+<div class="line">License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></div>
+</div>
+</div>
+</div>
+<div class="section" id="single-cell-seurat-spatial-inference">
+<h3>Single Cell (Seurat, Spatial Inference)<a class="headerlink" href="#single-cell-seurat-spatial-inference" title="Permalink to this headline">¶</a></h3>
+<p>All the functions that take place within a cell are performed through proteins.
+These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
+A gene is a sequence of DNA that encodes for a particular protein. In order to
+make the necessary proteins, the transcriptional machinary of a cell makes
+special copies of the respective genes that can be translated to protein
+sequences. These special copies are called messenger RNAs (Ribonucleic acids).</p>
+<p>The amount of mRNA produced by a specific gene is used as a surrogate marker for
+quantification of the gene activity. With Current highthroughput sequencing
+technologies (such as in this case RNAseq), all (fragmented) RNA molecules
+from a biological sample are sequenced. These sequences are then matched to
+the annotated genome sequence to identify to which gene each sequenced fragment
+belongs. More sequenced fragments mapping to a gene in one samples as compared
+to another, means that the specific gene had a higher activity. In addition,
+single cell sequencing technologies have allowed us to identify the heterogeneous
+nature of phenotypically pure populations and identity new sub populations of
+cells based on difference in gene expression.</p>
+<p>In this workflow developed by <a class="reference external" href="http://www.satijalab.org">Satija lab</a> imaging data is
+used together with single cell transcrptomic data to resolve the spatial position
+of the sequenced cells based on their expression profile.</p>
+<div class="section" id="id51">
+<h4>Packages and Dependencies<a class="headerlink" href="#id51" title="Permalink to this headline">¶</a></h4>
+<p>There are 4 packages used in this workflow, which depend
+on 68 additional packages (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Github</em>: Seurat (satijalab/seurat)</li>
+<li><em>CRAN</em>: XLConnect, rgl, knitr</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: ggplot2, reshape2, useful, gridExtra, gplots, gdata, XLConnectJars, ROCR, stringr, mixtools, lars, fastICA, tsne, Rtsne, fpc, ape, VGAM, jackstraw, XLConnect, methods, rJava, plyr, scales, gtable, digest, MASS, proto, Rcpp, dichromat, labeling, RColorBrewer, munsell, colorspace, magrittr, stringi, dplyr, assertthat, R6, DBI, lazyeval, gtools, KernSmooth, caTools, bitops, boot, segmented, diptest, mvtnorm, flexmix, mclust, trimcluster, kernlab, robustbase, class, cluster, prabclus, nnet, lattice, modeltools, DEoptimR, nlme, corpcor, evaluate, markdown, yaml, highr, formatR, mime</li>
+</ul>
+</div>
+<div class="section" id="id52">
+<h4>Data:<a class="headerlink" href="#id52" title="Permalink to this headline">¶</a></h4>
+<p>Single cell transcriptome data from <a class="reference external" href="http://doi.org/10.1038/nbt.3192">Satija*, Farrell* et al., 2015</a></p>
+</div>
+<div class="section" id="id53">
+<h4>License<a class="headerlink" href="#id53" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 Rahul Satija</div>
+<div class="line">based on code from <a class="reference external" href="http://www.satijalab.org/seurat-intro.html">Tutorial - Spatial Inference of single cell data</a></div>
+<div class="line">Copyright (c) 2015-2016 BeDataDriven B.V.</div>
+<div class="line">License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></div>
+</div>
+</div>
+</div>
+<div class="section" id="survival-simple">
+<h3>Survival simple<a class="headerlink" href="#survival-simple" title="Permalink to this headline">¶</a></h3>
+<p>All cancers are caused by mutations in DNA. <a class="reference external" href="http://cancergenome.nih.gov/">The Cancer Genome Atlas (TCGA)</a>
+is a project that begun in 2005 and aims to catalogue the mutations that cause
+cancer in patients. It uses highthroughput sequencing technologies and
+bioinformatics to achive this gaol. Beside genomic data, TCGA also records and
+provides detailed anonymize meta information about each patient (such as
+disease stage, patient age, sex, healt, etc) which are very valuable for
+identification of risk factors.</p>
+<p>In this workflow, survival analysis is performed on TCGA patient survival data
+with BAZ2A gene mutations as predictor. The <a class="reference external" href="https://cran.r-project.org/web/packages/survival/index.html">survival package</a> is one of the
+most used packages for survival analysis in R.</p>
+<div class="section" id="id56">
+<h4>Packages and Dependencies<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h4>
+<p>There is only 1 package used in this workflow, which has
+no additional dependencies.</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: survival</li>
+</ul>
+</div>
+<div class="section" id="id57">
+<h4>Data:<a class="headerlink" href="#id57" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>pat.gene.rda: patient survival data from TCGA consortium processed and formatted by Phil Cheng</li>
+</ul>
+</div>
+<div class="section" id="id58">
+<h4>License<a class="headerlink" href="#id58" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 Phil Cheng</div>
+<div class="line">Copyright (c) 2015-2016 BeDataDriven B.V.</div>
+<div class="line">License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></div>
+</div>
+</div>
+</div>
+<div class="section" id="survival-tcga">
+<h3>Survival TCGA<a class="headerlink" href="#survival-tcga" title="Permalink to this headline">¶</a></h3>
+<p>All cancers are caused by mutations in DNA. <a class="reference external" href="http://cancergenome.nih.gov/">The Cancer Genome Atlas (TCGA)</a>
+is a project that begun in 2005 and aims to catalogue the mutations that cause
+cancer in patients. It uses highthroughput sequencing technologies and
+bioinformatics to achive this gaol. Beside genomic data, TCGA also records and
+provides detailed anonymize meta information about each patient (such as
+disease stage, patient age, sex, healt, etc) which are very valuable for
+identification of risk factors.</p>
+<p>In this workflow, survival analysis is performed on TCGA meta and survival data
+using the Cox regression model. The <a class="reference external" href="https://cran.r-project.org/web/packages/glmnet/index.html">glmnet package</a> is one of the most
+efficient packages for such an analysis in R.</p>
+<div class="section" id="id61">
+<h4>Packages and Dependencies<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h4>
+<p>There are 2 packages used in this workflow, which depend
+on 5 additional packages from CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: glmnet, survival</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: foreach, Matrix, codetools, iterators, lattice</li>
+</ul>
+</div>
+<div class="section" id="id62">
+<h4>Data:<a class="headerlink" href="#id62" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Patient survival data from TCGA consortium provided by Andre Verissimo.</li>
+</ul>
+</div>
+<div class="section" id="id63">
+<h4>License<a class="headerlink" href="#id63" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 Andre Verissimo (<a class="reference external" href="mailto:andre&#46;verissimo&#37;&#52;&#48;tecnico&#46;ulisboa&#46;pt">andre<span>&#46;</span>verissimo<span>&#64;</span>tecnico<span>&#46;</span>ulisboa<span>&#46;</span>pt</a>)</div>
+<div class="line">Copyright (c) 2015-2016 BeDataDriven B.V.</div>
+<div class="line">License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></div>
+</div>
+</div>
+</div>
+<div class="section" id="tcga-browser">
+<h3>TCGA browser<a class="headerlink" href="#tcga-browser" title="Permalink to this headline">¶</a></h3>
+<p>All cancers are caused by mutations in DNA. <a class="reference external" href="http://cancergenome.nih.gov/">The Cancer Genome Atlas (TCGA)</a>
+is a project that begun in 2005 and aims to catalog the mutations that cause
+cancer in patients. DNA sequence, gene expression profile, and other relevant
+patient information are collected for identification of risk factors and better
+understanding the disease mechanism.</p>
+<p>First, gene expression profiles (the amount of RNA transcripts produced by each
+gene), DNA mutations, and patient information which have been previously
+retrieved from TCGA repository are loaded. These data are stored as data frames
+using &#8216;data.table&#8217; package which is one of the most efficient (memory- and
+speed wise) packages for handeling large data frames. Significant differences
+in gene activity (expression) are calculated using the &#8216;limma&#8217; package. This
+type of analysis result often in large lists of differentially expressed, each
+of these genes is in turn is involved in a few and sometimes many biological
+processes. In analysis of gene expression data, it is a common practice to
+statistically test whether there are biological processes/pathways whose genes
+are significantly overrepresented using a gene set analysis (GSA) method. This
+gives us a view at the level of biological processes. In this workflow &#8216;gage&#8217;
+package has been used which uses Generally Applicable Gene-set Enrichment
+<a class="reference external" href="http://doi.org/10.1186/1471-2105-10-161">GAGE method</a>. Gene transcripts are translated to proteins and proteins can
+interact and inhibit or activate each others function or expression level.
+Information about protein-protein interactions are continuously added to
+<a class="reference external" href="http://string-db.org/">STRING database</a> which is accessible through &#8216;STRINGdb&#8217; package and used to
+show the interaction between the genes with significant differential
+expression.</p>
+<div class="section" id="id66">
+<h4>Packages and Dependencies<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h4>
+<p>There are 24 packages used in this workflow, which depend
+on 71 additional packages (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: limma, edgeR, gage, STRINGdb,</li>
+<li><em>CRAN</em>: ncvreg, boot, lars, lasso2, mda, leaps, data.table, reshape2, ggplot2, magrittr, survival, googleVis, plyr, grid, d3heatmap, ggvis, RColorBrewer, DT, jsonlite</li>
+<li><em>Github</em>: rCharts</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: BiocGenerics, GenomeInfoDb, S4Vectors, Biobase, IRanges, Biostrings, AnnotationDbi, KEGGREST, XVector</li>
+<li><em>CRAN</em>: irlba, Matrix, NMF, lattice, foreach, gridBase, pkgmaker, stringr, colorspace, doParallel, digest, rngtools, cluster, registry, codetools, iterators, xtable, Rcpp, stringi, scales, gtable, MASS, proto, dichromat, labeling, munsell, RSQLite, gsubfn, chron, DBI, graph, png, httr, zlibbioc, R6, jsonlite, curl, mime, RCurl, igraph, hash, gplots, plotrix, sqldf, bitops, gtools, KernSmooth, caTools, gdata, class, RJSONIO, htmlwidgets, dendextend, base64enc, yaml, htmltools, whisker, dplyr, assertthat, lazyeval, shiny, httpuv</li>
+</ul>
+</div>
+<div class="section" id="id67">
+<h4>Data:<a class="headerlink" href="#id67" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Exome, Patient, RNAseq data from TCGA consortium and processed by Phil Cheng</li>
+<li>Protein data downlaoded from STRINGdb package for tax_id 9606 (Human)</li>
+</ul>
+</div>
+<div class="section" id="id68">
+<h4>License<a class="headerlink" href="#id68" title="Permalink to this headline">¶</a></h4>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 by Phil Cheng</div>
+<div class="line">Copyright (c) 2015-2016 BeDataDriven B.V.</div>
+<div class="line">License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bioinformatics</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#workflows">Workflows</a><ul>
+<li><a class="reference internal" href="#affy">Affy</a><ul>
+<li><a class="reference internal" href="#packages-and-dependencies">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#clinical-eslii-essential-statistics-learning-2nd-edition">Clinical eslII (Essential Statistics Learning 2nd Edition)</a><ul>
+<li><a class="reference internal" href="#id1">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#data">Data:</a></li>
+<li><a class="reference internal" href="#id2">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#clinical-liver-cohort">Clinical (liver cohort)</a><ul>
+<li><a class="reference internal" href="#id3">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id4">Data:</a></li>
+<li><a class="reference internal" href="#id5">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#generate-count-from-rnaseq-bam-files">Generate count (From RNAseq BAM files)</a><ul>
+<li><a class="reference internal" href="#id8">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id9">Data:</a></li>
+<li><a class="reference internal" href="#id10">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#integration-igraph">Integration: iGraph</a><ul>
+<li><a class="reference internal" href="#id12">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id13">Data:</a></li>
+<li><a class="reference internal" href="#id14">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#integration-liver-cohort">Integration: Liver cohort</a><ul>
+<li><a class="reference internal" href="#id18">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id19">Data:</a></li>
+<li><a class="reference internal" href="#id20">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#microarray">Microarray</a><ul>
+<li><a class="reference internal" href="#id23">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id24">Data:</a></li>
+<li><a class="reference internal" href="#id25">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mutation">Mutation</a><ul>
+<li><a class="reference internal" href="#id28">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id29">Data:</a></li>
+<li><a class="reference internal" href="#id31">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#rnaseq-deseq2">RNAseq DESeq2</a><ul>
+<li><a class="reference internal" href="#id34">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id35">Data:</a></li>
+<li><a class="reference internal" href="#id36">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#reverse-phase-protein-array-rppa">Reverse phase protein array (rppa)</a><ul>
+<li><a class="reference internal" href="#id37">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id38">Data:</a></li>
+<li><a class="reference internal" href="#id39">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#simulated-geo-matrix">Simulated GEO matrix</a><ul>
+<li><a class="reference internal" href="#id42">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id43">Data:</a></li>
+<li><a class="reference internal" href="#id44">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#single-cell-seurat-clustering-and-marker-discovery">Single Cell (Seurat, Clustering and marker discovery)</a><ul>
+<li><a class="reference internal" href="#id47">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id48">Data:</a></li>
+<li><a class="reference internal" href="#id49">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#single-cell-seurat-spatial-inference">Single Cell (Seurat, Spatial Inference)</a><ul>
+<li><a class="reference internal" href="#id51">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id52">Data:</a></li>
+<li><a class="reference internal" href="#id53">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#survival-simple">Survival simple</a><ul>
+<li><a class="reference internal" href="#id56">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id57">Data:</a></li>
+<li><a class="reference internal" href="#id58">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#survival-tcga">Survival TCGA</a><ul>
+<li><a class="reference internal" href="#id61">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id62">Data:</a></li>
+<li><a class="reference internal" href="#id63">License</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tcga-browser">TCGA browser</a><ul>
+<li><a class="reference internal" href="#id66">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#id67">Data:</a></li>
+<li><a class="reference internal" href="#id68">License</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../prologue.html"
+                        title="previous chapter">Prologue</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/bioinformatics/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../prologue.html" title="Prologue"
+             >previous</a> |</li>
+        <li><a href="../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
