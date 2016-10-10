@@ -28,16 +28,32 @@ hierarchical clustering  and K-means clustering from 'stats' package.
 .. graphviz::
    :caption: RPPA workflow
 
-   digraph workflow {
-      "RPPA data (TCGA)" -> "R";
-      "R" -> "cor(method = 'pearson')";
-      "cor(method = 'pearson')" -> "Hierarchical Clustering";
-      "Hierarchical Clustering" -> "hclust(method = 'ward')";
-      "hclust(method = 'ward')" -> "within clusters sum of squares";
-      "within clusters sum of squares" -> "optimal cut using Elbow method";
-      "cor(method = 'pearson')" -> "K-means Clustering";
-      "K-means Clustering" -> "kmeans(algorithm = 'Hartigan-Wong')";
-      "kmeans(algorithm = 'Hartigan-Wong')" -> "optimal cut using Elbow method";
+    digraph RPPA_workflow {
+      Data [shape = invhouse, label = "RPPA data (TCGA)"];
+      cor_pearson [label = "cor(method = pearson)"];
+      hclust_ward [label = "hclust\n(method = ward)"];
+      within_ss [label = "within clusters\nsum of squares"];
+      elbow [label = "optimal cut\nElbow method"];
+      kmeans_hart [label = "kmeans\n(algorithm = HW)"];
+
+      subgraph cluster_1 {
+         style = filled;
+         color = lightgrey;
+         hclust_ward -> within_ss;
+         label = "Hierarchical\nClustering";
+      }
+
+      subgraph cluster_2 {
+         style = filled;
+         color = lightgrey;
+         kmeans_hart;
+         label = "K-means\nClustering";
+      }
+
+      Data -> cor_pearson -> hclust_ward;
+      Data -> cor_pearson -> kmeans_hart;
+      within_ss -> elbow;
+      kmeans_hart -> elbow;
    }
 
 .. _RPPA dataset: http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv
