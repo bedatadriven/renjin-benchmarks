@@ -30,7 +30,7 @@ library(plyr)
 library(reshape2)
 library(STRINGdb)
 library(grid)
-library(rCharts)
+#library(rCharts)
 library(d3heatmap)
 library(ggvis)
 library(RColorBrewer)
@@ -44,6 +44,7 @@ DATA_DIR <- normalizePath(".")
 files = list.files(path = DATA_DIR, pattern = "txt$")
 
 ##### Functions #####
+# gsub, Reduce
 mgsub2 <- function(myrepl, mystring) {
   gsub2 <- function(l, x) {
     do.call('gsub', list(x = x, pattern = l[1], replacement = l[2]))
@@ -51,6 +52,7 @@ mgsub2 <- function(myrepl, mystring) {
   Reduce(gsub2, myrepl, init = mystring, right = TRUE)
 }
 
+#paste(x$callup)
 cellinfo <- function(x) {
   if(is.null(x)) return(NULL)
   paste(x$callup)
@@ -62,6 +64,8 @@ f_dowle2 = function(DT) {
     set(DT,which(is.na(DT[[j]])), j, "Wild-type")
 }
 
+# package:grid;
+# grid.newpage(); pushViewport();
 multiplot <- function(..., plotlist=NULL, file, cols = 1, layout = NULL) {
   require(grid)
   # Make a list from the ... arguments and plotlist
@@ -94,16 +98,22 @@ multiplot <- function(..., plotlist=NULL, file, cols = 1, layout = NULL) {
 }
 
 ##### Blocks for timing #####
+# fread(d1:TCGA_RNAseq/pat:TCGA_patient/m1:TCGA_exome); 
+# strdb:STRINGdb$new(9606, version 10, score 400)
+# kg.hsa:kegg.gsets("hsa"); 
+# list(d1, pat, m1, d1$Gene, strdb, kg.hsa)
+
 do.load <- function(DATA_DIR, TARGET) {
   # Load the required Data
   DATA <- list()
+  d1 <- fread(paste0(DATA_DIR,"/TCGA_PRAD_RNAseq.txt"), sep = "\t", header = TRUE)
+  setkey(d1, Gene)
+  pat <- fread(paste0(DATA_DIR, "/TCGA_PRAD_patient.txt"), sep = "\t", header = TRUE)
+  setkey(pat, bcr_patient_barcode, name)
+
   if ( TARGET == "RNAseq" ) {
-    d1 <- fread(paste0(DATA_DIR,"/TCGA_PRAD_RNAseq.txt"), sep = "\t", header = TRUE)
     if(DEBUGGING) cat("> START: do.load(RNAseq)\n")
-    setkey(d1, Gene)
     #converts all spaces and NA and unknown into NA for R, easier for sorting
-    pat <- fread(paste0(DATA_DIR,"/TCGA_PRAD_patient.txt"), sep = "\t", header = TRUE) if(DEBUGGING) cat(">>> DONE: load/setkey d1\n")
-    setkey(pat, bcr_patient_barcode, name)
     m1 <- fread(paste0(DATA_DIR,"/TCGA_PRAD_exome.txt"))
     if(DEBUGGING) cat(">>> DONE: load/setkey pat\n")
     setkey(m1, bcr_patient_barcode)
@@ -123,20 +133,13 @@ do.load <- function(DATA_DIR, TARGET) {
   }
 
   if ( TARGET == "Survival") {
-    d1 <- fread(paste0(DATA_DIR, "/TCGA_PRAD_RNAseq.txt"), sep = "\t", header = TRUE)
     if(DEBUGGING) cat("> START: do.load(Survival)\n")
-    setkey(d1, Gene)
-    setkey(pat, bcr_patient_barcode, name)
     DATA <- list(d1, pat)
     if(DEBUGGING) cat("> END: do.load(Survival)\n")
   }
 
   if ( TARGET == "Exome") {
-    d1 <- fread(paste0(DATA_DIR, "/TCGA_PRAD_RNAseq.txt"), sep = "\t", header = TRUE)
     if(DEBUGGING) cat("> START: do.load(Exome)\n")
-    setkey(d1, Gene)
-    pat <- fread(paste0(DATA_DIR, "/TCGA_PRAD_patient.txt"), sep = "\t", header = TRUE)
-    setkey(pat, bcr_patient_barcode, name)
     m1 <- fread(paste0(DATA_DIR, "/TCGA_PRAD_exome.txt"))
     setkey(m1, Hugo_Symbol)
     DATA <- list(d1, pat, m1)
@@ -464,25 +467,25 @@ do.analyse <- function(DATA, TARGET) {
     string_db$plot_network(hits, payload_id, add_link = FALSE)
     if(DEBUGGING) cat("> END: do.analyse(RNAseq_STRING)\n")
   }
-
-  if ( TARGET == "RNAseq_rChart" ) {
-    if(DEBUGGING) cat("> START: do.analyse(RNAseq_rChart)\n")
-    pat.gene <- DATA[[4]]
-
-    group <- "clinical_T"
-    gr <- pat.gene[ , .N, by = .(gene2, with(pat.gene, get(group)))][order(with)]
-    setkey(gr, gene2, with)
-    setnames(gr, 2, group)
-    gr[gene2 == 1, gene3 := "low"]
-    gr[gene2 == 2, gene3 := "high"]
-    n1 <- nPlot(N ~ gene3, group = group, data = gr, type = "multiBarChart")
-    n1$addParams(dom = "bargraph")
-    n1$chart(margin = list(left = 100))
-    n1$yAxis(axisLabel  = "Number of patients")
-    n1$print("test")
-    n1$save("test1.html", cdn = T)
-    if(DEBUGGING) cat("> END: do.analyse(RNAseq_rChart)\n")
-  }
+#
+#  if ( TARGET == "RNAseq_rChart" ) {
+#    if(DEBUGGING) cat("> START: do.analyse(RNAseq_rChart)\n")
+#    pat.gene <- DATA[[4]]
+#
+#    group <- "clinical_T"
+#    gr <- pat.gene[ , .N, by = .(gene2, with(pat.gene, get(group)))][order(with)]
+#    setkey(gr, gene2, with)
+#    setnames(gr, 2, group)
+#    gr[gene2 == 1, gene3 := "low"]
+#    gr[gene2 == 2, gene3 := "high"]
+#    n1 <- nPlot(N ~ gene3, group = group, data = gr, type = "multiBarChart")
+#    n1$addParams(dom = "bargraph")
+#    n1$chart(margin = list(left = 100))
+#    n1$yAxis(axisLabel  = "Number of patients")
+#    n1$print("test")
+#    n1$save("test1.html", cdn = T)
+#    if(DEBUGGING) cat("> END: do.analyse(RNAseq_rChart)\n")
+#  }
 
   if ( TARGET == 'Survival') {
     if(DEBUGGING) cat("> START: do.analyse(Survival)\n")
