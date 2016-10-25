@@ -28,7 +28,7 @@ hierarchical clustering  and K-means clustering from 'stats' package.
 .. graphviz::
    :caption: RPPA workflow
 
-    digraph RPPA_workflow {
+   digraph RPPA_workflow {
       Data [shape = invhouse, label = "RPPA data (TCGA)"];
       cor_pearson [label = "cor(method = pearson)"];
       hclust_ward [label = "hclust\n(method = ward)"];
@@ -51,7 +51,7 @@ hierarchical clustering  and K-means clustering from 'stats' package.
       }
 
       Data -> cor_pearson -> hclust_ward;
-      Data -> cor_pearson -> kmeans_hart;
+      cor_pearson -> kmeans_hart;
       within_ss -> elbow;
       kmeans_hart -> elbow;
    }

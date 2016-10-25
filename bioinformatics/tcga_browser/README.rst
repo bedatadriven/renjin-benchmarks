@@ -27,6 +27,38 @@ Information about protein-protein interactions are continuously added to
 show the interaction between the genes with significant differential
 expression.
 
+.. graphviz::
+   :caption: TCGA browser shiny app modules.
+
+   digraph TCGA_browser {
+      TCGA_mrna         [group = g1;  shape = invhouse, label = "Data (TCGA)\nRNAseq"];
+      TCGA_patient      [group = g1;  shape = invhouse, label = "Data (TCGA)\nPhenotype"];
+      TCGA_exome        [group = g1;  shape = invhouse, label = "Data (TCGA)\nExome"];
+      Data_string       [group = g1;  shape = invhouse; lable = "STRINGdb"];
+      Data_kegg         [group = g1;  shape = invhouse; label = "KEGG"];
+      pp                [shape = box; label = "preprocess    \nRNAseq"];
+      pp_sub            [shape = box; label = "restructure data     \nsubset()\nmerge()\nmelt()"];
+      an_mrna_deg       [shape = box; label = "Differential Expression     \n(limma)"];
+      an_mrna_hm        [shape = box; label = "Plot\nheatmap.2()"];
+      an_mrna_gage      [shape = box; label = "Geneset Analysis     \ngage()"];
+      an_mrna_string    [shape = box; label = "Protein interaction network       \nSTRINGdb"];
+      an_string_plot    [shape = box; label = "Protein Network Plot     "];
+      an_surv           [shape = box; label = "Simple survival analysis     \nSurv()\nsurvdiff()\nsurvfit()"];
+      an_surv_plot      [shape = box; label = "Kaplan-Meier plot     \nplot()"];
+      pp_exome          [shape = box; label = "Integrate     \nExome & Phenotype\ndata.table()\nmelt()"];
+      an_exome          [shape = box; label = "Plot     \nggvis\nggplot2"];
+      TCGA_mrna     ->      pp          ->   pp_sub;
+      TCGA_exome    ->      pp;
+      TCGA_patient  ->      pp;
+      pp_sub        ->      an_mrna_deg ->   an_mrna_hm;
+                            an_mrna_deg ->   an_mrna_gage;
+                            Data_kegg   ->   an_mrna_gage;
+                            an_mrna_deg ->   an_mrna_string -> an_string_plot;
+                            Data_string ->   an_mrna_string;
+      pp_sub        ->      an_surv     ->   an_surv_plot;
+      pp_sub        ->      pp_exome    ->   an_exome;
+   }
+
 .. _The Cancer Genome Atlas (TCGA): http://cancergenome.nih.gov/
 .. _GAGE method: http://doi.org/10.1186/1471-2105-10-161
 .. _STRING database: http://string-db.org/
