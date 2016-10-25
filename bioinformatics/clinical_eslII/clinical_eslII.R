@@ -19,7 +19,7 @@ library(lars)
 library(lasso2)
 library(mda)
 library(leaps)
-#library(survival)
+library(survival)
 ## global vars
 ## Timings blocks
 do.load <- function() {
@@ -27,22 +27,13 @@ do.load <- function() {
 
   # run locally to avoid having extra datasets loaded
   e <- new.env()
-  ### heart dataset
-  # Hastie, T., Tibshirani, R., and Friedman, J. (2001). The Elements of Statistical Learning. Springer.
-  # Rousseauw, J., et al. (1983). Coronary risk factor screening in three rural communities. South African Medical Journal, 64, 430-436.
-  data(heart, envir = e)
 
   ### prostate dataset
   # Hastie, T., Tibshirani, R., and Friedman, J. (2001). The Elements of Statistical Learning. Springer.
   # Stamey, T., et al. (1989). Prostate specific antigen in the diagnosis and treatment of adenocarcinoma of the prostate. II. Radical prostatectomy treated patients. Journal of Urology, 16: 1076-1083.
-  data(prostate, envir = e)
+  data(Prostate, envir = e)
 
-  ### lung dataset
-  # http://CRAN.R-project.org/package=survival
-  # Kalbfleisch D and Prentice RL (1980), The Statistical Analysis of Failure Time Data. Wiley, New York.
-  data(Lung, envir = e)
-
-  alldata <- list(heart = e$heart, lung = e$Lung, prostate = e$prostate)
+  alldata <- list(prostate = e$prostate)
 
   cat("> End: do.load()\n")
   return(alldata)
@@ -79,25 +70,6 @@ do.varselect <- function(data, plot_results = FALSE) {
                     ))
   )
 
-  ## heart
-  # cross validated model fitting
-  X2 <- as.matrix(data$heart[ , sapply(data$heart, is.numeric)])
-  y2 <- data$heart$tobacco
-  cvfit <- cv.ncvreg(X2, y2, penalty = "lasso", seed = 8008, nfolds = 10 )
-  cat(">>> DONE: cv.ncvreg(X2, y2)\n")
-
-  if(plot_results) {
-    plot(cvfit)
-    summary(cvfit)
-  }
-  results <- append(results,
-                    list(data.frame(
-                      dat = "heart",
-                      var = rownames(cvfit$fit$beta),
-                      coeff = cvfit$fit$beta[ , as.character(round(cvfit$lambda.min, digits = 4))]
-                    ))
-  )
-
   cat("> End: do.varselect()\n")
   return(do.call("rbind",results))
 
@@ -130,7 +102,7 @@ do.prostate <- function(data, plot_results = TRUE) {
   train <- data$prostate[traintest, 1:9]
   test <- data$prostate[!traintest, 1:9]
 
-  # The book (page 56) uses only train subset, so we the same:
+  # The book (page 56) uses only train subset, so we do the same:
   prostate.leaps <- regsubsets( lpsa ~ . , data = train, nbest = 70,
                                 really.big = TRUE )
   cat(">>> DONE: regsubsets( lpsa ~ .)\n")
@@ -217,41 +189,6 @@ do.prostate <- function(data, plot_results = TRUE) {
   return(do.call("rbind",results))
 }
 
-# do.lung(data, plot_results=FALSE){
-#   ### not yet implemented
-#   ### survey data using Lung dataset from ncvreg
-#   # expects output from do.load
-#
-# }
-
-# do.survival <- function(data, plot_results=FALSE){
-#   ### survival analysis on Lung dataset from ncvreg (see do.load)
-#   # expects input from do.load
-#
-#   results <- list()
-#
-#   ## kaplan-meier
-#   survfit()
-#   results <- append(results,
-#                     list(data.frame(
-#                       dat="kaplan-meier",
-#                       var=,
-#                       coeff=
-#                     ))
-#   )
-#
-#   ## cox stats
-#   results <- append(results,
-#                     list(data.frame(
-#                       dat="cox",
-#                       var=,
-#                       coeff=
-#                     ))
-#   )
-#
-#   ## return
-#   return(do.call("rbind",results))
-# }
 
 ### reporting
 # load data
@@ -259,7 +196,11 @@ data <- do.load()
 # score on sliding window
 vs <- do.varselect(data)
 
+print(vs)
+
 pr <- do.prostate(data)
+
+print(pr)
 
 # final clean up
 #rm(list=ls())
