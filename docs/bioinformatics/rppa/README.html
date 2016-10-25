@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Reverse phase protein array (rppa) &mdash; Renjin Benchmarks 0.1 documentation</title>
+    <title>Reverse phase protein array (rppa) &#8212; Renjin Benchmarks 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -23,24 +23,26 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="reverse-phase-protein-array-rppa">
 <h1>Reverse phase protein array (rppa)<a class="headerlink" href="#reverse-phase-protein-array-rppa" title="Permalink to this headline">¶</a></h1>
@@ -64,20 +66,36 @@ requirement for antibodies which only detect a single protein in one of the
 limitation of RPPA.</p>
 <p>In this workflow, <a class="reference external" href="http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv">RPPA dataset</a> from TCGA consortium is clustered using R
 hierarchical clustering  and K-means clustering from &#8216;stats&#8217; package.</p>
-<p class="graphviz">
-<img src="../../_images/graphviz-4477fa6baf3902ed492f11ac86bdfd864da97444.png" alt="digraph workflow {
-   &quot;RPPA data (TCGA)&quot; -&gt; &quot;R&quot;;
-   &quot;R&quot; -&gt; &quot;cor(method = 'pearson')&quot;;
-   &quot;cor(method = 'pearson')&quot; -&gt; &quot;Hierarchical Clustering&quot;;
-   &quot;Hierarchical Clustering&quot; -&gt; &quot;hclust(method = 'ward')&quot;;
-   &quot;hclust(method = 'ward')&quot; -&gt; &quot;within clusters sum of squares&quot;;
-   &quot;within clusters sum of squares&quot; -&gt; &quot;optimal cut using Elbow method&quot;;
-   &quot;cor(method = 'pearson')&quot; -&gt; &quot;K-means Clustering&quot;;
-   &quot;K-means Clustering&quot; -&gt; &quot;kmeans(algorithm = 'Hartigan-Wong')&quot;;
-   &quot;kmeans(algorithm = 'Hartigan-Wong')&quot; -&gt; &quot;optimal cut using Elbow method&quot;;
+<div class="figure" id="id1">
+<img src="../../_images/graphviz-d90e69f2c906b312b399b20b95422ab2e0cfbd28.png" alt="digraph RPPA_workflow {
+   Data [shape = invhouse, label = &quot;RPPA data (TCGA)&quot;];
+   cor_pearson [label = &quot;cor(method = pearson)&quot;];
+   hclust_ward [label = &quot;hclust\n(method = ward)&quot;];
+   within_ss [label = &quot;within clusters\nsum of squares&quot;];
+   elbow [label = &quot;optimal cut\nElbow method&quot;];
+   kmeans_hart [label = &quot;kmeans\n(algorithm = HW)&quot;];
+
+   subgraph cluster_1 {
+      style = filled;
+      color = lightgrey;
+      hclust_ward -&gt; within_ss;
+      label = &quot;Hierarchical\nClustering&quot;;
+   }
+
+   subgraph cluster_2 {
+      style = filled;
+      color = lightgrey;
+      kmeans_hart;
+      label = &quot;K-means\nClustering&quot;;
+   }
+
+   Data -&gt; cor_pearson -&gt; hclust_ward;
+   cor_pearson -&gt; kmeans_hart;
+   within_ss -&gt; elbow;
+   kmeans_hart -&gt; elbow;
 }" />
-</p>
-<p class="caption">RPPA workflow</p>
+<p class="caption"><span class="caption-text">RPPA workflow</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There is ony 1 package used in this workflow, which has no dependencies.</p>
@@ -105,7 +123,7 @@ hierarchical clustering  and K-means clustering from &#8216;stats&#8217; package
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -117,40 +135,39 @@ hierarchical clustering  and K-means clustering from &#8216;stats&#8217; package
 </li>
 </ul>
 
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../../_sources/bioinformatics/rppa/README.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/bioinformatics/rppa/README.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2016, BeDataDriven B.V..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Survival simple &mdash; Renjin Benchmarks 0.1 documentation</title>
+    <title>Survival simple &#8212; Renjin Benchmarks 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -23,24 +23,26 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
     <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="survival-simple">
 <h1>Survival simple<a class="headerlink" href="#survival-simple" title="Permalink to this headline">¶</a></h1>
@@ -54,6 +56,31 @@ identification of risk factors.</p>
 <p>In this workflow, survival analysis is performed on TCGA patient survival data
 with BAZ2A gene mutations as predictor. The <a class="reference external" href="https://cran.r-project.org/web/packages/survival/index.html">survival package</a> is one of the
 most used packages for survival analysis in R.</p>
+<div class="figure" id="id1">
+<img src="../../_images/graphviz-3599389ee3e490e46397188bb5d965d883d48ad5.png" alt="digraph SURV_SIMPL_workflow {
+   Data [group = g1; shape = invhouse, label = &quot;Data&quot;];
+   surv [shape = box; label = &quot;Surv(pfs_days, pfs)     &quot;];
+   survdif [shape = box; label = &quot;survdiff(Surv() ~ gene)        &quot;];
+   pchisq [shape = box; label = &quot;p.value =   \npchisq()&quot;];
+   survfit [shape = box; label = &quot;survfit()  &quot;];
+   summary [shape = box; label = &quot;summary()&quot;];
+   print [shape = box; label = &quot;print()  &quot;];
+
+   Data -&gt; surv
+
+   subgraph cluster_1 {
+      style = filled;
+      color = lightgrey;
+      label = &quot;Survival package    &quot;;
+      node [style = filled, color = white];
+      surv -&gt; survdif -&gt; survfit;
+   }
+   survdif -&gt; pchisq -&gt; print;
+   survfit -&gt; summary -&gt; print;
+
+}" />
+<p class="caption"><span class="caption-text">Simple survival analysis workflow.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There is only 1 package used in this workflow, which has
@@ -83,7 +110,7 @@ no additional dependencies.</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -95,40 +122,39 @@ no additional dependencies.</p>
 </li>
 </ul>
 
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="../../_sources/bioinformatics/survival_simple/README.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../../_sources/bioinformatics/survival_simple/README.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2016, BeDataDriven B.V..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
     </div>
   </body>
 </html>
