@@ -18,6 +18,79 @@ This workflow imports human Phophatases and Kinases and the publications. And us
 'igraph' to store this information and to plot the relation between these publications 
 as well as interaction network between molecules.
 
+.. graphviz::
+   :caption: Workflow for integration liver cohort data.
+
+   digraph INTEGRATE_liver {
+   		compound=true;
+
+		print [label = "print()"];
+		
+		data_pk [shape = invhouse, label = "human PPases &  \nkinases from GO"];
+		data_sql [shape = invhouse, label = "SQL query  \nget_all_RIF.sql"];
+		data_rif [shape = invhouse, label = "RIFs \nfrom entrez"];
+		read [shape = box, label = "Read\ngunzip()\nread.delim()"];
+		edges [shape = box, label = "Extract edges\nsqldf()"];
+		network [shape = box; label = "Make graph object\ngraph.data.frame()   "];
+		subset [label = "subset"];
+		network2 [shape = box; label = "Make graph object\ngraph.data.frame()   "];
+		decomp [shape = box; label = "Decompose\ndecompose.graph()   "];
+		largest [label = "select largest     \ncomponent"]
+		vertices [shape = box; label = "extract vertices \nget.data.frame()   "];
+		cocitation [shape = box; label = "peform cocitation\ngraph.adjacency(cocitation())        "];
+		subgrph [shape = box; label = "subset gene nodes\ninduced.subgraph()"];
+		nodeprop [label = "change node    \nproperties"];
+		getdata [label = "get.data.frame()"];
+
+		subgraph cluster_0 {
+        	label = "Load data";
+			style = filled;
+			color = lightgrey;
+			data_rif -> read;
+			read -> query;
+			query -> edges;
+			edges -> network;
+			data_sql -> edges;
+		}
+		subgraph cluster_1 {
+        	label = "Decompose";
+			style = filled;
+			color = lightgrey;
+			node [style = filled, color = white];
+			decomp -> largest;
+		}
+		subgraph cluster_2 {
+        	label = "Do cocitation";
+			style = filled;
+			color = lightgrey;
+			node [style = filled, color = white];
+			vertices -> cocitation;
+			cocitation -> subgrph;
+		}
+
+		network -> subset [ltail = cluster_0];
+		data_pk	-> subset -> network2;
+		network2 -> decomp [lhead = cluster_1];
+		largest -> vertices [ltail = cluster_1, lhead = cluster_2];
+		subgrph-> nodeprop [ltail = cluster_2];
+		nodeprop -> getdata -> print;
+        
+        { rank=same;
+        network -> subgrph [style=invis];
+        }
+
+		# do.load: data_rif->read->query->edges->network;data_sql->edges;
+		# do.mesh
+		terms [shape = invhouse; label = "Ontology terms"];
+		pubmed [shape = box; label = "Query PubMed"];
+		listxml [shape = box; label = "xmlToList(xmlParse())"];
+		network3 [shape = box; label = "Make graph object\ngraph.data.frame()   "];
+		filter [label = "Filter"];
+		terms -> pubmed -> listxml -> filter -> network3;
+		edges -> filter [ltail = cluster_0];
+		network3 -> decomp [lhead = cluster_1];
+	}
+
 
 Packages and Dependencies
 ----------------------------
