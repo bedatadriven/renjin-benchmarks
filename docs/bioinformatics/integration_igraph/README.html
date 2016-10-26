@@ -59,6 +59,78 @@ used by anyone to extract functions of a gene or genes with specific function.</
 <p>This workflow imports human Phophatases and Kinases and the publications. And uses
 &#8216;igraph&#8217; to store this information and to plot the relation between these publications
 as well as interaction network between molecules.</p>
+<div class="figure" id="id1">
+<img src="../../_images/graphviz-b1c82a2746f58544e0cf30092186d2bce684f013.png" alt="digraph INTEGRATE_liver {
+             compound=true;
+
+             print [label = &quot;print()&quot;];
+
+             data_pk [shape = invhouse, label = &quot;human PPases &amp;  \nkinases from GO&quot;];
+             data_sql [shape = invhouse, label = &quot;SQL query  \nget_all_RIF.sql&quot;];
+             data_rif [shape = invhouse, label = &quot;RIFs \nfrom entrez&quot;];
+             read [shape = box, label = &quot;Read\ngunzip()\nread.delim()&quot;];
+             edges [shape = box, label = &quot;Extract edges\nsqldf()&quot;];
+             network [shape = box; label = &quot;Make graph object\ngraph.data.frame()   &quot;];
+             subset [label = &quot;subset&quot;];
+             network2 [shape = box; label = &quot;Make graph object\ngraph.data.frame()   &quot;];
+             decomp [shape = box; label = &quot;Decompose\ndecompose.graph()   &quot;];
+             largest [label = &quot;select largest     \ncomponent&quot;]
+             vertices [shape = box; label = &quot;extract vertices \nget.data.frame()   &quot;];
+             cocitation [shape = box; label = &quot;peform cocitation\ngraph.adjacency(cocitation())        &quot;];
+             subgrph [shape = box; label = &quot;subset gene nodes\ninduced.subgraph()&quot;];
+             nodeprop [label = &quot;change node    \nproperties&quot;];
+             getdata [label = &quot;get.data.frame()&quot;];
+
+             subgraph cluster_0 {
+             label = &quot;Load data&quot;;
+                     style = filled;
+                     color = lightgrey;
+                     data_rif -&gt; read;
+                     read -&gt; query;
+                     query -&gt; edges;
+                     edges -&gt; network;
+                     data_sql -&gt; edges;
+             }
+             subgraph cluster_1 {
+             label = &quot;Decompose&quot;;
+                     style = filled;
+                     color = lightgrey;
+                     node [style = filled, color = white];
+                     decomp -&gt; largest;
+             }
+             subgraph cluster_2 {
+             label = &quot;Do cocitation&quot;;
+                     style = filled;
+                     color = lightgrey;
+                     node [style = filled, color = white];
+                     vertices -&gt; cocitation;
+                     cocitation -&gt; subgrph;
+             }
+
+             network -&gt; subset [ltail = cluster_0];
+             data_pk -&gt; subset -&gt; network2;
+             network2 -&gt; decomp [lhead = cluster_1];
+             largest -&gt; vertices [ltail = cluster_1, lhead = cluster_2];
+             subgrph-&gt; nodeprop [ltail = cluster_2];
+             nodeprop -&gt; getdata -&gt; print;
+
+     { rank=same;
+     network -&gt; subgrph [style=invis];
+     }
+
+             # do.load: data_rif-&gt;read-&gt;query-&gt;edges-&gt;network;data_sql-&gt;edges;
+             # do.mesh
+             terms [shape = invhouse; label = &quot;Ontology terms&quot;];
+             pubmed [shape = box; label = &quot;Query PubMed&quot;];
+             listxml [shape = box; label = &quot;xmlToList(xmlParse())&quot;];
+             network3 [shape = box; label = &quot;Make graph object\ngraph.data.frame()   &quot;];
+             filter [label = &quot;Filter&quot;];
+             terms -&gt; pubmed -&gt; listxml -&gt; filter -&gt; network3;
+             edges -&gt; filter [ltail = cluster_0];
+             network3 -&gt; decomp [lhead = cluster_1];
+     }" />
+<p class="caption"><span class="caption-text">Workflow for integration liver cohort data.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 7 packages used in this workflow, which depend on 35 additional packages
