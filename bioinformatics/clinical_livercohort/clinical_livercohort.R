@@ -114,7 +114,7 @@ do.svm <- function(liverdata){
 
 ### reporting
 res <- do.svm(liverdata)
-tail(res)
+print(res)
 
 # final clean up
 #rm(list=ls())
