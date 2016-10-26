@@ -58,6 +58,38 @@ the patients was included as well.</p>
 classification using SVM (from e1071 package). Data is devided into training
 and test sets and predictive models are generated for different features, these
 models are then tested using test dataset and the results are stored in a list.</p>
+<div class="figure" id="id1">
+<img src="../../_images/graphviz-81c9f10eedf9aa992e3968968963ef06b9d0b005.png" alt="digraph CLINICAL_liver {
+             {rank=same train test}
+             {rank=same svm_gender_train svm_tg_train}
+             {rank=same pred_gender_train pred_gender_test pred_tg_train pred_tg_test}
+             data [shape = invhouse, label = &quot;Liver cohort data     \nread.delim()&quot;];
+             sample [shape = box; label = &quot;sample()&quot;];
+             train [label = &quot;Training set   &quot;];
+             test [label = &quot;Test set   &quot;];
+             svm_gender_train [shape = box; label = &quot;svm(y=gender)   &quot;];
+             pred_gender_train [shape = box; label = &quot;predict()   &quot;];
+             pred_gender_test [shape = box; label = &quot;predict()   &quot;];
+             agree_gender_train [shape = box; label = &quot;classAgreement()   &quot;];
+             agree_gender_test [shape = box; label = &quot;classAgreement()   &quot;];
+             svm_tg_train [shape = box; label = &quot;svm(y=triglyceride)   &quot;];
+             pred_tg_train [shape = box; label = &quot;predict()   &quot;];
+             pred_tg_test [shape = box; label = &quot;predict()   &quot;];
+             rbind [shape = box; label = &quot;do.call(rbind)   &quot;];
+             print [shape = box; label = &quot;print()   &quot;];
+
+             data -&gt; sample -&gt;   train   -&gt; svm_gender_train -&gt; pred_gender_train -&gt; agree_gender_train -&gt; rbind -&gt; print;
+                     sample -&gt;   test    -&gt; pred_gender_test  -&gt; agree_gender_test;
+                                 train   -&gt; svm_tg_train -&gt; pred_tg_train;
+                                 test    -&gt; pred_tg_test;
+                                 svm_gender_train -&gt; pred_gender_test;
+                                 svm_tg_train -&gt; pred_tg_test;
+                                 agree_gender_test -&gt; rbind;
+                                 pred_tg_train -&gt; rbind;
+                                 pred_tg_test -&gt; rbind;
+     }" />
+<p class="caption"><span class="caption-text">Analytic workflow for clinical liver cohort.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There is 1 package used in this workflow, which depends
