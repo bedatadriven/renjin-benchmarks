@@ -280,7 +280,7 @@ do.geneset.real <- function(){
 
 ### run and time code
 ## get data
-do.download(INPUT)
+#do.download(INPUT)
 
 ## load data and compute matrix
 cel.files <- do.load(DATA_DIR)

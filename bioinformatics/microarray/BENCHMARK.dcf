@@ -1,7 +1,51 @@
 Name: microarray
 Description: microarray differential expression analysis with limma
 Depends: Biobase (2.30.0), affy (1.48.0), limma (3.26.9)
+  
+File:GSM1103973_VEH_VEH1.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103973_VEH_VEH1.CEL
+Hash:80095e2fbed98ec3058f5e0063c41baa
 
-File:GSE45417_RAW.tar
-Source:https://storage.googleapis.com/renjin-benchmarks/GSE45417_RAW.tar
-Hash:e28c348f19afe06adac730f52e9e0fdc
+File:GSM1103974_DOX_VEH1.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103974_DOX_VEH1.CEL
+Hash:07aad4fe6928c8d3a74b1c3e07db8015
+
+File:GSM1103975_VEH_PMA1.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103975_VEH_PMA1.CEL
+Hash:c939e2a7f9b151decb486be8e730201e
+
+File:GSM1103976_DOX_PMA1.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103976_DOX_PMA1.CEL
+Hash:55ff925ec0ae4edb04f216ca7e3d7c39
+
+File:GSM1103977_VEH_VEH2.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103977_VEH_VEH2.CEL
+Hash:fbad72c715f63ab4913e0bcbdefead69
+
+File:GSM1103978_DOX_VEH2.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103978_DOX_VEH2.CEL
+Hash:130d0f539873910e2962bfac3fbad5d1
+
+File:GSM1103979_VEH_PMA2.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103979_VEH_PMA2.CEL
+Hash:5c254838b4f3f03699b3b6fa80c5a11d
+
+File:GSM1103980_DOX_PMA2.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103980_DOX_PMA2.CEL
+Hash:862de91a6a313bd238c45ec06ac475c8
+
+File:GSM1103981_VEH_VEH3.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103981_VEH_VEH3.CEL
+Hash:dc5d9de29c2dbb6e40eb8da4f26fdfde
+
+File:GSM1103982_DOX_VEH3.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103982_DOX_VEH3.CEL
+Hash:c677975094a87fd22aab76df9257a6fc
+
+File:GSM1103983_VEH_PMA3.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103983_VEH_PMA3.CEL
+Hash:c62fdea91e7c65b188e8798192b406c4
+
+File:GSM1103984_DOX_PMA3.CEL
+Source:https://storage.googleapis.com/renjin-benchmarks/GSM1103984_DOX_PMA3.CEL
+Hash:e2fb732bfbe48a442c601544e1c620ea
