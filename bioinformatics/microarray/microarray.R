@@ -13,6 +13,7 @@ set.seed(8008)
 DEBUGGING <- FALSE
 
 ## (bioconductor) packages
+library(affyio)
 library(Biobase)
 library(affy) # reading and normalising microarray data
 library(hgu133plus2cdf) # platform annotations
