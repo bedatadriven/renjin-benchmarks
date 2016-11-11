@@ -2,14 +2,30 @@ Name: integration_livercohort
 Description: Integrated analysis of human liver cohort according to "DOI:10.1371/journal.pbio.0060107"
 Depends: e1071 (1.6-7), MASS (7.3-45)
 
-File:curatedExpressionLiver.zip
-Source:https://storage.googleapis.com/renjin-benchmarks/curatedExpressionLiver.zip
-Hash:f1ab8f79f31bc319428fb7e154ea0333
+File:individuals.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/individuals.txt
+Hash:3aa5e572d927dc14a14c02ed1957c917
 
-File:curatedGenotype.zip
-Source:https://storage.googleapis.com/renjin-benchmarks/curatedGenotype.zip
-Hash:c501bbd52bd165d7c2e189abb1f476c8
+File:phenotype.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/phenotype_Phenotype.txt
+Hash:87db7fe235ee83490cfcc87d5191f9e5
 
-File:curatedPhenotype.zip
-Source:https://storage.googleapis.com/renjin-benchmarks/curatedPhenotype.zip
-Hash:2e5495caab1cf497bf09621750338eb3
+File:genotype.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/genotype_Genotype.txt
+Hash:19f488f68d397e4acecc0c294e2ec8ea
+
+File:expression.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/expression_Expressi.txt
+Hash:4e019358c279b7d804e26d5987bce872
+
+File:features_E.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/features_Expressi.txt
+Hash:b056005829d109162c76c9b5b5166985
+
+File:features_G.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/features_Genotype.txt
+Hash:5f4ee17abc020681d46015a4662af702
+
+File:features_P.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/features_Phenotype.txt
+Hash:d989e9ff6edf6ede64df1e4b844a8dc1

@@ -24,22 +24,30 @@ do.load <-function(){
   wdir <- normalizePath("./")
 
   ## unzip and load zipped files and remove temp unzipped files
-  data <- lapply(
-    dir(wdir, include.dirs = FALSE),
-    function(zipfile)
-    {
-      unzip(file.path(wdir, zipfile), exdir = wdir)
-        data <- lapply(
-          dir(wdir, pattern = ".txt$", full.names = TRUE),
-          read.delim,
-          stringsAsFactors=FALSE)
-        names(data) <- dir(wdir, pattern = ".txt$", full.names = FALSE)
-        file.remove(dir(wdir, pattern = ".txt$", full.names = TRUE))
-        return(data)
-    }
-  )
-  names(data) <- strtrim(dir(wdir, include.dirs = FALSE), 11)
+  dt <- lapply(
+            dir(wdir, pattern = ".txt$", full.names = TRUE),
+            read.delim, stringsAsFactors=FALSE)
+  names(dt) <- dir(wdir, pattern = ".txt$", full.names = FALSE)
+  file.remove(dir(wdir, pattern = ".txt$", full.names = TRUE))
 
+  data <- list(
+            curatedPhen = list (
+              individuals.txt = dt$individuals.txt,
+              phenotype.txt = dt$phenotype.txt,
+              features = dt$features_P.txt
+              ),
+            curatedExpr = list (
+              individuals.txt = dt$individuals.txt,
+              expression.txt = dt$expression.txt,
+              features = dt$features_E.txt
+              ),
+            curatedGeno = list (
+              individuals.txt = dt$individuals.txt,
+              genotype.txt = dt$genotype.txt,
+              features = dt$features_G.txt
+              )
+          )
+  rm(dt)
   if (DEBUGGING) cat(">>> DONE: unzip&load zip files\n")
 
   ### reformat loaded data
