@@ -322,7 +322,8 @@ do.preprocess <- function(DATA, TARGET) {
 
     #using ggvis
     #aggregates multiple mutations per gene per patient into 1 cell
-    callup <- test1[ , list(Amino = list(Amino)), by = c("bcr_patient_barcode", "Hugo_Symbol")] setkey(callup, bcr_patient_barcode, Hugo_Symbol)
+    callup <- test1[ , list(Amino = list(Amino)), by = c("bcr_patient_barcode", "Hugo_Symbol")] 
+    setkey(callup, bcr_patient_barcode, Hugo_Symbol)
     callup[ , Amino3 := sapply(callup$Amino, function(x) paste(unlist(x), collapse = " "))]
     callup2 <- callup[.(mut3$bcr_patient_barcode, mut3$variable)]
     #change all NULL to Wild-type
