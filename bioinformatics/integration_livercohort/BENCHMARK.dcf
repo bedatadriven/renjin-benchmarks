@@ -7,25 +7,25 @@ Source:https://storage.googleapis.com/renjin-benchmarks/individuals.txt
 Hash:3aa5e572d927dc14a14c02ed1957c917
 
 File:phenotype.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/phenotype_Phenotype.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/phenotype.txt
 Hash:87db7fe235ee83490cfcc87d5191f9e5
 
 File:genotype.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/genotype_Genotype.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/genotype.txt
 Hash:19f488f68d397e4acecc0c294e2ec8ea
 
 File:expression.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/expression_Expressi.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/expression.txt
 Hash:4e019358c279b7d804e26d5987bce872
 
 File:features_E.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/features_Expressi.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/features_E.txt
 Hash:b056005829d109162c76c9b5b5166985
 
 File:features_G.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/features_Genotype.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/features_G.txt
 Hash:5f4ee17abc020681d46015a4662af702
 
 File:features_P.txt
-Source:https://storage.googleapis.com/renjin-benchmarks/features_Phenotype.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/features_P.txt
 Hash:d989e9ff6edf6ede64df1e4b844a8dc1
