@@ -383,7 +383,8 @@ do.analyse <- function(DATA, TARGET) {
                   genes = gene.name,
                   group = pat.gene$gene2)
     #only keeps genes with at least 1 count-per-million in at least half the samples
-    isexpr <- rowSums(cpm(d3) > 1) >= (ncol(d3) / 2) d3 <- d3[isexpr, ]
+    isexpr <- rowSums(cpm(d3) > 1) >= (ncol(d3) / 2) 
+    d3 <- d3[isexpr, ]
     #d4<- calcNormFactors(d3)
     design <- model.matrix(~pat.gene[ , gene2])
     v2 <- voom(d3, design, plot = TRUE)
