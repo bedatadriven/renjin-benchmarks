@@ -402,7 +402,7 @@ do.ibd.window <- function(fam.scores, window.sizes = seq(5, 50, 5)) {
 
 ### reporting
 ## collect data
-do.unpack()
+#do.unpack()
 
 ## population data
 # load data and compute matrix
