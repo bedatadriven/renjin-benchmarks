@@ -14,7 +14,8 @@ files = list.files(path = ".", pattern = "txt$")
 
 ##### Blocks for timing #####
 do.load <- function(){
-  return(readRDS("pat.gene.rda"))
+  DATA <- readRDS("pat.gene.rda")
+  DATA
 }
 
 do.analyse <- function(DATA){
@@ -26,11 +27,9 @@ do.analyse <- function(DATA){
   sdf <- survdiff(m.surv ~ pat.gene$gene2)
   if (DEBUGGING) cat(">>> DONE: survdiff()\n")
   p.val <- 1 - pchisq(sdf$chisq, length(sdf$n) - 1)
-  print(p.val)
   survplot <- survfit(Surv(pfs_days, pfs) ~ gene2, data = pat.gene)
   if (DEBUGGING) cat(">>> DONE: survfit()\n")
   half <- summary(survplot)$table[,"median"]
-  print(half)
   if (DEBUGGING) cat("> END: do.analyse()\n")
   res <- list(pat.gene, m.surv, sdf, p.val, survplot, half)
 }
@@ -44,6 +43,4 @@ DATA <- do.load()
 
 res <- do.analyse(DATA)
 
-if (DEBUGGING) cat("print(str(res)):\n")
-if (DEBUGGING) print(str(res))
-if (DEBUGGING) cat("-------------end file ---------\n")
+print(res)
