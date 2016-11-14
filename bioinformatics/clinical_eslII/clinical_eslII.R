@@ -14,6 +14,8 @@
 set.seed(8008)
 ## packages
 library(ncvreg) # source datasets from http://cran.r-project.org/web/packages/ncvreg/ncvreg.pdf
+library(datasets)
+library(utils)
 library(boot)
 library(lars)
 library(lasso2)
