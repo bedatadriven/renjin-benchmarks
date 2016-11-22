@@ -9,7 +9,11 @@
 # reproducibility
 set.seed(8008)
 ## packages
-library(Seurat)
+if (R.Version()$engine == "Renjin") {
+	library(org.renjin.github.satijalab:Seurat)
+} else {
+	library(Seurat)
+}
 library(XLConnect)
 library(rgl)
 library(knitr)
