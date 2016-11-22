@@ -19,12 +19,10 @@ library(biclust)
 library(s4vd)
 library(irlba)
 # data collection
-NGENES <- "500"
-NPATIENTS <- "500"
-GEO <-      paste('GEO-', NGENES, '-', NPATIENTS, '.rds', sep = "")
-GO <-       paste('GO-', NGENES, '-', NPATIENTS, '.rds', sep = "")
-GENES <-    paste('GeneMetaData-', NGENES, '-', NPATIENTS, '.rds', sep = "")
-PATIENTS <- paste('PatientMetaData-', NGENES, '-', NPATIENTS, '.rds', sep = "")
+GEO <-      "GEO-500-500.rds"
+GO <-       "GO-500-500.rds"
+GENES <-    "GeneMetaData-500-500.rds"
+PATIENTS <- "PatientMetaData-500-500.rds"
 
 # plain-R q&d replacement for acast(A, list(names(A)[1], names(A)[2]))
 df2mxc <- function(df) {
@@ -194,19 +192,25 @@ stats <- function(percentage = 1) {
 
 ### reporting of timings
 # regression
-regression()
+regression_res <- regression()
 
 # svd
-svd_irlba()
+svd_irlba_res <- svd_irlba()
 
 # covariance
-covariance()
+covariance_res <- covariance()
 
 # biclust
-biclustering()
+biclustering_res <- biclustering()
 
 # stats
-stats(percentage = 1)
+stats_res <- stats(percentage = 1)
+
+print(svd_irlba_res)
+print(regression_res)
+print(covariance_res)
+print(biclustering_res)
+print(stats_res)
 
 # final clean up
 rm(list = ls())
