@@ -266,7 +266,7 @@ do.phospho <- function(plot_results = TRUE)
   return(network)
 }
 
-do.mesh <- function(term = "Wnt Signaling Pathway", PATH, plot_results = TRUE) 
+do.mesh <- function(term = "20161122132200_Wnt_Signaling_Pathway.xml", PATH, plot_results = TRUE) 
 {
   cat("> START: do.mesh()\n")
 
@@ -274,10 +274,7 @@ do.mesh <- function(term = "Wnt Signaling Pathway", PATH, plot_results = TRUE)
   ### pulling out papers related to a given MeSh term
 
   # get all pmids linked to mesh term
-  res <- xmlParse(paste(c(
-    "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&term=",
-    term,
-    "&field=MeSH%20Terms&rettype=uilist&retmode=text&retmax=100000"), sep = '', collapse = ''))
+  res <- xmlParse(term)
   res <- xmlToList(res)
   res <- as.integer(as.vector(c(res$IdList, recursive = TRUE)))
   cat(sprintf('%i PMIDS found for term \"%s\"\n',length(res), term))
@@ -329,6 +326,7 @@ do.mesh <- function(term = "Wnt Signaling Pathway", PATH, plot_results = TRUE)
     )
   }
   cat("> END: do.mesh()\n")
+  print(network)
   return(network)
 }
 
@@ -342,7 +340,7 @@ print(get.data.frame(network, what = "vertices")[ ,c( "name", "degree")])
 ## as above using MEsh terms
 # look up some interesting mesh terms
 # http://www.ncbi.nlm.nih.gov/mesh?term=autism
-lapply(c("Wnt Signaling Pathway", "Autistic Disorder", "Melanoma", "Hedgehog Proteins"),
+lapply(c("20161122132200_Wnt_Signaling_Pathway.xml", "20161122132200_Autistic_Disorder.xml", "20161122132200_Melanoma.xml", "20161122132200_Hedgehog_Proteins.xml"),
        function(x) {
          do.mesh(term = x, PATH, plot_results = FALSE)
        }
