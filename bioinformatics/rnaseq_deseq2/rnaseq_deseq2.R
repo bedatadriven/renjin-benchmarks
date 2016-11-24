@@ -6,7 +6,7 @@
 
 ##### set up session #####
 set.seed(1000)
-DEBUGGING <- FALSE
+DEBUGGING <- TRUE
 
 ##### loading packages #####
 library("Rsamtools")

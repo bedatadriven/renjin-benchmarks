@@ -10,7 +10,7 @@
 rm(list=ls())
 # reproducibility
 set.seed(8008)
-DEBUGGING <- FALSE
+DEBUGGING <- TRUE
 
 ## (bioconductor) packages
 library(affyio)

@@ -12,7 +12,7 @@
 
 ## set up session
 set.seed(8008)
-DEBUGGING <- FALSE
+DEBUGGING <- TRUE
 
 # packages
 library(biclust)

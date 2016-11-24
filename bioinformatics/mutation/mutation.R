@@ -6,7 +6,7 @@
 
 # reproducibility
 set.seed(8008)
-DEBUGGING <- FALSE
+DEBUGGING <- TRUE
 
 ## packages
 library(stats)
@@ -33,6 +33,7 @@ do.unpack <- function() {
 		stringsAsFactors = FALSE
 		)
 
+  if (DEBUGGING) cat(">> unzip all files\n")
   lapply(
     1:nrow(fam_files),
     function(x) {

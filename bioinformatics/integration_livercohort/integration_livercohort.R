@@ -11,7 +11,7 @@
 
 # reproducibility
 set.seed(8008)
-DEBUGGING <- FALSE
+DEBUGGING <- TRUE
 
 ## packages
 # CRAN

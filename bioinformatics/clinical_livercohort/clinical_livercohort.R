@@ -11,7 +11,7 @@ set.seed(8008)
 ## packages
 # CRAN
 library(e1071)
-DEBUGGING <- FALSE
+DEBUGGING <- TRUE
 ## Blocks for timing
 
 

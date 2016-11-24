@@ -6,7 +6,7 @@
 
 ### set up session
 set.seed(8008)
-DEBUGGING <- FALSE
+DEBUGGING <- TRUE
 ## packages
 require(stats)
 #require(rjson)
