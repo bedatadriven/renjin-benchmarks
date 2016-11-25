@@ -50,6 +50,7 @@ clean:
 	rm -rf $(BUILDDIR)/*
 
 docs:
+	rm -rf docs/*
 	$(SPHINXBUILD) -b html $(ALLSPHINXOPTS) docs
 	@echo
 	@echo "Build finished. The documentation is in docs/."

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>TCGA browser &#8212; Renjin Benchmarks 0.1 documentation</title>
+    <title>TCGA browser &mdash; Renjin Benchmarks 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -23,26 +23,24 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="tcga-browser">
 <h1>TCGA browser<a class="headerlink" href="#tcga-browser" title="Permalink to this headline">¶</a></h1>
@@ -70,8 +68,8 @@ Information about protein-protein interactions are continuously added to
 <a class="reference external" href="http://string-db.org/">STRING database</a> which is accessible through &#8216;STRINGdb&#8217; package and used to
 show the interaction between the genes with significant differential
 expression.</p>
-<div class="figure" id="id1">
-<img src="../../_images/graphviz-d527bc7187d03b958aeec7be5465c9725084414b.png" alt="digraph TCGA_browser {
+<p class="graphviz">
+<img src="../../_images/graphviz-21b4640d78e0e09af87687210eb205fc88e853d0.png" alt="digraph TCGA_browser {
    TCGA_mrna         [group = g1;  shape = invhouse, label = &quot;Data (TCGA)\nRNAseq&quot;];
    TCGA_patient      [group = g1;  shape = invhouse, label = &quot;Data (TCGA)\nPhenotype&quot;];
    TCGA_exome        [group = g1;  shape = invhouse, label = &quot;Data (TCGA)\nExome&quot;];
@@ -99,8 +97,8 @@ expression.</p>
    pp_sub        -&gt;      an_surv     -&gt;   an_surv_plot;
    pp_sub        -&gt;      pp_exome    -&gt;   an_exome;
 }" />
-<p class="caption"><span class="caption-text">TCGA browser shiny app modules.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+</p>
+<p class="caption">TCGA browser shiny app modules.</p>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 24 packages used in this workflow, which depend
@@ -138,7 +136,7 @@ on 71 additional packages (dependencies)</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -150,39 +148,40 @@ on 71 additional packages (dependencies)</p>
 </li>
 </ul>
 
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/bioinformatics/tcga_browser/README.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/tcga_browser/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2016, BeDataDriven B.V..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
