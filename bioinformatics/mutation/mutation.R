@@ -279,8 +279,8 @@ do.fam.prepare <- function(fam) {
   round(scores, 3)
 
   # return
-  return(scores)
   if (DEBUGGING) cat("> End: do.fam.prepare()\n")
+  return(scores)
 }
 
 do.fam.check <- function(fam) {
@@ -354,6 +354,11 @@ do.ibd.vector <- function(fam, scores) {
 
   }
 
+  if (DEBUGGING) {
+    cat("> number of combinations:\n")
+    print(length(combn(1:length(fam), 2, simplify = FALSE)))
+    print(str(combn(1:length(fam), 2, simplify = FALSE)))
+    }
   fam.scores <- lapply(combn(1:length(fam), 2, simplify = FALSE), # all pairwise combinations
                        # calculate ibd score vector
                        function(x) return(
