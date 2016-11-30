@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Clinical eslII (Essential Statistics Learning 2nd Edition) &#8212; Renjin Benchmarks 0.1 documentation</title>
+    <title>Clinical eslII (Essential Statistics Learning 2nd Edition) &mdash; Renjin Benchmarks 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -23,26 +23,24 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="clinical-eslii-essential-statistics-learning-2nd-edition">
 <h1>Clinical eslII (Essential Statistics Learning 2nd Edition)<a class="headerlink" href="#clinical-eslii-essential-statistics-learning-2nd-edition" title="Permalink to this headline">¶</a></h1>
@@ -58,8 +56,8 @@ regression fit and best predictive variable identification (&#8216;ncvreg&#8217;
 and &#8216;lasso2&#8217; packages); Lasso penalized Least Angle Regression with cross
 validation (&#8216;lars&#8217; package); and fitting General Linear Model (&#8216;stats&#8217;
 package).</p>
-<div class="figure" id="id1">
-<img src="../../_images/graphviz-ee0843a90b0b03967072848f1d1cea84019cd467.png" alt="digraph CLINICAL_eslII {
+<p class="graphviz">
+<img src="../../_images/graphviz-845f41d8b7515211423efe8c14f58f034f8f389b.png" alt="digraph CLINICAL_eslII {
              {rank=same pros_regsubset pros_l1ce pros_lars pros_cvlars pros_glm}
              DataP [shape = invhouse, label = &quot;data(prostate)&quot;];
              DataPTr [shape = invhouse, label = &quot;Training set&quot;];
@@ -85,8 +83,8 @@ package).</p>
      DataPTr -&gt; pros_glm -&gt; pros_rbind;
      pros_glm -&gt; pros_cvglm -&gt; pros_rbind;
      }" />
-<p class="caption"><span class="caption-text">Workflow to identify prostate cancer markers using clinical data.</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+</p>
+<p class="caption">Workflow to identify prostate cancer markers using clinical data.</p>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 6 packages used in this workflow, which depend
@@ -128,7 +126,7 @@ on 2 additional packages from CRAN (dependencies)</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -140,39 +138,40 @@ on 2 additional packages from CRAN (dependencies)</p>
 </li>
 </ul>
 
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/bioinformatics/clinical_eslII/README.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/clinical_eslII/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2016, BeDataDriven B.V..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

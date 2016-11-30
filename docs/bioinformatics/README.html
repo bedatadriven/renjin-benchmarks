@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Bioinformatics &#8212; Renjin Benchmarks 0.1 documentation</title>
+    <title>Bioinformatics &mdash; Renjin Benchmarks 0.1 documentation</title>
     
     <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
@@ -23,14 +23,12 @@
     <script type="text/javascript" src="../_static/jquery.js"></script>
     <script type="text/javascript" src="../_static/underscore.js"></script>
     <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../index.html" />
     <link rel="prev" title="Prologue" href="../prologue.html" /> 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -39,58 +37,83 @@
         <li class="right" >
           <a href="../prologue.html" title="Prologue"
              accesskey="P">previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
+        <li><a href="../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="bioinformatics">
 <h1>Bioinformatics<a class="headerlink" href="#bioinformatics" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
-<p>Bioinformatic workflows used in different fields of biology.</p>
+<p>Bioinformatic workflows used in different fields of biology for educational and benchmarking purposes. This is and will stay a work in progress and we welcome any user to submit PRs to include their workflows.</p>
 </div>
 <div class="section" id="workflows">
 <h2>Workflows<a class="headerlink" href="#workflows" title="Permalink to this headline">¶</a></h2>
+<p>List of bioinformatic benchmarks included in this repository.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="34%" />
-<col width="66%" />
+<col width="30%" />
+<col width="70%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td>Affy</td>
+<tr class="row-odd"><td><strong>Benchmark name</strong></td>
+<td><strong>Benchmark description</strong></td>
+</tr>
+<tr class="row-even"><td>affy</td>
 <td>Analysis of MicroArray data</td>
 </tr>
-<tr class="row-even"><td>Clinical (ESI)</td>
-<td>Analysis of clinical data</td>
+<tr class="row-odd"><td>clinical_eslII</td>
+<td>Analysis of clinical data (according to book ESL 2nd edition)</td>
 </tr>
-<tr class="row-odd"><td>Clinical (liver cohort)</td>
-<td>Analysis of clinical data, liver cohort</td>
+<tr class="row-even"><td>clinical_livercohort</td>
+<td>Analysis of clinical data from liver cohort study</td>
 </tr>
-<tr class="row-even"><td>Generate Count</td>
+<tr class="row-odd"><td>generate_count</td>
 <td>Generate count tables from RNAseq data</td>
 </tr>
-<tr class="row-odd"><td>Integration (iGraph)</td>
-<td>Integerate different omics data with iGraph</td>
+<tr class="row-even"><td>integration_igraph</td>
+<td>Integerate different biological data with iGraph</td>
 </tr>
-<tr class="row-even"><td>Integration (livercoh)</td>
-<td>Integrate different liver cohort data</td>
+<tr class="row-odd"><td>integration_livercohort</td>
+<td>Integrate data from liver cohort study with another data sourc</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
+<tr class="row-even"><td>microarray</td>
+<td>Analysis of microarray datasets</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td>mutation</td>
+<td>Analysis of SNP data</td>
 </tr>
-<tr class="row-odd"><td>&nbsp;</td>
-<td>&nbsp;</td>
+<tr class="row-even"><td>rnaseq_deseq2</td>
+<td>Analysis of RNAseq data using DESeq2</td>
 </tr>
-<tr class="row-even"><td>&nbsp;</td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td>rnaseq_preprocess</td>
+<td>Preprocessing of RNAseq files to generate count data from FASTA files</td>
+</tr>
+<tr class="row-even"><td>rppa</td>
+<td>Analysis of Reverse Phase Protein Array (RPPA) data</td>
+</tr>
+<tr class="row-odd"><td>simulated_geo_matrix</td>
+<td>Analysis of simulated gene expression and patient meta data</td>
+</tr>
+<tr class="row-even"><td>singlecell_seurat_mrkr_discov</td>
+<td>Single cell gene expression analysis for marker discovery (using Seurat)</td>
+</tr>
+<tr class="row-odd"><td>singlecell_seurat_spatial_infer</td>
+<td>Single cell gene expression analysis for sepatial inference (using Seurat)</td>
+</tr>
+<tr class="row-even"><td>survival_simple</td>
+<td>Simple survival analysis</td>
+</tr>
+<tr class="row-odd"><td>survival_tcga</td>
+<td>Survival analysis using TCGA data</td>
+</tr>
+<tr class="row-even"><td>tcga_browser</td>
+<td>Modules used in a shiny app to visualize TCGA data</td>
 </tr>
 </tbody>
 </table>
@@ -156,9 +179,35 @@ regression fit and best predictive variable identification (&#8216;ncvreg&#8217;
 and &#8216;lasso2&#8217; packages); Lasso penalized Least Angle Regression with cross
 validation (&#8216;lars&#8217; package); and fitting General Linear Model (&#8216;stats&#8217;
 package).</p>
-<div class="figure" id="id70">
-<p class="caption"><span class="caption-text">Workflow to identify prostate cancer markers using clinical data.</span><a class="headerlink" href="#id70" title="Permalink to this image">¶</a></p>
-</div>
+<p class="graphviz">
+<img src="../_images/graphviz-845f41d8b7515211423efe8c14f58f034f8f389b.png" alt="digraph CLINICAL_eslII {
+             {rank=same pros_regsubset pros_l1ce pros_lars pros_cvlars pros_glm}
+             DataP [shape = invhouse, label = &quot;data(prostate)&quot;];
+             DataPTr [shape = invhouse, label = &quot;Training set&quot;];
+             DataPTe [shape = invhouse, label = &quot;Test set&quot;];
+
+             vs_ncvreg [shape = box; label = &quot;Coordinate descent     \ncv.ncvreg()&quot;];
+             pros_regsubset  [shape = box; label = &quot;regsubset()  &quot;];
+             pros_l1ce [shape = box; label = &quot;l1ce()   &quot;];
+             pros_lars [shape = box; label = &quot;lars()   &quot;];
+             pros_cvlars [shape = box; label = &quot;cv.lars()   &quot;];
+             pros_glm [shape = box; label = &quot;glm()    &quot;];
+             pros_cvglm [shape = box; label = &quot;cv.glm()&quot;];
+             pros_rbind [label = &quot;merge results    \ndo.call(rbind)&quot;];
+             pros_print [label = &quot;print()&quot;];
+
+             DataP -&gt; DataPTr;
+             DataP -&gt; DataPTe;
+     DataP -&gt; vs_ncvreg -&gt; pros_rbind -&gt; pros_print;
+     DataPTr -&gt; pros_regsubset -&gt; pros_rbind;
+     DataPTr -&gt; pros_l1ce -&gt; pros_rbind;
+     DataPTr -&gt; pros_lars -&gt; pros_rbind;
+     DataPTr -&gt; pros_cvlars -&gt; pros_rbind;
+     DataPTr -&gt; pros_glm -&gt; pros_rbind;
+     pros_glm -&gt; pros_cvglm -&gt; pros_rbind;
+     }" />
+</p>
+<p class="caption">Workflow to identify prostate cancer markers using clinical data.</p>
 <div class="section" id="id1">
 <h4>Packages and Dependencies<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
 <p>There are 6 packages used in this workflow, which depend
@@ -209,9 +258,38 @@ the patients was included as well.</p>
 classification using SVM (from e1071 package). Data is devided into training
 and test sets and predictive models are generated for different features, these
 models are then tested using test dataset and the results are stored in a list.</p>
-<div class="figure" id="id71">
-<p class="caption"><span class="caption-text">Analytic workflow for clinical liver cohort.</span><a class="headerlink" href="#id71" title="Permalink to this image">¶</a></p>
-</div>
+<p class="graphviz">
+<img src="../_images/graphviz-f20db368ed2471451aa89e615d24adcd368db537.png" alt="digraph CLINICAL_liver {
+             {rank=same train test}
+             {rank=same svm_gender_train svm_tg_train}
+             {rank=same pred_gender_train pred_gender_test pred_tg_train pred_tg_test}
+             data [shape = invhouse, label = &quot;Liver cohort data     \nread.delim()&quot;];
+             sample [shape = box; label = &quot;sample()&quot;];
+             train [label = &quot;Training set   &quot;];
+             test [label = &quot;Test set   &quot;];
+             svm_gender_train [shape = box; label = &quot;svm(y=gender)   &quot;];
+             pred_gender_train [shape = box; label = &quot;predict()   &quot;];
+             pred_gender_test [shape = box; label = &quot;predict()   &quot;];
+             agree_gender_train [shape = box; label = &quot;classAgreement()   &quot;];
+             agree_gender_test [shape = box; label = &quot;classAgreement()   &quot;];
+             svm_tg_train [shape = box; label = &quot;svm(y=triglyceride)   &quot;];
+             pred_tg_train [shape = box; label = &quot;predict()   &quot;];
+             pred_tg_test [shape = box; label = &quot;predict()   &quot;];
+             rbind [shape = box; label = &quot;do.call(rbind)   &quot;];
+             print [shape = box; label = &quot;print()   &quot;];
+
+             data -&gt; sample -&gt;   train   -&gt; svm_gender_train -&gt; pred_gender_train -&gt; agree_gender_train -&gt; rbind -&gt; print;
+                     sample -&gt;   test    -&gt; pred_gender_test  -&gt; agree_gender_test;
+                                 train   -&gt; svm_tg_train -&gt; pred_tg_train;
+                                 test    -&gt; pred_tg_test;
+                                 svm_gender_train -&gt; pred_gender_test;
+                                 svm_tg_train -&gt; pred_tg_test;
+                                 agree_gender_test -&gt; rbind;
+                                 pred_tg_train -&gt; rbind;
+                                 pred_tg_test -&gt; rbind;
+     }" />
+</p>
+<p class="caption">Analytic workflow for clinical liver cohort.</p>
 <div class="section" id="id3">
 <h4>Packages and Dependencies<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
 <p>There is 1 package used in this workflow, which depends
@@ -292,9 +370,78 @@ used by anyone to extract functions of a gene or genes with specific function.</
 <p>This workflow imports human Phophatases and Kinases and the publications. And uses
 &#8216;igraph&#8217; to store this information and to plot the relation between these publications
 as well as interaction network between molecules.</p>
-<div class="figure" id="id72">
-<p class="caption"><span class="caption-text">Workflow for integration liver cohort data.</span><a class="headerlink" href="#id72" title="Permalink to this image">¶</a></p>
-</div>
+<p class="graphviz">
+<img src="../_images/graphviz-eb9ee8d5ac6fd80892268adf3de01af8efdb4771.png" alt="digraph INTEGRATE_liver {
+             compound=true;
+
+             print [label = &quot;print()&quot;];
+
+             data_pk [shape = invhouse, label = &quot;human PPases &amp;  \nkinases from GO&quot;];
+             data_sql [shape = invhouse, label = &quot;SQL query  \nget_all_RIF.sql&quot;];
+             data_rif [shape = invhouse, label = &quot;RIFs \nfrom entrez&quot;];
+             read [shape = box, label = &quot;Read\ngunzip()\nread.delim()&quot;];
+             edges [shape = box, label = &quot;Extract edges\nsqldf()&quot;];
+             network [shape = box; label = &quot;Make graph object\ngraph.data.frame()   &quot;];
+             subset [label = &quot;subset&quot;];
+             network2 [shape = box; label = &quot;Make graph object\ngraph.data.frame()   &quot;];
+             decomp [shape = box; label = &quot;Decompose\ndecompose.graph()   &quot;];
+             largest [label = &quot;select largest     \ncomponent&quot;]
+             vertices [shape = box; label = &quot;extract vertices \nget.data.frame()   &quot;];
+             cocitation [shape = box; label = &quot;peform cocitation\ngraph.adjacency(cocitation())        &quot;];
+             subgrph [shape = box; label = &quot;subset gene nodes\ninduced.subgraph()&quot;];
+             nodeprop [label = &quot;change node    \nproperties&quot;];
+             getdata [label = &quot;get.data.frame()&quot;];
+
+             subgraph cluster_0 {
+             label = &quot;Load data&quot;;
+                     style = filled;
+                     color = lightgrey;
+                     data_rif -&gt; read;
+                     read -&gt; query;
+                     query -&gt; edges;
+                     edges -&gt; network;
+                     data_sql -&gt; edges;
+             }
+             subgraph cluster_1 {
+             label = &quot;Decompose&quot;;
+                     style = filled;
+                     color = lightgrey;
+                     node [style = filled, color = white];
+                     decomp -&gt; largest;
+             }
+             subgraph cluster_2 {
+             label = &quot;Do cocitation&quot;;
+                     style = filled;
+                     color = lightgrey;
+                     node [style = filled, color = white];
+                     vertices -&gt; cocitation;
+                     cocitation -&gt; subgrph;
+             }
+
+             network -&gt; subset [ltail = cluster_0];
+             data_pk -&gt; subset -&gt; network2;
+             network2 -&gt; decomp [lhead = cluster_1];
+             largest -&gt; vertices [ltail = cluster_1, lhead = cluster_2];
+             subgrph-&gt; nodeprop [ltail = cluster_2];
+             nodeprop -&gt; getdata -&gt; print;
+
+     { rank=same;
+     network -&gt; subgrph [style=invis];
+     }
+
+             # do.load: data_rif-&gt;read-&gt;query-&gt;edges-&gt;network;data_sql-&gt;edges;
+             # do.mesh
+             terms [shape = invhouse; label = &quot;Ontology terms&quot;];
+             pubmed [shape = box; label = &quot;Query PubMed&quot;];
+             listxml [shape = box; label = &quot;xmlToList(xmlParse())&quot;];
+             network3 [shape = box; label = &quot;Make graph object\ngraph.data.frame()   &quot;];
+             filter [label = &quot;Filter&quot;];
+             terms -&gt; pubmed -&gt; listxml -&gt; filter -&gt; network3;
+             edges -&gt; filter [ltail = cluster_0];
+             network3 -&gt; decomp [lhead = cluster_1];
+     }" />
+</p>
+<p class="caption">Workflow for integration liver cohort data.</p>
 <div class="section" id="id12">
 <h4>Packages and Dependencies<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
 <p>There are 7 packages used in this workflow, which depend on 35 additional packages
@@ -612,9 +759,36 @@ requirement for antibodies which only detect a single protein in one of the
 limitation of RPPA.</p>
 <p>In this workflow, <a class="reference external" href="http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv">RPPA dataset</a> from TCGA consortium is clustered using R
 hierarchical clustering  and K-means clustering from &#8216;stats&#8217; package.</p>
-<div class="figure" id="id73">
-<p class="caption"><span class="caption-text">RPPA workflow</span><a class="headerlink" href="#id73" title="Permalink to this image">¶</a></p>
-</div>
+<p class="graphviz">
+<img src="../_images/graphviz-1a5fd8508f772cbcb7ad3e943de37da0596d54dd.png" alt="digraph RPPA_workflow {
+   Data [shape = invhouse, label = &quot;RPPA data (TCGA)&quot;];
+   cor_pearson [label = &quot;cor(method = pearson)&quot;];
+   hclust_ward [label = &quot;hclust\n(method = ward)&quot;];
+   within_ss [label = &quot;within clusters\nsum of squares&quot;];
+   elbow [label = &quot;optimal cut\nElbow method&quot;];
+   kmeans_hart [label = &quot;kmeans\n(algorithm = HW)&quot;];
+
+   subgraph cluster_1 {
+      style = filled;
+      color = lightgrey;
+      hclust_ward -&gt; within_ss;
+      label = &quot;Hierarchical\nClustering&quot;;
+   }
+
+   subgraph cluster_2 {
+      style = filled;
+      color = lightgrey;
+      kmeans_hart;
+      label = &quot;K-means\nClustering&quot;;
+   }
+
+   Data -&gt; cor_pearson -&gt; hclust_ward;
+   cor_pearson -&gt; kmeans_hart;
+   within_ss -&gt; elbow;
+   kmeans_hart -&gt; elbow;
+}" />
+</p>
+<p class="caption">RPPA workflow</p>
 <div class="section" id="id37">
 <h4>Packages and Dependencies<a class="headerlink" href="#id37" title="Permalink to this headline">¶</a></h4>
 <p>There is ony 1 package used in this workflow, which has no dependencies.</p>
@@ -805,9 +979,31 @@ identification of risk factors.</p>
 <p>In this workflow, survival analysis is performed on TCGA patient survival data
 with BAZ2A gene mutations as predictor. The <a class="reference external" href="https://cran.r-project.org/web/packages/survival/index.html">survival package</a> is one of the
 most used packages for survival analysis in R.</p>
-<div class="figure" id="id74">
-<p class="caption"><span class="caption-text">Simple survival analysis workflow.</span><a class="headerlink" href="#id74" title="Permalink to this image">¶</a></p>
-</div>
+<p class="graphviz">
+<img src="../_images/graphviz-975289a9ac451dfc179129b727460f7e1bb31ff6.png" alt="digraph SURV_SIMPL_workflow {
+   Data [group = g1; shape = invhouse, label = &quot;Data&quot;];
+   surv [shape = box; label = &quot;Surv(pfs_days, pfs)     &quot;];
+   survdif [shape = box; label = &quot;survdiff(Surv() ~ gene)        &quot;];
+   pchisq [shape = box; label = &quot;p.value =   \npchisq()&quot;];
+   survfit [shape = box; label = &quot;survfit()  &quot;];
+   summary [shape = box; label = &quot;summary()&quot;];
+   print [shape = box; label = &quot;print()  &quot;];
+
+   Data -&gt; surv
+
+   subgraph cluster_1 {
+      style = filled;
+      color = lightgrey;
+      label = &quot;Survival package    &quot;;
+      node [style = filled, color = white];
+      surv -&gt; survdif -&gt; survfit;
+   }
+   survdif -&gt; pchisq -&gt; print;
+   survfit -&gt; summary -&gt; print;
+
+}" />
+</p>
+<p class="caption">Simple survival analysis workflow.</p>
 <div class="section" id="id56">
 <h4>Packages and Dependencies<a class="headerlink" href="#id56" title="Permalink to this headline">¶</a></h4>
 <p>There is only 1 package used in this workflow, which has
@@ -844,9 +1040,24 @@ identification of risk factors.</p>
 <p>In this workflow, survival analysis is performed on TCGA meta and survival data
 using the Cox regression model. The <a class="reference external" href="https://cran.r-project.org/web/packages/glmnet/index.html">glmnet package</a> is one of the most
 efficient packages for such an analysis in R.</p>
-<div class="figure" id="id75">
-<p class="caption"><span class="caption-text">Survival workflow with TCGA dataset and glmnet()</span><a class="headerlink" href="#id75" title="Permalink to this image">¶</a></p>
-</div>
+<p class="graphviz">
+<img src="../_images/graphviz-3387e5a8ab525af08afa45f2b207326b8022a162.png" alt="digraph SURV_TCGA_workflow {
+             Data [group = g1; shape = invhouse, label = &quot;Survival data (TCGA)&quot;];
+             xdata [shape = box; label = &quot;xdata:\nExpression&quot;];
+             ydata [shape = box; label = &quot;ydata:\nSurvival&quot;];
+             params [group = g1; shape = box; label = &quot;n lambda: 10k\nalpha: seq(0 , 1, .1)        \nn alpha: 11&quot;];
+             glmnet [group = g1; shape = box; label = &quot;glmnet(xdata, ydata    \nalpha, family=cox)    &quot;];
+             Data -&gt; xdata;
+             Data -&gt; ydata;
+             xdata -&gt; glmnet;
+             ydata -&gt; glmnet;
+             glmnet -&gt; glmnet [label = &quot; n alpha   &quot;];
+
+             edge[style=invis];
+             glmnet -&gt; params;
+     }" />
+</p>
+<p class="caption">Survival workflow with TCGA dataset and glmnet()</p>
 <div class="section" id="id61">
 <h4>Packages and Dependencies<a class="headerlink" href="#id61" title="Permalink to this headline">¶</a></h4>
 <p>There are 2 packages used in this workflow, which depend
@@ -901,9 +1112,37 @@ Information about protein-protein interactions are continuously added to
 <a class="reference external" href="http://string-db.org/">STRING database</a> which is accessible through &#8216;STRINGdb&#8217; package and used to
 show the interaction between the genes with significant differential
 expression.</p>
-<div class="figure" id="id76">
-<p class="caption"><span class="caption-text">TCGA browser shiny app modules.</span><a class="headerlink" href="#id76" title="Permalink to this image">¶</a></p>
-</div>
+<p class="graphviz">
+<img src="../_images/graphviz-21b4640d78e0e09af87687210eb205fc88e853d0.png" alt="digraph TCGA_browser {
+   TCGA_mrna         [group = g1;  shape = invhouse, label = &quot;Data (TCGA)\nRNAseq&quot;];
+   TCGA_patient      [group = g1;  shape = invhouse, label = &quot;Data (TCGA)\nPhenotype&quot;];
+   TCGA_exome        [group = g1;  shape = invhouse, label = &quot;Data (TCGA)\nExome&quot;];
+   Data_string       [group = g1;  shape = invhouse; lable = &quot;STRINGdb&quot;];
+   Data_kegg         [group = g1;  shape = invhouse; label = &quot;KEGG&quot;];
+   pp                [shape = box; label = &quot;preprocess    \nRNAseq&quot;];
+   pp_sub            [shape = box; label = &quot;restructure data     \nsubset()\nmerge()\nmelt()&quot;];
+   an_mrna_deg       [shape = box; label = &quot;Differential Expression     \n(limma)&quot;];
+   an_mrna_hm        [shape = box; label = &quot;Plot\nheatmap.2()&quot;];
+   an_mrna_gage      [shape = box; label = &quot;Geneset Analysis     \ngage()&quot;];
+   an_mrna_string    [shape = box; label = &quot;Protein interaction network       \nSTRINGdb&quot;];
+   an_string_plot    [shape = box; label = &quot;Protein Network Plot     &quot;];
+   an_surv           [shape = box; label = &quot;Simple survival analysis     \nSurv()\nsurvdiff()\nsurvfit()&quot;];
+   an_surv_plot      [shape = box; label = &quot;Kaplan-Meier plot     \nplot()&quot;];
+   pp_exome          [shape = box; label = &quot;Integrate     \nExome &amp; Phenotype\ndata.table()\nmelt()&quot;];
+   an_exome          [shape = box; label = &quot;Plot     \nggvis\nggplot2&quot;];
+   TCGA_mrna     -&gt;      pp          -&gt;   pp_sub;
+   TCGA_exome    -&gt;      pp;
+   TCGA_patient  -&gt;      pp;
+   pp_sub        -&gt;      an_mrna_deg -&gt;   an_mrna_hm;
+                         an_mrna_deg -&gt;   an_mrna_gage;
+                         Data_kegg   -&gt;   an_mrna_gage;
+                         an_mrna_deg -&gt;   an_mrna_string -&gt; an_string_plot;
+                         Data_string -&gt;   an_mrna_string;
+   pp_sub        -&gt;      an_surv     -&gt;   an_surv_plot;
+   pp_sub        -&gt;      pp_exome    -&gt;   an_exome;
+}" />
+</p>
+<p class="caption">TCGA browser shiny app modules.</p>
 <div class="section" id="id66">
 <h4>Packages and Dependencies<a class="headerlink" href="#id66" title="Permalink to this headline">¶</a></h4>
 <p>There are 24 packages used in this workflow, which depend
@@ -943,7 +1182,7 @@ on 71 additional packages (dependencies)</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../index.html">Table Of Contents</a></h3>
   <ul>
@@ -1054,28 +1293,29 @@ on 71 additional packages (dependencies)</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="../prologue.html"
                         title="previous chapter">Prologue</a></p>
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../_sources/bioinformatics/README.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/bioinformatics/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -1084,12 +1324,12 @@ on 71 additional packages (dependencies)</p>
         <li class="right" >
           <a href="../prologue.html" title="Prologue"
              >previous</a> |</li>
-        <li class="nav-item nav-item-0"><a href="../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
+        <li><a href="../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2016, BeDataDriven B.V..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>

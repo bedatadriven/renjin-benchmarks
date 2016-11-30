@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Survival TCGA &#8212; Renjin Benchmarks 0.1 documentation</title>
+    <title>Survival TCGA &mdash; Renjin Benchmarks 0.1 documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -23,26 +23,24 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" />
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
   </head>
-  <body role="document">
-    <div class="related" role="navigation" aria-label="related navigation">
+  <body>
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body" role="main">
+          <div class="body">
             
   <div class="section" id="survival-tcga">
 <h1>Survival TCGA<a class="headerlink" href="#survival-tcga" title="Permalink to this headline">¶</a></h1>
@@ -56,8 +54,8 @@ identification of risk factors.</p>
 <p>In this workflow, survival analysis is performed on TCGA meta and survival data
 using the Cox regression model. The <a class="reference external" href="https://cran.r-project.org/web/packages/glmnet/index.html">glmnet package</a> is one of the most
 efficient packages for such an analysis in R.</p>
-<div class="figure" id="id1">
-<img src="../../_images/graphviz-d6c8e633db2472385301c06518869e5f61b8cfc5.png" alt="digraph SURV_TCGA_workflow {
+<p class="graphviz">
+<img src="../../_images/graphviz-3387e5a8ab525af08afa45f2b207326b8022a162.png" alt="digraph SURV_TCGA_workflow {
              Data [group = g1; shape = invhouse, label = &quot;Survival data (TCGA)&quot;];
              xdata [shape = box; label = &quot;xdata:\nExpression&quot;];
              ydata [shape = box; label = &quot;ydata:\nSurvival&quot;];
@@ -72,8 +70,8 @@ efficient packages for such an analysis in R.</p>
              edge[style=invis];
              glmnet -&gt; params;
      }" />
-<p class="caption"><span class="caption-text">Survival workflow with TCGA dataset and glmnet()</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
-</div>
+</p>
+<p class="caption">Survival workflow with TCGA dataset and glmnet()</p>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 2 packages used in this workflow, which depend
@@ -107,7 +105,7 @@ on 5 additional packages from CRAN (dependencies)</p>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+      <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h3><a href="../../index.html">Table Of Contents</a></h3>
   <ul>
@@ -119,39 +117,40 @@ on 5 additional packages from CRAN (dependencies)</p>
 </li>
 </ul>
 
-  <div role="note" aria-label="source link">
-    <h3>This Page</h3>
-    <ul class="this-page-menu">
-      <li><a href="../../_sources/bioinformatics/survival_tcga/README.txt"
-            rel="nofollow">Show Source</a></li>
-    </ul>
-   </div>
-<div id="searchbox" style="display: none" role="search">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/survival_tcga/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <div><input type="text" name="q" /></div>
-      <div><input type="submit" value="Go" /></div>
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related" role="navigation" aria-label="related navigation">
+    <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li class="nav-item nav-item-0"><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &#187;</li> 
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
       </ul>
     </div>
-    <div class="footer" role="contentinfo">
-        &#169; Copyright 2016, BeDataDriven B.V..
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.8.
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
 </html>
