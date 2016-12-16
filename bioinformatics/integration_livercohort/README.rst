@@ -45,6 +45,116 @@ highest variance and used in combination with triglyceride level phenotype.
 This is done in 50 iteration and the iteration with highest correlation in
 training and test sets is recorded.
 
+.. graphviz::
+   :caption: Diagram of integeration livercohort workflow.
+
+   digraph INTEG_LIVER {
+    fontname="sans-serif";
+    compound="true";
+    penwidth="0.1";
+    edge [comment="Wildcard edge", 
+          fontname="sans-serif", 
+          fontsize=10, 
+          colorscheme="blues3", 
+          color=2, 
+          fontcolor=3];
+    node [fontname="serif", 
+          fontsize=13, 
+          fillcolor="1", 
+          colorscheme="blues4", 
+          color="2", 
+          fontcolor="4", 
+          style="filled"];
+    subgraph cluster0 {
+        label="Load & prepare data";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        load [shape="box", 
+              label="Load \n read.delim()"];
+        process [shape="box", 
+                 label="Process: \n subset(), merge(), \n complete.cases()"];
+        load -> process;
+    }
+
+    subgraph cluster1 {
+        label="SVM predicting modeling";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        process -> dataset  [ltail="cluster0", 
+                             lhead="cluster1"];
+        dataset [shape="invhouse", 
+                 label="Devide in train and test \n sets using rep(), sample()"];
+        dataset -> "trainset"  [label="1/3"];
+        "trainset" -> "svm()";
+        "svm()" -> "predict()"  [label="model"];
+        "predict()" -> "classAgreement";
+        "trainset" -> "predict()";
+        dataset -> "testset"  [label="2/3"];
+        "testset" -> "predict()";
+        {
+            rank=same;
+            edge [comment="Wildcard node added automatic in EG."];
+            node [comment="Wildcard node added automatic in EG."];
+            "trainset";
+            "testset";
+        }
+
+    }
+
+    subgraph cluster2 {
+        label="NaiveBayesian modeling";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        c2_explr [shape="box", 
+                  label="Explore dataset using: \n hclust(), prcomp(), t(), \n dist(), cutree(), cor()"];
+        c2_explt [shape="box", 
+                  label="Plot exploratoy analysis \n with heatmap() and pairs()"];
+        c2_explr -> c2_explt;
+        c2_dataset [shape="invhouse", 
+                    label="curatedPhen"];
+        c2_make_cat [shape=box, 
+                     label="create binary categories \n cut(quantile()), \n cutree(hclust())"];
+        c2_train [label="trainset"];
+        c2_test [label="testset"];
+        c2_nb [label="naiveBayes()"];
+        c2_pred [label="predict()"];
+        c2_clsagr [label="classAgreement()"];
+        c2_dataset -> c2_explr;
+        c2_explr -> c2_make_cat;
+        c2_dataset -> c2_train  [label="1/3"];
+        c2_dataset -> c2_test  [label="2/3"];
+        c2_train -> c2_nb;
+        c2_nb -> c2_pred  [label="model"];
+        c2_test -> c2_pred;
+        c2_pred -> c2_clsagr;
+        c2_make_cat -> c2_nb;
+        c2_train -> c2_pred;
+        {
+            rank=same;
+            edge [comment="Wildcard node added automatic in EG."];
+            node [comment="Wildcard node added automatic in EG."];
+            c2_train;
+            c2_test;
+        }
+
+    }
+
+    subgraph cluster3 {
+        label="Robust Linear Model fitting (RLM)";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        c3_dataset [shape="invhouse", 
+                    label="curatedPhen"];
+        {
+            rank=same;
+            edge [comment="Wildcard node added automatic in EG."];
+            node [comment="Wildcard node added automatic in EG."];
+        }
+
+    }
+
+}
+
 
 Packages and Dependencies
 -------------------------
