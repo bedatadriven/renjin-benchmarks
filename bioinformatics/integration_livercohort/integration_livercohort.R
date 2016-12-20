@@ -11,7 +11,7 @@
 
 # reproducibility
 set.seed(8008)
-DEBUGGING <- TRUE
+DEBUGGING <- FALSE
 
 ## packages
 # CRAN
@@ -82,7 +82,7 @@ do.load <-function(){
   # drop cases not in phenotype data
   tmp <- tmp[ , names(tmp) %in% c("feature_id", data$curatedPhen$indvidual_id)]
   # merge on gene symbol
-  tmp <- merge(tmp, data$curatedExpr$"features.txt"[ , c("feature_id", "genesymbol")], by = "feature_id")
+  tmp <- merge(tmp, data$curatedExpr$features[ , c("feature_id", "genesymbol")], by = "feature_id")
   # old skool split, apply combine to get mean expression per feature, per patient
   tmp <- split(tmp, as.factor(tmp$genesymbol))
   tmp <- lapply(tmp, function(df) {
