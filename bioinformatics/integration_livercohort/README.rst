@@ -45,13 +45,14 @@ highest variance and used in combination with triglyceride level phenotype.
 This is done in 50 iteration and the iteration with highest correlation in
 training and test sets is recorded.
 
-.. graphviz::
-   :caption: Diagram of integeration livercohort workflow.
 
-   digraph INTEG_LIVER {
+.. graphviz::
+   :caption: Diagram for integration livercohort benchmark.
+
+   digraph INTEGRATION_LIVERCOHORT {
     fontname="sans-serif";
-    compound="true";
     penwidth="0.1";
+    compound="true";
     edge [comment="Wildcard edge", 
           fontname="sans-serif", 
           fontsize=10, 
@@ -105,6 +106,8 @@ training and test sets is recorded.
         label="NaiveBayesian modeling";
         edge [comment="Wildcard node added automatic in EG."];
         node [comment="Wildcard node added automatic in EG."];
+        process -> c2_dataset  [ltail="cluster0", 
+                                lhead="cluster2"];
         c2_explr [shape="box", 
                   label="Explore dataset using: \n hclust(), prcomp(), t(), \n dist(), cutree(), cor()"];
         c2_explt [shape="box", 
@@ -143,12 +146,53 @@ training and test sets is recorded.
         label="Robust Linear Model fitting (RLM)";
         edge [comment="Wildcard node added automatic in EG."];
         node [comment="Wildcard node added automatic in EG."];
+        process -> c3_expre  [ltail="cluster0", 
+                              lhead="cluster3"];
+        c3_pheno [shape="invhouse", 
+                  label="curatedPhen"];
+        c3_expre [shape="invhouse", 
+                  label="curatedExpr"];
         c3_dataset [shape="invhouse", 
-                    label="curatedPhen"];
+                    label="Devide in train and test \n sets using rep(), sample()"];
+        c3_train [label="trainset"];
+        c3_test [label="testset"];
+        c3_expre -> c3_dataset;
+        c3_dataset -> c3_train  [label="1/3"];
+        c3_dataset -> c3_test  [label="2/3"];
+        c3_feats [label="selected features"];
+        c3_col_feat [shape="box", 
+                     label="Remove low variance columns \n var(), rank()"];
+        c3_row_feat [shape="box", 
+                     label="Remove high correlation rows \n sum(), abs(), cor()"];
+        c3_rlm_tri [label="rlm(triglyc ~ ., data)"];
+        c3_pred [label="predict()"];
+        c3_cor [label="cor()"];
+        c3_train -> c3_col_feat;
+        c3_col_feat -> c3_feats;
+        c3_row_feat -> c3_feats;
+        c3_feats -> c3_rlm_tri;
+        c3_feats -> c3_pred;
+        c3_feats -> c3_cor;
+        c3_train -> c3_rlm_tri;
+        c3_rlm_tri -> c3_pred  [label="model"];
+        c3_pred -> c3_cor;
+        c3_test -> c3_pred;
+        c3_pheno -> c3_rlm_tri;
+        c3_pheno -> c3_cor;
         {
             rank=same;
             edge [comment="Wildcard node added automatic in EG."];
             node [comment="Wildcard node added automatic in EG."];
+            c3_train;
+            c3_test;
+        }
+
+        {
+            rank=same;
+            edge [comment="Wildcard node added automatic in EG."];
+            node [comment="Wildcard node added automatic in EG."];
+            c3_pheno;
+            c3_expre;
         }
 
     }
