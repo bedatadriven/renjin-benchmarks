@@ -6,7 +6,7 @@
 
 # reproducibility
 set.seed(8008)
-DEBUGGING <- TRUE
+DEBUGGING <- FALSE
 
 ## packages
 library(stats)
@@ -129,6 +129,8 @@ wapply <- function(x, width, by = NULL, FUN = NULL, ...) {
     lapply(indices, function(a) FUN(x[a], ...)),
     higher = TRUE)
   if (DEBUGGING) cat("> End: wapply()\n")
+  print(names(windows))
+  print(str(windows))
   return(windows)
 }
 
@@ -166,7 +168,20 @@ do.fam.prepare <- function(fam) {
   if (DEBUGGING) cat("> Start: do.fam.prepare()\n")
   ## scores for individual each SNP when compared between individuals
   # get SNP allele frequencies
-  genotypes <- do.call("rbind", lapply(fam, FUN = function(x) table(x$genotype)))
+  sums <- lapply(fam, FUN = function(x) as.data.frame(table(x$genotype), stringsAsFactors = FALSE))
+  genotypes <- data.frame()
+  for (i in 1:length(sums)) {
+    if (i == 1) {
+      genotypes <- sums[[1]]
+      colnames(genotypes) <- c("Genotype", strsplit(names(sums)[1],'_')[[1]][1])
+    } else {
+      cols <- colnames(genotypes)
+      genotypes <- merge(genotypes, sums[[i]], all = TRUE, by.x="Genotype", by.y="Var1")
+      colnames(genotypes) <- c(cols, strsplit(names(sums)[i],'_')[[1]][1])
+    }
+  }
+  genotypes <- data.frame(Freq=rowSums(genotypes[ , sapply(genotypes, is.integer)]), row.names = genotypes$Genotype)
+
   # create empty score matrix
   scores <- matrix( nrow = ncol(genotypes), ncol = ncol(genotypes) ,
                     dimnames = list(colnames(genotypes), colnames(genotypes)))
@@ -259,6 +274,13 @@ do.fam.prepare <- function(fam) {
           )
 
         )
+        # A simpler way would be to take the minimum overlap
+        # return ( 
+        #     min(
+        #         sum( strsplit(i, '')[[1]] %in% strsplit(j, '')[[1]] ), 
+        #         sum( strsplit(j, '')[[1]] %in% strsplit(i, '')[[1]] )
+        #     ) 
+        # )
     }
     else { return(0) }
 
@@ -361,11 +383,12 @@ do.ibd.vector <- function(fam, scores) {
     }
   fam.scores <- lapply(combn(1:length(fam), 2, simplify = FALSE), # all pairwise combinations
                        # calculate ibd score vector
-                       function(x) return(
+                       function(x) {
+                        return(
                          list(df = do.ibd(fam[[x[1]]], fam[[x[2]]], scores = scores),
                               pair = names(fam)[x]
                               )
-                         )
+                         )}
                        )
   if (DEBUGGING) cat("> End: do.ibd.vector()\n")
   return(fam.scores)
@@ -433,11 +456,13 @@ gc()
 ## "family" data - comparing between (non related) individuals
 # load data and check SNP lists
 fam <- do.fam.load()
+if (DEBUGGING) print(str(fam))
 
 do.fam.check(fam = fam)
 
 # prepare pre-calculated scoring matrix
 scores <- do.fam.prepare(fam = fam)
+if (DEBUGGING) print(str(scores))
 
 # create vectors comparing pairwise all individuals
 fam.scores <- do.ibd.vector(fam = fam, scores = scores)
