@@ -180,7 +180,7 @@ do.fam.prepare <- function(fam) {
       colnames(genotypes) <- c(cols, strsplit(names(sums)[i],'_')[[1]][1])
     }
   }
-  genotypes <- data.frame(Freq=rowSums(genotypes[ , sapply(genotypes, is.integer)]), row.names = genotypes$Genotype)
+  genotypes <- data.frame(Freq=rowSums(genotypes[ , sapply(genotypes, is.integer)], na.rm = TRUE), row.names = genotypes$Genotype)
 
   # create empty score matrix
   scores <- matrix( nrow = ncol(genotypes), ncol = ncol(genotypes) ,
