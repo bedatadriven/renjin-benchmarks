@@ -6,7 +6,7 @@
 
 # reproducibility
 set.seed(8008)
-DEBUGGING <- TRUE
+DEBUGGING <- FALSE
 
 ## packages
 library(stats)
@@ -361,11 +361,12 @@ do.ibd.vector <- function(fam, scores) {
     }
   fam.scores <- lapply(combn(1:length(fam), 2, simplify = FALSE), # all pairwise combinations
                        # calculate ibd score vector
-                       function(x) return(
+                       function(x) {
+                        return(
                          list(df = do.ibd(fam[[x[1]]], fam[[x[2]]], scores = scores),
                               pair = names(fam)[x]
                               )
-                         )
+                         )}
                        )
   if (DEBUGGING) cat("> End: do.ibd.vector()\n")
   return(fam.scores)
@@ -400,9 +401,6 @@ do.ibd.window <- function(fam.scores, window.sizes = seq(5, 50, 5)) {
         } )
     )
   )
-
-
-  if (DEBUGGING) cat("> End: do.ibd.window()\n")
 }
 
 
@@ -433,11 +431,13 @@ gc()
 ## "family" data - comparing between (non related) individuals
 # load data and check SNP lists
 fam <- do.fam.load()
+if (DEBUGGING) print(str(fam))
 
 do.fam.check(fam = fam)
 
 # prepare pre-calculated scoring matrix
 scores <- do.fam.prepare(fam = fam)
+if (DEBUGGING) print(str(scores))
 
 # create vectors comparing pairwise all individuals
 fam.scores <- do.ibd.vector(fam = fam, scores = scores)
