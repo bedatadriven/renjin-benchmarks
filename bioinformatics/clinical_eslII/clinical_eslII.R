@@ -35,7 +35,7 @@ do.load <- function() {
   # Stamey, T., et al. (1989). Prostate specific antigen in the diagnosis and treatment of adenocarcinoma of the prostate. II. Radical prostatectomy treated patients. Journal of Urology, 16: 1076-1083.
   data(Prostate, envir = e)
 
-  alldata <- list(prostate = e$prostate)
+  alldata <- list(prostate = e$Prostate)
 
   cat("> End: do.load()\n")
   return(alldata)
