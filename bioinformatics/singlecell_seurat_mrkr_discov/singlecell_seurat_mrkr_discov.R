@@ -9,7 +9,8 @@
 # reproducibility
 set.seed(8008)
 ## packages
-if (R.Version()$engine == "Renjin") {
+rVersion <- R.Version()
+if ('engine' %in% names(rVersion) && rVersion$engine == "Renjin") {
 	library(org.renjin.github.satijalab:Seurat)
 } else {
 	library(Seurat)
