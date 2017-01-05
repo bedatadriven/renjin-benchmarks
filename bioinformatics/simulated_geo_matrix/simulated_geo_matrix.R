@@ -12,17 +12,22 @@
 
 ## set up session
 set.seed(8008)
-DEBUGGING <- TRUE
+DEBUGGING <- FALSE
 
-# packages
+# load packages
 library(biclust)
 library(s4vd)
 library(irlba)
+
 # data collection
-GEO <-      "GEO-500-500.rds"
-GO <-       "GO-500-500.rds"
-GENES <-    "GeneMetaData-500-500.rds"
-PATIENTS <- "PatientMetaData-500-500.rds"
+load.data <- function() {
+  GEO <-      readRDS("GEO-500-500.rds")
+  GO <-       readRDS("GO-500-500.rds")
+  GENES <-    readRDS("GeneMetaData-500-500.rds")
+  PATIENTS <- readRDS("PatientMetaData-500-500.rds")
+  data <- list(geo = GEO, go = GO, genes = GENES, patients = PATIENTS)
+  data
+}
 
 # plain-R q&d replacement for acast(A, list(names(A)[1], names(A)[2]))
 df2mxc <- function(df) {
@@ -45,13 +50,13 @@ df2mxs <- function(df) {
 }
 
 
-regression <- function() {
+regression <- function(data) {
   if (DEBUGGING) cat("> START: regression()\n")
 
   ### Data Management ops start ###
-  geo      <- readRDS(GEO)
-  genes    <- readRDS(GENES)
-  patients <- readRDS(PATIENTS)
+  geo      <- data$geo
+  genes    <- data$genes
+  patients <- data$patients
 
   # subset
   sub_gmd = genes[genes$func < 250, ]
@@ -75,14 +80,14 @@ regression <- function() {
   return(res)
 }
 
-covariance <- function() {
+covariance <- function(data) {
   if (DEBUGGING) cat("> START: covariance()\n")
 
   ### Data Management ops start ###
 
-  geo      <- readRDS(GEO)
-  genes    <- readRDS(GENES)
-  patients <- readRDS(PATIENTS)
+  geo      <- data$geo
+  genes    <- data$genes
+  patients <- data$patients
 
   sub_pmd <- patients[patients$disease == 5, ]
 
@@ -108,12 +113,12 @@ covariance <- function() {
 
 }
 
-biclustering <- function() {
+biclustering <- function(data) {
   if (DEBUGGING) cat("> START: biclustering()\n")
 
   ### Data Management ops start ###
-  geo      <- readRDS(GEO)
-  patients <- readRDS(PATIENTS)
+  geo      <- data$geo
+  patients <- data$patients
 
   sub_pmd <- patients[patients$gender == 1 & patients$age <= 40, ]
   colnames(sub_pmd)[1] <- "patientid"
@@ -129,11 +134,11 @@ biclustering <- function() {
 
 }
 
-svd_irlba <- function() {
+svd_irlba <- function(data) {
   if (DEBUGGING) cat("> START: svd_irlba()\n")
   ### Data Management ops start ###
-  geo      <- readRDS(GEO)
-  genes    <- readRDS(GENES)
+  geo      <- data$geo
+  genes    <- data$genes
 
   sub_gmd <- genes[genes$func < 250, ]
 
@@ -154,12 +159,12 @@ svd_irlba <- function() {
   return(res[complete.cases(res), ])
 }
 
-stats <- function(percentage = 1) {
+stats <- function(data, percentage = 1) {
   if (DEBUGGING) cat("> START: stats()\n")
   # [percentage] = percentage of rows and columns to runs stats on
   ### Data Management ops start ###
-  geo      <- readRDS(GEO)
-  go       <- readRDS(GO)
+  geo      <- data$geo
+  go       <- data$go
 
   # update code to start all ids at 1
   geo[ , 1] <- geo[ , 1] + 1
@@ -174,14 +179,11 @@ stats <- function(percentage = 1) {
   go <- df2mxs(go)
 
   # run comparisons
-  res <- lapply(1:as.integer( (dim(go)[2] / 100) * percentage ), function(ii) {
-    lapply(1:as.integer( (dim(A)[1] / 100) * percentage ), function(jj) {
-      set1 <- A[jj, go[ , ii] == 1]
-      set2 <- A[jj, go[ , ii] == 0]
-
-      data.frame(id = paste(ii, jj), p = wilcox.test(set1, set2, alternative = "less")$p.value)
-    })
-  })
+  res <- lapply(1:as.integer( (dim(go)[2] / 100) * percentage ), function(i) {
+              s1 <- A[go[ , i] == 1, ]
+              s2 <- A[go[ , i] == 0, ]
+              data.frame(id = i, p = wilcox.test(s1, s2, alternative = "less")$p.value)
+            })
 
   # combine and return results with low p vals
   res <- do.call("rbind",unlist(res, recursive = FALSE))
@@ -191,20 +193,22 @@ stats <- function(percentage = 1) {
 }
 
 ### reporting of timings
+# load data
+data <- load.data()
 # regression
-regression_res <- regression()
+regression_res <- regression(data)
 
 # svd
-svd_irlba_res <- svd_irlba()
+svd_irlba_res <- svd_irlba(data)
 
 # covariance
-covariance_res <- covariance()
+covariance_res <- covariance(data)
 
 # biclust
-biclustering_res <- biclustering()
+biclustering_res <- biclustering(data)
 
 # stats
-stats_res <- stats(percentage = 1)
+stats_res <- stats(data, percentage = 1)
 
 print(svd_irlba_res)
 print(regression_res)
