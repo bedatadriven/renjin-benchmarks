@@ -5,17 +5,17 @@
 # License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
 #
 # human liver cohort
-
+browser()
 # reproducibility
 set.seed(8008)
 ## packages
 # CRAN
 library(e1071)
-DEBUGGING <- TRUE
+DEBUGGING <- FALSE
 ## Blocks for timing
 
 
-data <- lapply(dir(".", pattern = ".txt$", full.names = TRUE), read.delim, stringsAsFactors=FALSE)
+data <- lapply(dir(".", pattern = ".txt$", full.names = FALSE), read.delim, stringsAsFactors=FALSE)
 names(data) <- dir(".", pattern = ".txt$", full.names = FALSE)
 
 #file.remove(dir(".", pattern = ".txt$", full.names = TRUE))
