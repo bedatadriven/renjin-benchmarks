@@ -68,7 +68,7 @@ do.varselect <- function(data, plot_results = FALSE) {
                     list(data.frame(
                       dat = "prostate",
                       var = rownames(cvfit$fit$beta),
-                      coeff = cvfit$fit$beta[ ,as.character(round(cvfit$lambda.min, digits = 4))]
+                      coeff = cvfit$fit$beta[ ,as.character(round(cvfit$lambda.min, digits = 5))]
                     ))
   )
 
