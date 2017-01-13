@@ -22,8 +22,7 @@ contained more of that specific transcript.
 
 This workflow is provided by `ArrayAnalysis.org`_ and its code has been 
 merged into single R script. It performs array normalization and differential expression analysis, and 
-plots the important Quality Control plots. Dataset used in this workflow is from a study by `Ramsey JE 
-et al 2013`_ in which the effects of presence/absence of ZXDC gene 
+plots the important Quality Control plots. Dataset used in this workflow is from a study by `Ramsey JE et al 2013`_ in which the effects of presence/absence of ZXDC gene 
 before and during differentiation of a white blood cell type is studied. The corresponding data can be 
 downloaded from Gene Expression Omnibus repository using accession number GSE45417. For more information 
 about this workflow please visit `ArrayAnalysis.org`_.
@@ -49,6 +48,7 @@ about this workflow please visit `ArrayAnalysis.org`_.
           color="2", 
           fontcolor="4", 
           style="filled"];
+
     subgraph "cluster0" {
         label="Raw data QC graphs";
         edge [comment="Wildcard node added automatic in EG."];
@@ -218,8 +218,7 @@ about this workflow please visit `ArrayAnalysis.org`_.
         "c6_rawData" -> "createNormDataTable()";
         "createNormDataTable()" -> "c6_wt";
     }
-
-}
+   }
 
 
 Packages and Dependencies
@@ -238,12 +237,12 @@ on 28 additional packages from CRAN and Bioconductor (dependencies)
 
 * *Bioconductor*: limma, Biobase, BiocInstaller, BiocGenerics, zlibbioc, preprocessCore, affyio, gcrma, Biostrings, XVector, S4Vectors, IRanges, genefilter, AnnotationDbi, annotate, GenomeInfoDb, affyPLM
 
-* *CRAN*: xtable, KernSmooth, DBI, XML, lattice, RSQLite, RColorBrewer, caTools, bitops, gtools, survival,
+* *CRAN*: xtable, KernSmooth, DBI, XML, lattice, RSQLite, RColorBrewer, caTools, bitops, gtools, survival
 
 
 
 .. _ArrayAnalysis.org: http://www.arrayanalysis.org
-.. _Ramsey JE et al 2013: doi.org/10.1016/j.molimm.2013.07.001
+.. _Ramsey JE et al 2013: http://dx.doi.org/10.1016/j.molimm.2013.07.001
 
 
 License
