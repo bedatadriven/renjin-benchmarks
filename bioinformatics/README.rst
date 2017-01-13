@@ -9,10 +9,6 @@ Introduction
 
 Bioinformatic workflows used in different fields of biology for educational and benchmarking purposes. This is and will stay a work in progress and we welcome any user to submit PRs to include their workflows. 
 
-************
-Workflows
-************
-
 List of bioinformatic benchmarks included in this repository.
 
 +---------------------------------+----------------------------------------------------------------------------+
@@ -53,22 +49,27 @@ List of bioinformatic benchmarks included in this repository.
 | tcga_browser                    | Modules used in a shiny app to visualize TCGA data                         |
 +---------------------------------+----------------------------------------------------------------------------+
 
+************
+Workflows
+************
 
+.. toctree::
+    :maxdepth: 1
 
-.. include:: affy/README.rst
-.. include:: clinical_eslII/README.rst
-.. include:: clinical_livercohort/README.rst
-.. include:: generate_count/README.rst
-.. include:: integration_igraph/README.rst
-.. include:: integration_livercohort/README.rst
-.. include:: microarray/README.rst
-.. include:: mutation/README.rst
-.. include:: rnaseq_deseq2/README.rst
-.. include:: rppa/README.rst
-.. include:: simulated_geo_matrix/README.rst
-.. include:: singlecell_seurat_mrkr_discov/README.rst
-.. include:: singlecell_seurat_spatial_infer/README.rst
-.. include:: survival_simple/README.rst
-.. include:: survival_tcga/README.rst
-.. include:: tcga_browser/README.rst
+    affy/README
+    clinical_eslII/README
+    clinical_livercohort/README
+    generate_count/README
+    integration_igraph/README
+    integration_livercohort/README
+    microarray/README
+    mutation/README
+    rnaseq_deseq2/README
+    rppa/README
+    simulated_geo_matrix/README
+    singlecell_seurat_mrkr_discov/README
+    singlecell_seurat_spatial_infer/README
+    survival_simple/README
+    survival_tcga/README
+    tcga_browser/README
 

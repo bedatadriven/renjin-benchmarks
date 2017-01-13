@@ -127,8 +127,7 @@ GenomicAlignments as described in
         "c2_counts" -> "c2_design";
         "c2_counts" -> "c2_stripchart";
     }
-
-}
+   }
 
 	
 

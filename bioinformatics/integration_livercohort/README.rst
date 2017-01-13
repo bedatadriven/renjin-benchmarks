@@ -66,6 +66,7 @@ training and test sets is recorded.
           color="2", 
           fontcolor="4", 
           style="filled"];
+
     subgraph cluster0 {
         label="Load & prepare data";
         edge [comment="Wildcard node added automatic in EG."];
@@ -197,7 +198,7 @@ training and test sets is recorded.
 
     }
 
-}
+   }
 
 
 Packages and Dependencies

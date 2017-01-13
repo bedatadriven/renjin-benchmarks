@@ -173,8 +173,7 @@ vignet.
         }
 
     }
-
-}
+   }
 
 
 Packages and Dependencies

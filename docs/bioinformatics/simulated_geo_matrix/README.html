@@ -24,7 +24,10 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="Single Cell (Seurat, Clustering and marker discovery)" href="../singlecell_seurat_mrkr_discov/README.html" />
+    <link rel="prev" title="Reverse phase protein array (rppa)" href="../rppa/README.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,7 +36,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../singlecell_seurat_mrkr_discov/README.html" title="Single Cell (Seurat, Clustering and marker discovery)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../rppa/README.html" title="Reverse phase protein array (rppa)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -71,6 +81,167 @@ statistical methods such as linear regression model (lm.fit from stats package),
 covariance (&#8216;cov&#8217; from &#8216;stats&#8217; package), biclustering (&#8216;biclust&#8217; package), SVM
 (&#8216;irlba&#8217; package), and differential gene expression using two sample Wilcoxon
 test (also know as &#8216;Mann-Whitney&#8217; test) are performed.</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-39fc5aba57d8e9926a5c3809d2e271a337fa73cd.png" alt="digraph SIMULATED_GEO_MATRIX {
+ fontname=&quot;sans-serif&quot;;
+ penwidth=&quot;0.1&quot;;
+ edge [comment=&quot;Wildcard edge&quot;,
+       fontname=&quot;sans-serif&quot;,
+       fontsize=10,
+       colorscheme=&quot;blues3&quot;,
+       color=2,
+       fontcolor=3];
+ node [fontname=&quot;serif&quot;,
+       fontsize=13,
+       fillcolor=&quot;1&quot;,
+       colorscheme=&quot;blues4&quot;,
+       color=&quot;2&quot;,
+       fontcolor=&quot;4&quot;,
+       style=&quot;filled&quot;];
+ subgraph cluster0 {
+     label=&quot;Load data&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c0_geo [shape=&quot;invhouse&quot;,
+             label=&lt;GEO Expression&lt;BR/&gt;&lt;I&gt;Simulated, 500x500&lt;/I&gt;&gt;];
+     c0_gen [shape=&quot;invhouse&quot;,
+             label=&lt;Gene meta info&lt;BR/&gt;&lt;I&gt;Simulated, 500x500&lt;/I&gt;&gt;];
+     c0_pat [shape=&quot;invhouse&quot;,
+             label=&lt;Patient meta info&lt;BR/&gt;&lt;I&gt;Simulated, 500x500&lt;/I&gt;&gt;];
+     c0_gos [shape=&quot;invhouse&quot;,
+             label=&lt;Gene Ontology info&lt;BR/&gt;&lt;I&gt;Simulated, 500x500&lt;/I&gt;&gt;];
+     c0_rds [label=&lt;Read and store&lt;BR/&gt;&lt;I&gt;readRDS(), list()&lt;/I&gt;&gt;];
+     c0_dat [label=&lt;Data&gt;];
+     c0_geo -&gt; c0_rds;
+     c0_gen -&gt; c0_rds;
+     c0_pat -&gt; c0_rds;
+     c0_gos -&gt; c0_rds;
+     c0_rds -&gt; c0_dat;
+ }
+
+ subgraph cluster1 {
+     label=&quot;Perform linear regression analysis&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c1_dat [label=&quot;Data&quot;];
+     c0_dat -&gt; c1_dat  [ltail=cluster0,
+                        lhead=cluster1];
+     c1_gen [label=&lt;Subset Genes&lt;BR/&gt;based on &lt;I&gt;function&lt;/I&gt;&gt;];
+     c1_res [label=&lt;Select &lt;I&gt;drug.response&lt;/I&gt;&gt;];
+     c1_aaa [label=&lt;Create expression matrix&lt;BR/&gt;for each gene in each &lt;BR/&gt;patient using &lt;I&gt;merge()&lt;/I&gt;&gt;];
+     c1_cst [label=&lt;cast to matrix&lt;BR/&gt;&lt;I&gt;patientid x geneid&lt;/I&gt;&gt;];
+     c1_lmf [label=&lt;fit linear regression&lt;BR/&gt;using &lt;I&gt;lm.fit()&lt;/I&gt;&gt;];
+     c1_prt [label=&lt;&lt;I&gt;print()&lt;/I&gt;&gt;];
+     c1_dat -&gt; c1_gen  [label=&quot;$gen&quot;];
+     c1_dat -&gt; c1_res  [label=&quot;$pat&quot;];
+     c1_dat -&gt; c1_aaa  [label=&quot;$geo&quot;];
+     c1_gen -&gt; c1_aaa;
+     c1_aaa -&gt; c1_cst;
+     c1_cst -&gt; c1_lmf  [label=&quot;x&quot;];
+     c1_res -&gt; c1_lmf  [label=&quot;y&quot;];
+     c1_lmf -&gt; c1_prt;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c1_cst;
+         c1_res;
+     }
+
+ }
+
+ subgraph cluster2 {
+     label=&quot;Calculate covariance&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c2_dat [label=&quot;Data&quot;];
+     c0_dat -&gt; c2_dat  [ltail=cluster0,
+                        lhead=cluster2];
+     c2_pat [label=&lt;Subset patients&lt;BR/&gt;based on &lt;I&gt;disease&lt;/I&gt;&gt;];
+     c2_aaa [label=&lt;Create expression matrix&lt;BR/&gt;for each gene in each &lt;BR/&gt;patient using &lt;I&gt;merge()&lt;/I&gt;&gt;];
+     c2_cst [label=&lt;cast to matrix&lt;BR/&gt;&lt;I&gt;patientid x geneid&lt;/I&gt;&gt;];
+     c2_cov [label=&lt;compute covariance&lt;BR/&gt;&lt;I&gt;stats::cov()&lt;/I&gt;&gt;];
+     c2_scv [label=&lt;select top 25 &amp;#x25; genes&lt;BR/&gt;&lt;I&gt;which( &amp;#x3E; .75 &amp;#x2A; max())&lt;/I&gt;&gt;];
+     c2_prt [label=&lt;Print complete cases&lt;BR/&gt;&lt;I&gt;complete.cases(), print()&lt;/I&gt;&gt;];
+     c2_dat -&gt; c2_pat  [label=&quot;$pat&quot;];
+     c2_dat -&gt; c2_aaa  [label=&quot;$geo&quot;];
+     c2_pat -&gt; c2_aaa;
+     c2_aaa -&gt; c2_cst;
+     c2_cst -&gt; c2_cov;
+     c2_cov -&gt; c2_scv;
+     c2_scv -&gt; c2_prt;
+ }
+
+ subgraph cluster3 {
+     label=&quot;Perform bi-clustering&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c3_dat [label=&quot;Data&quot;];
+     c3_pat [label=&lt;Subset paients&lt;BR/&gt;based on &lt;I&gt;gender &amp;#x26; age&lt;/I&gt;&gt;];
+     c3_aaa [label=&lt;Create expression matrix&lt;BR/&gt;for each gene in each &lt;BR/&gt;patient using &lt;I&gt;merge()&lt;/I&gt;&gt;];
+     c3_cst [label=&lt;cast to matrix&lt;BR/&gt;&lt;I&gt;patientid x geneid&lt;/I&gt;&gt;];
+     c3_bic [label=&lt;Perform biclustering&lt;BR/&gt;&lt;I&gt;biclust(method=BCssvd, K=5)&lt;/I&gt;&gt;];
+     c3_cdf [label=&lt;Convert to data.frame&lt;BR/&gt;&lt;I&gt;biclust::writeclust()&lt;/I&gt;&gt;];
+     c3_prt [label=&lt;Print complete cases&lt;BR/&gt;&lt;I&gt;complete.cases(), print()&lt;/I&gt;&gt;];
+     c0_dat -&gt; c3_dat  [ltail=cluster0,
+                        lhead=cluster3];
+     c3_dat -&gt; c3_pat  [label=&quot;$pat&quot;];
+     c3_dat -&gt; c3_aaa  [label=&quot;$geo&quot;];
+     c3_pat -&gt; c3_aaa;
+     c3_aaa -&gt; c3_cst;
+     c3_cst -&gt; c3_bic;
+     c3_bic -&gt; c3_cdf;
+     c3_cdf -&gt; c3_prt;
+ }
+
+ subgraph cluster4 {
+     label=&quot;Compute largest singular values&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c4_dat [label=&quot;Data&quot;];
+     c0_dat -&gt; c4_dat  [ltail=cluster0,
+                        lhead=cluster4];
+     c4_gen [label=&lt;Subset Genes&lt;BR/&gt;based on &lt;I&gt;function&lt;/I&gt;&gt;];
+     c4_aaa [label=&lt;Create expression matrix&lt;BR/&gt;for each gene in each &lt;BR/&gt;patient using &lt;I&gt;merge()&lt;/I&gt;&gt;];
+     c4_cst [label=&lt;cast to matrix&lt;BR/&gt;&lt;I&gt;patientid x geneid&lt;/I&gt;&gt;];
+     c4_irl [label=&lt;Perform SVD&lt;BR/&gt;&lt;I&gt;irlba(bu=50, nv=50)&lt;/I&gt;&gt;];
+     c4_prt [label=&lt;Print complete cases&lt;BR/&gt;&lt;I&gt;complete.cases(), print()&lt;/I&gt;&gt;];
+     c4_dat -&gt; c4_gen  [label=&quot;$gen&quot;];
+     c4_dat -&gt; c4_aaa  [label=&quot;$geo&quot;];
+     c4_gen -&gt; c4_aaa;
+     c4_aaa -&gt; c4_cst;
+     c4_cst -&gt; c4_irl;
+     c4_irl -&gt; c4_prt;
+ }
+
+ subgraph cluster5 {
+     label=&quot;Statistical test&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c5_dat [label=&quot;Data&quot;];
+     c0_dat -&gt; c5_dat  [ltail=cluster0,
+                        lhead=cluster5];
+     c5_cst_ge [label=&lt;cast to matrix&lt;BR/&gt;&lt;I&gt;Gene ID x Patient ID&lt;/I&gt;&gt;];
+     c5_cst_go [label=&lt;cast to matrix&lt;BR/&gt;&lt;I&gt;Gene ID x GO ID&lt;/I&gt;&gt;];
+     c5_st1 [label=&lt;Expression levels&lt;BR/&gt;genes in GO term&gt;];
+     c5_st2 [label=&lt;Expression levels&lt;BR/&gt;genes NOT in GO term&gt;];
+     c5_wlc [label=&lt;Perform Mann–Whitney test&lt;BR/&gt;&lt;I&gt;lapply(), wilcox.test()&lt;/I&gt;&gt;];
+     c5_sbs [label=&lt;Subset significant GOs&lt;BR/&gt;&lt;I&gt;subset(p &amp;#x3C; 1e-3)&lt;/I&gt;&gt;];
+     c5_prt [label=&lt;Print complete cases&lt;BR/&gt;&lt;I&gt;complete.cases(), print()&lt;/I&gt;&gt;];
+     c5_dat -&gt; c5_cst_ge  [label=&quot;$geo&quot;];
+     c5_cst_ge -&gt; c5_st1;
+     c5_cst_ge -&gt; c5_st2;
+     c5_dat -&gt; c5_cst_go  [label=&quot;$go&quot;];
+     c5_cst_go -&gt; c5_st1  [label=&quot;1&quot;];
+     c5_cst_go -&gt; c5_st2  [label=&quot;0&quot;];
+     c5_st1 -&gt; c5_wlc  [label=&quot;x&quot;];
+     c5_st2 -&gt; c5_wlc  [label=&quot;y&quot;];
+     c5_wlc -&gt; c5_sbs;
+     c5_sbs -&gt; c5_prt;
+ }
+}" />
+</p>
+<p class="caption">Diagram of Simulated GEO Matrix analysis workflow.</p>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 3 packages used in this workflow, which depend
@@ -117,6 +288,12 @@ size of columns and rows. Here you can read about the original GenBase study by
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../rppa/README.html"
+                        title="previous chapter">Reverse phase protein array (rppa)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../singlecell_seurat_mrkr_discov/README.html"
+                        title="next chapter">Single Cell (Seurat, Clustering and marker discovery)</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/bioinformatics/simulated_geo_matrix/README.txt"
@@ -145,7 +322,14 @@ size of columns and rows. Here you can read about the original GenBase study by
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../singlecell_seurat_mrkr_discov/README.html" title="Single Cell (Seurat, Clustering and marker discovery)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../rppa/README.html" title="Reverse phase protein array (rppa)"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

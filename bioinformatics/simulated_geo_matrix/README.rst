@@ -31,6 +31,7 @@ statistical methods such as linear regression model (lm.fit from stats package),
 covariance ('cov' from 'stats' package), biclustering ('biclust' package), SVM 
 ('irlba' package), and differential gene expression using two sample Wilcoxon 
 test (also know as 'Mann-Whitney' test) are performed. 
+
 .. graphviz::
    :caption: Diagram of Simulated GEO Matrix analysis workflow.
 
@@ -191,8 +192,7 @@ test (also know as 'Mann-Whitney' test) are performed.
         c5_wlc -> c5_sbs;
         c5_sbs -> c5_prt;
     }
-
-}
+   }
 
 Packages and Dependencies
 -------------------------
