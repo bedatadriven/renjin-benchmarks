@@ -1,0 +1,95 @@
+digraph INTEGRATION_LIVERCOHORT {
+    fontname="sans-serif";
+    penwidth="0.1";
+    compound="true";
+    edge [comment="Wildcard edge", fontname="sans-serif", fontsize=10, colorscheme="blues3", color=2, fontcolor=3];
+    node [fontname="serif", fontsize=13, fillcolor="1", colorscheme="blues4", color="2", fontcolor="4", style="filled"];
+
+    subgraph cluster0 {
+        label="Load & prepare data";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        load [shape="box", label="Load \n read.delim()"];
+        process [shape="box",  label="Process: \n subset(), merge(), \n complete.cases()"];
+        load -> process;
+    }
+
+    subgraph cluster1 {
+        label="SVM predicting modeling";
+        process -> dataset  [ltail="cluster0", lhead="cluster1"];
+        dataset [shape="invhouse", label="Devide in train and test \n sets using rep(), sample()"];
+        dataset -> "trainset" ;
+        "trainset" -> "svm()";
+        "svm()" -> "svm.predict()"  [label="model"];
+        
+        "trainset" -> "svm.predict()";
+        dataset -> "testset";
+        "testset" -> "svm.predict()";
+
+    }
+
+    c2_clsagr [shape="box",label="classAgreement()"];
+    "svm.predict()" -> c2_clsagr;
+
+    subgraph cluster2 {
+        label="NaiveBayesian modeling";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        process -> c2_dataset  [ltail="cluster0", 
+                                lhead="cluster2"];
+        c2_explr [shape="box", 
+                  label="Explore dataset using: \n hclust(), prcomp(), t(), \n dist(), cutree(), cor()\n\ncreate binary categories \n cut(quantile()), \n cutree(hclust())"];
+        c2_dataset [shape="invhouse", 
+                    label="curatedPhen"];
+        c2_train [label="trainset"];
+        c2_test [label="testset"];
+        c2_nb [label="naiveBayes()"];
+        c2_pred [label="nb.predict()"];
+        c2_dataset -> c2_explr;
+        c2_dataset -> c2_train ;
+        c2_dataset -> c2_test;
+        c2_train -> c2_nb;
+        c2_nb -> c2_pred  [label="model"];
+        c2_test -> c2_pred;
+        c2_explr -> c2_nb;
+        c2_train -> c2_pred;
+
+    }
+
+    c2_pred -> c2_clsagr;
+
+    subgraph cluster3 {
+        label="Robust Linear Model fitting (RLM)";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        #process -> c3_expre  [ltail="cluster0", lhead="cluster3"];
+        c3_pheno [shape="invhouse", label="curatedPhen"];
+        c3_expre [shape="invhouse",  label="curatedExpr"];
+        c3_dataset [shape="invhouse",  label="Devide in train and test \n sets using rep(), sample()"];
+        #"classAgreement" -> c3_expre [style=invis];
+        c3_train [label="trainset"];
+        c3_test [label="testset"];
+        c3_expre -> c3_dataset;
+        c3_dataset -> c3_train ;
+        c3_dataset -> c3_test ;
+        c3_col_feat [shape="box", label="Remove low variance\ncolumns var(), rank()\n\nRemove high correlation\nrows sum(), abs(), cor()"];
+        
+        c3_rlm_tri [label="rlm(triglyc ~ ., data)"];
+        c3_pred [label="predict()"];
+        c3_cor [label="cor()"];
+        c3_train -> c3_col_feat;
+        c3_col_feat -> c3_rlm_tri;
+        c3_col_feat -> c3_pred;
+        c3_col_feat -> c3_cor;
+        c3_train -> c3_rlm_tri;
+        c3_rlm_tri -> c3_pred  [label="model"];
+        c3_pred -> c3_cor;
+        c3_test -> c3_pred;
+        c3_pheno -> c3_rlm_tri;
+        c3_pheno -> c3_cor;
+
+    }
+
+        c2_pred -> c3_expre [style=invis];
+   }
+
