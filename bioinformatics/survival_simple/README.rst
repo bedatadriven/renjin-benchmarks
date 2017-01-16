@@ -14,31 +14,14 @@ In this workflow, survival analysis is performed on TCGA patient survival data
 with BAZ2A gene mutations as predictor. The `survival package`_ is one of the
 most used packages for survival analysis in R.
 
-.. graphviz::
-   :caption: Simple survival analysis workflow.
+.. figure:: ../../docs/_static/survival_simple.pdf
+   :scale: 65 %
+   :alt: Survival Simple diagram
+   :figwidth: 75 %
 
-   digraph SURV_SIMPL_workflow {
-      Data [group = g1; shape = invhouse, label = "Data"];
-      surv [shape = box; label = "Surv(pfs_days, pfs)     "];
-      survdif [shape = box; label = "survdiff(Surv() ~ gene)        "];
-      pchisq [shape = box; label = "p.value =   \npchisq()"];
-      survfit [shape = box; label = "survfit()  "];
-      summary [shape = box; label = "summary()"];
-      print [shape = box; label = "print()  "];
+   Diagram of 'Survival Simple' workflow.
 
-      Data -> surv
 
-      subgraph cluster_1 {
-         style = filled;
-         color = lightgrey;
-         label = "Survival package    ";
-         node [style = filled, color = white];
-         surv -> survdif -> survfit;
-      }
-      survdif -> pchisq -> print;
-      survfit -> summary -> print;
-
-   }
 
 .. _The Cancer Genome Atlas (TCGA): http://cancergenome.nih.gov/
 .. _survival package: https://cran.r-project.org/web/packages/survival/index.html
@@ -64,3 +47,8 @@ License
 | License: `GPL version 2 or higher`_
 
 .. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
+
+.. raw:: latex
+
+    \clearpage
+
