@@ -187,10 +187,12 @@ stats <- function(data, percentage = 1) {
             })
 
   # combine and return results with low p vals
-  res <- do.call("rbind",unlist(res, recursive = FALSE))
+  res <- sapply(res, rbind)
+  res <- as.data.frame(t(res))
+  print(head(res))
   res <- subset(res, p < 1e-3)
   if (DEBUGGING) cat("> END: stats()\n")
-  return(res[complete.cases(res), ])
+  return(res)
 }
 
 ### reporting of timings
