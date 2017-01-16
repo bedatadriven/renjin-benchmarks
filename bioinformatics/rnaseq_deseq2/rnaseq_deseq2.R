@@ -333,7 +333,6 @@ do.deseq2.diffexp <- function(DATA){
   if(DEBUGGING) cat(">>> DONE: surrogate variables\n")
 
   if(DEBUGGING) cat("> END: do.deseq2.diffexp()\n")
-  return(ddssva)
  }
 
 do.deseq2.timecrs <- function(){
