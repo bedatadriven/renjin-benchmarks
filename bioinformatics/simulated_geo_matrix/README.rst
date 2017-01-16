@@ -228,3 +228,8 @@ License
 
 .. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
 
+
+.. raw:: latex
+
+    \clearpage
+
