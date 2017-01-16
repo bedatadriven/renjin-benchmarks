@@ -11,6 +11,8 @@ DEBUGGING <- FALSE
 ##### loading packages #####
 library(survival)
 ##### Set global vars #####
+files = list.files()
+print(files)
 files = list.files(path = ".", pattern = "txt$")
 
 ##### Blocks for timing #####

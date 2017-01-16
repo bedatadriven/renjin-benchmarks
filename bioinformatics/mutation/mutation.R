@@ -130,8 +130,6 @@ wapply <- function(x, width, by = NULL, FUN = NULL, ...) {
     lapply(indices, function(a) FUN(x[a], ...)),
     higher = TRUE)
   if (DEBUGGING) cat("> End: wapply()\n")
-  print(names(windows))
-  print(str(windows))
   return(windows)
 }
 
@@ -364,7 +362,7 @@ do.ibd.vector <- function(fam, scores) {
     genotype.vec <- cbind(maf1$genotype, maf2$genotype)
     if (DEBUGGING) cat(">>> DONE: cbind()\n")
     # score each pair
-    genotype.score <- apply(genotype.vec, 1, function(x) scores[x[1], x[2]])
+    genotype.score <- apply(genotype.vec, 1, function(x) {scores[x[1], x[2]]})
     if (DEBUGGING) cat(">>> DONE: apply(genotype,score)\n")
     if (DEBUGGING) cat(">>> End: do.ibd()\n")
 
@@ -379,8 +377,6 @@ do.ibd.vector <- function(fam, scores) {
 
   if (DEBUGGING) {
     cat("> number of combinations:\n")
-    print(length(combn(1:length(fam), 2, simplify = FALSE)))
-    print(str(combn(1:length(fam), 2, simplify = FALSE)))
     }
   fam.scores <- lapply(combn(1:length(fam), 2, simplify = FALSE), # all pairwise combinations
                        # calculate ibd score vector

@@ -7,8 +7,6 @@ START_WORKFLOW <- as.numeric(Sys.time())
 # License: http://www.gnu.org/licenses/gpl.html GPL version 2 or higher
 #
 
-### set up session
-rm(list=ls())
 # reproducibility
 set.seed(8008)
 DEBUGGING <- FALSE
