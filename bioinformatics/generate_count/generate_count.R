@@ -1,3 +1,4 @@
+START_WORKFLOW <- as.numeric(Sys.time())
 #
 # Copyright (c) 2015-2016 BeDataDriven B.V.
 # License: https://opensource.org/licenses/Artistic-2.0 Artistic-2.0
@@ -93,3 +94,8 @@ colnames(data) <- c('gene', colnames(dt)[7:ncol(dt)])
 
 
 print(data[nrow(data),ncol(data)])
+
+END_WORKFLOW <- as.numeric(Sys.time())
+TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
+print(TOTAL_TIME)
+write(TOTAL_TIME, file = "TIMINGS", append = TRUE)

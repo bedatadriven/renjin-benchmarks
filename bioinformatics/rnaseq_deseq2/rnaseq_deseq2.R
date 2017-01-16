@@ -1,3 +1,4 @@
+START_WORKFLOW <- as.numeric(Sys.time())
 #
 # Copyright (c) 2015 Wolfgang Huber
 # based on  `DOI: 10.12688/f1000research.7035.1 <http://www.doi.org/10.12688/f1000research.7035.1>`
@@ -381,6 +382,11 @@ DATA <- do.deseq2.explr(DATA)
 DATA <- do.deseq2.diffexp(DATA)
 
 do.deseq2.timecrs()
+
+END_WORKFLOW <- as.numeric(Sys.time())
+TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
+print(TOTAL_TIME)
+write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
 
 # final clean up
 rm(list=ls())

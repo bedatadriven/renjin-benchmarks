@@ -1,3 +1,4 @@
+START_WORKFLOW <- as.numeric(Sys.time())
 # Copyright (c) 2005 Gordon Smyth
 # based on http://www.bioconductor.org/packages/release/bioc/html/limma.html
 # Copyright (c) 2015 Ieuan Clay
@@ -302,5 +303,9 @@ gs <- do.geneset.examples()
 print(tail(res))
 print(tail(gs))
 # final clean up
+END_WORKFLOW <- as.numeric(Sys.time())
+TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
+print(TOTAL_TIME)
+write(TOTAL_TIME,file="TIMINGS",append=TRUE)
 rm(list=ls())
 gc()

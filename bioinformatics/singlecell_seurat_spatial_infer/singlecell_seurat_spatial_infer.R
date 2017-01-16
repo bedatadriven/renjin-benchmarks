@@ -1,3 +1,4 @@
+START_WORKFLOW <- as.numeric(Sys.time())
 # Copyright (c) 2015 Rahul Satija
 # based on code from http://www.satijalab.org/seurat-intro.html
 # Copyright (c) 2015-2016 BeDataDriven B.V.
@@ -266,3 +267,8 @@ zf.cells.render(zf, plate.cells, do.rotate = FALSE, radius.use = 0.0625, col.use
 
 #endoderm progenitors
 zf.cells.render(zf, endo.cells, do.rotate = FALSE, radius.use = 0.0625, col.use = pop.cols[2], do.new = TRUE)
+
+END_WORKFLOW <- as.numeric(Sys.time())
+TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
+print(TOTAL_TIME)
+write(TOTAL_TIME,file="TIMINGS",append=TRUE)

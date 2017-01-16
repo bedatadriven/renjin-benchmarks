@@ -1,3 +1,4 @@
+START_WORKFLOW <- as.numeric(Sys.time())
 # Copyright (c) 2015 Ieuan Clay
 # based on code from https://github.com/biolion/genbench
 # Copyright (c) 2015-2016 BeDataDriven B.V.
@@ -149,6 +150,12 @@ km <- do.km(dist_mat = dist_mat)
 print(str(dist_mat))
 print(str(hc))
 print(str(km))
+
+END_WORKFLOW <- as.numeric(Sys.time())
+TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
+print(TOTAL_TIME)
+write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
+
 # final clean up
 rm(list=ls())
 gc()

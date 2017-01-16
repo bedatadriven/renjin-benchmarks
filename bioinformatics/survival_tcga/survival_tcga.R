@@ -6,7 +6,8 @@
 ## Survival analysis
 
 ##### set up session #####
-rm(list=ls())
+rm(list = ls())
+START_WORKFLOW <- as.numeric(Sys.time())
 # reproducibility
 set.seed(8008)
 
@@ -68,6 +69,11 @@ params$nalpha  <- length(params$alpha)
 
   print(str(res))
 
+END_WORKFLOW <- as.numeric(Sys.time())
+TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
+print(TOTAL_TIME)
+write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
+
 # final clean up
-rm(list=ls())
+rm(list = ls())
 gc()

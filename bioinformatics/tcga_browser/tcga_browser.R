@@ -6,7 +6,7 @@
 # Workflows used in TCGA Browser Shiny app.
 
 ##### set up session #####
-rm(list = ls())
+START_WORKFLOW <- as.numeric(Sys.time())
 set.seed(1000)
 
 
@@ -596,6 +596,10 @@ DATA_sur <- do.load(DATA_DIR, "Survival")
 DATA_sur <- do.preprocess(DATA_sur, "Survival")
 
 do.analyse(DATA_sur, "Survival")
+END_WORKFLOW <- as.numeric(Sys.time())
+TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
+print(TOTAL_TIME)
+write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
 
 # final clean up
 rm(list = ls())
