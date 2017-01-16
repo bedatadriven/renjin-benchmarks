@@ -8,7 +8,25 @@ Bioinformatics
 Introduction
 ************
 
-Bioinformatic workflows used in different fields of biology for educational and benchmarking purposes. This is and will stay a work in progress and we welcome any user to submit PRs to include their workflows. 
+Here we have gathered bioinformatic workflows used in different fields of biology. For each benchmark we have 
+included a brief description containing information about its usage, package dependencies, and sources of input 
+data. Moreover, each benchmark is stored in a seperate folder with defined structure and includes information 
+about the package and dataset versions used.
+
+.. figure:: ../docs/_static/benchmark_structure.pdf
+   :scale: 75 %
+   :alt: Benchmark structure
+   :figwidth: 50 %
+
+   The folder name is the name of the benchmark and the file containing the R code. Each folder 
+   contains a Debian Control File containing Title and Description tags and for each input file a File, URL, and 
+   Hash tags. In addition, there is “packrat.R” file containing the detailed information about each package that 
+   is used in the workflow. 
+
+
+So far the benchmarks include analysis of gene expression profiling (array and sequencing based 
+methods), protein analysis, gene set enrichment analysis, network analysis, analysis of clinical data, and 
+visualization of these data.
 
 List of bioinformatic benchmarks included in this repository.
 
@@ -23,11 +41,11 @@ List of bioinformatic benchmarks included in this repository.
 +---------------------------------+----------------------------------------------------------------------------+
 | generate_count                  | Generate count tables from RNAseq data                                     |
 +---------------------------------+----------------------------------------------------------------------------+
-| integration_igraph              | Integerate different biological data with iGraph                           |
+| integration_igraph              | Integrate different biological data with iGraph                            |
 +---------------------------------+----------------------------------------------------------------------------+
-| integration_livercohort         | Integrate data from liver cohort study with another data sourc             |
+| integration_livercohort         | Integrate data from liver cohort study with another data source            |
 +---------------------------------+----------------------------------------------------------------------------+
-| microarray                      | Analysis of microarray datasets                                            |  
+| microarray                      | Analysis of MicroArray datasets                                            |  
 +---------------------------------+----------------------------------------------------------------------------+
 | mutation                        | Analysis of SNP data                                                       |
 +---------------------------------+----------------------------------------------------------------------------+
@@ -39,16 +57,15 @@ List of bioinformatic benchmarks included in this repository.
 +---------------------------------+----------------------------------------------------------------------------+
 | simulated_geo_matrix            | Analysis of simulated gene expression and patient meta data                |
 +---------------------------------+----------------------------------------------------------------------------+
-| singlecell_seurat_mrkr_discov   | Single cell gene expression analysis for marker discovery (using Seurat)   |
-+---------------------------------+----------------------------------------------------------------------------+
-| singlecell_seurat_spatial_infer | Single cell gene expression analysis for sepatial inference (using Seurat) |
-+---------------------------------+----------------------------------------------------------------------------+
 | survival_simple                 | Simple survival analysis                                                   |
 +---------------------------------+----------------------------------------------------------------------------+
 | survival_tcga                   | Survival analysis using TCGA data                                          |
 +---------------------------------+----------------------------------------------------------------------------+
 | tcga_browser                    | Modules used in a shiny app to visualize TCGA data                         |
 +---------------------------------+----------------------------------------------------------------------------+
+
+We accept contributions to this list through Pull Requests (PR) after we have validated the requested benchmark for 
+correctness and if the workflow is not covered by existing benchmarks.
 
 ************
 Workflows
@@ -68,9 +85,20 @@ Workflows
     rnaseq_deseq2/README
     rppa/README
     simulated_geo_matrix/README
-    singlecell_seurat_mrkr_discov/README
-    singlecell_seurat_spatial_infer/README
     survival_simple/README
     survival_tcga/README
     tcga_browser/README
+
+.. raw:: latex
+
+    \clearpage
+
+********************
+Performance in GNU R
+********************
+
+.. toctree::
+    :maxdepth: 1
+
+    gnuR_profile.rst
 
