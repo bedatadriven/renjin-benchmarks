@@ -1,0 +1,19 @@
+digraph SURV_SIMPL_workflow {
+	Data [group = g1; shape = invhouse, label = "Data"];
+	surv [shape = box; label = "Surv(pfs_days, pfs)     "];
+	survdif [shape = box; label = "survdiff(Surv() ~ gene)        "];
+	pchisq [shape = box; label = "p.value =   \npchisq()"];
+	survfit [shape = box; label = "survfit()  "];
+	summary [shape = box; label = "summary()"];
+	print [shape = box; label = "print()  "];
+	Data -> surv
+	subgraph cluster_1 {
+	 style = filled;
+	 color = lightgrey;
+	 label = "Survival package    ";
+	 node [style = filled, color = white];
+	 surv -> survdif -> survfit;
+	}
+	survdif -> pchisq -> print;
+	survfit -> summary -> print;
+}

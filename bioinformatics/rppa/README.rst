@@ -25,36 +25,13 @@ limitation of RPPA.
 In this workflow, `RPPA dataset`_ from TCGA consortium is clustered using R
 hierarchical clustering  and K-means clustering from 'stats' package.
 
-.. graphviz::
-   :caption: RPPA workflow
+.. figure:: ../../docs/_static/rppa.pdf
+   :scale: 65 %
+   :alt: RPPA workflow diagram
+   :figwidth: 75 %
 
-   digraph RPPA_workflow {
-      Data [shape = invhouse, label = "RPPA data (TCGA)"];
-      cor_pearson [label = "cor(method = pearson)"];
-      hclust_ward [label = "hclust\n(method = ward)"];
-      within_ss [label = "within clusters\nsum of squares"];
-      elbow [label = "optimal cut\nElbow method"];
-      kmeans_hart [label = "kmeans\n(algorithm = HW)"];
+   Diagram of 'rppa' workflow.
 
-      subgraph cluster_1 {
-         style = filled;
-         color = lightgrey;
-         hclust_ward -> within_ss;
-         label = "Hierarchical\nClustering";
-      }
-
-      subgraph cluster_2 {
-         style = filled;
-         color = lightgrey;
-         kmeans_hart;
-         label = "K-means\nClustering";
-      }
-
-      Data -> cor_pearson -> hclust_ward;
-      cor_pearson -> kmeans_hart;
-      within_ss -> elbow;
-      kmeans_hart -> elbow;
-   }
 
 .. _RPPA dataset: http://tcga-data.nci.nih.gov/docs/publications/TCGApancan_2014/RPPA_input.csv
 
@@ -77,4 +54,9 @@ License
 * Copyright (c) 2015-2016 BeDataDriven B.V.  License: `GPL version 2 or higher`_
 
 .. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
+
+
+.. raw:: latex
+
+    \clearpage
 

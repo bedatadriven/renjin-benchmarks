@@ -1,0 +1,90 @@
+   digraph MICROARRAY {
+    fontname="sans-serif";
+    penwidth="0.1";
+    compound="true";
+    edge [comment="Wildcard edge", fontname="sans-serif", fontsize=10, colorscheme="blues3", color=2, fontcolor=3];
+    node [fontname="serif", fontsize=13, fillcolor="1", colorscheme="blues4", color="2", fontcolor="4", style="filled"];
+    subgraph "cluster0" {
+        label="(down)load data";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        c0_data [shape="invhouse", 
+                 label="GSE45417_RAW.tar"];
+        c0_anno_df [shape="box", 
+                    label="create an AnnotatedDataFrame() \n data.frame(Name, FileName, Group, Treatment, Replicate)"];
+        c0_read [label="read.affybatch()"];
+        c0_data -> c0_anno_df;
+        c0_anno_df -> c0_read;
+    }
+
+    subgraph "cluster1" {
+        label="Perform QC";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        c1_qc [label="affy::AffyRNAdeq()"];
+        c1_drop [shape="box", 
+                 label="Drop samples with abnormal \n RNA degradattion slope"];
+        c0_read -> c1_qc  [ltail="cluster0", 
+                           lhead="cluster1"];
+        c1_filt [label="filtered samples"];
+        c1_qc -> c1_drop;
+        c1_drop -> c1_filt;
+    }
+
+    subgraph "cluster2" {
+        label="Normalize and scale";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        c2_filt [label="filtered samples"];
+        c1_filt -> c2_filt  [ltail="cluster1", 
+                             lhead="cluster2"];
+        c2_rma [shape="box",label="Robust multi-array average \n rma(normalize=TRUE)"];
+        c2_mas [shape="box",label="MAS5 normalization \n mas5(normalize=TRUE)"];
+        c2_mas_filt [label="filtered data"];
+        c2_filt -> c2_rma;
+        c2_filt -> c2_mas;
+        c2_mas -> c2_mas_filt;
+        {
+            rank=same;
+            edge [comment="Wildcard node added automatic in EG."];
+            node [comment="Wildcard node added automatic in EG."];
+            c2_rma;
+            c2_mas;
+        }
+
+    }
+
+    subgraph "cluster3" {
+        label="Limma analysis";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        c3_mas_filt [label="filtered data"];
+        c2_mas_filt -> c3_mas_filt  [ltail="cluster2", lhead="cluster3"];
+        c3_design [shape="box",label="model.matirx(~group*treatment)"];
+        c3_fit [label="lmFit()\ncontrast.fit()\neBayes()\ntopTable(adjust=BH)"];
+        c3_mas_filt -> c3_design;
+        c3_design -> c3_fit;
+
+    }
+
+    subgraph "cluster4" {
+        label="Gene Set Analysis";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        c4_deg [label="simulate"];
+        c2_mas_filt -> c4_deg  [ltail="cluster2", lhead="cluster4"];
+        c4_simd [shape="box",label="data (1e4 x 20)\ngene sets\nmodel.matrix"];
+        c4_rmr [shape="box",label="limma::romer()"];
+        c4_rmrtop [shape="box",label="topRomer()"];
+        c4_rst [shape="box",label="limma::mroast()"];
+        c4_rsttop [shape="box",label="Get top hits \n order(), subset()"];
+        c4_rbnd [shape="box",label="rbind()"];
+        c4_deg -> c4_simd -> c4_rmr;
+        c4_rmr -> c4_rmrtop;
+        c4_rmrtop -> c4_rbnd;
+        c4_simd -> c4_rst;
+        c4_rst -> c4_rsttop;
+        c4_rsttop -> c4_rbnd;
+
+    }
+   }

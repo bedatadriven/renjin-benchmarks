@@ -24,7 +24,10 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="Mutation" href="../mutation/README.html" />
+    <link rel="prev" title="Integration: Liver cohort" href="../integration_livercohort/README.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,7 +36,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../mutation/README.html" title="Mutation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../integration_livercohort/README.html" title="Integration: Liver cohort"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -67,6 +77,151 @@ contained more of that specific transcript.</p>
 data from <a class="reference external" href="http://doi.org/10.1016/j.molimm.2013.07.001">Ramsey et al 2013</a>. The raw data is normalized and differential gene
 expression analysis and a simple gene set testing is performed as described in limma
 vignet.</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-a051e7478c32b033670acc1c81417399dc57a316.png" alt="digraph MICROARRAY {
+ fontname=&quot;sans-serif&quot;;
+ penwidth=&quot;0.1&quot;;
+ compound=&quot;true&quot;;
+ edge [comment=&quot;Wildcard edge&quot;,
+       fontname=&quot;sans-serif&quot;,
+       fontsize=10,
+       colorscheme=&quot;blues3&quot;,
+       color=2,
+       fontcolor=3];
+ node [fontname=&quot;serif&quot;,
+       fontsize=13,
+       fillcolor=&quot;1&quot;,
+       colorscheme=&quot;blues4&quot;,
+       color=&quot;2&quot;,
+       fontcolor=&quot;4&quot;,
+       style=&quot;filled&quot;];
+ subgraph &quot;cluster0&quot; {
+     label=&quot;(down)load data&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c0_data [shape=&quot;invhouse&quot;,
+              label=&quot;GSE45417_RAW.tar&quot;];
+     c0_anno_df [shape=&quot;box&quot;,
+                 label=&quot;create an AnnotatedDataFrame() \n data.frame(Name, FileName, Group, Treatment, Replicate)&quot;];
+     c0_read [label=&quot;read.affybatch()&quot;];
+     c0_data -&gt; c0_anno_df;
+     c0_anno_df -&gt; c0_read;
+ }
+
+ subgraph &quot;cluster1&quot; {
+     label=&quot;Perform QC&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c1_qc [label=&quot;affy::AffyRNAdeq()&quot;];
+     c1_drop [shape=&quot;box&quot;,
+              label=&quot;Drop samples with abnormal \n RNA degradattion slope&quot;];
+     c0_read -&gt; c1_qc  [ltail=&quot;cluster0&quot;,
+                        lhead=&quot;cluster1&quot;];
+     c1_filt [label=&quot;filtered samples&quot;];
+     c1_qc -&gt; c1_drop;
+     c1_drop -&gt; c1_filt;
+ }
+
+ subgraph &quot;cluster2&quot; {
+     label=&quot;Normalize and scale&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c2_filt [label=&quot;filtered samples&quot;];
+     c1_filt -&gt; c2_filt  [ltail=&quot;cluster1&quot;,
+                          lhead=&quot;cluster2&quot;];
+     c2_rma [label=&quot;Robust multi-array average \n rma(normalize=TRUE)&quot;];
+     c2_mas [label=&quot;MAS5 normalization \n mas5(normalize=TRUE)&quot;];
+     c2_mas_log [label=&quot;log2(exprs())&quot;];
+     c2_filter [label=&quot;filter out probes \n&lt; 50 in 25% samples&quot;];
+     c2_filt -&gt; c2_rma;
+     c2_filt -&gt; c2_mas;
+     c2_mas -&gt; c2_mas_log;
+     c2_mas_log -&gt; c2_filter;
+     c2_mas_filt [label=&quot;filtered data&quot;];
+     c2_filter -&gt; c2_mas_filt;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c2_rma;
+         c2_mas;
+     }
+
+ }
+
+ subgraph &quot;cluster3&quot; {
+     label=&quot;Limma analysis&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c3_mas_filt [label=&quot;filtered data&quot;];
+     c2_mas_filt -&gt; c3_mas_filt  [ltail=&quot;cluster2&quot;,
+                                  lhead=&quot;cluster3&quot;];
+     c3_grp [label=&quot;pData()$Group&quot;];
+     c3_trt [label=&quot;pData()$Treatment&quot;];
+     c3_design [label=&quot;model.matirx(~group*treatment)&quot;];
+     c3_fit [label=&quot;lmFit()&quot;];
+     c3_cntm [label=&quot;cbind(0010,0011,0001)&quot;];
+     c3_fit2 [label=&quot;contrast.fit()&quot;];
+     c3_fit3 [label=&quot;eBayes()&quot;];
+     c3_top [label=&quot;topTable(adjust=BH)&quot;];
+     c3_mas_filt -&gt; c3_grp;
+     c3_grp -&gt; c3_design;
+     c3_mas_filt -&gt; c3_trt;
+     c3_trt -&gt; c3_design;
+     c3_design -&gt; c3_fit;
+     c3_mas_filt -&gt; c3_fit;
+     c3_fit -&gt; c3_fit2;
+     c3_fit2 -&gt; c3_fit3;
+     c3_fit3 -&gt; c3_top;
+     c3_cntm -&gt; c3_fit2;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c3_grp;
+         c3_trt;
+     }
+
+ }
+
+ subgraph &quot;cluster4&quot; {
+     label=&quot;Gene Set Analysis&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c4_deg [label=&quot;simulate&quot;];
+     c3_top -&gt; c4_deg  [ltail=&quot;cluster3&quot;,
+                        lhead=&quot;cluster4&quot;];
+     c4_simd [label=&quot;data \n 1e4 x 20&quot;];
+     c4_gset [label=&quot;gene sets&quot;];
+     c4_mod [label=&quot;model.matrix&quot;];
+     c4_rmr [label=&quot;limma::romer()&quot;];
+     c4_rmrtop [label=&quot;topRomer()&quot;];
+     c4_rst [label=&quot;limma::mroast()&quot;];
+     c4_rsttop [label=&quot;Get top hits \n order(), subset()&quot;];
+     c4_rbnd [label=&quot;rbind()&quot;];
+     c4_deg -&gt; c4_mod;
+     c4_mod -&gt; c4_rmr;
+     c4_mod -&gt; c4_rst;
+     c4_deg -&gt; c4_simd;
+     c4_simd -&gt; c4_rmr;
+     c4_rmr -&gt; c4_rmrtop;
+     c4_rmrtop -&gt; c4_rbnd;
+     c4_deg -&gt; c4_gset;
+     c4_gset -&gt; c4_rmr;
+     c4_simd -&gt; c4_rst;
+     c4_rst -&gt; c4_rsttop;
+     c4_rsttop -&gt; c4_rbnd;
+     c4_gset -&gt; c4_rst;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     }
+
+ }
+}" />
+</p>
+<p class="caption">Diagram for the microarray benchmark.</p>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 4 packages used in this workflow, which depend
@@ -110,6 +265,12 @@ on 5 additional packages (dependencies).</p>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../integration_livercohort/README.html"
+                        title="previous chapter">Integration: Liver cohort</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../mutation/README.html"
+                        title="next chapter">Mutation</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/bioinformatics/microarray/README.txt"
@@ -138,7 +299,14 @@ on 5 additional packages (dependencies).</p>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../mutation/README.html" title="Mutation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../integration_livercohort/README.html" title="Integration: Liver cohort"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

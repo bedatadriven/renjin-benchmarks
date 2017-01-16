@@ -2,10 +2,8 @@
 Bioinformatics benchmark workflows for Renjin
 =============================================
 
-Contents:
-
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
    prologue
    bioinformatics/README

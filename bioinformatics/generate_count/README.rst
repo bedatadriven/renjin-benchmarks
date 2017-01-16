@@ -43,3 +43,8 @@ License
 | License: `Apache License version 2.0 or higher`_
 
 .. _Apache License version 2.0 or higher: http://www.apache.org/licenses/LICENSE-2.0
+
+.. raw:: latex
+
+    \clearpage
+

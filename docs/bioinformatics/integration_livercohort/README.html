@@ -24,7 +24,10 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="Microarray" href="../microarray/README.html" />
+    <link rel="prev" title="Integration: iGraph" href="../integration_igraph/README.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,7 +36,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../microarray/README.html" title="Microarray"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../integration_igraph/README.html" title="Integration: iGraph"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -82,6 +92,159 @@ variance. A random sample of 25 genes are selected from 1000 genes with the
 highest variance and used in combination with triglyceride level phenotype.
 This is done in 50 iteration and the iteration with highest correlation in
 training and test sets is recorded.</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-9b82cb5c116fab0553825c9da99aead97d9b8484.png" alt="digraph INTEGRATION_LIVERCOHORT {
+ fontname=&quot;sans-serif&quot;;
+ penwidth=&quot;0.1&quot;;
+ compound=&quot;true&quot;;
+ edge [comment=&quot;Wildcard edge&quot;,
+       fontname=&quot;sans-serif&quot;,
+       fontsize=10,
+       colorscheme=&quot;blues3&quot;,
+       color=2,
+       fontcolor=3];
+ node [fontname=&quot;serif&quot;,
+       fontsize=13,
+       fillcolor=&quot;1&quot;,
+       colorscheme=&quot;blues4&quot;,
+       color=&quot;2&quot;,
+       fontcolor=&quot;4&quot;,
+       style=&quot;filled&quot;];
+
+ subgraph cluster0 {
+     label=&quot;Load &amp; prepare data&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     load [shape=&quot;box&quot;,
+           label=&quot;Load \n read.delim()&quot;];
+     process [shape=&quot;box&quot;,
+              label=&quot;Process: \n subset(), merge(), \n complete.cases()&quot;];
+     load -&gt; process;
+ }
+
+ subgraph cluster1 {
+     label=&quot;SVM predicting modeling&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     process -&gt; dataset  [ltail=&quot;cluster0&quot;,
+                          lhead=&quot;cluster1&quot;];
+     dataset [shape=&quot;invhouse&quot;,
+              label=&quot;Devide in train and test \n sets using rep(), sample()&quot;];
+     dataset -&gt; &quot;trainset&quot;  [label=&quot;1/3&quot;];
+     &quot;trainset&quot; -&gt; &quot;svm()&quot;;
+     &quot;svm()&quot; -&gt; &quot;predict()&quot;  [label=&quot;model&quot;];
+     &quot;predict()&quot; -&gt; &quot;classAgreement&quot;;
+     &quot;trainset&quot; -&gt; &quot;predict()&quot;;
+     dataset -&gt; &quot;testset&quot;  [label=&quot;2/3&quot;];
+     &quot;testset&quot; -&gt; &quot;predict()&quot;;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         &quot;trainset&quot;;
+         &quot;testset&quot;;
+     }
+
+ }
+
+ subgraph cluster2 {
+     label=&quot;NaiveBayesian modeling&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     process -&gt; c2_dataset  [ltail=&quot;cluster0&quot;,
+                             lhead=&quot;cluster2&quot;];
+     c2_explr [shape=&quot;box&quot;,
+               label=&quot;Explore dataset using: \n hclust(), prcomp(), t(), \n dist(), cutree(), cor()&quot;];
+     c2_explt [shape=&quot;box&quot;,
+               label=&quot;Plot exploratoy analysis \n with heatmap() and pairs()&quot;];
+     c2_explr -&gt; c2_explt;
+     c2_dataset [shape=&quot;invhouse&quot;,
+                 label=&quot;curatedPhen&quot;];
+     c2_make_cat [shape=box,
+                  label=&quot;create binary categories \n cut(quantile()), \n cutree(hclust())&quot;];
+     c2_train [label=&quot;trainset&quot;];
+     c2_test [label=&quot;testset&quot;];
+     c2_nb [label=&quot;naiveBayes()&quot;];
+     c2_pred [label=&quot;predict()&quot;];
+     c2_clsagr [label=&quot;classAgreement()&quot;];
+     c2_dataset -&gt; c2_explr;
+     c2_explr -&gt; c2_make_cat;
+     c2_dataset -&gt; c2_train  [label=&quot;1/3&quot;];
+     c2_dataset -&gt; c2_test  [label=&quot;2/3&quot;];
+     c2_train -&gt; c2_nb;
+     c2_nb -&gt; c2_pred  [label=&quot;model&quot;];
+     c2_test -&gt; c2_pred;
+     c2_pred -&gt; c2_clsagr;
+     c2_make_cat -&gt; c2_nb;
+     c2_train -&gt; c2_pred;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c2_train;
+         c2_test;
+     }
+
+ }
+
+ subgraph cluster3 {
+     label=&quot;Robust Linear Model fitting (RLM)&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     process -&gt; c3_expre  [ltail=&quot;cluster0&quot;,
+                           lhead=&quot;cluster3&quot;];
+     c3_pheno [shape=&quot;invhouse&quot;,
+               label=&quot;curatedPhen&quot;];
+     c3_expre [shape=&quot;invhouse&quot;,
+               label=&quot;curatedExpr&quot;];
+     c3_dataset [shape=&quot;invhouse&quot;,
+                 label=&quot;Devide in train and test \n sets using rep(), sample()&quot;];
+     c3_train [label=&quot;trainset&quot;];
+     c3_test [label=&quot;testset&quot;];
+     c3_expre -&gt; c3_dataset;
+     c3_dataset -&gt; c3_train  [label=&quot;1/3&quot;];
+     c3_dataset -&gt; c3_test  [label=&quot;2/3&quot;];
+     c3_feats [label=&quot;selected features&quot;];
+     c3_col_feat [shape=&quot;box&quot;,
+                  label=&quot;Remove low variance columns \n var(), rank()&quot;];
+     c3_row_feat [shape=&quot;box&quot;,
+                  label=&quot;Remove high correlation rows \n sum(), abs(), cor()&quot;];
+     c3_rlm_tri [label=&quot;rlm(triglyc ~ ., data)&quot;];
+     c3_pred [label=&quot;predict()&quot;];
+     c3_cor [label=&quot;cor()&quot;];
+     c3_train -&gt; c3_col_feat;
+     c3_col_feat -&gt; c3_feats;
+     c3_row_feat -&gt; c3_feats;
+     c3_feats -&gt; c3_rlm_tri;
+     c3_feats -&gt; c3_pred;
+     c3_feats -&gt; c3_cor;
+     c3_train -&gt; c3_rlm_tri;
+     c3_rlm_tri -&gt; c3_pred  [label=&quot;model&quot;];
+     c3_pred -&gt; c3_cor;
+     c3_test -&gt; c3_pred;
+     c3_pheno -&gt; c3_rlm_tri;
+     c3_pheno -&gt; c3_cor;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c3_train;
+         c3_test;
+     }
+
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c3_pheno;
+         c3_expre;
+     }
+
+ }
+
+}" />
+</p>
+<p class="caption">Diagram for integration livercohort benchmark.</p>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 3 packages used in this workflow, which depend
@@ -124,6 +287,12 @@ on 1 additional package from CRAN (dependency)</p>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../integration_igraph/README.html"
+                        title="previous chapter">Integration: iGraph</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../microarray/README.html"
+                        title="next chapter">Microarray</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/bioinformatics/integration_livercohort/README.txt"
@@ -152,7 +321,14 @@ on 1 additional package from CRAN (dependency)</p>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../microarray/README.html" title="Microarray"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../integration_igraph/README.html" title="Integration: iGraph"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

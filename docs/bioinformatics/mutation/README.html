@@ -24,7 +24,10 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="RNAseq DESeq2" href="../rnaseq_deseq2/README.html" />
+    <link rel="prev" title="Microarray" href="../microarray/README.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,7 +36,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../rnaseq_deseq2/README.html" title="RNAseq DESeq2"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../microarray/README.html" title="Microarray"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -49,6 +59,116 @@ In this workflow, individual mutation information is used to determine the
 relatedness between individuals and data from The Cancer Genome Atlas landmark
 paper on most common <a class="reference external" href="http://www.doi.org/10.1056/NEJMoa1301689">AML mutations</a> is used to reproduce some of the
 figures in this publication.</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-dac3b6b7939686968eb712b57f39cafbc884c7ef.png" alt="digraph MUTATION {
+    fontname=&quot;sans-serif&quot;;
+    compound=&quot;true&quot;;
+    penwidth=&quot;0.1&quot;;
+    edge [comment=&quot;Wildcard edge&quot;,
+          fontname=&quot;sans-serif&quot;,
+          fontsize=10,
+          colorscheme=&quot;blues3&quot;,
+          color=2,
+          fontcolor=3];
+    node [fontname=&quot;serif&quot;,
+          fontsize=13,
+          fillcolor=&quot;1&quot;,
+          colorscheme=&quot;blues4&quot;,
+          color=&quot;2&quot;,
+          fontcolor=&quot;4&quot;,
+          style=&quot;filled&quot;];
+    subgraph cluster0 {
+        label=&quot;Read data&quot;;
+        edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+        node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+        c0_input1 [shape=&quot;invhouse&quot;,
+                   label=&quot;AML genotype&quot;];
+        c0_input2 [shape=&quot;invhouse&quot;,
+                   label=&quot;AML meta&quot;];
+        c0_read [label=&lt;Read data&lt;BR/&gt;&lt;I&gt;read.delim()&lt;/I&gt;&gt;];
+        c0_check [shape=&quot;box&quot;,
+                  label=&lt;Validate data&lt;BR/&gt;&lt;I&gt;length(), intersect(), order()&lt;/I&gt;&gt;];
+        c0_out [label=&quot;list()&quot;];
+        c0_input1 -&gt; c0_read;
+        c0_read -&gt; c0_out;
+        c0_input2 -&gt; c0_read;
+        c0_out -&gt; c0_check;
+        {
+            rank=same;
+            edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+            node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+            c0_input1;
+            c0_input2;
+        }
+
+        {
+            rank=same;
+            edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+            node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+            c0_out;
+            c0_check;
+        }
+
+    }
+
+    subgraph cluster1 {
+        label=&quot;reproduce Figure 1a&quot;;
+        edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+        node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+        c1_in [shape=&quot;invhouse&quot;,
+               label=&lt;aggragate and format data&lt;BR/&gt;&lt;I&gt;rbind(), split(), table('tier')&lt;/I&gt;&gt;];
+        c1_meta [shape=&quot;invhouse&quot;,
+                 label=&quot;Meta data \n input$meta&quot;];
+        c1_mrg [label=&lt;Merge with meta information&lt;BR/&gt;&lt;I&gt;merge(x, y)&lt;/I&gt;&gt;];
+        c1_subs [label=&quot;subset('tier1')&quot;];
+        c1_plot [label=&quot;plot()&quot;];
+        c0_out -&gt; c1_in  [ltail=cluster0,
+                          lhead=cluster1];
+        c0_out -&gt; c1_meta  [ltail=cluster0,
+                            lhead=cluster1];
+        c1_in -&gt; c1_mrg  [label=&quot;x&quot;];
+        c1_meta -&gt; c1_mrg  [label=&quot;y&quot;];
+        c1_mrg -&gt; c1_subs;
+        c1_subs -&gt; c1_plot;
+    }
+
+    subgraph cluster2 {
+        label=&quot;reproduce Figure 1b&quot;;
+        edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+        node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+        c2_in [shape=&quot;invhouse&quot;,
+               label=&lt;aggragate and format data&lt;BR/&gt;&lt;I&gt;rbind(), split(), table('gene_name')&lt;/I&gt;&gt;];
+        c0_out -&gt; c2_in  [ltail=cluster0,
+                          lhead=cluster2];
+        c2_ordr [label=&quot;order(sample_count)&quot;];
+        c2_subs [label=&quot;subset('tier1')&quot;];
+        c2_head [label=&quot;head(100)\ndata.frame(gene_name, tier, sample_count)&quot;];
+        c2_in -&gt; c2_ordr;
+        c2_ordr -&gt; c2_subs;
+        c2_subs -&gt; c2_head;
+    }
+
+    subgraph cluster3 {
+        label=&quot;Load family data&quot;;
+        edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+        node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+        c3_input [label=&quot;Read genotyping data\n read.delim(genotypes)&quot;];
+        c3_genot [label=&lt;Summarize genotype freq's &lt;BR/&gt;&lt;I&gt;rbind(), table('genotype')&lt;/I&gt;&gt;];
+        c3_compu [shape=&quot;box&quot;,
+                  label=&lt;create mutation likelihood matrix &lt;BR/&gt;&lt;I&gt;matrix(ncol(genotypes), nrow(genotypes))&lt;/I&gt;&gt;];
+        c3_match [shape=&quot;box&quot;,
+                  label=&lt;compute likelihood scores&lt;BR/&gt;&lt;I&gt;number of matching alleles * allele occurence&lt;/I&gt;&gt;];
+        c3_ibdve [shape=&quot;box&quot;,
+                  label=&lt;Run sliding window over mutations and&lt;BR/&gt;compute 3rd Quantile of mean marker likelihoods&lt;BR/&gt;for different window sizes using&lt;BR/&gt;&lt;I&gt;lapply(), summary(), base:::simplify2array(), seq()&lt;/I&gt;&gt;];
+        c3_input -&gt; c3_genot;
+        c3_genot -&gt; c3_compu;
+        c3_compu -&gt; c3_match;
+        c3_match -&gt; c3_ibdve;
+    }
+
+}" />
+</p>
+<p class="caption">Diagram of mutation analysis workflow.</p>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 2 core packages used in this workflow, which have no dependencies.</p>
@@ -157,6 +277,12 @@ some typical tests carried out on pedigree studies, such as determining
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../microarray/README.html"
+                        title="previous chapter">Microarray</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../rnaseq_deseq2/README.html"
+                        title="next chapter">RNAseq DESeq2</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/bioinformatics/mutation/README.txt"
@@ -185,7 +311,14 @@ some typical tests carried out on pedigree studies, such as determining
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../rnaseq_deseq2/README.html" title="RNAseq DESeq2"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../microarray/README.html" title="Microarray"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -17,38 +17,12 @@ classification using SVM (from e1071 package). Data is devided into training
 and test sets and predictive models are generated for different features, these 
 models are then tested using test dataset and the results are stored in a list.
 
-.. graphviz::
-   :caption: Analytic workflow for clinical liver cohort.
+.. figure:: ../../docs/_static/clinical_livercohort.pdf
+   :scale: 75 %
+   :alt: clinical livercohort workflow
+   :figwidth: 75 %
 
-   digraph CLINICAL_liver {
-		{rank=same train test}
-		{rank=same svm_gender_train svm_tg_train}
-		{rank=same pred_gender_train pred_gender_test pred_tg_train pred_tg_test}
-		data [shape = invhouse, label = "Liver cohort data     \nread.delim()"];
-		sample [shape = box; label = "sample()"];
-		train [label = "Training set   "];
-		test [label = "Test set   "];
-		svm_gender_train [shape = box; label = "svm(y=gender)   "];
-		pred_gender_train [shape = box; label = "predict()   "];
-		pred_gender_test [shape = box; label = "predict()   "];
-		agree_gender_train [shape = box; label = "classAgreement()   "];
-		agree_gender_test [shape = box; label = "classAgreement()   "];
-		svm_tg_train [shape = box; label = "svm(y=triglyceride)   "];
-		pred_tg_train [shape = box; label = "predict()   "];
-		pred_tg_test [shape = box; label = "predict()   "];
-		rbind [shape = box; label = "do.call(rbind)   "];
-		print [shape = box; label = "print()   "];
-
-		data -> sample ->   train   -> svm_gender_train -> pred_gender_train -> agree_gender_train -> rbind -> print;
-		        sample ->   test    -> pred_gender_test  -> agree_gender_test;
-		                    train   -> svm_tg_train -> pred_tg_train;
-		                    test    -> pred_tg_test;
-		                    svm_gender_train -> pred_gender_test;
-		                    svm_tg_train -> pred_tg_test;
-		                    agree_gender_test -> rbind;
-		                    pred_tg_train -> rbind;
-		                    pred_tg_test -> rbind;
-	}
+   Analytic workflow for clinical liver cohort.
 
 
 Packages and Dependencies
@@ -76,4 +50,9 @@ License
 * Copyright (c) 2015-2016 BeDataDriven B.V.  License: `GPL version 2 or higher`_
 
 .. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
+
+
+.. raw:: latex
+
+    \clearpage
 

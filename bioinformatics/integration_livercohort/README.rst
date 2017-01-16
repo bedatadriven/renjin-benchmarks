@@ -45,160 +45,12 @@ highest variance and used in combination with triglyceride level phenotype.
 This is done in 50 iteration and the iteration with highest correlation in
 training and test sets is recorded.
 
+.. figure:: ../../docs/_static/integration_livercohort.pdf
+   :scale: 90 %
+   :alt: integration livercohort workflow
+   :figwidth: 75 %
 
-.. graphviz::
-   :caption: Diagram for integration livercohort benchmark.
-
-   digraph INTEGRATION_LIVERCOHORT {
-    fontname="sans-serif";
-    penwidth="0.1";
-    compound="true";
-    edge [comment="Wildcard edge", 
-          fontname="sans-serif", 
-          fontsize=10, 
-          colorscheme="blues3", 
-          color=2, 
-          fontcolor=3];
-    node [fontname="serif", 
-          fontsize=13, 
-          fillcolor="1", 
-          colorscheme="blues4", 
-          color="2", 
-          fontcolor="4", 
-          style="filled"];
-    subgraph cluster0 {
-        label="Load & prepare data";
-        edge [comment="Wildcard node added automatic in EG."];
-        node [comment="Wildcard node added automatic in EG."];
-        load [shape="box", 
-              label="Load \n read.delim()"];
-        process [shape="box", 
-                 label="Process: \n subset(), merge(), \n complete.cases()"];
-        load -> process;
-    }
-
-    subgraph cluster1 {
-        label="SVM predicting modeling";
-        edge [comment="Wildcard node added automatic in EG."];
-        node [comment="Wildcard node added automatic in EG."];
-        process -> dataset  [ltail="cluster0", 
-                             lhead="cluster1"];
-        dataset [shape="invhouse", 
-                 label="Devide in train and test \n sets using rep(), sample()"];
-        dataset -> "trainset"  [label="1/3"];
-        "trainset" -> "svm()";
-        "svm()" -> "predict()"  [label="model"];
-        "predict()" -> "classAgreement";
-        "trainset" -> "predict()";
-        dataset -> "testset"  [label="2/3"];
-        "testset" -> "predict()";
-        {
-            rank=same;
-            edge [comment="Wildcard node added automatic in EG."];
-            node [comment="Wildcard node added automatic in EG."];
-            "trainset";
-            "testset";
-        }
-
-    }
-
-    subgraph cluster2 {
-        label="NaiveBayesian modeling";
-        edge [comment="Wildcard node added automatic in EG."];
-        node [comment="Wildcard node added automatic in EG."];
-        process -> c2_dataset  [ltail="cluster0", 
-                                lhead="cluster2"];
-        c2_explr [shape="box", 
-                  label="Explore dataset using: \n hclust(), prcomp(), t(), \n dist(), cutree(), cor()"];
-        c2_explt [shape="box", 
-                  label="Plot exploratoy analysis \n with heatmap() and pairs()"];
-        c2_explr -> c2_explt;
-        c2_dataset [shape="invhouse", 
-                    label="curatedPhen"];
-        c2_make_cat [shape=box, 
-                     label="create binary categories \n cut(quantile()), \n cutree(hclust())"];
-        c2_train [label="trainset"];
-        c2_test [label="testset"];
-        c2_nb [label="naiveBayes()"];
-        c2_pred [label="predict()"];
-        c2_clsagr [label="classAgreement()"];
-        c2_dataset -> c2_explr;
-        c2_explr -> c2_make_cat;
-        c2_dataset -> c2_train  [label="1/3"];
-        c2_dataset -> c2_test  [label="2/3"];
-        c2_train -> c2_nb;
-        c2_nb -> c2_pred  [label="model"];
-        c2_test -> c2_pred;
-        c2_pred -> c2_clsagr;
-        c2_make_cat -> c2_nb;
-        c2_train -> c2_pred;
-        {
-            rank=same;
-            edge [comment="Wildcard node added automatic in EG."];
-            node [comment="Wildcard node added automatic in EG."];
-            c2_train;
-            c2_test;
-        }
-
-    }
-
-    subgraph cluster3 {
-        label="Robust Linear Model fitting (RLM)";
-        edge [comment="Wildcard node added automatic in EG."];
-        node [comment="Wildcard node added automatic in EG."];
-        process -> c3_expre  [ltail="cluster0", 
-                              lhead="cluster3"];
-        c3_pheno [shape="invhouse", 
-                  label="curatedPhen"];
-        c3_expre [shape="invhouse", 
-                  label="curatedExpr"];
-        c3_dataset [shape="invhouse", 
-                    label="Devide in train and test \n sets using rep(), sample()"];
-        c3_train [label="trainset"];
-        c3_test [label="testset"];
-        c3_expre -> c3_dataset;
-        c3_dataset -> c3_train  [label="1/3"];
-        c3_dataset -> c3_test  [label="2/3"];
-        c3_feats [label="selected features"];
-        c3_col_feat [shape="box", 
-                     label="Remove low variance columns \n var(), rank()"];
-        c3_row_feat [shape="box", 
-                     label="Remove high correlation rows \n sum(), abs(), cor()"];
-        c3_rlm_tri [label="rlm(triglyc ~ ., data)"];
-        c3_pred [label="predict()"];
-        c3_cor [label="cor()"];
-        c3_train -> c3_col_feat;
-        c3_col_feat -> c3_feats;
-        c3_row_feat -> c3_feats;
-        c3_feats -> c3_rlm_tri;
-        c3_feats -> c3_pred;
-        c3_feats -> c3_cor;
-        c3_train -> c3_rlm_tri;
-        c3_rlm_tri -> c3_pred  [label="model"];
-        c3_pred -> c3_cor;
-        c3_test -> c3_pred;
-        c3_pheno -> c3_rlm_tri;
-        c3_pheno -> c3_cor;
-        {
-            rank=same;
-            edge [comment="Wildcard node added automatic in EG."];
-            node [comment="Wildcard node added automatic in EG."];
-            c3_train;
-            c3_test;
-        }
-
-        {
-            rank=same;
-            edge [comment="Wildcard node added automatic in EG."];
-            node [comment="Wildcard node added automatic in EG."];
-            c3_pheno;
-            c3_expre;
-        }
-
-    }
-
-}
-
+   Diagram for integration livercohort benchmark.
 
 Packages and Dependencies
 -------------------------
@@ -226,4 +78,9 @@ License
 * Copyright (c) 2015-2016 BeDataDriven B.V.  License: `GPL version 2 or higher`_
 
 .. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
+
+
+.. raw:: latex
+
+    \clearpage
 

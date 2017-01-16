@@ -1,0 +1,27 @@
+digraph RPPA_workflow {
+	Data [shape = invhouse, label = "RPPA data (TCGA)"];
+	cor_pearson [label = "cor(method = pearson)"];
+	hclust_ward [label = "hclust\n(method = ward)"];
+	within_ss [label = "within clusters\nsum of squares"];
+	elbow [label = "optimal cut\nElbow method"];
+	kmeans_hart [label = "kmeans\n(algorithm = HW)"];
+
+	subgraph cluster_1 {
+	 style = filled;
+	 color = lightgrey;
+	 hclust_ward -> within_ss;
+	 label = "Hierarchical\nClustering";
+	}
+
+	subgraph cluster_2 {
+	 style = filled;
+	 color = lightgrey;
+	 kmeans_hart;
+	 label = "K-means\nClustering";
+	}
+
+	Data -> cor_pearson -> hclust_ward;
+	cor_pearson -> kmeans_hart;
+	within_ss -> elbow;
+	kmeans_hart -> elbow;
+}

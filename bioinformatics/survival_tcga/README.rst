@@ -14,24 +14,12 @@ In this workflow, survival analysis is performed on TCGA meta and survival data
 using the Cox regression model. The `glmnet package`_ is one of the most
 efficient packages for such an analysis in R.
 
-.. graphviz::
-   :caption: Survival workflow with TCGA dataset and glmnet()
+.. figure:: ../../docs/_static/survival_tcga.pdf
+   :scale: 75 %
+   :alt: Survival TCGA diagram
+   :figwidth: 75 %
 
-   digraph SURV_TCGA_workflow {
-		Data [group = g1; shape = invhouse, label = "Survival data (TCGA)"];
-		xdata [shape = box; label = "xdata:\nExpression"];
-		ydata [shape = box; label = "ydata:\nSurvival"];
-		params [group = g1; shape = box; label = "n lambda: 10k\nalpha: seq(0 , 1, .1)        \nn alpha: 11"];
-		glmnet [group = g1; shape = box; label = "glmnet(xdata, ydata    \nalpha, family=cox)    "];
-		Data -> xdata;
-		Data -> ydata;
-		xdata -> glmnet;
-		ydata -> glmnet;
-		glmnet -> glmnet [label = " n alpha   "];
-
-		edge[style=invis];
-		glmnet -> params;
-	}
+   Diagram of Survival TCGA workflow.
 
 .. _The Cancer Genome Atlas (TCGA): http://cancergenome.nih.gov/
 .. _glmnet package: https://cran.r-project.org/web/packages/glmnet/index.html
@@ -61,3 +49,8 @@ License
 | License: `GPL version 2 or higher`_
 
 .. _GPL version 2 or higher: http://www.gnu.org/licenses/gpl.html
+
+.. raw:: latex
+
+    \clearpage
+

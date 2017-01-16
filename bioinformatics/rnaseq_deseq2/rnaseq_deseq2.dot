@@ -1,0 +1,83 @@
+digraph GRAPH_ID {
+fontname="sans-serif";
+penwidth="0.1";
+compound="true";
+edge [comment="Wildcard edge", 
+      fontname="sans-serif", 
+      fontsize=10, 
+      colorscheme="blues3", 
+      color=2, 
+      fontcolor=3];
+node [fontname="serif", 
+      fontsize=10, 
+      fillcolor="1", 
+      colorscheme="blues4", 
+      color="2", 
+      fontcolor="4", 
+      style="filled"];
+subgraph "cluster0" {
+    label="Read raw data";
+    edge [comment="subgraph edge wildcard"];
+    node [comment="subgraph node wildcard"];
+    "bams" [shape="invhouse", label="BAM Files"];
+    "bamfilelist" [label="BamFileList \n (yieldsize=2e6)"];
+    "gtf" [shape="invhouse", label="GTF"];
+    "c0_mtxdb" [label="makeTxDbFromGFF \n (format=GTF) \n\n exonsBy \n (by=gene)"];
+    "se" [group=g1, label="summarizeOverlaps()"];
+    "dds" [colorscheme="ylorrd3", label="DESeqDataSet \n (design=~cell+dex)"];
+    "c0_countdata" [label="assay() \n colData()"];
+    "ddsMat" [shape="box", label="DESeqDataSetFromMatrix( \n countdata, colData, \n design=~cell+dex)"];
+    "bams" -> "bamfilelist";
+    "gtf" -> "c0_mtxdb";
+    "c0_mtxdb" -> "se";
+    "bamfilelist" -> "se";
+    "se" -> "dds";
+    "se" -> "c0_countdata";
+    "c0_countdata" -> "ddsMat";
+    "dds" -> "ddsMat";
+}
+
+subgraph "cluster1" {
+    label="Exploratory analysis";
+    edge [comment="subgraph edge wildcard"];
+    node [comment="subgraph node wildcard"];
+    "c1_dds" [colorscheme="ylorrd3", label="DESeqDataSet"];
+    "ddsMat" -> "c1_dds" [ltail="cluster0", lhead="cluster1"]
+    "plot_rlog" [shape="box", label="plot() \n plotPCA() \n MDS plot"];
+    "dds_eSF" [shape="box", label="estimateSizeFactors()"];
+    "pheatmap_dds" [shape="box",  label="dist()\npheatmap() \n MDS Plot"];
+    "dds_rlog" [label="rlog()"];
+    "pheatmap_cnt_pois" [shape="box", label="PoissonDistance()\npheatmap()\nMDS plot"];
+    "c1_dds" -> "dds_eSF";
+    "dds_eSF" -> "pheatmap_dds";
+    "c1_dds" -> "dds_rlog";
+    "dds_rlog" -> "plot_rlog";
+    "dds_eSF" -> "pheatmap_cnt_pois";
+}
+
+subgraph "cluster2" {
+    label="Differential Expression";
+    edge [comment="subgraph edge wildcard"];
+    node [comment="subgraph node wildcard"];
+    "c2_dds" [label="DESeqDataSet", colorscheme="ylorrd3"];
+    "ddsMat" -> "c2_dds" [ltail="cluster0", lhead="cluster2"]
+    "c2_assay" [shape="box", label="rlog() \n↳ assay() \n ↳ rowVars() \n ↳ order() \n ↳ head()"];
+    "c2_pheatmap" [shape="box", label="pheatmap()"];
+    "dds_eSF_deseq" [shape="box", label="DESeq() \n results() \n quantile() \n cut()"];
+    "c2_plotCounts" [shape="box", label="plotCounts()\n hist()\n plotMA() \n barplot()"];
+    "c2_res_granges" [shape="box", label="results(format=GRanges) \n mapIds() \n strand()"];
+    "c2_init_tracks" [shape="box",label="GenomeAxisTrack() \n AnnotationTrack() \n DataTrack() \n plotTrack()"];
+    "c2_counts" [shape="box", label="counts(normalized=TRUE) \n svaseq(n.sv=2)"];
+    "c2_design" [shape="box", label="design(~SV1+SV2+dex) \n DESeq()"];
+    "c2_stripchart" [shape="box", label="stripchart()"];
+    "c2_dds" -> "dds_eSF_deseq";
+    "dds_eSF_deseq" -> "c2_plotCounts";
+    "c2_dds" -> "c2_res_granges";
+    "c2_res_granges" -> "c2_init_tracks";
+    "c2_dds" -> "c2_assay";
+    "c2_assay" -> "c2_pheatmap";
+    "c2_dds" -> "c2_counts";
+    "c2_counts" -> "c2_design";
+    "c2_counts" -> "c2_stripchart";
+}
+}

@@ -24,7 +24,10 @@
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" /> 
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="Clinical eslII (Essential Statistics Learning 2nd Edition)" href="../clinical_eslII/README.html" />
+    <link rel="prev" title="Bioinformatics" href="../README.html" /> 
   </head>
   <body>
     <div class="related">
@@ -33,7 +36,14 @@
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../clinical_eslII/README.html" title="Clinical eslII (Essential Statistics Learning 2nd Edition)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../README.html" title="Bioinformatics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -62,11 +72,202 @@ a CDF format/file. By comparing the intensity of red to green at each spot you c
 contained more of that specific transcript.</p>
 <p>This workflow is provided by <a class="reference external" href="http://www.arrayanalysis.org">ArrayAnalysis.org</a> and its code has been
 merged into single R script. It performs array normalization and differential expression analysis, and
-plots the important Quality Control plots. Dataset used in this workflow is from a study by <a class="reference external" href="doi.org/10.1016/j.molimm.2013.07.001">Ramsey JE
-et al 2013</a> in which the effects of presence/absence of ZXDC gene
+plots the important Quality Control plots. Dataset used in this workflow is from a study by <a class="reference external" href="http://dx.doi.org/10.1016/j.molimm.2013.07.001">Ramsey JE et al 2013</a> in which the effects of presence/absence of ZXDC gene
 before and during differentiation of a white blood cell type is studied. The corresponding data can be
 downloaded from Gene Expression Omnibus repository using accession number GSE45417. For more information
 about this workflow please visit <a class="reference external" href="http://www.arrayanalysis.org">ArrayAnalysis.org</a>.</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-bbef3973f1665edbc9ae10a506b8b6735983173c.png" alt="digraph AFFY_diagram {
+ ranksep=1;
+ fontname=&quot;sans-serif&quot;;
+ compound=&quot;true&quot;;
+ penwidth=&quot;0.1&quot;;
+ edge [comment=&quot;Wildcard edge&quot;,
+       fontname=&quot;sans-serif&quot;,
+       fontsize=10,
+       colorscheme=&quot;blues3&quot;,
+       color=2,
+       fontcolor=3];
+ node [fontname=&quot;serif&quot;,
+       fontsize=13,
+       fillcolor=&quot;1&quot;,
+       colorscheme=&quot;blues4&quot;,
+       color=&quot;2&quot;,
+       fontcolor=&quot;4&quot;,
+       style=&quot;filled&quot;];
+
+ subgraph &quot;cluster0&quot; {
+     label=&quot;Raw data QC graphs&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     &quot;c0_rawData&quot; [shape=&quot;invhouse&quot;,
+                   label=&quot;rawData&quot;,
+                   colorscheme=&quot;ylorrd3&quot;];
+     &quot;c0_plot&quot; [shape=&quot;box&quot;,
+                label=&quot;plot&quot;];
+     &quot;c0_rawData&quot; -&gt; &quot;samplePrepPlot()&quot;;
+     &quot;samplePrepPlot()&quot; -&gt; &quot;c0_plot&quot;;
+     &quot;c0_rawData&quot; -&gt; &quot;ratioPlot()&quot;;
+     &quot;ratioPlot()&quot; -&gt; &quot;c0_plot&quot;;
+     &quot;c0_rawData&quot; -&gt; &quot;RNAdegPlot()&quot;;
+     &quot;RNAdegPlot()&quot; -&gt; &quot;c0_plot&quot;;
+ }
+
+ subgraph &quot;cluster1&quot; {
+     label=&quot;Spike-in Controls&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     &quot;c0_plot&quot; -&gt; &quot;c1_rawData&quot;  [style=&quot;bold&quot;,
+                                 ltail=&quot;cluster0&quot;,
+                                 lhead=&quot;cluster1&quot;,
+                                 penwidth=&quot;5.0&quot;];
+     &quot;c1_rawData&quot; [shape=&quot;invhouse&quot;,
+                   label=&quot;rawData&quot;,
+                   colorscheme=&quot;ylorrd3&quot;];
+     &quot;c1_plot&quot; [shape=&quot;box&quot;,
+                label=&quot;plot&quot;];
+     &quot;c1_wt&quot; [label=&quot;write.table()&quot;];
+     &quot;c1_pmacall&quot; [label=&quot;deduceSpecies() \n computePMAtable()&quot;];
+     &quot;c1_rawData&quot; -&gt; &quot;hybridPlot()&quot;;
+     &quot;hybridPlot()&quot; -&gt; &quot;c1_plot&quot;;
+     &quot;c1_rawData&quot; -&gt; &quot;backgroundPlot()&quot;;
+     &quot;backgroundPlot()&quot; -&gt; &quot;c1_plot&quot;;
+     &quot;c1_rawData&quot; -&gt; &quot;percPresPlot()&quot;;
+     &quot;percPresPlot()&quot; -&gt; &quot;c1_plot&quot;;
+     &quot;c1_rawData&quot; -&gt; &quot;PNdistrPlot()&quot;;
+     &quot;PNdistrPlot()&quot; -&gt; &quot;c1_plot&quot;;
+     &quot;c1_rawData&quot; -&gt; &quot;controlPlots()&quot;;
+     &quot;controlPlots()&quot; -&gt; &quot;c1_plot&quot;;
+     &quot;c1_rawData&quot; -&gt; &quot;c1_pmacall&quot;;
+     &quot;c1_pmacall&quot; -&gt; &quot;c1_plot&quot;;
+     &quot;c1_pmacall&quot; -&gt; &quot;c1_wt&quot;;
+ }
+
+ subgraph &quot;cluster2&quot; {
+     label=&quot;Scale factor&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     &quot;c1_plot&quot; -&gt; &quot;c2_rawData&quot;  [ltail=&quot;cluster1&quot;,
+                                 penwidth=&quot;5.0&quot;,
+                                 lhead=&quot;cluster2&quot;];
+     &quot;c2_rawData&quot; [shape=&quot;invhouse&quot;,
+                   label=&quot;rawData&quot;,
+                   colorscheme=&quot;ylorrd3&quot;];
+     &quot;c2_plot&quot; [shape=&quot;box&quot;,
+                label=&quot;plot&quot;];
+     &quot;c2_rawData.pset&quot; [label=&quot;rawData.pset&quot;];
+     &quot;c2_rawData&quot; -&gt; &quot;scaleFactPlot()&quot;;
+     &quot;scaleFactPlot()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;boxplotFun()&quot;;
+     &quot;boxplotFun()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;densityFun()&quot;;
+     &quot;densityFun()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;maFun()&quot;;
+     &quot;maFun()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;plotArrayLayout()&quot;;
+     &quot;plotArrayLayout()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;PNposPlot()&quot;;
+     &quot;PNposPlot()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;fitPLM()&quot;;
+     &quot;fitPLM()&quot; -&gt; &quot;c2_rawData.pset&quot;;
+     &quot;c2_rawData.pset&quot; -&gt; &quot;spatialImages()&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;spatialImages()&quot;;
+     &quot;spatialImages()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;array.image()&quot;;
+     &quot;array.image()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;nuseFun()&quot;;
+     &quot;nuseFun()&quot; -&gt; &quot;c2_plot&quot;;
+     &quot;c2_rawData&quot; -&gt; &quot;rleFun()&quot;;
+     &quot;rleFun()&quot; -&gt; &quot;c2_plot&quot;;
+ }
+
+ subgraph &quot;cluster3&quot; {
+     label=&quot;Correlation Plot&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     &quot;c2_plot&quot; -&gt; &quot;c3_rawData&quot;  [ltail=&quot;cluster2&quot;,
+                                 penwidth=&quot;5.0&quot;,
+                                 lhead=&quot;cluster3&quot;];
+     &quot;c3_rawData&quot; [shape=&quot;invhouse&quot;,
+                   label=&quot;rawData&quot;,
+                   colorscheme=&quot;ylorrd3&quot;];
+     &quot;c3_plot&quot; [shape=&quot;box&quot;,
+                label=&quot;plot&quot;];
+     &quot;c3_rawData&quot; -&gt; &quot;c3_correlFun()&quot;;
+     &quot;c3_correlFun()&quot; -&gt; &quot;c3_plot&quot;;
+     &quot;c3_pcaFun()&quot; [label=&quot;pcaFun()&quot;];
+     &quot;c3_rawData&quot; -&gt; &quot;c3_pcaFun()&quot;;
+     &quot;c3_pcaFun()&quot; -&gt; &quot;c3_plot&quot;;
+     &quot;c3_clusterFun()&quot; [label=&quot;clusterFun()&quot;];
+     &quot;c3_rawData&quot; -&gt; &quot;c3_clusterFun()&quot;;
+     &quot;c3_clusterFun()&quot; -&gt; &quot;c3_plot&quot;;
+ }
+
+ subgraph &quot;cluster4&quot; {
+     label=&quot;Preprocessing&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     &quot;c3_plot&quot; -&gt; &quot;c4_rawData&quot;  [ltail=&quot;cluster3&quot;,
+                                 penwidth=&quot;5.0&quot;,
+                                 lhead=&quot;cluster4&quot;];
+     &quot;c4_rawData&quot; [shape=&quot;invhouse&quot;,
+                   label=&quot;rawData&quot;,
+                   colorscheme=&quot;ylorrd3&quot;];
+     &quot;c4_plot&quot; [shape=&quot;box&quot;,
+                label=&quot;plot&quot;];
+     &quot;c4_png&quot; [label=&quot;png&quot;];
+     &quot;c4_rawData&quot; -&gt; &quot;deduceSpecies()&quot;;
+     &quot;deduceSpecies()&quot; -&gt; &quot;c4_plot&quot;;
+     &quot;c4_rawData&quot; -&gt; &quot;normalizeData()&quot;;
+     &quot;normalizeData()&quot; -&gt; &quot;c4_plot&quot;;
+ }
+
+ subgraph &quot;cluster5&quot; {
+     label=&quot;Preprocessing Evaluation&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     &quot;c4_plot&quot; -&gt; &quot;c5_rawData&quot;  [ltail=&quot;cluster4&quot;,
+                                 penwidth=&quot;5.0&quot;,
+                                 lhead=&quot;cluster5&quot;];
+     &quot;c5_rawData&quot; [shape=&quot;invhouse&quot;,
+                   label=&quot;rawData&quot;,
+                   colorscheme=&quot;ylorrd3&quot;];
+     &quot;c5_plot&quot; [shape=&quot;box&quot;,
+                label=&quot;plot&quot;];
+     &quot;c5_boxplotFun()&quot; [label=&quot;boxplotFun()&quot;];
+     &quot;c5_rawData&quot; -&gt; &quot;c5_boxplotFun()&quot;;
+     &quot;c5_boxplotFun()&quot; -&gt; &quot;c5_plot&quot;;
+     &quot;c5_densityFun()&quot; [label=&quot;densityFun()&quot;];
+     &quot;c5_rawData&quot; -&gt; &quot;c5_densityFun()&quot;;
+     &quot;c5_densityFun()&quot; -&gt; &quot;c5_plot&quot;;
+     &quot;c5_maFun()&quot; [label=&quot;maFun()&quot;];
+     &quot;c5_rawData&quot; -&gt; &quot;c5_maFun()&quot;;
+     &quot;c5_maFun()&quot; -&gt; &quot;c5_plot&quot;;
+     &quot;c5_rawData&quot; -&gt; &quot;correlFun()&quot;;
+     &quot;correlFun()&quot; -&gt; &quot;c5_plot&quot;;
+     &quot;c5_rawData&quot; -&gt; &quot;pcaFun()&quot;;
+     &quot;pcaFun()&quot; -&gt; &quot;c5_plot&quot;;
+     &quot;c5_rawData&quot; -&gt; &quot;clusterFun()&quot;;
+     &quot;clusterFun()&quot; -&gt; &quot;c5_plot&quot;;
+ }
+
+ subgraph &quot;cluster6&quot; {
+     label=&quot;Prepare output table&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     &quot;c5_plot&quot; -&gt; &quot;c6_rawData&quot;  [ltail=&quot;cluster5&quot;,
+                                 penwidth=&quot;5.0&quot;,
+                                 lhead=&quot;cluster6&quot;];
+     &quot;c6_rawData&quot; [shape=&quot;invhouse&quot;,
+                   label=&quot;rawData&quot;,
+                   colorscheme=&quot;ylorrd3&quot;];
+     &quot;c6_wt&quot; [label=&quot;write.table()&quot;];
+     &quot;c6_rawData&quot; -&gt; &quot;createNormDataTable()&quot;;
+     &quot;createNormDataTable()&quot; -&gt; &quot;c6_wt&quot;;
+ }
+}" />
+</p>
+<p class="caption">Diagram of affy analysis workflow.</p>
 <div class="section" id="packages-and-dependencies">
 <h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
 <p>There are 12 packages (mainly affymatrix array analysis related) used in this workflow, which depend
@@ -79,7 +280,7 @@ on 28 additional packages from CRAN and Bioconductor (dependencies)</p>
 <p><strong>Package dependencies:</strong></p>
 <ul class="simple">
 <li><em>Bioconductor</em>: limma, Biobase, BiocInstaller, BiocGenerics, zlibbioc, preprocessCore, affyio, gcrma, Biostrings, XVector, S4Vectors, IRanges, genefilter, AnnotationDbi, annotate, GenomeInfoDb, affyPLM</li>
-<li><em>CRAN</em>: xtable, KernSmooth, DBI, XML, lattice, RSQLite, RColorBrewer, caTools, bitops, gtools, survival,</li>
+<li><em>CRAN</em>: xtable, KernSmooth, DBI, XML, lattice, RSQLite, RColorBrewer, caTools, bitops, gtools, survival</li>
 </ul>
 </div>
 <div class="section" id="license">
@@ -106,6 +307,12 @@ on 28 additional packages from CRAN and Bioconductor (dependencies)</p>
 </li>
 </ul>
 
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../README.html"
+                        title="previous chapter">Bioinformatics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../clinical_eslII/README.html"
+                        title="next chapter">Clinical eslII (Essential Statistics Learning 2nd Edition)</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="../../_sources/bioinformatics/affy/README.txt"
@@ -134,7 +341,14 @@ on 28 additional packages from CRAN and Bioconductor (dependencies)</p>
         <li class="right" style="margin-right: 10px">
           <a href="../../genindex.html" title="General Index"
              >index</a></li>
-        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+        <li class="right" >
+          <a href="../clinical_eslII/README.html" title="Clinical eslII (Essential Statistics Learning 2nd Edition)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../README.html" title="Bioinformatics"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

@@ -58,3 +58,8 @@ License
 ********************
 | Copyright (c) 2016 BeDataDriven B.V.
 | License: Artistic 2.0
+
+.. raw:: latex
+
+    \clearpage
+
