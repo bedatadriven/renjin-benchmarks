@@ -1,0 +1,109 @@
+digraph AFFY_diagram {
+    ranksep=1;
+    fontname="sans-serif";
+    compound="true";
+    penwidth="0.1";
+    edge [comment="Wildcard edge", 
+          fontname="sans-serif", 
+          fontsize=10, 
+          colorscheme="blues3", 
+          color=2, 
+          fontcolor=3];
+    node [fontname="serif", 
+          fontsize=13, 
+          fillcolor="1", 
+          colorscheme="blues4", 
+          color="2", 
+          fontcolor="4", 
+          style="filled"];
+
+    subgraph "cluster0" {
+        label="Raw data QC graphs";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        "c0_rawData" [shape="invhouse", label="rawData", colorscheme="ylorrd3"];
+        "c0_funs" [shape="box", label="samplePrepPlot()\nratioPlot()\nRNAdegPlot()"];
+        "c0_plot" [shape="box", label="plot"];
+        "c0_rawData" -> "c0_funs" -> "c0_plot";
+    }
+
+    subgraph "cluster1" {
+        label="Spike-in Controls";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        "c0_plot" -> "c1_rawData"  [style="bold", ltail="cluster0", lhead="cluster1", penwidth="5.0"];
+        "c1_rawData" [shape="invhouse", label="rawData", colorscheme="ylorrd3"];
+        "c1_funs" [shape="box", label="hybridPlot()\nbackgroundPlot()\npercPresPlot()\nPNdistrPlot()\ncontrolPlots()"];
+        "c1_plot" [shape="box", label="plot()"];
+        "c1_wt" [label="write.table()"];
+        "c1_pmacall" [label="deduceSpecies() \n computePMAtable()"];
+        "c1_rawData" -> "c1_funs"-> "c1_plot";
+        "c1_rawData" -> "c1_pmacall" -> "c1_plot";
+        "c1_pmacall" -> "c1_wt";
+    }
+
+    subgraph "cluster2" {
+        label="Scale factor";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        "c2_rawData" [shape="invhouse", label="rawData", colorscheme="ylorrd3"];
+        //"c1_plot" -> "c2_rawData"  [ltail="cluster1", penwidth="5.0", lhead="cluster2"];
+        "c0_plot" -> "c2_rawData"  [ltail="cluster0", penwidth="5.0", lhead="cluster2"];
+        "c2_plot" [shape="box", label="plot"];
+        "c2_funs1" [shape="box", label="scaleFactPlot()\nboxplotFun()\ndensityFun()\nmaFun()\nnuseFun(), rleFun(),\narray.image()\nPNposPlot()\nplotArrayLayout()"];
+	"c2_funs2" [shape="box", label="fitPLM()\nrawData.pset\nspatialImages()"];
+        "c2_rawData" -> "c2_funs1" -> "c2_plot";
+        "c2_rawData" -> "c2_funs2" -> "c2_plot";
+
+    }
+
+    subgraph "cluster3" {
+        label="Correlation Plot";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        "c2_plot" -> "c3_rawData"  [ltail="cluster2", penwidth="5.0", lhead="cluster3"];
+        //"c1_plot" -> "c3_rawData"  [ltail="cluster1", penwidth="5.0", lhead="cluster3"];
+        "c3_rawData" [shape="invhouse", label="rawData", colorscheme="ylorrd3"];
+        "c3_funs" [shape="box", label="pcaFun(),\nclusterFun(),\ncorrelFun()"];
+        "c3_plot" [shape="box", label="plot"];
+        "c3_rawData" -> "c3_funs" -> "c3_plot";
+    }
+
+    subgraph "cluster4" {
+        label="Preprocessing";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        "c4_rawData" [shape="invhouse", label="rawData", colorscheme="ylorrd3"];
+        //"c3_plot" -> "c4_rawData"  [ltail="cluster3", penwidth="5.0", lhead="cluster4"];
+        //"c0_plot" -> "c4_rawData"  [ltail="cluster0", penwidth="5.0", lhead="cluster4"];
+        "c0_rawData" -> "c4_rawData"  [ltail="cluster0", penwidth="5.0", lhead="cluster4"];
+        "c4_funs" [shape="box", label="deduceSpecies()\nnormalizeData()"];
+        "c4_plot" [shape="box", label="plot"];
+        "c4_rawData" -> "c4_funs" -> "c4_plot";
+    }
+
+    subgraph "cluster5" {
+        label="Preprocessing Evaluation";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        "c4_plot" -> "c5_rawData"  [ltail="cluster4", penwidth="5.0", lhead="cluster5"];
+        "c5_rawData" [shape="invhouse", label="rawData", colorscheme="ylorrd3"];
+        "c5_funs" [shape="box", label="boxplotFun(), densityFun(),\nmaFun(), correlFun(), pcaFun()\nclusterFun()"];
+        "c5_plot" [shape="box", label="plot"];
+        "c5_rawData" -> "c5_funs" -> "c5_plot";
+    }
+
+    subgraph "cluster6" {
+        label="Prepare output table";
+        edge [comment="Wildcard node added automatic in EG."];
+        node [comment="Wildcard node added automatic in EG."];
+        "c5_plot" -> "c6_rawData"  [ltail="cluster5", penwidth="5.0", lhead="cluster6"];
+        "c6_rawData" [shape="invhouse", 
+                      label="rawData", 
+                      colorscheme="ylorrd3"];
+        "c6_wt" [label="write.table()"];
+        "c6_rawData" -> "createNormDataTable()";
+        "createNormDataTable()" -> "c6_wt";
+    }
+}
+
