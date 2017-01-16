@@ -90,7 +90,7 @@ for ( i in 1:length(bamfiles) ) {
 dt <- as.data.frame( grng )
 dt$gene_name <- unlist(lapply( strsplit(dt$name, ';'), function(x){ strsplit(x[[1]], " ")[[1]][2] } ))
 data <- aggregate( cbind(dt$D2Q2, dt$D2Q3, dt$D3Q2, dt$D3Q3 ), by=list(dt$gene_name), FUN=sum, na.rm=TRUE )
-colnames(data) <- c('gene', colnames(dt)[7:ncol(dt)])
+#colnames(data) <- c('gene', colnames(dt)[7:ncol(dt)])
 
 
 print(data[nrow(data),ncol(data)])
