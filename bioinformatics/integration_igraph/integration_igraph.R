@@ -67,25 +67,35 @@ do.plot <- function(network, title = "", layout = igraph::layout.kamada.kawai,
   cat("> END: do.plot()\n")
 }
 
-do.load <- function(PATH, percentage = 5, plot_results = TRUE) 
-{
-  cat("> START: do.load()\n")
+do.load.edges <- function(PATH){
+
   # unpack data
-  tmpfile <- file.path(dirname(PATH), "rif.tmp")
-  if(file.exists(tmpfile)) {file.remove(tmpfile)}
-  gunzip(filename = PATH, remove = FALSE, destname = tmpfile)
+  #tmpfile <- file.path(dirname(PATH), "rif.tmp")
+  #if(file.exists(tmpfile)) file.remove(tmpfile)
+  #gunzip(filename = PATH, remove = FALSE, destname = tmpfile)
 
   ## load and 'query' downloaded data
   # There is more information on sqldf on the sqldf home page:
   # http://sqldf.googlecode.com
-  generifs_basic <- read.delim(tmpfile, header = TRUE, stringsAsFactors = FALSE)
+  generifs_basic <- read.delim("generifs_basic", header = TRUE, stringsAsFactors = FALSE)
   names(generifs_basic) <- c("tax_id", "gene_id", "pubmed_ids", "timestamp", "annotation")
-  ## remove tmp file
-  file.remove(tmpfile)
   # load statement and execute
   statement <- paste(readLines("get_all_RIF.sql"), collapse = "\n")
   #sqldf(drv = "SQLite","select * from generifs_basic limit 5") # 'head'
   edges <- sqldf(drv = "SQLite", statement) # 43491 as of 28/06/13
+
+  ## remove tmp file
+  #file.remove(tmpfile)
+
+  return(edges) # first two columns are nodes, other columns considered edge annotations
+
+}
+
+do.load <- function(PATH, percentage = 5, plot_results = TRUE) 
+{
+  cat("> START: do.load()\n")
+  
+  edges <- do.load.edges(PATH)
 
   ### build data into a graph object
   ## make a bipartite graph of pubmed ids and genes
@@ -114,6 +124,7 @@ do.load <- function(PATH, percentage = 5, plot_results = TRUE)
   }
 
   cat("> END: do.load()\n")
+  str(network)
   return(network)
 }
 
@@ -208,16 +219,16 @@ do.cocitation <- function(network, plot_results = TRUE)
 
 do.phospho <- function(plot_results = TRUE) 
 {
+  cat("> START: do.phospho()\n")
   ### construct network, not with random 1%, but with phosphatase/kinase subset
   ## pull annotations for human PPases and kinases from GO, see later for use
   pk.ids <- read.delim(header = TRUE, file = "pk_pp_9606.txt")
   # how many of each gene type did we get?
-  cat(table(pk.ids[ ,c("go_term")]))
+  print(table(pk.ids[ ,c("go_term")]))
   # phosphoprotein phosphatase activity             protein kinase activity
   # 33                                 195
-
   ## collect a fresh edge list containing all the information
-  edges <- do.load(PATH)
+  edges <- do.load.edges(PATH)
   # subset to phospho interaction network
   edges <- subset(edges, gene_id %in% pk.ids$gene_id)
   # create graph
@@ -281,7 +292,7 @@ do.mesh <- function(term = "20161122132200_Wnt_Signaling_Pathway.xml", PATH, plo
   cat(sprintf('%i PMIDS found for term \"%s\"\n',length(res), term))
 
   ## load edges, subset to retrieved terms and load graph
-  edges <- do.load(PATH)
+  edges <- do.load.edges(PATH)
   edges <- subset(edges, pubmed_ids %in% res)
   network<-graph.data.frame(
     d = edges,
@@ -327,7 +338,6 @@ do.mesh <- function(term = "20161122132200_Wnt_Signaling_Pathway.xml", PATH, plo
     )
   }
   cat("> END: do.mesh()\n")
-  print(network)
   return(network)
 }
 
