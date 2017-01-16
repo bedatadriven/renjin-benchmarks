@@ -7,7 +7,7 @@ START_WORKFLOW <- as.numeric(Sys.time())
 
 ### set up session
 set.seed(8008)
-DEBUGGING <- TRUE
+DEBUGGING <- FALSE
 ## packages
 require(stats)
 #require(rjson)

@@ -7,7 +7,7 @@ START_WORKFLOW <- as.numeric(Sys.time())
 
 ##### set up session #####
 set.seed(1000)
-DEBUGGING <- TRUE
+DEBUGGING <- FALSE
 ##### loading packages #####
 library(survival)
 ##### Set global vars #####

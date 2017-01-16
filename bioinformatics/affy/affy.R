@@ -23,7 +23,7 @@ if(exists("samplePrep")) library("yaqcaffy", quietly = TRUE)
 library("gdata", quietly = TRUE) #trim function
 library("gplots", quietly = TRUE) #heatmap.2 functions
 ##### Set global vars #####
-VERBOSE <- TRUE # print progress?
+VERBOSE <- FALSE # print progress?
 DOWNLOAD <- FALSE # download fresh data?
 BENCHMARK <- "affy"
 DATA_DIR <- file.path(".")

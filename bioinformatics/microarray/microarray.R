@@ -11,7 +11,7 @@ START_WORKFLOW <- as.numeric(Sys.time())
 rm(list=ls())
 # reproducibility
 set.seed(8008)
-DEBUGGING <- TRUE
+DEBUGGING <- FALSE
 
 ## (bioconductor) packages
 library(affyio)
