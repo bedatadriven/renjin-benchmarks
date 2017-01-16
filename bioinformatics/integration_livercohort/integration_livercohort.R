@@ -20,16 +20,17 @@ library(stats)
 library(e1071)
 library(MASS) # rlm()
 ## Blocks for timing
-do.load <-function(){
+do.load <-function() 
+{
   if (DEBUGGING) cat("> START: do.load()\n")
   wdir <- normalizePath("./")
 
   ## unzip and load zipped files and remove temp unzipped files
   dt <- lapply(
             dir(wdir, pattern = ".txt$", full.names = TRUE),
-            read.delim, stringsAsFactors=FALSE)
+            read.delim, stringsAsFactors = FALSE)
   names(dt) <- dir(wdir, pattern = ".txt$", full.names = FALSE)
-  file.remove(dir(wdir, pattern = ".txt$", full.names = TRUE))
+  # file.remove(dir(wdir, pattern = ".txt$", full.names = TRUE))
 
   data <- list(
             curatedPhen = list (
@@ -187,7 +188,6 @@ do.load <-function(){
   # return cleaned data
   if (DEBUGGING) cat("> END: do.load()\n")
   return(data)
-
 }
 
 do.svm <- function(liverdata) {

@@ -184,8 +184,8 @@ do.fam.prepare <- function(fam) {
   genotypes <- data.frame(Freq=rowSums(genotypes[ , sapply(genotypes, is.integer)], na.rm = TRUE), row.names = genotypes$Genotype)
 
   # create empty score matrix
-  scores <- matrix( nrow = ncol(genotypes), ncol = ncol(genotypes) ,
-                    dimnames = list(colnames(genotypes), colnames(genotypes)))
+    scores <- matrix(numeric(nrow(genotypes)^2), ncol = nrow(genotypes), 
+      dimnames = list(row.names(genotypes), row.names(genotypes)))
   # function for calculating number of alleles
   # allowing for ordering and homozygosity
   do.matching.alleles <- function(i, j) {
@@ -294,7 +294,7 @@ do.fam.prepare <- function(fam) {
       scores[i, j] <<-              # fill score matrix
         do.matching.alleles(i, j) * # number of matching alleles
         (                          # normalised to "liklihood" of seeing this pair of allele pairs
-          (sum(genotypes) - sum(genotypes[ , c(i, j)])) / sum(genotypes)
+          ( sum(genotypes) - sum(genotypes[c(i, j), ]) ) / sum(genotypes)
           )
     }
     )

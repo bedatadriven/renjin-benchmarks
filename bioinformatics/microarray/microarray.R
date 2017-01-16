@@ -191,7 +191,7 @@ do.limma <- function(cel.filtered){
   return(results[,c("ID", "contrast", "adj.P.Val", "logFC")]) # return 4 column dataframe
 }
 
-do.geneset.examples <- function(  row_dim = 1e4, col_dim = 20, set_size=40){
+do.geneset.examples <- function(  row_dim = 1e4, col_dim = 20, set_size = 40){
   # run gene set testing examples as provided
   # in LIMMA manual
   # http://www.bioconductor.org/packages/release/bioc/manuals/limma/man/limma.pdf
@@ -218,30 +218,28 @@ do.geneset.examples <- function(  row_dim = 1e4, col_dim = 20, set_size=40){
   ## romer
   # construct random matrix
   set.seed(888) # ensure reproducibility
-  y <- matrix(rnorm(row_dim*col_dim),row_dim,col_dim)
+  y <- matrix(rnorm(row_dim * col_dim), row_dim,col_dim)
   # arbitrary design
-  design <- cbind(Intercept=1,Group=round(rnorm(col_dim, 0, 1) > 0))
+  design <- cbind(Intercept = 1, Group = round(rnorm(col_dim, 0, 1) > 0))
   # set1 of 40 genes that are genuinely differential between the groups
   iset1 <- 1:set_size
-  y[iset1,design[,"Group"]==1] <- y[iset1,design[,"Group"]==1]+rnorm(40, mean=3, sd=2)
+  y[iset1, design[ ,"Group"] == 1] <- y[iset1, design[ , "Group"] == 1] + rnorm(40, mean = 3, sd = 2)
   iset <- list(
     iset1,
     # second set where only half are differential
-    iset1 + round(length(iset1)/2)
+    iset1 + round(length(iset1) / 2)
     )
-  for(N in 1:round(row_dim/20)){
+  for(N in 1:round(row_dim / 20)) {
     # append additional (hopefully) non significant sets by shifting along the rows
-    tmp <- iset1+(length(iset1) + N)
+    tmp <- iset1 + (length(iset1) + N)
     # replace any values outside of dimensions
     tmp <- unlist(lapply(tmp, function(x) ifelse(x > row_dim, x %% row_dim, x)))
     iset <- append(iset, list(tmp))
   }
-  names(iset) <- paste("iset", 1:length(iset), sep='')
+  names(iset) <- paste("iset", 1:length(iset), sep = '')
   # run simulation
-  r <- romer(
-              index=iset,
-              y=y,design=design,contrast=2,nrot=99
-              )
+  r <- romer( index = iset, y = y, design = design, 
+              contrast = 2, nrot = 99)
   # reformat results
   r <- data.frame(topRomer(r))
   r$id <- row.names(r)

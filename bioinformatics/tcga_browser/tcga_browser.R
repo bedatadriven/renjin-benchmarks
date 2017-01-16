@@ -62,12 +62,12 @@ cellinfo <- function(x) {
 f_dowle2 = function(DT) {
   # or by number (slightly faster than by name) :
   for (j in seq_len(ncol(DT)))
-    set(DT,which(is.na(DT[[j]])), j, "Wild-type")
+    set(DT, which( is.na( DT[[j]] ) ), j, "Wild-type")
 }
 
 # package:grid;
 # grid.newpage(); pushViewport();
-multiplot <- function(..., plotlist=NULL, file, cols = 1, layout = NULL) {
+multiplot <- function(..., plotlist = NULL, file, cols = 1, layout = NULL) {
   require(grid)
   # Make a list from the ... arguments and plotlist
   plots <- c(list(...), plotlist)
@@ -81,7 +81,7 @@ multiplot <- function(..., plotlist=NULL, file, cols = 1, layout = NULL) {
                      ncol = cols,
                      nrow = ceiling(numPlots / cols))
   }
-  if (numPlots==1) {
+  if (numPlots == 1) {
     print( plots[[1]] )
   } else {
     # Set up the page
@@ -157,7 +157,7 @@ do.preprocess <- function(DATA, TARGET) {
     d1 	<- DATA[[1]]
     if(DEBUGGING) cat(">>> DONE: load/setkey d1\n")
     pat 	<- DATA[[2]]
-    if(DEBUGGING) cat(">>> DONE: load/setkey pat\n")
+    if (DEBUGGING) cat(">>> DONE: load/setkey pat\n")
     m1 	<- DATA[[3]]
     if(DEBUGGING) cat(">>> DONE: load/setkey m1\n")
     gene.name <- DATA[[4]]
@@ -170,15 +170,15 @@ do.preprocess <- function(DATA, TARGET) {
     low <- (ncol(d1) - 2) * 0.25
     setkey(pat, gleason)
     pat.d1 <- d1[ , c("Gene", pat[gleason, name]), with = FALSE]
-    if(DEBUGGING) cat(">>> DONE: setup variables\n")
-    print(str(pat))
-    if(DEBUGGING) cat(">>> DONE: print(str(pat))\n")
-    print(str(d1))
-    if(DEBUGGING) cat(">>> DONE: print(str(d1))\n")
-    print(str(c("Gene", pat[, gleason, name])))
-    if(DEBUGGING) cat(">>> DONE: print(str(c(\"Gene\", pat[gleason, name])))\n")
+    if (DEBUGGING) cat(">>> DONE: setup variables\n")
+    if (DEBUGGING) print(str(pat))
+    if (DEBUGGING) cat(">>> DONE: print(str(pat))\n")
+    if (DEBUGGING) print(str(d1))
+    if (DEBUGGING) cat(">>> DONE: print(str(d1))\n")
+    if (DEBUGGING) print(str(c("Gene", pat[, gleason, name])))
+    if (DEBUGGING) cat(">>> DONE: print(str(c(\"Gene\", pat[gleason, name])))\n")
     setkey(pat.d1, Gene)
-    if(DEBUGGING) cat(">>> DONE: load/setkey pat.d1\n")
+    if (DEBUGGING) cat(">>> DONE: load/setkey pat.d1\n")
 
     #selecting row for gene and only retrieving values
     pat.d1.gene <- melt(
@@ -190,7 +190,7 @@ do.preprocess <- function(DATA, TARGET) {
                     )
 
     setkey(pat.d1.gene, g1)
-    if(DEBUGGING) cat(">>> DONE: load/setkey pat.d1.gene\n")
+    if (DEBUGGING) cat(">>> DONE: load/setkey pat.d1.gene\n")
     pat.d1.gene[ , name := factor(name, levels = name)]
     pat.d1.gene[ , ':=' (high = g1 > g1[eval(high)], low = g1 < g1[eval(low)])]
     pat.d1.gene[ , gene2 := high * 2 + low]
