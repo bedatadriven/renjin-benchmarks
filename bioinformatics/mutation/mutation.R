@@ -411,17 +411,15 @@ do.ibd.window <- function(fam.scores, window.sizes = seq(5, 50, 5)) {
         window.sizes,
         function(win) {
           # run sliding window, summing for each and dividing by number of markers
-          lapply(fam.scores,
+          lapply(
+            fam.scores,
             function(x) {
-              data.frame(
-                width = win, pair = x$pair,
-                q3 = summary(
-                      wapply(
-                        x$df$score, width = win,
-                        by = as.integer(win / 2),
-                        FUN = sum
-                      ) / win )["3rd Qu."] ) } )
-        } )
+              c(width = win, pair = paste(x$pair),
+                q3 = summary(wapply(x$df$score, width = win, by = as.integer(win / 2), FUN = sum) / win )["3rd Qu."])
+            } 
+          )
+        } 
+      )
     )
   )
 }
