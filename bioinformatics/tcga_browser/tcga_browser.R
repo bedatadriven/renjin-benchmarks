@@ -20,6 +20,7 @@ library(leaps)
 library(data.table)
 library(reshape2)
 library(ggplot2)
+library(gplots)
 library(magrittr)
 library(survival)
 library(limma)
@@ -534,8 +535,8 @@ do.analyse <- function(DATA, TARGET) {
             scale_fill_brewer(type = "qual", name = "Legend", palette = 6, labels = plotLables) +
             theme(title = element_text(size = 28),
                   axis.ticks = element_blank(),
-                  axis.text.x = element_blank(),
-                  axis.text.y = element_text(size = 24),
+                  #axis.text.x = element_blank(),
+                  #axis.text.y = element_text(size = 24),
                   axis.text.x = element_text(size = 28),
                   axis.text.y = element_text(size = 28),
                   legend.text = element_text(size = 18)
@@ -553,8 +554,8 @@ do.analyse <- function(DATA, TARGET) {
             scale_fill_brewer(type = "qual", name = "Legend", palette = 6, labels = plotLables) +
             theme(title = element_text(size = 28),
                   axis.ticks = element_blank(),
-                  axis.text.x = element_blank(),
-                  axis.text.y = element_text(size = 24),
+                  #axis.text.x = element_blank(),
+                  #axis.text.y = element_text(size = 24),
                   axis.text.x = element_text(size = 28),
                   axis.text.y = element_text(size = 28),
                   legend.text = element_text(size = 18)
