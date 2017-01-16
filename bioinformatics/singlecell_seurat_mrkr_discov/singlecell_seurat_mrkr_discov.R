@@ -10,13 +10,17 @@ START_WORKFLOW <- as.numeric(Sys.time())
 # reproducibility
 set.seed(8008)
 ## packages
+library(useful)
+library(methods)
+library(utils)
 rVersion <- R.Version()
 if ('engine' %in% names(rVersion) && rVersion$engine == "Renjin") {
 	library(org.renjin.github.satijalab:Seurat)
 } else {
 	library(Seurat)
 }
-
+library(dplyr)
+library(Matrix)
 
 # Load in dataset from Pollen et al. 2014
 nbt.data <- read.table("HiSeq301-RSEM-linear_values.txt", sep = "\t", header = TRUE, row.names = 1)
@@ -33,76 +37,82 @@ nbt <- new("seurat", raw.data = nbt.data)
 
 # Take all genes in > 3 cells, all cells with > 1k genes, use an expression threshold of 1
 # Cell type is encoded in the second _ field, will be stored in nbt@ident and also placed in the "orig.ident" field of object@data.info
-nbt <- setup(nbt, project = "NBT", min.cells = 3, names.field = 2, names.delim = "_", min.genes = 1000, is.expr =  1, )
+nbt <- Setup(nbt, project = "NBT", min.cells = 3, names.field = 2, names.delim = "_", min.genes = 1000, is.expr =  1)
 
 nbt
 
 # Look at some canonical marker genes and metrics
-vlnPlot(nbt, c("DPPA4","GATA1","BMP3","nGene"))
+VlnPlot(nbt, c("DPPA4","GATA1","BMP3","nGene"))
 
 # Plot two cells against each other
 # Set do.ident=TRUE to identify outliers by clicking on points (ESC to exit after)
 
 par(mfrow = c(2, 2))
-cellPlot(nbt, nbt@cell.names[1], nbt@cell.names[2], do.ident = FALSE)
-cellPlot(nbt, nbt@cell.names[3], nbt@cell.names[4], do.ident = FALSE)
+CellPlot(nbt, nbt@cell.names[1], nbt@cell.names[2], do.ident = FALSE)
+CellPlot(nbt, nbt@cell.names[3], nbt@cell.names[4], do.ident = FALSE)
 
 # Plot two genes against each other, can do this in limited groups of cells
-genePlot(nbt, "DLX1", "DLX2", cex.use = 1)
-genePlot(nbt, "DLX1", "DLX2", cell.ids = which.cells(nbt,"GW16"), cex.use = 1)
+GenePlot(nbt, "DLX1", "DLX2", cex.use = 1)
+GenePlot(nbt, "DLX1", "DLX2", cell.ids = WhichCells(nbt, "GW16"), cex.use = 1)
 
+
+
+
+print("line 60")
 # Identify variable genes across the single cells
 # Genes placed into 20 bins based on X-axis (average expression). Y-axis is within-bin z-score of log(Variance/mean).
 # Running this sets object@var.genes by default
-nbt <- mean.var.plot(nbt, y.cutoff = 2, x.low.cutoff = 2, fxn.x = expMean, fxn.y = logVarDivMean)
+nbt <- MeanVarPlot(nbt, x.low.cutoff = 0.5)
 
 length(nbt@var.genes)
 
 # Perform linear dimensional reduction (PCA)
 # Run a PCA using the variable genes as input (to change the input gene set, use the pc.genes argument)
-# For example, try running PCA on all genes - i.e. , nbt=pca(nbt,pc.genes=rownames(nbt@data)) - which does not perform as well
-nbt <- pca(nbt, do.print = FALSE)
-pca.plot(nbt, 1, 2, pt.size = 2)
+print("line 70")# For example, try running PCA on all genes - i.e. , nbt=pca(nbt,pc.genes=rownames(nbt@data)) - which does not perform as well
+nbt <- PCA(nbt, do.print = FALSE)
+PCAPlot(nbt, 1, 2, pt.size = 2)
 
 # Examine  and visualize PCA results a few different ways
-print.pca(nbt, 1)
+PrintPCA(nbt, 1)
 
-viz.pca(nbt, 1:2)
+VizPCA(nbt, 1:2)
 
+
+print("line 80")
 # Draw a heatmap where both cells and genes are ordered by PCA score
 # Options to explore include do.balanced (show equal # of genes with +/- PC scores), and use.full (after projection, see below)
-pcHeatmap(nbt, pc.use = 1, do.balanced = FALSE)
+PCHeatmap(nbt, pc.use = 1, do.balanced = FALSE)
 
 # Determine statistically significant principal components
 # Do 200 random samplings to find significant genes, each time randomly permute 1% of genes
 # This returns a 'p-value' for each gene in each PC, based on how likely the gene/PC score woud have been observed by chance
 # Note that in this case we get the same result with 200 or 1000 samplings, so we do 200 here for expediency
-nbt <- jackStraw(nbt, num.replicate = 200, do.print = FALSE)
+nbt <- JackStraw(nbt, num.replicate = 200, do.print = FALSE)
 
 # The jackStraw plot compares the distribution of P-values for each PC with a uniform distribution (dashed line)
 # 'Significant' PCs will have a strong enrichment of genes with low p-values (solid curve above dashed line)
 # In this case PC1-9 are strongly significant
-jackStrawPlot(nbt, PCs = 1:12)
+JackStrawPlot(nbt, PCs = 1:12)
 
 # Optional step, grow gene list through PCA projection
 # Previous analysis was performed on < 400 variable genes. To identify a larger gene set that may drive
 # biological differences, but did not pass our mean/variability thresholds, we first calculate PCA scores
 # for all genes (PCA projection)
-nbt <- project.pca(nbt, do.print = FALSE)
+nbt <- ProjectPCA(nbt, do.print = FALSE)
 
 # Visualize the full projected PCA, which now includes new genes which were not previously included (use.full=TRUE)
-pcHeatmap(nbt, pc.use = 1, use.full = TRUE, do.balanced = TRUE, remove.key = TRUE)
+PCHeatmap(nbt, pc.use = 1, use.full = TRUE, do.balanced = TRUE, remove.key = TRUE)
 
 # Choose significant genes for PC1-9, allow each PC to contribute a max of 200 genes (to avoid one PC swamping the analysis)
-nbt.sig.genes <- pca.sig.genes(nbt, 1:9, pval.cut = 1e-5, max.per.pc = 200)
+nbt.sig.genes <- PCASigGenes(nbt, 1:9, pval.cut = 1e-5, max.per.pc = 200)
 length(nbt.sig.genes)
 
 # Now redo the PCA analysis with the new gene list
-nbt <- pca(nbt, pc.genes = nbt.sig.genes, do.print = FALSE)
+nbt <- PCA(nbt, pc.genes = nbt.sig.genes, do.print = FALSE)
 
 # Redo random sampling, PCs 1-11 are significant (additional PCs are borderline, but signal disappears with 1k replicates, though we do 200 here for expediency)
-nbt <- jackStraw(nbt, num.replicate = 200, do.print = FALSE)
-jackStrawPlot(nbt, PCs = 1:15)
+nbt <- JackStraw(nbt, num.replicate = 200, do.print = FALSE)
+JackStrawPlot(nbt, PCs = 1:15)
 
 # When we run tSNE using our 11 significant PCs as input (spectral tSNE), we get distinct point clouds
 # All cell types cluster togther, with the exception of GW16/21 (gestational week 16/21 neurons)
@@ -165,10 +175,10 @@ print(head(ips.markers, 5))
 ips.markers <- find.markers(nbt, 7, thresh.use = 2, test.use = "roc")
 
 #Visualize these new markers with a violin plot
-vlnPlot(nbt, c("CRABP1", "LINC-ROR"))
+VlnPlot(nbt, c("CRABP1", "LINC-ROR"))
 
 #plots a correlation analysis of gene/gene (ie. 'FACS' plot - cells colored by cluster number)
-genePlot(nbt, "CRABP1", "LINC-ROR")
+GenePlot(nbt, "CRABP1", "LINC-ROR")
 
 # Neuronal cells in the dataset (GW represents gestational week) cluster into three groups (1-3) on the phylogenetic tree, let's explore these grouos
 plotClusterTree(nbt)
@@ -193,7 +203,7 @@ print(head(c2.markers, 10))
 par(mfrow = c(1, 2))
 
 genes.viz <- c("DLX6-AS1", "NEUROD2", "GAD2", "TFAP2C")
-vlnPlot(nbt, genes.viz)
+VlnPlot(nbt, genes.viz)
 
 # Note that you can also view the violin plot grouping the cells by the original annotation - where these markers appear highly heterogeneous
 # vlnPlot(nbt, genes.viz,group.by="orig.ident")
@@ -241,11 +251,11 @@ node12.markers <- find.markers.node(nbt, 12, thresh.use = 2, test.use = "roc")
 head(node12.markers, 5)
 
 # These are markers which are shared between clusters (1:3).
-vlnPlot(nbt, c("NNAT", "TUBA1A", "DCX", "FXYD5"))
+VlnPlot(nbt, c("NNAT", "TUBA1A", "DCX", "FXYD5"))
 
 # Find markers of a middle split (node 14). These separate clusters 4:6 from clusters 7:11
 node14.markers <- find.markers.node(nbt, 14, thresh.use = 2, test.use = "roc")
-vlnPlot(nbt, c("LCP1", "NGFRAP1", "PTPRF", "CNN3"))
+VlnPlot(nbt, c("LCP1", "NGFRAP1", "PTPRF", "CNN3"))
 
 # Rename a cluster - for example let's rename cluster 1 to be Interneurons
 # Now 1 will be replaced with Interneurons for future plots
