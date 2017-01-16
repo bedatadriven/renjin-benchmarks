@@ -42,7 +42,9 @@ if (DEBUGGING) cat("\nLoaded all libraries.....\n") #DEBUG
 
 ##### Set global vars #####
 DATA_DIR <- normalizePath(".")
+print(DATA_DIR)
 files = list.files(path = DATA_DIR, pattern = "txt$")
+if (DEBUGGING) print(files)
 
 ##### Functions #####
 # gsub, Reduce
@@ -579,24 +581,25 @@ DATA_rna <- do.preprocess(DATA_rna, "RNAseq")
 
 DATA_rna <- do.analyse(DATA_rna, "RNAseq_DEG")
 
-do.analyse(DATA_rna, "RNAseq_HM")
+res1 <- do.analyse(DATA_rna, "RNAseq_HM")
 
-do.analyse(DATA_rna, "RNAseq_KEGG")
+res2 <- do.analyse(DATA_rna, "RNAseq_KEGG")
 
-do.analyse(DATA_rna, "RNAseq_STRING")
+res3 <- do.analyse(DATA_rna, "RNAseq_STRING")
 
 DATA_exo <- do.load(DATA_DIR, "Exome")
 
 DATA_exo <- do.preprocess(DATA_exo, "Exome")
 
-do.analyse(DATA_exo, "Exome")
+res4 <- do.analyse(DATA_exo, "Exome")
 
 #######
 DATA_sur <- do.load(DATA_DIR, "Survival")
 
 DATA_sur <- do.preprocess(DATA_sur, "Survival")
 
-do.analyse(DATA_sur, "Survival")
+res5 <- do.analyse(DATA_sur, "Survival")
+
 END_WORKFLOW <- as.numeric(Sys.time())
 TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
 print(TOTAL_TIME)
