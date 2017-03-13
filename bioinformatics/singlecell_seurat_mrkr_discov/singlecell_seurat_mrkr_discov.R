@@ -1,4 +1,3 @@
-START_WORKFLOW <- as.numeric(Sys.time())
 # Copyright (c) 2015 Rahul Satija
 # based on code from http://www.satijalab.org/seurat-intro.html
 # Copyright (c) 2015-2016 BeDataDriven B.V.
@@ -266,7 +265,6 @@ nbt <- rename.ident(nbt, 1, "Interneurons")
 pcs.plot <- paste("PC", 1:11, sep = "")
 feature.heatmap(nbt, pcs.plot, cols.use = heat.colors(10), pt.size = 2)
 
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
+# final clean up
+#rm(list=ls())
+#gc()

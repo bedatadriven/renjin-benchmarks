@@ -1,4 +1,3 @@
-START_WORKFLOW <- as.numeric(Sys.time())
 #
 # Copyright (c) 2015-2016 BeDataDriven B.V.
 # License: https://opensource.org/licenses/Artistic-2.0 Artistic-2.0
@@ -95,7 +94,6 @@ data <- aggregate( cbind(dt$D2Q2, dt$D2Q3, dt$D3Q2, dt$D3Q3 ), by=list(dt$gene_n
 
 print(data[nrow(data),ncol(data)])
 
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
+# final clean up
+#rm(list=ls())
+#gc()

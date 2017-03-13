@@ -10,7 +10,6 @@
 #rm(list=ls())
 
 # reproducibility
-START_WORKFLOW <- as.numeric(Sys.time())
 set.seed(8008)
 DEBUGGING <- FALSE
 
@@ -621,9 +620,5 @@ do.rlm_expr(liverdata)
 if (DEBUGGING) cat(">\tPerformed rlm_expr\n")
 
 # final clean up
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
-rm(list=ls())
-gc()
+#rm(list=ls())
+#gc()

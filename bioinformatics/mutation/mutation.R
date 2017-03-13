@@ -5,7 +5,6 @@
 #
 
 # reproducibility
-START_WORKFLOW <- as.numeric(Sys.time())
 set.seed(8008)
 DEBUGGING <- FALSE
 
@@ -462,11 +461,6 @@ fam.scores <- do.ibd.vector(fam = fam, scores = scores)
 # score on sliding window
 do.ibd.window(fam.scores = fam.scores)
 
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME,file="TIMINGS",append=TRUE)
-
 # final clean up
-rm(list = ls())
-gc()
+#rm(list=ls())
+#gc()

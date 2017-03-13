@@ -15,7 +15,6 @@
 ### set up session
 #rm(list=ls())
 # reproducibility
-START_WORKFLOW <- as.numeric(Sys.time())
 set.seed(8008)
 
 ## packages
@@ -357,10 +356,6 @@ lapply(c("20161122132200_Wnt_Signaling_Pathway.xml", "20161122132200_Autistic_Di
        }
 )
 
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
 # final clean up
 #rm(list = ls())
 #gc()

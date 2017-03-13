@@ -1,4 +1,3 @@
-START_WORKFLOW <- as.numeric(Sys.time())
 # Copyright (c) 2015 MIT DB Group
 # based on code from https://github.com/mitdbg/genbase/blob/master/code/R_benchmark/vanilla_R_benchmark.R
 # Copyright (c) 2015 Hannes Muehleisen
@@ -219,11 +218,6 @@ print(covariance_res)
 print(biclustering_res)
 print(stats_res)
 
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME,file="TIMINGS",append=TRUE)
-
 # final clean up
-rm(list = ls())
-gc()
+#rm(list=ls())
+#gc()

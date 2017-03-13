@@ -1,4 +1,3 @@
-START_WORKFLOW <- as.numeric(Sys.time())
 #
 # Copyright (c) 2015 Phil Cheng
 # Copyright (c) 2016 BeDataDriven B.V.
@@ -47,7 +46,7 @@ DATA <- do.load()
 res <- do.analyse(DATA)
 
 print(res)
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
+
+# final clean up
+#rm(list=ls())
+#gc()

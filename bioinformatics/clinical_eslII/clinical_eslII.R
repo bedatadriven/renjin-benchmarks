@@ -1,4 +1,3 @@
-START_WORKFLOW <- as.numeric(Sys.time())
 #
 # Copyright (c) 2015 Ieuan Clay
 # based on code from https://github.com/biolion/genbench
@@ -204,12 +203,6 @@ print(vs)
 pr <- do.prostate(data)
 
 print(pr)
-
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME, file = "TIMINGS.txt", append = TRUE)
-
 
 # final clean up
 #rm(list=ls())

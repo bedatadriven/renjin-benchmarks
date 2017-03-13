@@ -1,4 +1,3 @@
-START_WORKFLOW <- as.numeric(Sys.time())
 #
 # Copyright (c) 2015 .arrayanalysis.org
 # based on code from http://www.arrayanalysis.org/affyQC/doc_affyQC_R.php
@@ -3077,10 +3076,6 @@ affyPARAM$files <- c( "GSM1103973_VEH_VEH1.CEL.gz", "GSM1103974_DOX_VEH1.CEL.gz"
     write.table(normDataTable, file=normFileName, sep="\t", row.names=FALSE, col.names=TRUE, quote=FALSE)
   }
 
-END_WORKFLOW <- as.numeric(Sys.time())
-TOTAL_TIME <- END_WORKFLOW - START_WORKFLOW
-print(TOTAL_TIME)
-write(TOTAL_TIME, file = "TIMINGS", append = TRUE)
-
-rm(list=ls())
-gc()
+# final clean up
+#rm(list=ls())
+#gc()
