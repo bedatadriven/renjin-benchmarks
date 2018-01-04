@@ -1,0 +1,40 @@
+Name: fastgenogam
+Description: fastGenoGAM is a GenoGAM with improved performance developed by Juri Stricker at Julien Gagneurs lab.
+Depends: fastGenoGAM (1.99), SummarizedExperiment (1.1.19), HDF5Array (1.2.0), S4Vectors (0.9.34), Matrix (1.2-8)
+
+File:H3K4ME3_aa762-1080_Set1_Rep_1.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/H3K4ME3_aa762-1080_Set1_Rep_1.bam
+Hash:528ed1615a5dff1db58f7ebaeef833e6
+
+File:H3K4ME3_aa762-1080_Set1_Rep_1.bam.bai
+Source:https://storage.googleapis.com/renjin-benchmarks/H3K4ME3_aa762-1080_Set1_Rep_1.bam.bai
+Hash:c571e57361bdb6e72b280801359518b4
+
+File:H3K4ME3_aa762-1080_Set1_Rep_2.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/H3K4ME3_aa762-1080_Set1_Rep_2.bam
+Hash:07c58d0bd4ba9e91b59669f1a9369e1b
+
+File:H3K4ME3_aa762-1080_Set1_Rep_2.bam.bai
+Source:https://storage.googleapis.com/renjin-benchmarks/H3K4ME3_aa762-1080_Set1_Rep_2.bam.bai
+Hash:63ff6d9e76c6bfd39e59e25aad4f766f
+
+File:H3K4ME3_Full_length_Set1_Rep_1.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/H3K4ME3_Full_length_Set1_Rep_1.bam
+Hash:fd88227ba996687cc9ccf47407f710ad
+
+File:H3K4ME3_Full_length_Set1_Rep_1.bam.bai
+Source:https://storage.googleapis.com/renjin-benchmarks/H3K4ME3_Full_length_Set1_Rep_1.bam.bai
+Hash:78e764bf65e0be16756fe22a6d548a34
+
+File:H3K4ME3_Full_length_Set1_Rep_2.bam
+Source:https://storage.googleapis.com/renjin-benchmarks/H3K4ME3_Full_length_Set1_Rep_2.bam
+Hash:2f2f7b0768861ae6b42cc714508a1377
+
+File:H3K4ME3_Full_length_Set1_Rep_2.bam.bai
+Source:https://storage.googleapis.com/renjin-benchmarks/H3K4ME3_Full_length_Set1_Rep_2.bam.bai
+Hash:d43df2e5daef339d658c86819ef4a0d1
+
+File:config_h3k4me3.txt
+Source:https://storage.googleapis.com/renjin-benchmarks/config_h3k4me3.txt
+Hash:563f42a0722f935a0c03ca0e5ec04984  
+
