@@ -14,7 +14,7 @@ library(methods)
 library(utils)
 rVersion <- R.Version()
 if ('engine' %in% names(rVersion) && rVersion$engine == "Renjin") {
-	library(org.renjin.github.satijalab:Seurat)
+	library("org.renjin.github.satijalab:Seurat")
 } else {
 	library(Seurat)
 }
