@@ -1,0 +1,4 @@
+Name: curly
+Description: compare difference in R straith and curly brackets or C++ on performance
+Depends: Rcpp (0.12.13), inline (0.3.15)
+
