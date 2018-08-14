@@ -1,5 +1,4 @@
-
-riginal source: https://analyticsrusers.blog/2017/08/08/turbo-charge-your-r-code-with-rcpp/
+# original source: https://analyticsrusers.blog/2017/08/08/turbo-charge-your-r-code-with-rcpp/
 
 set.seed(1) #set random number seed
 library(Rcpp)

@@ -1,4 +1,4 @@
-nclude <Rcpp.h>
+#include <Rcpp.h>
 using namespace Rcpp;
 #include <cmath>
 #include <algorithm>

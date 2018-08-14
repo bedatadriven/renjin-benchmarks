@@ -1,5 +1,4 @@
-
-riginal source:http://dirk.eddelbuettel.com/blog/2010/09/07/
+# original source:http://dirk.eddelbuettel.com/blog/2010/09/07/
 library(Rcpp)
 library(inline)
 

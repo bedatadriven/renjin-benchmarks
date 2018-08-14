@@ -1,5 +1,4 @@
-
-riginal source: http://gallery.rcpp.org/articles/fibonacci-sequence/
+# original source: http://gallery.rcpp.org/articles/fibonacci-sequence/
 library(Rcpp)
 
 fibR <- function(n) {

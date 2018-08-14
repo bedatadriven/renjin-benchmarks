@@ -1,4 +1,3 @@
-
 # original source: http://gallery.rcpp.org/articles/dmvnorm-deriv-arma/
 
 library('RcppArmadillo')
