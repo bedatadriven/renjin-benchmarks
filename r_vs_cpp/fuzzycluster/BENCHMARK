@@ -1,0 +1,4 @@
+Name: fuzzycluster
+Description: compare fuzzy clustering in pure R vs C++ (source: http://blog.revolutionanalytics.com/2017/08/kmeans-r-rcpp.html)
+Depends: Rcpp (0.12.13)
+
