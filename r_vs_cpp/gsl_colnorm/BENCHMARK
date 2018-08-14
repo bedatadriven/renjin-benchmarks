@@ -1,0 +1,3 @@
+Name: gsl_colnorm
+Description: Using GSL functions from R
+Depends: Rcpp (0.12.13), RcppGSL (0.3.3)
