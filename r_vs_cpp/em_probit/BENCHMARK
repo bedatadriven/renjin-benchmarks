@@ -1,0 +1,7 @@
+Name: em_probit 
+Description: Implementing an EM Algorithm for Probit Regressions
+Depends: Rcpp (0.12.13), RcppArmadillo (0.8.500.0)
+
+File: turnout.csv
+Source: https://storage.googleapis.com/renjin-benchmarks/turnout.csv
+Hash: bbaaee32c3c525853e0d12583a5461ff
