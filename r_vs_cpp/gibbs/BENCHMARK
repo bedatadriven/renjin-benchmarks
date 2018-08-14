@@ -1,0 +1,3 @@
+Name: gibbs
+Description: gibbs sampler implementation in R and C++ (source: http://adv-r.had.co.nz/Rcpp.html)
+Dependends: Rcpp (0.12.13)
