@@ -1,0 +1,4 @@
+Name: compute_pi
+Description: comparing performance of pi computing algorithms (by Wolfgang Huber)
+Depends: Rcpp (0.12.13)
+
