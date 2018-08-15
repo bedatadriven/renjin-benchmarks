@@ -1,0 +1,6 @@
+Name: s4_in_loop
+Description: simple benchmark to measure S4 method dispatch performance inside a loop
+
+File: reads.rds
+Source:https://storage.googleapis.com/renjin-benchmarks/reads.rds
+Hash: 2549fa2d2e20534ac714e1a657cb6841
