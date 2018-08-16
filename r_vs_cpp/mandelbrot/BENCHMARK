@@ -1,0 +1,4 @@
+Name: mandelbrot
+Description: comparison pure R and C++ version mandelbrot set algorithm
+Depends: Rcpp (0.12.13)
+
