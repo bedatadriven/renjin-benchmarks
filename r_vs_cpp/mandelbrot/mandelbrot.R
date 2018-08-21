@@ -1,5 +1,14 @@
 # original source: https://www.ibm.com/developerworks/community/blogs/jfp/entry/How_To_Compute_Mandelbrodt_Set_Quickly?lang=en_us
 library(Rcpp)
+xmin   <- -0.74877
+xmax   <- -0.74872
+width  <- 1000
+ymin   <- 0.06505
+ymax   <- 0.06510
+height <- 1000
+
+r1 <- seq(xmin, xmax, length.out = width)
+r2 <- seq(ymin, ymax, length.out = height)
 
 mandelbrot <- function(z, maxiter) {
   vc <- z
@@ -12,12 +21,10 @@ mandelbrot <- function(z, maxiter) {
   return(maxiter)
 }
 
-mandelbrot_set <- function(xmin, xmax, ymin, ymax, width, height, maxiter) {
-  r1 <- seq(xmin, xmax, length.out = width)
-  r2 <- seq(ymin, ymax, length.out = height)
-  res <- matrix(0, nrow = width, ncol = height)
-  for (i in seq_len(width)) {
-    for (j in seq_len(height)) {
+mandelbrot_set <- function(r1, r2, maxiter) {
+  res <- matrix(0, nrow = length(r1), ncol = length(r2))
+  for (i in seq_len(length(r1))) {
+    for (j in seq_len(length(r2))) {
       res[i, j] <- mandelbrot(complex(real = r1[i], imaginary= r2[j]), maxiter)
     }
   }
@@ -39,50 +46,47 @@ mandelbrot_sep <- function(creal, cimag, maxiter) {
   }
   0
 }
-mandelbrot_set_sep <- function(xmin, xmax, ymin, ymax, width, height, maxiter) {
-  r1 <- seq(xmin, xmax, length.out = width)
-  r2 <- seq(ymin, ymax, length.out = height)
-  n3 <- matrix(0, nrow = width, ncol = height)
-  for (i in seq_len(width)) {
-    for (j in seq_len(height)) {
+mandelbrot_set_sep <- function(r1, r2, maxiter) {
+  n3 <- matrix(0, nrow = length(r1), ncol = length(r2))
+  for (i in seq_len(length(r1))) {
+    for (j in seq_len(length(r2))) {
       n3[i, j] <- mandelbrot_sep(r1[i], r2[j], maxiter)
     }
   }
   n3
 }
 
-
-# TODO: implement C++ version
+sourceCpp("functions.cpp")
 
 GNUR <- is.null(R.Version()$engine)
 
 if(GNUR) {
   library(Renjin)
   
-	t1 <- system.time( m1 <- mandelbrot_set(-0.74877,-0.74872,0.06505,0.06510,1000,1000,2048) )
-	t2 <- system.time( m2 <- mandelbrot_set_sep(-0.74877,-0.74872,0.06505,0.06510,1000,1000,2048) )
-	t3 <- system.time( m3 <- renjin(mandelbrot_set(-0.74877,-0.74872,0.06505,0.06510,1000,1000,2048) ))
-	t4 <- system.time( m4 <- renjin(mandelbrot_set_sep(-0.74877,-0.74872,0.06505,0.06510,1000,1000,2048) ))
-	# TODO: time C++ func
+	t1 <- system.time( m1 <- mandelbrot_set(r1, r2, 2048) )
+	t2 <- system.time( m2 <- mandelbrot_set_sep(r1, r2, 2048) )
+	t3 <- system.time( m3 <- renjin(mandelbrot_set(r1, r2, 2048) ))
+	t4 <- system.time( m4 <- renjin(mandelbrot_set_sep(r1, r2, 2048) ))
+	t5 <- system.time( m5 <- mandelbrot_set_cpp(r1, r2, 2048) )
 
 	stopifnot(identical(m1, m2))
 	stopifnot(identical(m1, m3))
 	stopifnot(identical(m1, m4))
-	# TODO: check C++ result
-	# TODO: print C++ time
-  timings <- rbind(t1, t2, t3, t4)
+	stopifnot(identical(m1, m5))
+	
+  timings <- rbind(t1, t2, t3, t4, t5)
   print(timings)
 } else {
   library(Renjin)
   
-	t1 <- system.time( m1 <- mandelbrot_set(-0.74877,-0.74872,0.06505,0.06510,1000,1000,2048) )
-	t2 <- system.time( m2 <- mandelbrot_set_sep(-0.74877,-0.74872,0.06505,0.06510,1000,1000,2048) )
-	# TODO: time C++ func
-
+	t1 <- system.time( m1 <- mandelbrot_set(r1, r2, 2048) )
+	t2 <- system.time( m2 <- mandelbrot_set_sep(r1, r2, 2048) )
+	t3 <- system.time( m3 <- mandelbrot_set_cpp(r1, r2, 2048) )
+	
 	stopifnot(identical(m1, m2))
-	# TODO: check C++ result
-	# TODO: print C++ time
-  timings <- rbind(t1, t2)
+	stopifnot(identical(m1, m3))
+	
+  timings <- rbind(t1, t2, t3)
   print(timings)
 }
 
