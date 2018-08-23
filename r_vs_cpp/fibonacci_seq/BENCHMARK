@@ -1,3 +1,0 @@
-Name: fibonacci_seq
-Description: fibonacci sequence in pure R and C++
-Depends: Rcpp (0.12.13)

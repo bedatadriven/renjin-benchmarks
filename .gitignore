@@ -28,3 +28,4 @@
 *.swp
 *.*~
 build
+.Rproj.user

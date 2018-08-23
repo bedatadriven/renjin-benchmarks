@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Survival TCGA &mdash; Renjin Benchmarks 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="TCGA browser" href="../tcga_browser/README.html" />
+    <link rel="prev" title="Survival simple" href="../survival_simple/README.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../tcga_browser/README.html" title="TCGA browser"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../survival_simple/README.html" title="Survival simple"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="survival-tcga">
+<h1>Survival TCGA<a class="headerlink" href="#survival-tcga" title="Permalink to this headline">¶</a></h1>
+<p>All cancers are caused by mutations in DNA. <a class="reference external" href="http://cancergenome.nih.gov/">The Cancer Genome Atlas (TCGA)</a>
+is a project that begun in 2005 and aims to catalogue the mutations that cause
+cancer in patients. It uses highthroughput sequencing technologies and
+bioinformatics to achive this gaol. Beside genomic data, TCGA also records and
+provides detailed anonymize meta information about each patient (such as
+disease stage, patient age, sex, healt, etc) which are very valuable for
+identification of risk factors.</p>
+<p>In this workflow, survival analysis is performed on TCGA meta and survival data
+using the Cox regression model. The <a class="reference external" href="https://cran.r-project.org/web/packages/glmnet/index.html">glmnet package</a> is one of the most
+efficient packages for such an analysis in R.</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-3387e5a8ab525af08afa45f2b207326b8022a162.png" alt="digraph SURV_TCGA_workflow {
+             Data [group = g1; shape = invhouse, label = &quot;Survival data (TCGA)&quot;];
+             xdata [shape = box; label = &quot;xdata:\nExpression&quot;];
+             ydata [shape = box; label = &quot;ydata:\nSurvival&quot;];
+             params [group = g1; shape = box; label = &quot;n lambda: 10k\nalpha: seq(0 , 1, .1)        \nn alpha: 11&quot;];
+             glmnet [group = g1; shape = box; label = &quot;glmnet(xdata, ydata    \nalpha, family=cox)    &quot;];
+             Data -&gt; xdata;
+             Data -&gt; ydata;
+             xdata -&gt; glmnet;
+             ydata -&gt; glmnet;
+             glmnet -&gt; glmnet [label = &quot; n alpha   &quot;];
+
+             edge[style=invis];
+             glmnet -&gt; params;
+     }" />
+</p>
+<p class="caption">Survival workflow with TCGA dataset and glmnet()</p>
+<div class="section" id="packages-and-dependencies">
+<h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>There are 2 packages used in this workflow, which depend
+on 5 additional packages from CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: glmnet, survival</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: foreach, Matrix, codetools, iterators, lattice</li>
+</ul>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Patient survival data from TCGA consortium provided by Andre Verissimo.</li>
+</ul>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 Andre Verissimo (<a class="reference external" href="mailto:andre&#46;verissimo&#37;&#52;&#48;tecnico&#46;ulisboa&#46;pt">andre<span>&#46;</span>verissimo<span>&#64;</span>tecnico<span>&#46;</span>ulisboa<span>&#46;</span>pt</a>)</div>
+<div class="line">Copyright (c) 2015-2016 BeDataDriven B.V.</div>
+<div class="line">License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Survival TCGA</a><ul>
+<li><a class="reference internal" href="#packages-and-dependencies">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../survival_simple/README.html"
+                        title="previous chapter">Survival simple</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../tcga_browser/README.html"
+                        title="next chapter">TCGA browser</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/survival_tcga/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../tcga_browser/README.html" title="TCGA browser"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../survival_simple/README.html" title="Survival simple"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,3 +1,0 @@
-Name: dmvnorm
-Description:
-Depends: Rcpp (0.12.13), RcppArmadillo (0.8.500.0), mvtnorm (0.9-92), fields (8.10)

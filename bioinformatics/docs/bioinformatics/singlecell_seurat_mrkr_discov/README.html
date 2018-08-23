@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Single Cell (Seurat, Clustering and marker discovery) &mdash; Renjin Benchmarks 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="Single Cell (Seurat, Spatial Inference)" href="../singlecell_seurat_spatial_infer/README.html" />
+    <link rel="prev" title="Simulated GEO matrix" href="../simulated_geo_matrix/README.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../singlecell_seurat_spatial_infer/README.html" title="Single Cell (Seurat, Spatial Inference)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../simulated_geo_matrix/README.html" title="Simulated GEO matrix"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="single-cell-seurat-clustering-and-marker-discovery">
+<h1>Single Cell (Seurat, Clustering and marker discovery)<a class="headerlink" href="#single-cell-seurat-clustering-and-marker-discovery" title="Permalink to this headline">¶</a></h1>
+<p>All the functions that take place within a cell are performed through proteins.
+These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
+A gene is a sequence of DNA that encodes for a particular protein. In order to
+make the necessary proteins, the transcriptional machinary of a cell makes
+special copies of the respective genes that can be translated to protein
+sequences. These special copies are called messenger RNAs (Ribonucleic acids).</p>
+<p>The amount of mRNA produced by a specific gene is used as a surrogate marker for
+quantification of the gene activity. With Current highthroughput sequencing
+technologies (such as in this case RNAseq), all (fragmented) RNA molecules
+from a biological sample are sequenced. These sequences are then matched to
+the annotated genome sequence to identify to which gene each sequenced fragment
+belongs. More sequenced fragments mapping to a gene in one samples as compared
+to another, means that the specific gene had a higher activity. In addition,
+single cell sequencing technologies have allowed us to identify the heterogeneous
+nature of phenotypically pure populations and identity new sub populations of
+cells based on difference in gene expression.</p>
+<p>In this workflow developed by <a class="reference external" href="http://www.satijalab.org">Satija lab</a> single
+cell transcriptomic data is used in combination of various dimensional reduction
+algorithms (such as PCA and t-SNE) to cluster cells. The leading genes in these
+clusterings can be used as genetic markers.</p>
+<div class="section" id="packages-and-dependencies">
+<h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>There is 1 package used in this workflow, which depend
+on 60 additional packages from CRAN (dependencies)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><strong>Github</strong>: Seurat (satijalab/seurat)</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: ggplot2, reshape2, useful, gridExtra, gplots, ROCR, stringr, mixtools, lars, fastICA, tsne, Rtsne, fpc, ape, VGAM, jackstraw, XLConnect, plyr, scales, gtable, digest, MASS, proto, Rcpp, dichromat, labeling, RColorBrewer, munsell, colorspace, magrittr, stringi, dplyr, assertthat, R6, DBI, lazyeval, gtools, KernSmooth, caTools, bitops, boot, segmented, diptest, mvtnorm, flexmix, mclust, trimcluster, kernlab, robustbase, class, cluster, prabclus, nnet, lattice, modeltools, DEoptimR, nlme, corpcor, XLConnectJars, rJava</li>
+</ul>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>Single cell transcriptome data from <a class="reference external" href="http://doi.org/10.1038/nbt.2967">Pollen et al. 2014</a></p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 Rahul Satija</div>
+<div class="line">based on code from <a class="reference external" href="http://www.satijalab.org/seurat-intro.html">Tutorial - Unsupervised clustering and marker discovery</a></div>
+<div class="line">Copyright (c) 2015-2016 BeDataDriven B.V.</div>
+<div class="line">License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Single Cell (Seurat, Clustering and marker discovery)</a><ul>
+<li><a class="reference internal" href="#packages-and-dependencies">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../simulated_geo_matrix/README.html"
+                        title="previous chapter">Simulated GEO matrix</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../singlecell_seurat_spatial_infer/README.html"
+                        title="next chapter">Single Cell (Seurat, Spatial Inference)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/singlecell_seurat_mrkr_discov/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../singlecell_seurat_spatial_infer/README.html" title="Single Cell (Seurat, Spatial Inference)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../simulated_geo_matrix/README.html" title="Simulated GEO matrix"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

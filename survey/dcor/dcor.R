@@ -11,7 +11,8 @@ load("GSS.2010.CS.rda")
 #demo <- c(16, 4, 54, 55, 57, 67, 77, 78, 114)
 demo <- c(44, 92)
 # Attitude questions, not asked of all participants
-attitudes <- c(146, 4459:4493, 4510:4656, 4692:4720, 4729:4789, 4805:4814, 4817:4823)
+#attitudes <- c(146, 4459:4493, 4510:4656, 4692:4720, 4729:4789, 4805:4814, 4817:4823)
+attitudes <- c(146, 4459:4465)
 
 
 nr <- nrow(GSS.2010.CS.df)
@@ -20,6 +21,7 @@ vars <- attr(GSS.2010.CS.df, "var.labels")
 # clean up 
 
 # Find correlated pairs of variables
+system.time({
 for(i in demo)  {
   x <- GSS.2010.CS.df[, i]
   cat(sprintf("finding associations between '%s' and attitudes:\n", vars[i]))
@@ -37,3 +39,4 @@ for(i in demo)  {
     }
   }
 }
+})

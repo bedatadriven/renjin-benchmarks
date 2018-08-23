@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>RNAseq DESeq2 &mdash; Renjin Benchmarks 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="Reverse phase protein array (rppa)" href="../rppa/README.html" />
+    <link rel="prev" title="Mutation" href="../mutation/README.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../rppa/README.html" title="Reverse phase protein array (rppa)"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../mutation/README.html" title="Mutation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rnaseq-deseq2">
+<h1>RNAseq DESeq2<a class="headerlink" href="#rnaseq-deseq2" title="Permalink to this headline">¶</a></h1>
+<p>All the functions that take place within a cell are performed through proteins.
+These proteins are coded within the DNA (Deoxyribonucleic acid) of the cell.
+A gene is a sequence of DNA that encodes for a particular protein. In order to
+make the necessary proteins, the transcriptional machinary of a cell makes
+special copies of the respective genes that can be translated to protein
+sequences. These special copies are called messenger RNAs (Ribonucleic acids).</p>
+<p>The amount of mRNA produced by a specific gene is used as a surrogate marker for
+quantification of the gene activity. With Current highthroughput sequencing
+technologies (such as in this case RNAseq), all (fragmented) RNA molecules
+from a biological sample are sequenced. These sequences are then matched to
+the annotated genome sequence to identify to which gene each sequenced fragment
+belongs. More sequenced fragments mapping to a gene in one samples as compared
+to another, means that the specific gene had a higher activity.</p>
+<p>This workflow uses the exploratory analysis of RNAseq data using many well
+stablished Bioconductor packages such as DESeq2, Rsamtools, and
+GenomicAlignments as described in
+<a class="reference external" href="http://doi.org/10.12688/f1000research.7035.1">Love MI et al., 2015</a></p>
+<p class="graphviz">
+<img src="../../_images/graphviz-4ef647356fe9bb23c4c1247bfc6f4b2fa74cc994.png" alt="digraph GRAPH_ID {
+ fontname=&quot;sans-serif&quot;;
+ penwidth=&quot;0.1&quot;;
+ compound=&quot;true&quot;;
+ edge [comment=&quot;Wildcard edge&quot;,
+       fontname=&quot;sans-serif&quot;,
+       fontsize=10,
+       colorscheme=&quot;blues3&quot;,
+       color=2,
+       fontcolor=3];
+ node [fontname=&quot;serif&quot;,
+       fontsize=10,
+       fillcolor=&quot;1&quot;,
+       colorscheme=&quot;blues4&quot;,
+       color=&quot;2&quot;,
+       fontcolor=&quot;4&quot;,
+       style=&quot;filled&quot;];
+ subgraph &quot;cluster0&quot; {
+     label=&quot;Read raw data&quot;;
+     edge [comment=&quot;subgraph edge wildcard&quot;];
+     node [comment=&quot;subgraph node wildcard&quot;];
+     &quot;bams&quot; [shape=&quot;invhouse&quot;,
+             label=&quot;BAM Files&quot;];
+     &quot;bamfilelist&quot; [label=&quot;BamFileList \n (yieldsize=2e6)&quot;];
+     &quot;gtf&quot; [shape=&quot;invhouse&quot;,
+            label=&quot;GTF&quot;];
+     &quot;c0_mtxdb&quot; [label=&quot;makeTxDbFromGFF \n (format=GTF) \n\n exonsBy \n (by=gene)&quot;];
+     &quot;se&quot; [group=g1,
+           label=&quot;summarizeOverlaps()&quot;];
+     &quot;dds&quot; [colorscheme=&quot;ylorrd3&quot;,
+            label=&quot;DESeqDataSet \n (design=~cell+dex)&quot;];
+     &quot;c0_countdata&quot; [label=&quot;assay() \n colData()&quot;];
+     &quot;ddsMat&quot; [shape=&quot;box&quot;,
+               label=&quot;DESeqDataSetFromMatrix( \n countdata, colData, \n design=~cell+dex)&quot;];
+     &quot;bams&quot; -&gt; &quot;bamfilelist&quot;;
+     &quot;gtf&quot; -&gt; &quot;c0_mtxdb&quot;;
+     &quot;c0_mtxdb&quot; -&gt; &quot;se&quot;;
+     &quot;bamfilelist&quot; -&gt; &quot;se&quot;;
+     &quot;se&quot; -&gt; &quot;dds&quot;;
+     &quot;se&quot; -&gt; &quot;c0_countdata&quot;;
+     &quot;c0_countdata&quot; -&gt; &quot;ddsMat&quot;;
+     &quot;dds&quot; -&gt; &quot;ddsMat&quot;;
+ }
+
+ subgraph &quot;cluster1&quot; {
+     label=&quot;Exploratory analysis&quot;;
+     edge [comment=&quot;subgraph edge wildcard&quot;];
+     node [comment=&quot;subgraph node wildcard&quot;];
+     &quot;c1_dds&quot; [colorscheme=&quot;ylorrd3&quot;,
+               label=&quot;DESeqDataSet&quot;];
+     &quot;plot_rlog&quot; [shape=&quot;box&quot;,
+                  label=&quot;plot() \n plotPCA() \n MDS plot&quot;];
+     &quot;dds_eSF&quot; [label=&quot;estimateSizeFactors()&quot;];
+     &quot;dist_dds_eSF&quot; [label=&quot;dist()&quot;];
+     &quot;pheatmap_dds&quot; [shape=&quot;box&quot;,
+                     label=&quot;pheatmap() \n MDS Plot&quot;];
+     &quot;dds_rlog&quot; [label=&quot;rlog()&quot;];
+     &quot;dds_cnt_poisdist&quot; [label=&quot;PoissonDistance()&quot;];
+     &quot;pheatmap_cnt_pois&quot; [shape=&quot;box&quot;,
+                          label=&quot;pheatmap() \n MDS plot&quot;];
+     &quot;c1_dds&quot; -&gt; &quot;dds_eSF&quot;;
+     &quot;dds_eSF&quot; -&gt; &quot;dist_dds_eSF&quot;;
+     &quot;dist_dds_eSF&quot; -&gt; &quot;pheatmap_dds&quot;;
+     &quot;c1_dds&quot; -&gt; &quot;dds_rlog&quot;  [ltail=&quot;cluster0&quot;];
+     &quot;dds_rlog&quot; -&gt; &quot;plot_rlog&quot;;
+     &quot;dds_eSF&quot; -&gt; &quot;dds_cnt_poisdist&quot;;
+     &quot;dds_cnt_poisdist&quot; -&gt; &quot;pheatmap_cnt_pois&quot;;
+ }
+
+ subgraph &quot;cluster2&quot; {
+     label=&quot;Differential Expression&quot;;
+     edge [comment=&quot;subgraph edge wildcard&quot;];
+     node [comment=&quot;subgraph node wildcard&quot;];
+     &quot;c2_dds&quot; [label=&quot;DESeqDataSet&quot;,
+               colorscheme=&quot;ylorrd3&quot;];
+     &quot;c2_rlog&quot; [label=&quot;rlog()&quot;];
+     &quot;c2_assay&quot; [label=&quot;↳ assay() \n ↳ rowVars() \n ↳ order() \n ↳ head()&quot;];
+     &quot;c2_pheatmap&quot; [shape=&quot;box&quot;,
+                    label=&quot;pheatmap()&quot;];
+     &quot;dds_eSF_deseq&quot; [label=&quot;DESeq() \n results() \n quantile() \n cut()&quot;];
+     &quot;c2_plotCounts&quot; [shape=&quot;box&quot;,
+                      label=&quot;plotCounts()\n hist()\n plotMA() \n barplot()&quot;];
+     &quot;c2_res_granges&quot; [label=&quot;results(format=GRanges) \n mapIds() \n strand()&quot;];
+     &quot;c2_init_tracks&quot; [label=&quot;GenomeAxisTrack() \n AnnotationTrack() \n DataTrack()&quot;];
+     &quot;c2_plot_track&quot; [shape=&quot;box&quot;,
+                      label=&quot;plotTrack()&quot;];
+     &quot;c2_counts&quot; [label=&quot;counts(normalized=TRUE) \n svaseq(n.sv=2)&quot;];
+     &quot;c2_design&quot; [label=&quot;design(~SV1+SV2+dex) \n DESeq()&quot;];
+     &quot;c2_stripchart&quot; [shape=&quot;box&quot;,
+                      label=&quot;stripchart()&quot;];
+     &quot;c2_dds&quot; -&gt; &quot;dds_eSF_deseq&quot;;
+     &quot;dds_eSF_deseq&quot; -&gt; &quot;c2_plotCounts&quot;;
+     &quot;c2_dds&quot; -&gt; &quot;c2_res_granges&quot;;
+     &quot;c2_res_granges&quot; -&gt; &quot;c2_init_tracks&quot;;
+     &quot;c2_init_tracks&quot; -&gt; &quot;c2_plot_track&quot;;
+     &quot;c2_dds&quot; -&gt; &quot;c2_rlog&quot;;
+     &quot;c2_rlog&quot; -&gt; &quot;c2_assay&quot;;
+     &quot;c2_assay&quot; -&gt; &quot;c2_pheatmap&quot;;
+     &quot;c2_dds&quot; -&gt; &quot;c2_counts&quot;;
+     &quot;c2_counts&quot; -&gt; &quot;c2_design&quot;;
+     &quot;c2_counts&quot; -&gt; &quot;c2_stripchart&quot;;
+ }
+}" />
+</p>
+<p class="caption">Diagram of RNAseq analysis using DESeq2.</p>
+<div class="section" id="packages-and-dependencies">
+<h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>There are 17 packages used in this workflow, which depend
+on 79 additional packages (dependencies).</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: Rsamtools, GenomicFeatures, GenomicAlignments, BiocParallel, DESeq2, genefilter, AnnotationDbi, org.Hs.eg.db, ReportingTools</li>
+<li><em>CRAN</em>: pheatmap, RColorBrewer, PoiClaClu, ggplot2, Gviz, fission, sva, fission</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: BiocGenerics, Biostrings, GenomeInfoDb, XVector, S4Vectors, rtracklayer, Biobase, biomaRt, IRanges, zlibbioc, GenomicRanges, geneplotter, ggbio, PFAM.db, limma, edgeR, GSEABase, GOstats, VariantAnnotation, BSgenome, OrganismDbi, biovizBase, GO.db</li>
+<li><em>CRAN</em>: bitops, RCurl, RSQLite, DBI, XML, snow, futile.logger, Rcpp, RcppArmadillo, Hmisc, locfit, plyr, scales, reshape2, gtable, digest, MASS, proto, Formula, lattice, gridExtra, nnet, acepack, latticeExtra, cluster, rpart, foreign, survival, annotate, dichromat, labeling, munsell, stringr, xtable, colorspace, magrittr, stringi, Category, R.utils, hwriter, knitr, GGally, graph, Matrix, RBGL, AnnotationForge, evaluate, markdown, yaml, highr, formatR, reshape, mime, matrixStats, mgcv, nlme</li>
+</ul>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>RNAseq bam-files from <a class="reference external" href="http://www.doi.org/10.1084/jem.20140767">Solaimani Kartalaei P, (2014)</a></p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<div class="line-block">
+<div class="line">Copyright (c) 2015 Wolfgang Huber</div>
+<div class="line">based on  <a class="reference external" href="http://www.doi.org/10.12688/f1000research.7035.1">DOI: 10.12688/f1000research.7035.1</a></div>
+<div class="line">Copyright (c) 2016 BeDataDriven B.V.</div>
+<div class="line">License: Artistic 2.0</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">RNAseq DESeq2</a><ul>
+<li><a class="reference internal" href="#packages-and-dependencies">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../mutation/README.html"
+                        title="previous chapter">Mutation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../rppa/README.html"
+                        title="next chapter">Reverse phase protein array (rppa)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/rnaseq_deseq2/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../rppa/README.html" title="Reverse phase protein array (rppa)"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../mutation/README.html" title="Mutation"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,3 +1,0 @@
-Name: parallel_matrix_transform
-Description: Transforming a Matrix in Parallel using RcppParallel
-Depends: Rcpp (0.12.13)

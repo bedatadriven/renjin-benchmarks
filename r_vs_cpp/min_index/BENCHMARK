@@ -1,4 +1,0 @@
-Name: min_index
-Description: Finding the minimum of a vector and its index
-Depends: Rcpp (0.12.13)
-

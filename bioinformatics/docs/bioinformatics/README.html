@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bioinformatics &mdash; Renjin Benchmarks 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../index.html" />
+    <link rel="next" title="Affy" href="affy/README.html" />
+    <link rel="prev" title="Prologue" href="../prologue.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="affy/README.html" title="Affy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../prologue.html" title="Prologue"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bioinformatics">
+<h1>Bioinformatics<a class="headerlink" href="#bioinformatics" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Bioinformatic workflows used in different fields of biology for educational and benchmarking purposes. This is and will stay a work in progress and we welcome any user to submit PRs to include their workflows.</p>
+<p>List of bioinformatic benchmarks included in this repository.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Benchmark name</strong></td>
+<td><strong>Benchmark description</strong></td>
+</tr>
+<tr class="row-even"><td>affy</td>
+<td>Analysis of MicroArray data</td>
+</tr>
+<tr class="row-odd"><td>clinical_eslII</td>
+<td>Analysis of clinical data (according to book ESL 2nd edition)</td>
+</tr>
+<tr class="row-even"><td>clinical_livercohort</td>
+<td>Analysis of clinical data from liver cohort study</td>
+</tr>
+<tr class="row-odd"><td>generate_count</td>
+<td>Generate count tables from RNAseq data</td>
+</tr>
+<tr class="row-even"><td>integration_igraph</td>
+<td>Integerate different biological data with iGraph</td>
+</tr>
+<tr class="row-odd"><td>integration_livercohort</td>
+<td>Integrate data from liver cohort study with another data sourc</td>
+</tr>
+<tr class="row-even"><td>microarray</td>
+<td>Analysis of microarray datasets</td>
+</tr>
+<tr class="row-odd"><td>mutation</td>
+<td>Analysis of SNP data</td>
+</tr>
+<tr class="row-even"><td>rnaseq_deseq2</td>
+<td>Analysis of RNAseq data using DESeq2</td>
+</tr>
+<tr class="row-odd"><td>rnaseq_preprocess</td>
+<td>Preprocessing of RNAseq files to generate count data from FASTA files</td>
+</tr>
+<tr class="row-even"><td>rppa</td>
+<td>Analysis of Reverse Phase Protein Array (RPPA) data</td>
+</tr>
+<tr class="row-odd"><td>simulated_geo_matrix</td>
+<td>Analysis of simulated gene expression and patient meta data</td>
+</tr>
+<tr class="row-even"><td>singlecell_seurat_mrkr_discov</td>
+<td>Single cell gene expression analysis for marker discovery (using Seurat)</td>
+</tr>
+<tr class="row-odd"><td>singlecell_seurat_spatial_infer</td>
+<td>Single cell gene expression analysis for sepatial inference (using Seurat)</td>
+</tr>
+<tr class="row-even"><td>survival_simple</td>
+<td>Simple survival analysis</td>
+</tr>
+<tr class="row-odd"><td>survival_tcga</td>
+<td>Survival analysis using TCGA data</td>
+</tr>
+<tr class="row-even"><td>tcga_browser</td>
+<td>Modules used in a shiny app to visualize TCGA data</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="workflows">
+<h2>Workflows<a class="headerlink" href="#workflows" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="affy/README.html">Affy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clinical_eslII/README.html">Clinical eslII (Essential Statistics Learning 2nd Edition)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clinical_livercohort/README.html">Clinical (liver cohort)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="generate_count/README.html">Generate count (From RNAseq BAM files)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration_igraph/README.html">Integration: iGraph</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration_livercohort/README.html">Integration: Liver cohort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="microarray/README.html">Microarray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mutation/README.html">Mutation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rnaseq_deseq2/README.html">RNAseq DESeq2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rppa/README.html">Reverse phase protein array (rppa)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simulated_geo_matrix/README.html">Simulated GEO matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlecell_seurat_mrkr_discov/README.html">Single Cell (Seurat, Clustering and marker discovery)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="singlecell_seurat_spatial_infer/README.html">Single Cell (Seurat, Spatial Inference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survival_simple/README.html">Survival simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="survival_tcga/README.html">Survival TCGA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tcga_browser/README.html">TCGA browser</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bioinformatics</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#workflows">Workflows</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../prologue.html"
+                        title="previous chapter">Prologue</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="affy/README.html"
+                        title="next chapter">Affy</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/bioinformatics/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="affy/README.html" title="Affy"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../prologue.html" title="Prologue"
+             >previous</a> |</li>
+        <li><a href="../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

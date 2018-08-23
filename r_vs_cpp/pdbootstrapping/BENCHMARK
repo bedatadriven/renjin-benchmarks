@@ -1,3 +1,0 @@
-Name: pdbootstrapping
-Description: A Non-Parametric Bootstrap Process to Measure Parameter Uncertainty
-Depends: Rcpp (0.12.13)

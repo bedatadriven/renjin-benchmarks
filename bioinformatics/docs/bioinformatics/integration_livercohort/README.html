@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Integration: Liver cohort &mdash; Renjin Benchmarks 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="Microarray" href="../microarray/README.html" />
+    <link rel="prev" title="Integration: iGraph" href="../integration_igraph/README.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../microarray/README.html" title="Microarray"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../integration_igraph/README.html" title="Integration: iGraph"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="integration-liver-cohort">
+<h1>Integration: Liver cohort<a class="headerlink" href="#integration-liver-cohort" title="Permalink to this headline">¶</a></h1>
+<p>Recent high-throughput technologies have caused an explosion in the number of
+cohort studies which monitor and record medical (phenotype, genetic), social
+(phenotype), and biological (phenotype, genotype, transcriptional) information
+of large number of human participants for a long period of time. This allows to
+identify the variables that, for example, correlate with occurrence of diseases.
+Researchers hope that the causative events that have led to the disease are
+among the highest correlating variables. Given the limited number of validation
+experiments that a scientist can perform during his/her career, being able to
+narrow down the number of candidate variables without loosing the causative
+variable is of utmost importance. From population health perpective, earlier
+diagnosis of disease or slightly better prediction of disease progress (higher
+accuracy and precision) can have significant effects on population health and
+its costs. Machine learning algorithms can integrate information from multiple
+sources and are, therefor, most widely used.</p>
+<p>This workflow uses data acquired in a cohort study by <a class="reference external" href="http://doi.org/10.1371/journal.pbio.0060107">Schadt EE et al., 2008</a>
+on over 400 human liver samples. First gene expression, mutation and phenotype
+data from are cleaned up by removing variables containing missing data and
+patients which lack expression, mutation, or phenotype data. Multiple machine
+leaning algorithms such as Support Vector Machines, Native Bayesian, and Robust
+regression are than used to create predictive models.</p>
+<p>Support Vector Machine (&#8216;e1071&#8217; package) is used to train a model
+(classification and regression) using random sample of 2/3 of samples
+(training set) and tested with the remaining 1/3 of samples (test set). Model
+is trained based on independent variables such as age and liver triglyceride
+levels, and dependent variables such as activity of nine liver enzymes.</p>
+<p>Using enzyme activity information, heatmaps (&#8216;stats&#8217; package) are generated to
+visualize correlation between enzymes and correlation between patients. For
+clustering of patients based on enzyme activity data, heatmap are grouped based
+on Principal Component Analysis results (prcomp from &#8216;stats&#8217; package). Naive
+Bayesian classifier (&#8216;e1071&#8217; package) is used to cluster samples based on gene
+expression profile with aldehyde oxydase levels or liver enzyme activity as
+class vector (independent variable).</p>
+<p>Furthermore, Robust linear model (&#8216;MASS&#8217; package) is used to train model using
+liver triglyceride levels and gene expression levels of genes with highest
+variance. A random sample of 25 genes are selected from 1000 genes with the
+highest variance and used in combination with triglyceride level phenotype.
+This is done in 50 iteration and the iteration with highest correlation in
+training and test sets is recorded.</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-9b82cb5c116fab0553825c9da99aead97d9b8484.png" alt="digraph INTEGRATION_LIVERCOHORT {
+ fontname=&quot;sans-serif&quot;;
+ penwidth=&quot;0.1&quot;;
+ compound=&quot;true&quot;;
+ edge [comment=&quot;Wildcard edge&quot;,
+       fontname=&quot;sans-serif&quot;,
+       fontsize=10,
+       colorscheme=&quot;blues3&quot;,
+       color=2,
+       fontcolor=3];
+ node [fontname=&quot;serif&quot;,
+       fontsize=13,
+       fillcolor=&quot;1&quot;,
+       colorscheme=&quot;blues4&quot;,
+       color=&quot;2&quot;,
+       fontcolor=&quot;4&quot;,
+       style=&quot;filled&quot;];
+
+ subgraph cluster0 {
+     label=&quot;Load &amp; prepare data&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     load [shape=&quot;box&quot;,
+           label=&quot;Load \n read.delim()&quot;];
+     process [shape=&quot;box&quot;,
+              label=&quot;Process: \n subset(), merge(), \n complete.cases()&quot;];
+     load -&gt; process;
+ }
+
+ subgraph cluster1 {
+     label=&quot;SVM predicting modeling&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     process -&gt; dataset  [ltail=&quot;cluster0&quot;,
+                          lhead=&quot;cluster1&quot;];
+     dataset [shape=&quot;invhouse&quot;,
+              label=&quot;Devide in train and test \n sets using rep(), sample()&quot;];
+     dataset -&gt; &quot;trainset&quot;  [label=&quot;1/3&quot;];
+     &quot;trainset&quot; -&gt; &quot;svm()&quot;;
+     &quot;svm()&quot; -&gt; &quot;predict()&quot;  [label=&quot;model&quot;];
+     &quot;predict()&quot; -&gt; &quot;classAgreement&quot;;
+     &quot;trainset&quot; -&gt; &quot;predict()&quot;;
+     dataset -&gt; &quot;testset&quot;  [label=&quot;2/3&quot;];
+     &quot;testset&quot; -&gt; &quot;predict()&quot;;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         &quot;trainset&quot;;
+         &quot;testset&quot;;
+     }
+
+ }
+
+ subgraph cluster2 {
+     label=&quot;NaiveBayesian modeling&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     process -&gt; c2_dataset  [ltail=&quot;cluster0&quot;,
+                             lhead=&quot;cluster2&quot;];
+     c2_explr [shape=&quot;box&quot;,
+               label=&quot;Explore dataset using: \n hclust(), prcomp(), t(), \n dist(), cutree(), cor()&quot;];
+     c2_explt [shape=&quot;box&quot;,
+               label=&quot;Plot exploratoy analysis \n with heatmap() and pairs()&quot;];
+     c2_explr -&gt; c2_explt;
+     c2_dataset [shape=&quot;invhouse&quot;,
+                 label=&quot;curatedPhen&quot;];
+     c2_make_cat [shape=box,
+                  label=&quot;create binary categories \n cut(quantile()), \n cutree(hclust())&quot;];
+     c2_train [label=&quot;trainset&quot;];
+     c2_test [label=&quot;testset&quot;];
+     c2_nb [label=&quot;naiveBayes()&quot;];
+     c2_pred [label=&quot;predict()&quot;];
+     c2_clsagr [label=&quot;classAgreement()&quot;];
+     c2_dataset -&gt; c2_explr;
+     c2_explr -&gt; c2_make_cat;
+     c2_dataset -&gt; c2_train  [label=&quot;1/3&quot;];
+     c2_dataset -&gt; c2_test  [label=&quot;2/3&quot;];
+     c2_train -&gt; c2_nb;
+     c2_nb -&gt; c2_pred  [label=&quot;model&quot;];
+     c2_test -&gt; c2_pred;
+     c2_pred -&gt; c2_clsagr;
+     c2_make_cat -&gt; c2_nb;
+     c2_train -&gt; c2_pred;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c2_train;
+         c2_test;
+     }
+
+ }
+
+ subgraph cluster3 {
+     label=&quot;Robust Linear Model fitting (RLM)&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     process -&gt; c3_expre  [ltail=&quot;cluster0&quot;,
+                           lhead=&quot;cluster3&quot;];
+     c3_pheno [shape=&quot;invhouse&quot;,
+               label=&quot;curatedPhen&quot;];
+     c3_expre [shape=&quot;invhouse&quot;,
+               label=&quot;curatedExpr&quot;];
+     c3_dataset [shape=&quot;invhouse&quot;,
+                 label=&quot;Devide in train and test \n sets using rep(), sample()&quot;];
+     c3_train [label=&quot;trainset&quot;];
+     c3_test [label=&quot;testset&quot;];
+     c3_expre -&gt; c3_dataset;
+     c3_dataset -&gt; c3_train  [label=&quot;1/3&quot;];
+     c3_dataset -&gt; c3_test  [label=&quot;2/3&quot;];
+     c3_feats [label=&quot;selected features&quot;];
+     c3_col_feat [shape=&quot;box&quot;,
+                  label=&quot;Remove low variance columns \n var(), rank()&quot;];
+     c3_row_feat [shape=&quot;box&quot;,
+                  label=&quot;Remove high correlation rows \n sum(), abs(), cor()&quot;];
+     c3_rlm_tri [label=&quot;rlm(triglyc ~ ., data)&quot;];
+     c3_pred [label=&quot;predict()&quot;];
+     c3_cor [label=&quot;cor()&quot;];
+     c3_train -&gt; c3_col_feat;
+     c3_col_feat -&gt; c3_feats;
+     c3_row_feat -&gt; c3_feats;
+     c3_feats -&gt; c3_rlm_tri;
+     c3_feats -&gt; c3_pred;
+     c3_feats -&gt; c3_cor;
+     c3_train -&gt; c3_rlm_tri;
+     c3_rlm_tri -&gt; c3_pred  [label=&quot;model&quot;];
+     c3_pred -&gt; c3_cor;
+     c3_test -&gt; c3_pred;
+     c3_pheno -&gt; c3_rlm_tri;
+     c3_pheno -&gt; c3_cor;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c3_train;
+         c3_test;
+     }
+
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c3_pheno;
+         c3_expre;
+     }
+
+ }
+
+}" />
+</p>
+<p class="caption">Diagram for integration livercohort benchmark.</p>
+<div class="section" id="packages-and-dependencies">
+<h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>There are 3 packages used in this workflow, which depend
+on 1 additional package from CRAN (dependency)</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: stats, e1071, MASS</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>CRAN</em>: class</li>
+</ul>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>from <a class="reference external" href="https://www.synapse.org/#!Synapse:syn4499">Human Liver Cohort (Synapse ID: syn4499)</a></p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Integration: Liver cohort</a><ul>
+<li><a class="reference internal" href="#packages-and-dependencies">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../integration_igraph/README.html"
+                        title="previous chapter">Integration: iGraph</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../microarray/README.html"
+                        title="next chapter">Microarray</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/integration_livercohort/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../microarray/README.html" title="Microarray"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../integration_igraph/README.html" title="Integration: iGraph"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

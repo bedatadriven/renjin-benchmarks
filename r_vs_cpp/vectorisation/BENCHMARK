@@ -1,4 +1,0 @@
-Name: vectorisation
-Description: comparison of vectorisation in R vs C++
-Depends: Rcpp (0.12.13)
-

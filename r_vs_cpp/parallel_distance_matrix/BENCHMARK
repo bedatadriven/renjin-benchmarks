@@ -1,3 +1,0 @@
-Name: parallel_distance_matrix
-Description: Parallel Distance Matrix Calculation with RcppParallel
-Depends: Rcpp (0.12.13), RcppArmadillo (0.8.500.0), RcppParallel (4.3.20)

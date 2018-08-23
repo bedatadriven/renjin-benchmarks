@@ -1,0 +1,11 @@
+Name: RandomForest
+Description: 
+Depends: randomForest (4.6-12)
+
+File: data_apprenti_TUFA.csv
+Source: https://storage.googleapis.com/renjin-benchmarks/data_apprenti_TUFA.csv
+Hash: ae0d63ea2169d68a0f7e735aab251ecf
+
+File: tableau_commune.csv
+Source: https://storage.googleapis.com/renjin-benchmarks/tableau_commune.csv
+Hash: 868b28003dd703dab13bf9ffba4b970b

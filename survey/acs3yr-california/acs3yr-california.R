@@ -1,7 +1,10 @@
 
 library(survey)
 
+system.time({
+
 svydata <- readRDS("california.rds")
+
 names(svydata) <- tolower(names(svydata))
  
 svydsgn <- svrepdesign(
@@ -18,3 +21,4 @@ relp <- svymean(~adjinc, svydsgn, se=TRUE)
 print(agep)
 print(relp)
 
+})

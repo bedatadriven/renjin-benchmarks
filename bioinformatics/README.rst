@@ -13,7 +13,7 @@ included a brief description containing information about its usage, package dep
 data. Moreover, each benchmark is stored in a seperate folder with defined structure and includes information 
 about the package and dataset versions used.
 
-.. figure:: ../docs/_static/benchmark_structure.pdf
+.. figure:: docs/_static/benchmark_structure.pdf
    :scale: 75 %
    :alt: Benchmark structure
    :figwidth: 50 %

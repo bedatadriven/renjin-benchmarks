@@ -1,0 +1,317 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Microarray &mdash; Renjin Benchmarks 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="Renjin Benchmarks 0.1 documentation" href="../../index.html" />
+    <link rel="up" title="Bioinformatics" href="../README.html" />
+    <link rel="next" title="Mutation" href="../mutation/README.html" />
+    <link rel="prev" title="Integration: Liver cohort" href="../integration_livercohort/README.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../mutation/README.html" title="Mutation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../integration_livercohort/README.html" title="Integration: Liver cohort"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" accesskey="U">Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="microarray">
+<h1>Microarray<a class="headerlink" href="#microarray" title="Permalink to this headline">¶</a></h1>
+<p>Mutations in DNA that is coding for proteins (genes) or regulatory elements are
+often the cause of most diseases. Affymatirx arrays allow quantification of specific
+sequences of DNA or RNA in biological samples such as blood, tissue, or tumors.
+These arrays give the relative levels of specific transcript (between two samples)
+so that these can be compared (between eg. healty vs diseased tissues or before vs
+after treatment).</p>
+<p>To do so, DNA sequences unique to specific genes/mutations are printed as small spots
+on a glass surface (arrays), with each spot containing thousends of copies of a single
+sequence. The DNA from each sample is than tagged with different colors of flourecent
+molecules (red or green) and hybredized with the array. This way, DNA from sample can
+bind to sequences on the surface that are antisense of its own sequence (specific
+binding).  The array undergoes several washing steps to remove the none-specifically
+bound DNA sequences, which bind loosly. The plate is than scanned and the flourecence
+intensity for each color at each spot is recorded. This intensity is an indicator of
+the ammount of DNA bound and probably the levels of that specific DNA present in the
+sample. The information regarding the specific sequence printed on each spot, control
+spots, and other array specific information is stored in a CDF format/file. By
+comparing the intensity of red to green at each spot you can know which sample
+contained more of that specific transcript.</p>
+<p>This workflow uses <a class="reference external" href="http://www.bioconductor.org/packages/release/bioc/html/limma.html">limma</a> package for analysis of microarray data to analyse the
+data from <a class="reference external" href="http://doi.org/10.1016/j.molimm.2013.07.001">Ramsey et al 2013</a>. The raw data is normalized and differential gene
+expression analysis and a simple gene set testing is performed as described in limma
+vignet.</p>
+<p class="graphviz">
+<img src="../../_images/graphviz-a051e7478c32b033670acc1c81417399dc57a316.png" alt="digraph MICROARRAY {
+ fontname=&quot;sans-serif&quot;;
+ penwidth=&quot;0.1&quot;;
+ compound=&quot;true&quot;;
+ edge [comment=&quot;Wildcard edge&quot;,
+       fontname=&quot;sans-serif&quot;,
+       fontsize=10,
+       colorscheme=&quot;blues3&quot;,
+       color=2,
+       fontcolor=3];
+ node [fontname=&quot;serif&quot;,
+       fontsize=13,
+       fillcolor=&quot;1&quot;,
+       colorscheme=&quot;blues4&quot;,
+       color=&quot;2&quot;,
+       fontcolor=&quot;4&quot;,
+       style=&quot;filled&quot;];
+ subgraph &quot;cluster0&quot; {
+     label=&quot;(down)load data&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c0_data [shape=&quot;invhouse&quot;,
+              label=&quot;GSE45417_RAW.tar&quot;];
+     c0_anno_df [shape=&quot;box&quot;,
+                 label=&quot;create an AnnotatedDataFrame() \n data.frame(Name, FileName, Group, Treatment, Replicate)&quot;];
+     c0_read [label=&quot;read.affybatch()&quot;];
+     c0_data -&gt; c0_anno_df;
+     c0_anno_df -&gt; c0_read;
+ }
+
+ subgraph &quot;cluster1&quot; {
+     label=&quot;Perform QC&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c1_qc [label=&quot;affy::AffyRNAdeq()&quot;];
+     c1_drop [shape=&quot;box&quot;,
+              label=&quot;Drop samples with abnormal \n RNA degradattion slope&quot;];
+     c0_read -&gt; c1_qc  [ltail=&quot;cluster0&quot;,
+                        lhead=&quot;cluster1&quot;];
+     c1_filt [label=&quot;filtered samples&quot;];
+     c1_qc -&gt; c1_drop;
+     c1_drop -&gt; c1_filt;
+ }
+
+ subgraph &quot;cluster2&quot; {
+     label=&quot;Normalize and scale&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c2_filt [label=&quot;filtered samples&quot;];
+     c1_filt -&gt; c2_filt  [ltail=&quot;cluster1&quot;,
+                          lhead=&quot;cluster2&quot;];
+     c2_rma [label=&quot;Robust multi-array average \n rma(normalize=TRUE)&quot;];
+     c2_mas [label=&quot;MAS5 normalization \n mas5(normalize=TRUE)&quot;];
+     c2_mas_log [label=&quot;log2(exprs())&quot;];
+     c2_filter [label=&quot;filter out probes \n&lt; 50 in 25% samples&quot;];
+     c2_filt -&gt; c2_rma;
+     c2_filt -&gt; c2_mas;
+     c2_mas -&gt; c2_mas_log;
+     c2_mas_log -&gt; c2_filter;
+     c2_mas_filt [label=&quot;filtered data&quot;];
+     c2_filter -&gt; c2_mas_filt;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c2_rma;
+         c2_mas;
+     }
+
+ }
+
+ subgraph &quot;cluster3&quot; {
+     label=&quot;Limma analysis&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c3_mas_filt [label=&quot;filtered data&quot;];
+     c2_mas_filt -&gt; c3_mas_filt  [ltail=&quot;cluster2&quot;,
+                                  lhead=&quot;cluster3&quot;];
+     c3_grp [label=&quot;pData()$Group&quot;];
+     c3_trt [label=&quot;pData()$Treatment&quot;];
+     c3_design [label=&quot;model.matirx(~group*treatment)&quot;];
+     c3_fit [label=&quot;lmFit()&quot;];
+     c3_cntm [label=&quot;cbind(0010,0011,0001)&quot;];
+     c3_fit2 [label=&quot;contrast.fit()&quot;];
+     c3_fit3 [label=&quot;eBayes()&quot;];
+     c3_top [label=&quot;topTable(adjust=BH)&quot;];
+     c3_mas_filt -&gt; c3_grp;
+     c3_grp -&gt; c3_design;
+     c3_mas_filt -&gt; c3_trt;
+     c3_trt -&gt; c3_design;
+     c3_design -&gt; c3_fit;
+     c3_mas_filt -&gt; c3_fit;
+     c3_fit -&gt; c3_fit2;
+     c3_fit2 -&gt; c3_fit3;
+     c3_fit3 -&gt; c3_top;
+     c3_cntm -&gt; c3_fit2;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         c3_grp;
+         c3_trt;
+     }
+
+ }
+
+ subgraph &quot;cluster4&quot; {
+     label=&quot;Gene Set Analysis&quot;;
+     edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     c4_deg [label=&quot;simulate&quot;];
+     c3_top -&gt; c4_deg  [ltail=&quot;cluster3&quot;,
+                        lhead=&quot;cluster4&quot;];
+     c4_simd [label=&quot;data \n 1e4 x 20&quot;];
+     c4_gset [label=&quot;gene sets&quot;];
+     c4_mod [label=&quot;model.matrix&quot;];
+     c4_rmr [label=&quot;limma::romer()&quot;];
+     c4_rmrtop [label=&quot;topRomer()&quot;];
+     c4_rst [label=&quot;limma::mroast()&quot;];
+     c4_rsttop [label=&quot;Get top hits \n order(), subset()&quot;];
+     c4_rbnd [label=&quot;rbind()&quot;];
+     c4_deg -&gt; c4_mod;
+     c4_mod -&gt; c4_rmr;
+     c4_mod -&gt; c4_rst;
+     c4_deg -&gt; c4_simd;
+     c4_simd -&gt; c4_rmr;
+     c4_rmr -&gt; c4_rmrtop;
+     c4_rmrtop -&gt; c4_rbnd;
+     c4_deg -&gt; c4_gset;
+     c4_gset -&gt; c4_rmr;
+     c4_simd -&gt; c4_rst;
+     c4_rst -&gt; c4_rsttop;
+     c4_rsttop -&gt; c4_rbnd;
+     c4_gset -&gt; c4_rst;
+     {
+         rank=same;
+         edge [comment=&quot;Wildcard node added automatic in EG.&quot;];
+         node [comment=&quot;Wildcard node added automatic in EG.&quot;];
+     }
+
+ }
+}" />
+</p>
+<p class="caption">Diagram for the microarray benchmark.</p>
+<div class="section" id="packages-and-dependencies">
+<h2>Packages and Dependencies<a class="headerlink" href="#packages-and-dependencies" title="Permalink to this headline">¶</a></h2>
+<p>There are 4 packages used in this workflow, which depend
+on 5 additional packages (dependencies).</p>
+<p><strong>Used packages:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: Biobase, affy, hgu133plus2cdf, limma</li>
+</ul>
+<p><strong>Package dependencies:</strong></p>
+<ul class="simple">
+<li><em>Bioconductor</em>: BiocGenerics, BiocInstaller, zlibbioc, preprocessCore, affyio</li>
+</ul>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>From Gene Expression Omnibus repository accession ID <a class="reference external" href="http://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE45417">GSE45417</a>.</p>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Copyright (c) 2005 Gordon Smyth based on <a class="reference external" href="http://www.bioconductor.org/packages/release/bioc/html/limma.html">Limma package</a></li>
+<li>Copyright (c) 2015 Ieuan Clay based on code from <a class="reference external" href="https://github.com/biolion/genbench">genbench</a></li>
+<li>Copyright (c) 2015-2016 BeDataDriven B.V.  License: <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GPL version 2 or higher</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Microarray</a><ul>
+<li><a class="reference internal" href="#packages-and-dependencies">Packages and Dependencies</a></li>
+<li><a class="reference internal" href="#data">Data</a></li>
+<li><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../integration_livercohort/README.html"
+                        title="previous chapter">Integration: Liver cohort</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../mutation/README.html"
+                        title="next chapter">Mutation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/bioinformatics/microarray/README.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../mutation/README.html" title="Mutation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../integration_livercohort/README.html" title="Integration: Liver cohort"
+             >previous</a> |</li>
+        <li><a href="../../index.html">Renjin Benchmarks 0.1 documentation</a> &raquo;</li>
+          <li><a href="../README.html" >Bioinformatics</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, BeDataDriven B.V..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
