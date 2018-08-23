@@ -10,4 +10,7 @@ gcd2 <- function(x, y) {
 
 a <- ceiling(runif(400000)*1000)
 b <- ceiling(runif(400000)*1000)
-c <- gcd2(a, b)                            # gcd2 is a recursive function
+
+run <- function() {
+  gcd2(a, b)
+}

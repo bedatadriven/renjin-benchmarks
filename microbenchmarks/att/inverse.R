@@ -1,3 +1,8 @@
+
+
 a <- rnorm(400*400)
 dim(a) <- c(400, 400)
-b <- solve(a)
+
+run <- function() {
+  solve(a)
+}
