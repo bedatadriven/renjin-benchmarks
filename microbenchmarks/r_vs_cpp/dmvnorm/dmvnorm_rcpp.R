@@ -1,5 +1,6 @@
 # original source: http://gallery.rcpp.org/articles/dmvnorm-deriv-arma/
 
+library('Rcpp')
 library('RcppArmadillo')
 
 load("simulated.RData")

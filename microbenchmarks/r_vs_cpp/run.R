@@ -80,11 +80,11 @@ compareBenchmark <- function(benchmark, executions = 3, iterations = 10) {
   
 }
 
-suite <- c("curly", "dmvnorm", "fibonacci_seq", "fuzzycluster", "gibbs", "leibniz", )
+suite <- c("curly", "dmvnorm", "fibonacci_seq", "fuzzycluster", "gibbs", "gsl_colnorm", "leibniz")
 
 verify_all <- function() {
   for(benchmark in suite) {
-    verify_benchmark(benchmark, gnur())
+    verify_benchmark(benchmark, gnur(), "rcpp")
   }
 }
 

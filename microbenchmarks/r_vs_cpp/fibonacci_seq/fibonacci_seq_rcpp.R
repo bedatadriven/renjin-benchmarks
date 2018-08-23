@@ -2,8 +2,6 @@
 library(Rcpp)
 
 fibCpp <- cppFunction("
-  #include <Rcpp.h>
-  // [[Rcpp::export]]
   int fibCpp(int n) {
     if ((n == 0) | (n == 1)) 
       return 1;
