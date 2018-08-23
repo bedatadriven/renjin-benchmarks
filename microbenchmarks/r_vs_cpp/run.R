@@ -4,7 +4,7 @@ source("../../harness/runners.R")
 
 #' Times a benchmark on a single interpreter and variant
 #' 
-timeBenchmark <- function(benchmark, interpreter, variant = NA, inProcessIterations = 10) {
+timeBenchmark <- function(benchmark, interpreter, variant = NA, executions = 3, inProcessIterations = 10) {
   
   dir.create("_results", showWarnings = FALSE)
   
@@ -18,7 +18,7 @@ timeBenchmark <- function(benchmark, interpreter, variant = NA, inProcessIterati
   
   benchmarkScript <- sprintf("%s/%s.R", benchmark, benchmarkVariant)
   
-  for(i in 1:3) {
+  for(i in 1:executions) {
     timingsFile <- file.path("_results", sprintf("%s_%s_%d.timings", benchmarkVariant, interpreter$id, i))
     metadataFile <- file.path("_results", sprintf("%s_%s_%d.run", benchmarkVariant, interpreter$id, i))
     
@@ -45,10 +45,10 @@ collectMetadata <- function(interpreter) {
 }
 
 
-compareBenchmark <- function(benchmark) {
+compareBenchmark <- function(benchmark, executions = 3, iterations = 10) {
 
-  timeBenchmark("compute_pi", gnur())
-  timeBenchmark("compute_pi", gnur(), "rcpp")
-  timeBenchmark("compute_pi", renjinDev())
+ # timeBenchmark(benchmark, gnur(), inProcessIterations = iterations)
+  timeBenchmark(benchmark, gnur(), "rcpp", inProcessIterations = iterations)
+  timeBenchmark(benchmark, renjinDev(), inProcessIterations = iterations)
   
 }

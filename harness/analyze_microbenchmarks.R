@@ -42,16 +42,21 @@ read_microbenchmark_results <- function(dir = "_results") {
   do.call(rbind, runTables)
 }
 
-plot_runs <- function(results) {
+plot_runs <- function(results = read_microbenchmark_results(), benchmark) {
+
+  if(!missing(benchmark)) {  
+    results <- results[ results$benchmark == benchmark, ]
+  }
+  if(length(unique(results$benchmark)) != 1) {
+    stop("Specify a benchmark filter")
+  }
   
   gg <- ggplot(results, aes(x=iteration, y=nanoseconds)) + 
     geom_point(aes(col=InterpreterVersion)) + 
-    facet_grid(rows = vars(execution)) +
     labs(subtitle="Area Vs Population", 
          y="Nanoseconds", 
          x="In-process iteration")
   
-
   gg
 }
 
