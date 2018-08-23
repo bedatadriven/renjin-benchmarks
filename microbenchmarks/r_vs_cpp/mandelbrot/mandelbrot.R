@@ -56,10 +56,6 @@ mandelbrot_set_sep <- function(r1, r2, maxiter) {
   n3
 }
 
-sourceCpp("functions.cpp")
-
-GNUR <- is.null(R.Version()$engine)
-
 if(GNUR) {
   library(Renjin)
   

@@ -38,6 +38,33 @@ timeBenchmark <- function(benchmark, interpreter, variant = NA, executions = 3, 
   }
 }
 
+verify_benchmark <- function(benchmark, interpreter, variant = NA) {
+  dir.create("_results", showWarnings = FALSE)
+  
+  benchmarkVariant <- if(is.na(variant)) {
+    benchmark
+  } else {
+    sprintf("%s_%s", benchmark, variant)
+  }
+  
+  benchmarkScript <- sprintf("%s/%s.R", benchmark, benchmarkVariant)
+  outputFile <- file.path("_results", sprintf("%s_%s.rds", benchmarkVariant, interpreter$id))
+  
+  cat(sprintf("%20s %10s: ", benchmarkVariant, interpreter$id))
+  
+  success <- tryCatch({
+    interpreter$runScript("../../harness/verify_microbenchmark.R", c(benchmarkScript, outputFile))
+    cat("OK\n")
+    TRUE
+  },  error = function(e) {
+    cat("ERROR\n")
+    FALSE  
+  })
+
+  success
+  
+}
+
 collectMetadata <- function(interpreter) {
   metadataFile <- tempfile()
   interpreter$runScript("../../harness/detect_metadata.R", metadataFile)
@@ -47,8 +74,21 @@ collectMetadata <- function(interpreter) {
 
 compareBenchmark <- function(benchmark, executions = 3, iterations = 10) {
 
- # timeBenchmark(benchmark, gnur(), inProcessIterations = iterations)
+  timeBenchmark(benchmark, gnur(), inProcessIterations = iterations)
   timeBenchmark(benchmark, gnur(), "rcpp", inProcessIterations = iterations)
   timeBenchmark(benchmark, renjinDev(), inProcessIterations = iterations)
   
 }
+
+suite <- c("curly", "dmvnorm", "fibonacci_seq", "fuzzycluster", "gibbs", "leibniz", )
+
+verify_all <- function() {
+  for(benchmark in suite) {
+    verify_benchmark(benchmark, gnur())
+  }
+}
+
+compareAll <- function(executions = 3, iterations = 10) {
+  for(benchmark in suite) {}
+}
+

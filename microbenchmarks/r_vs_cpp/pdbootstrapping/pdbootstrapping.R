@@ -1,19 +1,6 @@
 # original source: https://analyticsrusers.blog/2017/08/08/turbo-charge-your-r-code-with-rcpp/
 
-set.seed(1) #set random number seed
-library(Rcpp)
-## Create sample random data set to use in code
-sampNum <- 40          # sample number
-dat    <-  data.frame(
-  cbind(
-    runif(sampNum, min = 0.00235, max = 0.0053),
-    runif(sampNum, min = 0.00902, max = 0.0242),
-    runif(sampNum, min = 0.03046, max = 0.0660),
-    runif(sampNum, min = 0.05843, max = 0.1168),
-    runif(sampNum, min = 0.10427, max = 0.2055),
-    runif(sampNum, min = 0.13828, max = 0.2600)
-  )
-)
+source("data.R")
 
 lagpad <- function(x, k) {
   if (!is.vector(x))
@@ -64,47 +51,6 @@ PDSensitivity_r <- function(list_dat1, LMResid, coef1, coef2, coef3, simNum) {
   return (avg_PD)
 }
 
-PDSensitivity_cpp <- cppFunction("
-                                 //[[Rcpp::export]]
-                                 NumericVector PDSensitivity_cpp(NumericVector list_dat1, 
-                                 NumericVector LMResid, int numRows, 
-                                 double coef1, double coef2, 
-                                 double coef3, double simNum) {
-                                 
-                                 NumericVector avg_PD(simNum); double sumPD = 0.0; double avgPD = 0.0; 
-                                 int getRand; int id1; int id2; double modeledTimeSeries[numRows]; 
-                                 double ar1; double ar2; double getResid; long incrmnt = 0;
-                                 
-                                 for (int s = 0.0; s < simNum ; s++) {
-                                   getRand = 0; srand(42); id1 = rand() %numRows + 1; id2 = id1 + 1; 
-                                   incrmnt = incrmnt + 1; ar1 = 0; ar2 = 0; getResid = 0; sumPD = 0.0; 
-                                   avgPD = 0.0;
-                                   
-                                   for (int l = 0; l < numRows; l++) {
-                                     if(l == 1) {
-                                        modeledTimeSeries[l] = list_dat1[id1];
-                                     } else if (l == 2) {
-                                        modeledTimeSeries[l] = list_dat1[id2];
-                                     } else {
-                                       ar1 = coef2 * modeledTimeSeries[l - 1];
-                                       ar2 = coef3 * modeledTimeSeries[l - 2];
-                                       srand(42);
-                                       getRand = rand() %numRows + 1;
-                                       getResid = LMResid[getRand];
-                                       modeledTimeSeries[l] = ar1 + ar2 + getResid + coef1;
-                                     }
-                                   }
-                                   
-                                   for (int k = 0; k < numRows; k++) {
-                                    sumPD = sumPD + modeledTimeSeries[k];
-                                   }
-                                   
-                                   avgPD = sumPD / numRows;
-                                   avg_PD[s] = avgPD;
-                                 }
-                                 return avg_PD;
-                                 }
-                                 ")
 
 
 ## Initial variable

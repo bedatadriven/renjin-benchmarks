@@ -1,18 +1,15 @@
 
 # This is a script that runs in a fresh process
-# and executes a series of iterations of the benchmark, timing all the runs.
+# and executes a single iteration of the microbenchmark in order to verify it's output
 #
 # The following command line arguments are expected:
-# [benchmark script] [results file] [num in process iterations]
+# [benchmark script] [rds output file]
 # 
 # This script must run in the benchmark's directory
 
 args <- commandArgs(trailingOnly = TRUE)
 benchmarkScript <- args[1]
-resultsFile <- args[2]
-iterations <- as.integer(args[3])
-
-cat(sprintf("Starting %d in-process iterations...\n", iterations))
+outputFile <- args[2]
 
 # Source the benchmark script, loading any libraries and running
 # any set up code
@@ -25,6 +22,6 @@ if(is.null(env$run)) {
   stop(sprintf("microbenchmark %s is missing run() function", benchmarkScript))
 }
 
-result <- microbenchmark::microbenchmark(env$run(), times = iterations)
+result <- env$run()
 
-writeLines(text = as.character(result$time), con = resultsFile)
+saveRDS(result, file = outputFile)
