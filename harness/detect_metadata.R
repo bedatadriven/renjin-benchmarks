@@ -15,22 +15,14 @@ resultsFile <- commandArgs(TRUE)[1]
 m <- list()
 
 
-# Find the name of the interpereter in which this script is running
-
-m$interpreterName <- if(is.null(version$engine)) {
-  "GNU R"
-} else {
-  version$engine
-}
-
 # Find the version of the interpreter in which this script is running
-m$interpreterVersion <- if(identical(version$engine, "Renjin")) {
+m$InterpreterVersion <- if(identical(version$engine, "Renjin")) {
   gsub(version$version.string, pattern = "Renjin version ", replacement = "", fixed = TRUE)
 } else {
   paste(version$major, version$minor, sep=".")
 }
 
-m$jdkVersion <- if(identical(version$engine, "Renjin")) {
+m$JVM <- if(identical(version$engine, "Renjin")) {
   sys <- import(java.lang.System)
   if(grepl(sys$getProperty("java.vm.name"), pattern="OpenJDK")) {
     vendor <- "OpenJDK"

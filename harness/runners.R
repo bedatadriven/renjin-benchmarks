@@ -12,17 +12,22 @@ gnur <- function() {
   
 }
 
-renjin <- function(bin = "renjin", vm.options) {
+renjin <- function(bin = "renjin", loop.compiler = TRUE, vm.options) {
   
   env <- character(0)
   if(!missing(vm.options)) {
     env <- sprintf('RENJIN_OPTS="%s"', paste(vm.options, collapse = " "))
   }
   
+  optimFlags <- if(loop.compiler) "--compile-loops" else NULL
+  
   runScript <- function(scriptFile, scriptArgs) {
-    system2(command = bin, args = c("-f", scriptFile, "--args", scriptArgs), env = env)
+    system2(command = bin, args = c("-f", scriptFile, optimFlags, "--args", scriptArgs), env = env)
   }
-  list(id = "renjin", runScript = runScript)
+  list(
+    id = "renjin", 
+    runScript = runScript, 
+    metadata = c(LoopCompilerEnabled = loop.compiler))
 }
 
 renjinDev <- function(repo.path = "/home/alex/dev/renjin", ...) {

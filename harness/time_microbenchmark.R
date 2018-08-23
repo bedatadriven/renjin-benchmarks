@@ -3,14 +3,16 @@
 # and executes 1000 iterations of the benchmark, timing all the runs
 #
 # The following command line arguments are expected:
-# [benchmark script] [results file] 
+# [benchmark script] [results file] [num in process iterations]
 # 
 # This script must run in the benchmark's directory
 
 args <- commandArgs(trailingOnly = TRUE)
 benchmarkScript <- args[1]
 resultsFile <- args[2]
-iterations <- 1000
+iterations <- as.integer(args[3])
+
+cat(sprintf("Starting %d in-process iterations...\n", iterations))
 
 # Source the benchmark script, loading any libraries and running
 # any set up code

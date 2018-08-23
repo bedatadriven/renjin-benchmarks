@@ -4,7 +4,9 @@ source("../../harness/runners.R")
 
 #' Times a benchmark on a single interpreter and variant
 #' 
-timeBenchmark <- function(benchmark, interpreter, variant = NA) {
+timeBenchmark <- function(benchmark, interpreter, variant = NA, inProcessIterations = 10) {
+  
+  dir.create("_results", showWarnings = FALSE)
   
   interpreterMetadata <- collectMetadata(interpreter)
   
@@ -22,7 +24,9 @@ timeBenchmark <- function(benchmark, interpreter, variant = NA) {
     
     startTime <- Sys.time()
     
-    interpreter$runScript("../../harness/time_microbenchmark.R", c(benchmarkScript, timingsFile))
+    message(sprintf("Starting execution #%d of %s on %s...", i, benchmarkVariant, interpreter$id))
+    
+    interpreter$runScript("../../harness/time_microbenchmark.R", c(benchmarkScript, timingsFile, inProcessIterations))
     
     executionMetadata <- list(
       benchmark = benchmark,
@@ -37,22 +41,14 @@ timeBenchmark <- function(benchmark, interpreter, variant = NA) {
 collectMetadata <- function(interpreter) {
   metadataFile <- tempfile()
   interpreter$runScript("../../harness/detect_metadata.R", metadataFile)
-  as.list(read.dcf(metadataFile)[1,])
+  c(interpreter$metadata, as.list(read.dcf(metadataFile)[1,]))
 }
 
-writeMetadata <- function(metadataFile, interpreter, benchmark, variant, executionIndex) {
-  m <- list(
-    interpreter = intepreter$id,
-    benchmark = benchmark,
-    variant = variant,
-    execution = executionIndex
-  )
-}
 
 compareBenchmark <- function(benchmark) {
 
-  # Ensure results folder exists
-  dir.create("_results")
-  
+  timeBenchmark("compute_pi", gnur())
+  timeBenchmark("compute_pi", gnur(), "rcpp")
+  timeBenchmark("compute_pi", renjinDev())
   
 }

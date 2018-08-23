@@ -1,6 +1,4 @@
 # original source: http://rpubs.com/WolfgangHuber/404211
-library(Rcpp)
-
 
 compute_pi <- function(m) {
   s = 0
@@ -12,7 +10,7 @@ compute_pi <- function(m) {
   4 * s
 }
 
-run <- function(n) {
+run <- function(n = 5e8) {
   compute_pi(n)
 }
 
